@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     9/3/2015 8:59:27 AM                          */
+/* Created on:     9/3/2015 9:08:21 AM                          */
 /*==============================================================*/
 
 
@@ -225,7 +225,7 @@ create table SKILL
 create table XPATH
 (
    xpathId              int,
-   home_url             text not null,
+   home_url             char(200) not null,
    CategoryId           int not null,
    base_url             text,
    xpath_code           text,
