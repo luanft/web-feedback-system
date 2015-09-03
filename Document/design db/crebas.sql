@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     9/1/2015 10:29:12 PM                         */
+/* Created on:     9/3/2015 8:39:40 AM                          */
 /*==============================================================*/
 
 
@@ -18,25 +18,19 @@ drop table if exists EXPERIENCE;
 
 drop table if exists JOB;
 
-drop table if exists JOB_RECOMMENDED;
+drop table if exists JOB_RECCOMENDED;
 
 drop table if exists LANGUAGE;
-
-drop table if exists PROFILE;
 
 drop table if exists REFERENCE;
 
 drop table if exists RESUME;
 
-drop table if exists Relationship_15;
-
-drop table if exists Relationship_17;
-
-drop table if exists Relationship_7;
-
 drop table if exists SCHOOL;
 
 drop table if exists SKILL;
+
+drop table if exists XPATH;
 
 /*==============================================================*/
 /* Table: ACCOUNT                                               */
@@ -44,7 +38,7 @@ drop table if exists SKILL;
 create table ACCOUNT
 (
    AccountId            int not null,
-   JrID                 int,
+   CompanyId            int,
    ResumeId             int,
    UserName             text,
    Email                text,
@@ -58,11 +52,10 @@ create table ACCOUNT
 /*==============================================================*/
 create table CAREER_OBJECTIVE
 (
-   DesirePosition       text,
    DesireSalary         int,
    RecentSalary         int,
    PositionType         text,
-   DesireCareerLv       text,
+   DesireCareerLevel    text,
    DesireWorkLocation   text,
    WillingToRelocate    blob,
    WillingToTravel      blob,
@@ -78,7 +71,6 @@ create table CAREER_OBJECTIVE
 create table CATEGORY
 (
    CategoryId           int not null,
-   SchoolID             int,
    CategoryName         text,
    primary key (CategoryId)
 );
@@ -89,6 +81,7 @@ create table CATEGORY
 create table COMPANY
 (
    CompanyId            int not null,
+   AccountId            int not null,
    CompanyName          text,
    CompanySumary        text,
    primary key (CompanyId)
@@ -105,7 +98,7 @@ create table EDUCATION
    EducationId          int not null,
    ResumeId             int not null,
    SchoolID             int not null,
-   EducationLv          text,
+   EducationLevel       text,
    primary key (EducationId)
 );
 
@@ -115,8 +108,6 @@ create table EDUCATION
 create table EXPERIENCE
 (
    ExperienceId         int not null,
-   CategoryId           int not null,
-   CompanyId            int not null,
    ResumeId             int not null,
    Company_name         text,
    JobTitle             text,
@@ -134,7 +125,7 @@ create table JOB
 (
    JobId                int not null,
    CategoryId           int not null,
-   CompanyId            int not null,
+   AccountId            int not null,
    JobName              text,
    Location             text,
    Salary               text,
@@ -148,14 +139,14 @@ create table JOB
 );
 
 /*==============================================================*/
-/* Table: JOB_RECOMMENDED                                       */
+/* Table: JOB_RECCOMENDED                                       */
 /*==============================================================*/
-create table JOB_RECOMMENDED
+create table JOB_RECCOMENDED
 (
-   JrID                 int not null,
    AccountId            int not null,
+   JobId                int not null,
    IsFit                bool,
-   primary key (JrID)
+   primary key (AccountId, JobId)
 );
 
 /*==============================================================*/
@@ -166,14 +157,33 @@ create table LANGUAGE
    Name                 text,
    Level                text,
    LanguageId           int not null,
+   ResumeId             int,
    primary key (LanguageId)
 );
 
 /*==============================================================*/
-/* Table: PROFILE                                               */
+/* Table: REFERENCE                                             */
 /*==============================================================*/
-create table PROFILE
+create table REFERENCE
 (
+   Type                 text,
+   Name                 text,
+   JobTitle             text,
+   Phone                char(15),
+   Email                text,
+   Id                   int not null,
+   ResumeId             int not null,
+   primary key (Id)
+);
+
+/*==============================================================*/
+/* Table: RESUME                                                */
+/*==============================================================*/
+create table RESUME
+(
+   ResumeId             int not null,
+   AccountId            int not null,
+   ResumeTitle          text,
    Name                 text,
    Birthday             datetime,
    Gender               text,
@@ -186,66 +196,7 @@ create table PROFILE
    Email                text,
    Phone                char(15),
    Hobby                text,
-   ProfileId            int not null,
-   ResumeId             int not null,
-   primary key (ProfileId)
-);
-
-/*==============================================================*/
-/* Table: REFERENCE                                             */
-/*==============================================================*/
-create table REFERENCE
-(
-   RefType              text,
-   RefName              text,
-   RefJobTitle          text,
-   RefPhone             numeric(15,0),
-   RefEmail             text,
-   RefId                int not null,
-   ResumeId             int not null,
-   primary key (RefId)
-);
-
-/*==============================================================*/
-/* Table: RESUME                                                */
-/*==============================================================*/
-create table RESUME
-(
-   ResumeId             int not null,
-   ProfileId            int,
-   AccountId            int not null,
-   ResumeTitle          text,
    primary key (ResumeId)
-);
-
-/*==============================================================*/
-/* Table: Relationship_15                                       */
-/*==============================================================*/
-create table Relationship_15
-(
-   CategoryId           int not null,
-   CareerObjectiveId    int not null,
-   primary key (CategoryId, CareerObjectiveId)
-);
-
-/*==============================================================*/
-/* Table: Relationship_17                                       */
-/*==============================================================*/
-create table Relationship_17
-(
-   JobId                int not null,
-   JrID                 int not null,
-   primary key (JobId, JrID)
-);
-
-/*==============================================================*/
-/* Table: Relationship_7                                        */
-/*==============================================================*/
-create table Relationship_7
-(
-   EducationId          int not null,
-   LanguageId           int not null,
-   primary key (EducationId, LanguageId)
 );
 
 /*==============================================================*/
@@ -270,72 +221,75 @@ create table SKILL
    primary key (SkillId)
 );
 
-alter table ACCOUNT add constraint FK_Relationship_12 foreign key (ResumeId)
-      references RESUME (ResumeId);
+/*==============================================================*/
+/* Table: XPATH                                                 */
+/*==============================================================*/
+create table XPATH
+(
+   xpathId              int,
+   home_url             text not null,
+   CategoryId           int not null,
+   base_url             text,
+   xpath_code           text,
+   job_xpath            text,
+   company_xpath        text,
+   location_xpath       text,
+   description_xpath    text,
+   salary_xpath         text,
+   requirement_xpath    text,
+   benifit_xpath        text,
+   expired_xpath        text,
+   tags_xpath           text,
+   login_url            text,
+   login_data           text,
+   primary key (home_url)
+);
 
-alter table ACCOUNT add constraint FK_Relationship_20 foreign key (JrID)
-      references JOB_RECOMMENDED (JrID);
+alter table ACCOUNT add constraint FK_Relationship_10 foreign key (ResumeId)
+      references RESUME (ResumeId) on delete restrict on update restrict;
 
-alter table CAREER_OBJECTIVE add constraint FK_Relationship_6 foreign key (ResumeId)
-      references RESUME (ResumeId);
+alter table ACCOUNT add constraint FK_Relationship_13 foreign key (CompanyId)
+      references COMPANY (CompanyId) on delete restrict on update restrict;
 
-alter table CATEGORY add constraint FK_Relationship_13 foreign key (SchoolID)
-      references SCHOOL (SchoolID);
+alter table CAREER_OBJECTIVE add constraint FK_Relationship_5 foreign key (ResumeId)
+      references RESUME (ResumeId) on delete restrict on update restrict;
+
+alter table COMPANY add constraint FK_Relationship_12 foreign key (AccountId)
+      references ACCOUNT (AccountId) on delete restrict on update restrict;
 
 alter table EDUCATION add constraint FK_Relationship_2 foreign key (ResumeId)
-      references RESUME (ResumeId);
+      references RESUME (ResumeId) on delete restrict on update restrict;
 
-alter table EDUCATION add constraint FK_Relationship_7 foreign key (SchoolID)
-      references SCHOOL (SchoolID);
+alter table EDUCATION add constraint FK_Relationship_6 foreign key (SchoolID)
+      references SCHOOL (SchoolID) on delete restrict on update restrict;
 
-alter table EXPERIENCE add constraint FK_Relationship_16 foreign key (CompanyId)
-      references COMPANY (CompanyId);
+alter table EXPERIENCE add constraint FK_Relationship_4 foreign key (ResumeId)
+      references RESUME (ResumeId) on delete restrict on update restrict;
 
-alter table EXPERIENCE add constraint FK_Relationship_17 foreign key (CategoryId)
-      references CATEGORY (CategoryId);
+alter table JOB add constraint FK_Relationship_11 foreign key (CategoryId)
+      references CATEGORY (CategoryId) on delete restrict on update restrict;
 
-alter table EXPERIENCE add constraint FK_Relationship_5 foreign key (ResumeId)
-      references RESUME (ResumeId);
+alter table JOB add constraint FK_Relationship_14 foreign key (AccountId)
+      references ACCOUNT (AccountId) on delete restrict on update restrict;
 
-alter table JOB add constraint FK_Relationship_14 foreign key (CategoryId)
-      references CATEGORY (CategoryId);
+alter table JOB_RECCOMENDED add constraint FK_JOB_RECCOMENDED foreign key (AccountId)
+      references ACCOUNT (AccountId) on delete restrict on update restrict;
 
-alter table JOB add constraint FK_Relationship_15 foreign key (CompanyId)
-      references COMPANY (CompanyId);
+alter table JOB_RECCOMENDED add constraint FK_JOB_RECCOMENDED2 foreign key (JobId)
+      references JOB (JobId) on delete restrict on update restrict;
 
-alter table JOB_RECOMMENDED add constraint FK_Relationship_21 foreign key (AccountId)
-      references ACCOUNT (AccountId);
+alter table LANGUAGE add constraint FK_Relationship_16 foreign key (ResumeId)
+      references RESUME (ResumeId) on delete restrict on update restrict;
 
-alter table PROFILE add constraint FK_Relationship_4 foreign key (ResumeId)
-      references RESUME (ResumeId);
+alter table REFERENCE add constraint FK_Relationship_8 foreign key (ResumeId)
+      references RESUME (ResumeId) on delete restrict on update restrict;
 
-alter table REFERENCE add constraint FK_Relationship_10 foreign key (ResumeId)
-      references RESUME (ResumeId);
-
-alter table RESUME add constraint FK_Relationship_11 foreign key (AccountId)
-      references ACCOUNT (AccountId);
-
-alter table RESUME add constraint FK_Relationship_3 foreign key (ProfileId)
-      references PROFILE (ProfileId);
-
-alter table Relationship_15 add constraint FK_Relationship_18 foreign key (CategoryId)
-      references CATEGORY (CategoryId);
-
-alter table Relationship_15 add constraint FK_Relationship_19 foreign key (CareerObjectiveId)
-      references CAREER_OBJECTIVE (CareerObjectiveId);
-
-alter table Relationship_17 add constraint FK_Relationship_22 foreign key (JobId)
-      references JOB (JobId);
-
-alter table Relationship_17 add constraint FK_Relationship_23 foreign key (JrID)
-      references JOB_RECOMMENDED (JrID);
-
-alter table Relationship_7 add constraint FK_Relationship_8 foreign key (EducationId)
-      references EDUCATION (EducationId);
-
-alter table Relationship_7 add constraint FK_Relationship_9 foreign key (LanguageId)
-      references LANGUAGE (LanguageId);
+alter table RESUME add constraint FK_Relationship_9 foreign key (AccountId)
+      references ACCOUNT (AccountId) on delete restrict on update restrict;
 
 alter table SKILL add constraint FK_Relationship_1 foreign key (ResumeId)
-      references RESUME (ResumeId);
+      references RESUME (ResumeId) on delete restrict on update restrict;
+
+alter table XPATH add constraint FK_Relationship_15 foreign key (CategoryId)
+      references CATEGORY (CategoryId) on delete restrict on update restrict;
 
