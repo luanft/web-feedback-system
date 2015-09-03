@@ -6,7 +6,7 @@ public class dtoEducation {
 	public String educationDescription ="";
 	public String educationId ="";
 	public String resumeId ="";
-	public String schoolID ="";
+	public String schoolId ="";
 	public String educationLevel ="";
 	
 }
