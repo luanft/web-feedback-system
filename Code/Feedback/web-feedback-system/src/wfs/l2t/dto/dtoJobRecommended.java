@@ -1,0 +1,9 @@
+package wfs.l2t.dto;
+
+public class dtoJobRecommended {
+
+	   public String accountId;
+	   public String jobId;
+	   public String isFit;
+}
+
