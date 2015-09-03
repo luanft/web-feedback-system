@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     9/3/2015 8:39:40 AM                          */
+/* Created on:     9/3/2015 8:59:27 AM                          */
 /*==============================================================*/
 
 
@@ -38,8 +38,6 @@ drop table if exists XPATH;
 create table ACCOUNT
 (
    AccountId            int not null,
-   CompanyId            int,
-   ResumeId             int,
    UserName             text,
    Email                text,
    Password             text,
@@ -244,12 +242,6 @@ create table XPATH
    login_data           text,
    primary key (home_url)
 );
-
-alter table ACCOUNT add constraint FK_Relationship_10 foreign key (ResumeId)
-      references RESUME (ResumeId) on delete restrict on update restrict;
-
-alter table ACCOUNT add constraint FK_Relationship_13 foreign key (CompanyId)
-      references COMPANY (CompanyId) on delete restrict on update restrict;
 
 alter table CAREER_OBJECTIVE add constraint FK_Relationship_5 foreign key (ResumeId)
       references RESUME (ResumeId) on delete restrict on update restrict;
