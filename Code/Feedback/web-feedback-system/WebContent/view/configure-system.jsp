@@ -43,11 +43,12 @@
 			</div>
 		</nav>
 		<!-- chia trang thanh 2 cot -->
-		<br> <br> <br>
+
 		<div class="container-fluid">
+			<br> <br> <br>
 			<div class="row">
 				<div class="col-md-3">
-					<div class="container" data-spy="affix" data-offset-top="0">
+					<div data-spy="affix" data-offset-top="0">
 						<div class="container-fluid col-md-offset-0">
 							<h4>Xin chào!</h4>
 							<img
@@ -55,7 +56,7 @@
 								class="img-rounded" width="170" height="170">
 						</div>
 						<br>
-						<div class="container-fluid" >
+						<div>
 
 							<ul class="nav nav-pills nav-stacked custom_font_bold">
 								<li class><a href="#"><span
@@ -67,7 +68,7 @@
 								<li class><a href="#"><span
 										class="glyphicon glyphicon-thumbs-up"></span> THÔNG BÁO</a></li>
 								<li class><a href="#"><span
-										class="glyphicon glyphicon-cog"></span> THIẾT LẬP HỆ THỐNG</a></li>								
+										class="glyphicon glyphicon-cog"></span> THIẾT LẬP HỆ THỐNG</a></li>
 								<li class><a href="#"><span
 										class="glyphicon glyphicon-list-alt"></span> XEM HỒ SƠ CỦA BẠN</a></li>
 								<li class><a href="#"><span
@@ -85,72 +86,15 @@
 							<div class="panel-heading">THÔNG TIN CÁ NHÂN</div>
 							<div class="panel-body">BLA BLA</div>
 						</div>
-
-						<div class="panel panel-default">
-							<div class="panel-heading">THÔNG TIN CÁ NHÂN</div>
-							<div class="panel-body">BLA BLA</div>
-						</div>
-
-						<div class="panel panel-default">
-							<div class="panel-heading">THÔNG TIN CÁ NHÂN</div>
-							<div class="panel-body">BLA BLA</div>
-						</div>
-
-						<div class="panel panel-default">
-							<div class="panel-heading">THÔNG TIN CÁ NHÂN</div>
-							<div class="panel-body">BLA BLA</div>
-						</div>
-
-						<div class="panel panel-default">
-							<div class="panel-heading">THÔNG TIN CÁ NHÂN</div>
-							<div class="panel-body">BLA BLA</div>
-						</div>
-
-						<div class="panel panel-default">
-							<div class="panel-heading">THÔNG TIN CÁ NHÂN</div>
-							<div class="panel-body">BLA BLA</div>
-						</div>
-
-						<div class="panel panel-default">
-							<div class="panel-heading">THÔNG TIN CÁ NHÂN</div>
-							<div class="panel-body">BLA BLA</div>
-						</div>
-
-						<div class="panel panel-default">
-							<div class="panel-heading">THÔNG TIN CÁ NHÂN</div>
-							<div class="panel-body">BLA BLA</div>
-						</div>
-
-						<div class="panel panel-default">
-							<div class="panel-heading">THÔNG TIN CÁ NHÂN</div>
-							<div class="panel-body">BLA BLA</div>
-						</div>
-
-						<div class="panel panel-default">
-							<div class="panel-heading">THÔNG TIN CÁ NHÂN</div>
-							<div class="panel-body">BLA BLA</div>
-						</div>
-						<div class="panel panel-default">
-							<div class="panel-heading">THÔNG TIN CÁ NHÂN</div>
-							<div class="panel-body">BLA BLA</div>
-						</div>
-						<div class="panel panel-default">
-							<div class="panel-heading">THÔNG TIN CÁ NHÂN</div>
-							<div class="panel-body">BLA BLA</div>
-						</div>
-						<div class="panel panel-default">
-							<div class="panel-heading">THÔNG TIN CÁ NHÂN</div>
-							<div class="panel-body">BLA BLA</div>
-						</div>
-						<div class="panel panel-default">
-							<div class="panel-heading">THÔNG TIN CÁ NHÂN</div>
-							<div class="panel-body">BLA BLA</div>
-						</div>
 					</div>
 
 				</div>
 			</div>
 		</div>
+
+
 	</div>
+
+
 </body>
 </html>
