@@ -12,14 +12,12 @@
 <link rel="stylesheet" href="resource/css/theme_customize.css">
 </head>
 <body>
-	<div class="container-fluid">
-
+	<div class="container">
 		<!-- menu top -->
-		<nav
-			class="navbar navbar-inverse navbar-fixed-top custom_navbar_color">
-			<div class="container-fluid">
+		<nav class="navbar navbar-inverse navbar-fixed-top custom_navbar_color">
+			<div class="container">
 				<div class="row">
-					<div class="col-sm-4">
+					<div class="col-md-4">
 						<div class="navbar-header">
 							<img
 								src="http://thumbs.dreamstime.com/x/job-search-3d-icon-16095671.jpg"
@@ -28,7 +26,7 @@
 								SYSTEM</a>
 						</div>
 					</div>
-					<div class="col-sm-8">
+					<div class="col-md-8">
 						<div>
 							<ul class="nav navbar-nav  navbar-right">
 								<li><a href="#">Home</a></li>
@@ -81,20 +79,93 @@
 				</div>
 				<div class="col-md-9 custom_background_color">
 					<br>
-					<div class="container-fluid">
-						<div class="panel panel-default">
-							<div class="panel-heading">THÔNG TIN CÁ NHÂN</div>
-							<div class="panel-body">BLA BLA</div>
+					<div class="panel panel-primary">
+						<div class="panel-heading">Chọn lĩnh vực mà bạn quan tâm</div>
+						<div class="panel-body">
+							<div>
+								<form role="form">
+									<div class="form-group">
+										<div class="container-fluid">
+											<div class="row">
+												<div class="col-md-4">
+													<div class="checkbox">
+														<label class="checkbox"><input type="checkbox"
+															value="">Tài chính ngân hàngTài chính ngân hàngTài chính ngân hàngTài chính ngân hàng</label> <label
+															class="checkbox"><input type="checkbox" value="">Kinh
+															tế</label> <label class="checkbox"><input type="checkbox"
+															value="">Y tế</label> <label class="checkbox"><input
+															type="checkbox" value="">Kỹ thuật</label> <label
+															class="checkbox"><input type="checkbox" value="">Kỹ
+															thuật</label> <label class="checkbox"><input
+															type="checkbox" value="">Kỹ thuật</label> <label
+															class="checkbox"><input type="checkbox" value="">Kỹ
+															thuật</label> <label class="checkbox"><input
+															type="checkbox" value="">Kỹ thuật</label> <label
+															class="checkbox"><input type="checkbox" value="">Kỹ
+															thuật</label> <label class="checkbox"><input
+															type="checkbox" value="">Kỹ thuật</label> <label
+															class="checkbox"><input type="checkbox" value="">Kỹ
+															thuật</label>
+													</div>
+												</div>
+												<div class="col-md-4">
+													<div class="checkbox">
+														<label class="checkbox"><input type="checkbox"
+															value="">Tài chính ngân hàng</label> <label
+															class="checkbox"><input type="checkbox" value="">Kinh
+															tế</label> <label class="checkbox"><input type="checkbox"
+															value="">Y tế</label> <label class="checkbox"><input
+															type="checkbox" value="">Kỹ thuật</label> <label
+															class="checkbox"><input type="checkbox" value="">Kỹ
+															thuật</label> <label class="checkbox"><input
+															type="checkbox" value="">Kỹ thuật</label> <label
+															class="checkbox"><input type="checkbox" value="">Kỹ
+															thuật</label> <label class="checkbox"><input
+															type="checkbox" value="">Kỹ thuật</label> <label
+															class="checkbox"><input type="checkbox" value="">Kỹ
+															thuật</label> <label class="checkbox"><input
+															type="checkbox" value="">Kỹ thuật</label> <label
+															class="checkbox"><input type="checkbox" value="">Kỹ
+															thuật</label>
+													</div>
+												</div>
+												<div class="col-md-4">
+													<div class="checkbox">
+														<label class="checkbox"><input type="checkbox"
+															value="">Tài chính ngân hàng</label> <label
+															class="checkbox"><input type="checkbox" value="">Kinh
+															tế</label> <label class="checkbox"><input type="checkbox"
+															value="">Y tế</label> <label class="checkbox"><input
+															type="checkbox" value="">Kỹ thuật</label> <label
+															class="checkbox"><input type="checkbox" value="">Kỹ
+															thuật</label> <label class="checkbox"><input
+															type="checkbox" value="">Kỹ thuật</label> <label
+															class="checkbox"><input type="checkbox" value="">Kỹ
+															thuật</label> <label class="checkbox"><input
+															type="checkbox" value="">Kỹ thuật</label> <label
+															class="checkbox"><input type="checkbox" value="">Kỹ
+															thuật</label> <label class="checkbox"><input
+															type="checkbox" value="">Kỹ thuật</label> <label
+															class="checkbox"><input type="checkbox" value="">Kỹ
+															thuật</label>
+													</div>
+												</div>
+												<button type="submit" class="btn btn-default">Submit</button>
+								</form>
+
+							</div>
 						</div>
 					</div>
+
+
 
 				</div>
 			</div>
 		</div>
-
-
+	</div>
+	</div>
 	</div>
 
-
+	</div>
 </body>
 </html>
