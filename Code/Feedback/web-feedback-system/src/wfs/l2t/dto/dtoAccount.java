@@ -6,6 +6,7 @@ public class dtoAccount {
 	public String password ="";
 	public String email ="";
 	public String accountType ="";
-	
+	public String timeReceiveEmail ="";
+	public String numberReceiveEmail= "";
 
 }

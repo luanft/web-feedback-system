@@ -16,7 +16,7 @@ public class ModelConnection {
 
 	}
 
-	public Boolean Connect() {
+	public Boolean connect() {
 		try {
 			//chọn driver
 			Class.forName("com.mysql.jdbc.Driver");
@@ -35,7 +35,7 @@ public class ModelConnection {
 		return true;
 	}
 
-	public ResultSet Read(String sql){
+	public ResultSet read(String sql){
 		ResultSet data = null;
 		try {
 			java.sql.Statement cmd = connection.createStatement();
@@ -49,7 +49,7 @@ public class ModelConnection {
 		return data;
 	}
 
-	public Boolean Write(String sql) {
+	public Boolean write(String sql) {
 		try {
 			java.sql.Statement cmd = connection.createStatement();
 			return cmd.execute(sql);
@@ -61,7 +61,7 @@ public class ModelConnection {
 		return true;
 	}
 
-	public void Close() {
+	public void close() {
 		try {
 			this.connection.close();
 		} catch (SQLException e) {
