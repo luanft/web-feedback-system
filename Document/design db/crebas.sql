@@ -1,10 +1,12 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     9/5/2015 8:22:28 AM                          */
+/* Created on:     9/5/2015 9:36:14 AM                          */
 /*==============================================================*/
 
 
 drop table if exists ACCOUNT;
+
+drop table if exists CARE;
 
 drop table if exists CAREER_OBJECTIVE;
 
@@ -37,12 +39,24 @@ drop table if exists XPATH;
 /*==============================================================*/
 create table ACCOUNT
 (
-   AccountId            int not null AUTO_INCREMENT,
+   AccountId            int not null auto_increment,
    UserName             text,
    Email                text,
    Password             text,
    AccountType          char(10),
+   TimeReceiveEmail     char(10),
+   NumberReceiveEmail   int,
    primary key (AccountId)
+);
+
+/*==============================================================*/
+/* Table: CARE                                                  */
+/*==============================================================*/
+create table CARE
+(
+   CategoryId           int not null,
+   AccountId            int not null,
+   primary key (CategoryId, AccountId)
 );
 
 /*==============================================================*/
@@ -58,7 +72,7 @@ create table CAREER_OBJECTIVE
    WillingToRelocate    blob,
    WillingToTravel      blob,
    CareerObjective      text,
-   CareerObjectiveId    int not null,
+   CareerObjectiveId    int not null auto_increment,
    ResumeId             int not null,
    primary key (CareerObjectiveId)
 );
@@ -68,7 +82,7 @@ create table CAREER_OBJECTIVE
 /*==============================================================*/
 create table CATEGORY
 (
-   CategoryId           int not null AUTO_INCREMENT,
+   CategoryId           int not null auto_increment,
    Description          text,
    primary key (CategoryId)
 );
@@ -78,7 +92,7 @@ create table CATEGORY
 /*==============================================================*/
 create table COMPANY
 (
-   CompanyId            int not null AUTO_INCREMENT,
+   CompanyId            int not null auto_increment,
    AccountId            int not null,
    CompanyName          text,
    CompanySumary        text,
@@ -93,7 +107,7 @@ create table EDUCATION
    StartDate            date,
    EndDate              date,
    EducationDescription text,
-   EducationId          int not null AUTO_INCREMENT,
+   EducationId          int not null auto_increment,
    ResumeId             int not null,
    SchoolID             int not null,
    EducationLevel       text,
@@ -105,7 +119,7 @@ create table EDUCATION
 /*==============================================================*/
 create table EXPERIENCE
 (
-   ExperienceId         int not null AUTO_INCREMENT,
+   ExperienceId         int not null auto_increment,
    ResumeId             int not null,
    Company_name         text,
    JobTitle             text,
@@ -121,7 +135,7 @@ create table EXPERIENCE
 /*==============================================================*/
 create table JOB
 (
-   JobId                int not null AUTO_INCREMENT,
+   JobId                int not null auto_increment,
    CategoryId           int not null,
    AccountId            int not null,
    JobName              text,
@@ -154,7 +168,7 @@ create table LANGUAGE
 (
    Name                 text,
    Level                text,
-   LanguageId           int not null AUTO_INCREMENT,
+   LanguageId           int not null auto_increment,
    ResumeId             int,
    primary key (LanguageId)
 );
@@ -169,7 +183,7 @@ create table REFERENCE
    JobTitle             text,
    Phone                char(15),
    Email                text,
-   ReferenceId          int not null AUTO_INCREMENT,
+   ReferenceId          int not null auto_increment,
    ResumeId             int not null,
    primary key (ReferenceId)
 );
@@ -179,7 +193,7 @@ create table REFERENCE
 /*==============================================================*/
 create table RESUME
 (
-   ResumeId             int not null AUTO_INCREMENT,
+   ResumeId             int not null auto_increment,
    AccountId            int not null,
    Title                text,
    Name                 text,
@@ -202,7 +216,7 @@ create table RESUME
 /*==============================================================*/
 create table SCHOOL
 (
-   SchoolID             int not null,
+   SchoolID             int not null auto_increment,
    SchoolName           text,
    primary key (SchoolID)
 );
@@ -214,7 +228,7 @@ create table SKILL
 (
    Name                 text,
    Level                text,
-   SkillId              int not null,
+   SkillId              int not null auto_increment,
    ResumeId             int not null,
    primary key (SkillId)
 );
@@ -239,9 +253,15 @@ create table XPATH
    tags_xpath           text,
    login_url            text,
    login_data           text,
-   id                   int,
+   id                   int not null,
    primary key (home_url)
 );
+
+alter table CARE add constraint FK_CARE foreign key (CategoryId)
+      references CATEGORY (CategoryId) on delete restrict on update restrict;
+
+alter table CARE add constraint FK_CARE2 foreign key (AccountId)
+      references ACCOUNT (AccountId) on delete restrict on update restrict;
 
 alter table CAREER_OBJECTIVE add constraint FK_Relationship_5 foreign key (ResumeId)
       references RESUME (ResumeId) on delete restrict on update restrict;
