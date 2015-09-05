@@ -224,8 +224,7 @@ create table SKILL
 /*==============================================================*/
 create table XPATH
 (
-   home_url             char(200) not null,
-   CategoryId           int not null,
+   home_url             char(200) not null,   
    base_url             text,
    xpath_code           text,
    job_xpath            text,
@@ -240,6 +239,7 @@ create table XPATH
    login_url            text,
    login_data           text,
    id                   int,
+   CategoryId           int not null,
    primary key (home_url)
 );
 
