@@ -253,7 +253,7 @@ create table XPATH
    tags_xpath           text,
    login_url            text,
    login_data           text,
-   id                   int not null,
+   id                   int not null auto_increment,
    primary key (home_url)
 );
 
