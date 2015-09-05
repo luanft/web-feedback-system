@@ -37,7 +37,7 @@ drop table if exists XPATH;
 /*==============================================================*/
 create table ACCOUNT
 (
-   AccountId            int not null,
+   AccountId            int not null AUTO_INCREMENT,
    UserName             text,
    Email                text,
    Password             text,
@@ -68,7 +68,7 @@ create table CAREER_OBJECTIVE
 /*==============================================================*/
 create table CATEGORY
 (
-   CategoryId           int not null,
+   CategoryId           int not null AUTO_INCREMENT,
    Description          text,
    primary key (CategoryId)
 );
@@ -78,7 +78,7 @@ create table CATEGORY
 /*==============================================================*/
 create table COMPANY
 (
-   CompanyId            int not null,
+   CompanyId            int not null AUTO_INCREMENT,
    AccountId            int not null,
    CompanyName          text,
    CompanySumary        text,
@@ -93,7 +93,7 @@ create table EDUCATION
    StartDate            date,
    EndDate              date,
    EducationDescription text,
-   EducationId          int not null,
+   EducationId          int not null AUTO_INCREMENT,
    ResumeId             int not null,
    SchoolID             int not null,
    EducationLevel       text,
@@ -105,7 +105,7 @@ create table EDUCATION
 /*==============================================================*/
 create table EXPERIENCE
 (
-   ExperienceId         int not null,
+   ExperienceId         int not null AUTO_INCREMENT,
    ResumeId             int not null,
    Company_name         text,
    JobTitle             text,
@@ -121,7 +121,7 @@ create table EXPERIENCE
 /*==============================================================*/
 create table JOB
 (
-   JobId                int not null,
+   JobId                int not null AUTO_INCREMENT,
    CategoryId           int not null,
    AccountId            int not null,
    JobName              text,
@@ -154,7 +154,7 @@ create table LANGUAGE
 (
    Name                 text,
    Level                text,
-   LanguageId           int not null,
+   LanguageId           int not null AUTO_INCREMENT,
    ResumeId             int,
    primary key (LanguageId)
 );
@@ -169,7 +169,7 @@ create table REFERENCE
    JobTitle             text,
    Phone                char(15),
    Email                text,
-   ReferenceId          int not null,
+   ReferenceId          int not null AUTO_INCREMENT,
    ResumeId             int not null,
    primary key (ReferenceId)
 );
@@ -179,7 +179,7 @@ create table REFERENCE
 /*==============================================================*/
 create table RESUME
 (
-   ResumeId             int not null,
+   ResumeId             int not null AUTO_INCREMENT,
    AccountId            int not null,
    Title                text,
    Name                 text,
