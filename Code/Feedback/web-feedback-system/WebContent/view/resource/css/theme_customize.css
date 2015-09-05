@@ -22,8 +22,16 @@
 	background-color: #ff0000;
 }
 
+.custom_hiden {
+    display: none;
+}
+
 .custom_font_bold
 {
 	font-weight: bold;	
 	
+}
+
+pre {
+    white-space: pre-wrap;
 }
