@@ -5,22 +5,37 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.mysql.jdbc.PreparedStatement;
+
 public class ModelConnection {
 
 	public final String mysqlHost = "jdbc:mysql://localhost:3306/recsys?useUnicode=true&characterEncoding=UTF-8";
 	public final String userName = "root";
 	public final String password = "";
 	private Connection connection = null;
+	private PreparedStatement preStatement = null;
 
 	public ModelConnection() {
 
 	}
 
+	public Connection getConnection() {
+		return connection;
+	}
+
+	public PreparedStatement getPrepareStatement() {
+		return preStatement;
+	}
+
+	public void setPrepareStatement(PreparedStatement pre) {
+		this.preStatement = pre;
+	}
+
 	public Boolean connect() {
 		try {
-			//chọn driver
+			// chọn driver
 			Class.forName("com.mysql.jdbc.Driver");
-			//tao kết nối xuống database
+			// tao kết nối xuống database
 			connection = DriverManager.getConnection(mysqlHost, userName,
 					password);
 		} catch (ClassNotFoundException e) {
@@ -35,7 +50,7 @@ public class ModelConnection {
 		return true;
 	}
 
-	public ResultSet read(String sql){
+	public ResultSet read(String sql) {
 		ResultSet data = null;
 		try {
 			java.sql.Statement cmd = connection.createStatement();
@@ -43,8 +58,8 @@ public class ModelConnection {
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();					
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+			// TODO Auto-generated catch block			
 		}
 		return data;
 	}
@@ -57,6 +72,17 @@ public class ModelConnection {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		return true;
+	}
+
+	public Boolean writeSecure() {
+		try {
+			this.preStatement.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
 		}
 		return true;
 	}

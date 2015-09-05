@@ -8,5 +8,6 @@ public class dtoAccount {
 	public String accountType ="";
 	public String timeReceiveEmail ="";
 	public String numberReceiveEmail= "";
+	public Boolean isActive = false;
 
 }
