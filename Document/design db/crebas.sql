@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     9/5/2015 9:36:14 AM                          */
+/* Created on:     9/5/2015 6:37:14 PM                          */
 /*==============================================================*/
 
 
@@ -41,12 +41,14 @@ create table ACCOUNT
 (
    AccountId            int not null auto_increment,
    UserName             text,
-   Email                text,
+   Email                char(100),
    Password             text,
    AccountType          char(10),
    TimeReceiveEmail     char(10),
    NumberReceiveEmail   int,
-   primary key (AccountId)
+   IsActive             bool,
+   primary key (AccountId),
+   unique key AK_Key_2 (Email)
 );
 
 /*==============================================================*/
@@ -182,7 +184,7 @@ create table REFERENCE
    Name                 text,
    JobTitle             text,
    Phone                char(15),
-   Email                text,
+   Email                char(100),
    ReferenceId          int not null auto_increment,
    ResumeId             int not null,
    primary key (ReferenceId)
@@ -205,7 +207,7 @@ create table RESUME
    Nationality          text,
    Avatar               text,
    Address              text,
-   Email                text,
+   Email                char(100),
    Phone                char(15),
    Hobby                text,
    primary key (ResumeId)
@@ -253,7 +255,7 @@ create table XPATH
    tags_xpath           text,
    login_url            text,
    login_data           text,
-   id                   int not null unique auto_increment,
+   id                   int not null,
    primary key (home_url)
 );
 
