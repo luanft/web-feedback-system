@@ -18,13 +18,18 @@ import wfs.l2t.utility.EmailUtility;
  * Servlet implementation class ControllerLogin
  */
 @WebServlet("/ControllerLogin")
-public class ControllerLogin extends HttpServlet {
+public class ControllerLogin extends HttpServlet
+{
 	private static final long serialVersionUID = 1L;
+
+	private dtoAccount account = new dtoAccount();
+	private ModelAccount mdLogin = new ModelAccount();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ControllerLogin() {
+	public ControllerLogin()
+	{
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -33,18 +38,19 @@ public class ControllerLogin extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 
-		if (request.getParameter("submit") != null) {
+		if (request.getParameter("submit") != null)
+		{
 			response.getWriter().write("get cái gì ở đây !!!");
 
-		} else {
-			request.getRequestDispatcher("view/login.jsp").include(request,
-					response);
+		} else
+		{
+			request.getRequestDispatcher("view/login.jsp").include(request, response);
 		}
 
 	}
@@ -53,15 +59,18 @@ public class ControllerLogin extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+			IOException
+	{
 
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-		if (request.getParameter("submit") != null) {
+		if (request.getParameter("submit") != null)
+		{
 
-			switch (request.getParameter("submit")) {
+			switch (request.getParameter("submit"))
+			{
 			case "login":
 				login(request, response);
 				break;
@@ -72,69 +81,75 @@ public class ControllerLogin extends HttpServlet {
 				break;
 			}
 
-		} else {
-			request.getRequestDispatcher("view/login.jsp").include(request,
-					response);
+		} else
+		{
+			request.getRequestDispatcher("view/login.jsp").include(request, response);
 		}
 	}
 
-	private void login(HttpServletRequest request, HttpServletResponse response) {
-		dtoAccount account = new dtoAccount();
-		ModelAccount mdLogin = new ModelAccount();
-		if (mdLogin.getAccount(request.getParameter("login-email")) != null) {
+	private void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+		// check email
+		if (mdLogin.getAccount(request.getParameter("login-email")) != null)
+		{
 			account = mdLogin.getAccount(request.getParameter("login-email"));
-
-			if (account.password.equals(request.getParameter("login-pass"))) {
-				if (request.getParameter("login-check") != null) {
-					Cookie c = new Cookie("cookieName", account.email);
-					c.setMaxAge(5);
-					response.addCookie(c);
-				} else {
-					Cookie c = new Cookie("cookieName", "anonymous User");
-					c.setMaxAge(5);
-					response.addCookie(c);
-				}
-				try {
-					request.getRequestDispatcher("view/new-job.jsp").include(
-							request, response);
-				} catch (ServletException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+			// check password
+			if (account.password.equals(request.getParameter("login-pass")))
+			{
+				// check activate status
+				if (account.isActive)
+				{
+					// check if user want to keep login
+					if (request.getParameter("login-check") != null)
+					{
+						Cookie c = new Cookie("cookieName", account.email);
+						c.setMaxAge(5);
+						response.addCookie(c);
+					} else
+					{
+						Cookie c = new Cookie("cookieName", "anonymous User");
+						c.setMaxAge(5);
+						response.addCookie(c);
+					}
+					// login successful
+					request.getRequestDispatcher("view/new-job.jsp").include(request, response);
+				} else
+				{
+					// not activate account
+					request.setAttribute("Message",
+							"Bạn chưa xác thực email. Vui lòng xác thực email để kích hoạt tài khoản của bạn!");
+					request.getRequestDispatcher("view/notification.jsp").forward(request, response);
 				}
 			} else
-				try {
-					response.getWriter().write("fail");
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-		} else {
-			try {
-				response.getWriter().write("fail");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			{
+				// login fail - password do not match
+				request.setAttribute("Message", "Sai mật khẩu!");
+				request.getRequestDispatcher("view/login.jsp").forward(request, response);
 			}
+		} else
+		// email do not exist
+		{
+			request.setAttribute("Message", "Sai email!");
+			request.getRequestDispatcher("view/login.jsp").forward(request, response);
 		}
 	}
 
-	private void register(HttpServletRequest request,
-			HttpServletResponse response) {
-		dtoAccount account = new dtoAccount();
-		account.userName = request.getParameter("reg-username");
-		account.email = request.getParameter("reg-email");
-		account.password = request.getParameter("reg-password");
-		String accType = request.getParameter("radio");
-		account.accountType = "employer".equals(accType) ? "employer"
-				: "job-seeker";
-		account.timeReceiveEmail = "weekly";
-		account.numberReceiveEmail = "10";
-		ModelAccount mdLogin = new ModelAccount();
-		mdLogin.addAccount(account);
+	private void register(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+			IOException
+	{
+		// check condition register
+		if (mdLogin.getAccount(request.getParameter("reg-email")) == null)
+		{
+			account.userName = request.getParameter("reg-username");
+			account.email = request.getParameter("reg-email");
+			account.password = request.getParameter("reg-password");
+			String accType = request.getParameter("radio");
+			account.accountType = "employer".equals(accType) ? "employer" : "job-seeker";
+			account.timeReceiveEmail = "weekly";
+			account.numberReceiveEmail = "10";
 
+			mdLogin.addAccount(account);
+		}
 		// verify by email
 		// reads SMTP server setting from web.xml file
 		ServletContext context = getServletContext();
@@ -147,26 +162,18 @@ public class ControllerLogin extends HttpServlet {
 		String content = "This is email to verify your account on: abc.xyz";
 
 		String resultMessage = "";
-
-		try {
-			EmailUtility.sendEmail(host, port, user, pass, recipient, subject,
-					content);
-			resultMessage = "The e-mail was sent successfully";
-		} catch (Exception ex) {
+		try
+		{
+			EmailUtility.sendEmail(host, port, user, pass, recipient, subject, content);
+			resultMessage = "Để bắt đầu sử dụng hệ thống vui lòng xác nhận đăng ký qua email của bạn!";
+		} catch (Exception ex)
+		{
 			ex.printStackTrace();
-			resultMessage = "There were an error: " + ex.getMessage();
-		} finally {
+			resultMessage = "Lỗi gửi mail. Sorry!!!" + ex.getMessage();
+		} finally
+		{
 			request.setAttribute("Message", resultMessage);
-			try {
-				request.getRequestDispatcher("view/notification.jsp").forward(
-						request, response);
-			} catch (ServletException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			request.getRequestDispatcher("view/notification.jsp").forward(request, response);
 		}
 	}
 }

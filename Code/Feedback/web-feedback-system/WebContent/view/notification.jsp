@@ -21,7 +21,7 @@
 					<b> Cảm ơn bạn đã đăng ký thành viên tại </b><a href="#"><i>recsys.com</i></a>
 				</p>
 				<p class="text-center">
-					<i>Để bắt đầu sử dụng hệ thống vui lòng xác nhận đăng ký qua email của bạn!</i>
+					<i><%=request.getAttribute("Message")%></i>
 				</p>
 			</div>			
 			</panel>

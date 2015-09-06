@@ -6,9 +6,11 @@
 <title>Recommendation System</title>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="view/resource/bootstrap/css/bootstrap.min.css">
-<script src="view/resource/lib/jquery-2.1.4.min.js"></script>
-<script src="view/resource/bootstrap/js/bootstrap.min.js"></script>
+<script src="view/resource/lib/jquery-2.1.4.min.js" async></script>
+<script src="view/resource/bootstrap/js/bootstrap.min.js" async></script>
 <link rel="stylesheet" href="view/resource/css/theme_customize.css">
+<script src="view/resource/lib/check-register.js" async></script>
+<script src="view/resource/lib/clickable-button.js" async></script>
 </head>
 <body>
 	<div class="container-fluid" style="background-color: #D6D6FF;">
@@ -20,11 +22,15 @@
 				<form class="form" role="form" action="ControllerLogin" method="post">
 					<div class="col-lg-5">
 						<div style="margin-top: 5px" class="form-group checkbox">
-							<lable > Email </lable>
-							<input type="email" class="form-control" placeholder="Email"  name="login-email"> 
-							<input type="checkbox"
-								style="margin-left: 0px;" name="login-check"
+							<lable> Email </lable>
+							<input type="email" class="form-control" placeholder="Email" name="login-email"> <input
+								type="checkbox" style="margin-left: 0px;" name="login-check"
 							>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Duy trì đăng nhập
+						</div>
+						<div>
+							<p style="color: red;">
+								<%=request.getAttribute("Message") != null ? request.getAttribute("Message") : ""%>
+							</p>
 						</div>
 					</div>
 					<div class="col-lg-5">
@@ -42,9 +48,6 @@
 						</div>
 					</div>
 				</form>
-				<div > 
-					<p style = "color:red;"> <%=request.getAttribute("Message")%></p>
-				</div>
 			</div>
 		</div>
 		<div class="container-fluid row">
@@ -59,22 +62,24 @@
 						<div class="form-group">
 							<lable>Email</lable>
 							<input name="reg-email" type="email" placeholder="Email" class="form-control" id="reg-email">
+							<div id="txtHintEmail">								
+							</div>
 						</div>
 						<div class="form-group">
 							<lable>Tên tài khoản</lable>
 							<input name="reg-username" type="text" placeholder="Your user name" class="form-control"
 								id="reg-user"
 							>
+							<div id="txtHintUserName">								
+							</div>
 						</div>
 						<div class="radio-inline">
-							<label style="margin-right: 10px;"> Loại tài khoản </label> 
-							<label
+							<label style="margin-right: 10px;"> Loại tài khoản </label> <label
 								class="radio-inline disabled" data-toggle="tooltip"
 								title="chức năng này chưa được kích hoạt"
-							> <input class="disabled" type="radio" name="radio" value = "employer">Nhà tuyển dụng
-							</label> 
-							<label class="radio-inline"> <input type="radio" name="radio" value = "job-seeker">Người tìm
-								việc
+							> <input class="disabled" type="radio" name="radio" value="employer">Nhà tuyển dụng
+							</label> <label class="radio-inline"> <input type="radio" name="radio" value="job-seeker">Người
+								tìm việc
 							</label>
 						</div>
 						<div class="form-group">
@@ -82,12 +87,16 @@
 							<input name="reg-password" type="password" placeholder="mật khẩu" class="form-control"
 								id="reg-pwd"
 							>
+							<div id="txtHintpwd">				
+							</div>
 						</div>
 						<div class="form-group">
 							<lable>Nhập lại mật khẩu</lable>
 							<input name="reg-re-type-password" type="password" placeholder="mật khẩu"
 								class="form-control" id="reg-rpwd"
 							>
+							<div id="txtHintrpwd">				
+							</div>
 						</div>
 						<div class="form-group">
 							<button type="submit" name="submit" class="form-control btn btn-info" value="register">Đăng
@@ -97,7 +106,6 @@
 				</form>
 			</div>
 		</div>
-	</div>	
-	<script src="view/resource/lib/clickable-button.js"></script>
+	</div>
 </body>
 </html>
