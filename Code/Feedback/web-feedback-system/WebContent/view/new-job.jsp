@@ -5,10 +5,11 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <title>Recommendation System</title>
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="resource/bootstrap/css/bootstrap.min.css">
-<script src="resource/lib/jquery-2.1.4.min.js"></script>
-<script src="resource/bootstrap/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="resource/css/theme_customize.css">
+<link rel="stylesheet" href="view/resource/bootstrap/css/bootstrap.min.css">
+<script src="view/resource/lib/jquery-2.1.4.min.js" async></script>
+<script src="view/resource/bootstrap/js/bootstrap.min.js" async></script>
+<script src="view/resource/lib/collapse-job.js" async></script>
+<link rel="stylesheet" href="view/resource/css/theme_customize.css">
 </head>
 <body>
 	<div class="container-fluid">
@@ -110,6 +111,7 @@
 										
 										
 										
+										
 										</pre>
 									</div>
 									<div class="requirement">
@@ -165,8 +167,8 @@ We are not only focus on works, but try to improve our employees by continuously
 							</div>
 						</div>
 						<div class="panel-footer">
-							<label>Bạn thấy công việc này có phù hợp với bạn không?</label>
-							<a href="#" class="btn btn-default glyphicon glyphicon-thumbs-up" data-toggle="tooltip"
+							<label>Bạn thấy công việc này có phù hợp với bạn không?</label> <a href="#"
+								class="btn btn-default glyphicon glyphicon-thumbs-up" data-toggle="tooltip"
 								title="Việc này phù hợp với tôi!"
 							></a> <a href="#" class="btn btn-default glyphicon glyphicon-thumbs-down" data-toggle="tooltip"
 								title="Việc này không hợp, bỏ đi!" style="margin-left: 8px; margin-right: 8px;"
@@ -177,6 +179,5 @@ We are not only focus on works, but try to improve our employees by continuously
 			</div>
 		</div>
 	</div>
-	<script src="resource/lib/collapse-job.js"></script>
 </body>
 </html>
