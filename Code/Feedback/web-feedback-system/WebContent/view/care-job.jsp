@@ -8,7 +8,6 @@
 <link rel="stylesheet" href="view/resource/bootstrap/css/bootstrap.min.css">
 <script src="view/resource/lib/jquery-2.1.4.min.js" async></script>
 <script src="view/resource/bootstrap/js/bootstrap.min.js" async></script>
-<script src="view/resource/lib/collapse-job.js" async></script>
 <link rel="stylesheet" href="view/resource/css/theme_customize.css">
 </head>
 <body>
@@ -112,6 +111,9 @@
 										
 										
 										
+										
+										
+										
 										</pre>
 									</div>
 									<div class="requirement">
@@ -179,5 +181,6 @@ We are not only focus on works, but try to improve our employees by continuously
 			</div>
 		</div>
 	</div>
+	<script src="view/resource/lib/collapse-job.js" async></script>
 </body>
 </html>
