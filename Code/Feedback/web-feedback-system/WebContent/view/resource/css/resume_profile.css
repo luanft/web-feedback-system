@@ -1,0 +1,39 @@
+ul.detail-list {
+	list-style: outside none none;
+	box-sizing: border-box;
+	padding-left: 0px;
+	
+	}
+dl.mydl{
+	width: 100%;
+  	overflow: hidden;
+  	padding-left: 20px;
+	
+}
+dt{
+	font-weight: bold;
+	float: left;
+	width: 40%;
+	
+}
+dd{
+	padding-bottom: 10px;
+	float: left;
+	width: 60%;
+}
+ul.list_info{
+	margin-left: 200px;
+}
+.form-group{
+	
+}
+#personal-list{
+	width: 100%;
+}
+#personal-list li{
+	float: left;
+	width: 50%;
+}
+br{
+	clear: left;
+}

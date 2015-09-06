@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Resume Profile</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="resource/bootstrap/css/bootstrap.min.css">
+<script src="resource/lib/jquery-2.1.4.min.js"></script>
+<script src="resource/bootstrap/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="resource/css/resume_profile.css">
+<link rel="stylesheet" href="resource/css/theme_customize.css">
+<script>
+	$(document).ready(function() {
+
+		$("form").attr("class","collapse");
+		$("#male-checkbox").attr("checked", false);
+		$("#female-checkbox").attr("checked", false);
+		//personal
+		$("#personal-edit-button").click(function() {
+			$("#personal-list").hide();
+			$("#personal-form").show();
+		});
+		$("#personal-submit,#personal-cancel").click(function() {
+			$("#personal-list").show();
+			$("#personal-form").hide();
+		});
+		$("#female-checkbox").click(function(){
+			$("#male-checkbox").attr("checked", false);
+		})
+		$("#male-checkbox").click(function(){
+			$("#female-checkbox").attr("checked", false);
+		});
+		//contact
+		$("#contact-edit-button").click(function() {
+			$("#contact-list").hide();
+			$("#contact-form").show();
+		});
+		$("#contact-submit, #contact-cancel").click(function() {
+			$("#contact-list").show();
+			$("#contact-form").hide();
+		});
+		//education
+		$("#education-edit-button").click(function() {
+			$("#education-form").attr("class", "collapse in");
+			$("#education-form").attr("style","");
+			$("#education-list").hide();
+			$("#education-form").show();
+		});
+		$("#education-submit, #education-cancel").click(function() {
+			$("#education-list").show();
+			$("#education-form").hide();
+		});
+		$("#education-add-button").click(function() {
+			$("form[id='education-form'] input[type='text']").attr("value","");
+		});
+		//experience
+		$("#experience-edit-button").click(function() {
+			$("#experience-form").attr("class", "collapse in");
+			$("#experience-form").attr("style","");
+			$("#experience-list").hide();
+			$("#experience-form").show();
+		});
+		$("#experience-submit, #experience-cancel").click(function() {
+			$("#experience-list").show();
+			$("#experience-form").hide();
+		});
+		
+		$("#experience-add-button").click(function() {
+			$("form[id='experience-form'] input[type='text']").attr("value","");
+		});
+		//skill
+		$("#skill-edit-button").click(function(){
+			$("#skill-list").hide();
+			$("#skill-edit-form").attr({class:"collapse in", style:""});
+			$("#skill-edit-form").show();
+		});
+		$("#skill-edit-submit, #skill-edit-cancel, #skill-add-submit, #skill-add-cancel").click(function(){
+			$("#skill-edit-form").hide();
+			$("#skill-add-form").hide();
+			$("#skill-list").show();
+		});
+		//reference
+		$("#reference-edit-button").click(function(){
+			$("#reference-list").hide();
+			$("#reference-form").attr({class:"collapse in", style:""});
+			$("#reference-form").show();
+		});
+		$("#reference-submit, #reference-cancel").click(function(){
+			$("#referenceform").hide();
+			$("#reference-list").show();
+		});
+		$("#reference-add-button").click(function() {
+			$("form[id='reference-form'] input[type='text']").attr("value","");
+		});
+		//hoppies
+		$("#hoppies-edit-button").click(function() {
+			$("#hoppies-edit-form").attr({class:"collapse in", style:""});
+			$("#hoppies-list").hide();
+			$("#hoppies-edit-form").show();
+		});
+		$("#hoppies-edit-submit, #hoppies-edit-cancel, #hoppies-add-submit, #hoppies-add-cancel").click(function() {
+			$("#hoppies-list").show();
+			$("#hoppies-edit-form").hide();
+			$("#hoppies-add-form").hide();
+		});
+		//career-object-button
+		$("#career-object-edit-button").click(function() {
+			$("#career-object-list").hide();
+			$("#career-object-form").show();
+		});
+		$("#career-object-submit, #career-object-cancel").click(function() {
+			$("#career-object-list").show();
+			$("#career-object-form").hide();
+		});
+	});
+</script>
+</head>
+
+<body>
+
+	<div class="container">
+		<!-- menu top -->
+		<nav
+			class="navbar navbar-inverse navbar-fixed-top custom_navbar_color">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-4">
+						<div class="navbar-header">
+							<img
+								src="http://thumbs.dreamstime.com/x/job-search-3d-icon-16095671.jpg"
+								class="img-circle navbar-brand" width="60" height="70"> <a
+								class="navbar-brand custom_color_white"> RECOMMENDATION
+								SYSTEM</a>
+						</div>
+					</div>
+					<div class="col-md-8">
+						<div>
+							<ul class="nav navbar-nav  navbar-right">
+								<li><a href="#">Home</a></li>
+								<li><a href="#"><span class="glyphicon glyphicon-user"></span>
+										Xin chào, HIhIhi</a></li>
+								<li><a href="#"><span
+										class="glyphicon glyphicon-log-in"></span> Thoát</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</nav>
+		<!-- chia trang thanh 2 cot -->
+
+		<div class="container-fluid">
+			<br> <br> <br>
+			<div class="row">
+				<div class="col-md-3">
+					<div data-spy="affix" data-offset-top="0">
+						<div class="container-fluid col-md-offset-0">
+							<h4>Xin chào!</h4>
+							<img
+								src="http://vui3g.com/files/posts/images/5-2014/girl-xinh-dan-toc-mong.jpg"
+								class="img-rounded" width="170" height="170">
+						</div>
+						<br>
+						<div>
+
+							<ul class="nav nav-pills nav-stacked custom_font_bold">
+								<li class><a href="#"><span
+										class="glyphicon glyphicon-thumbs-up"></span> CÔNG VIỆC MỚI
+										NHẤT</a></li>
+								<li class><a href="#"><span
+										class="glyphicon glyphicon-thumbs-up"></span> LĨNH VỰC QUAN
+										TÂM</a></li>
+								<li class><a href="#"><span
+										class="glyphicon glyphicon-thumbs-up"></span> THÔNG BÁO</a></li>
+								<li class><a href="#"><span
+										class="glyphicon glyphicon-cog"></span> THIẾT LẬP HỆ THỐNG</a></li>
+								<li class><a href="#"><span
+										class="glyphicon glyphicon-list-alt"></span> XEM HỒ SƠ CỦA BẠN</a></li>
+								<li class><a href="#"><span
+										class="glyphicon glyphicon-question-sign"></span> TRỢ GIÚP</a></li>
+								<li class><a href="#"><span
+										class="glyphicon glyphicon-envelope"></span> FEEDBACK</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-9 custom_background_color">
+					<br>
+					<div class="container-fluid">
+						<div class="panel panel-default">
+							<h2>Hồ Thị Thanh Thảo</h2>
+							<!-- Personal Detail -->
+							<div class="panel-heading">
+								Personal Detail
+								<button type="button" class="glyphicon glyphicon-pencil btn-link pull-right" id="personal-edit-button"></button>
+							</div>
+							<div class="panel-body">
+								<ul class="detail-list" id="personal-list">
+									<li>Gender :<strong>female</strong></li>
+									<li>Birthday: <strong>21/2/1994</strong></li>
+									<li>Marital status: <strong>single</strong></li>
+									<li>Nationality: <strong>Vietnam</strong></li>
+									
+								</ul>
+								<br/>
+								<form role="form" id="personal-form">
+									<dl class="mydl">
+										<dt>Gender :</dt>
+										<dd>
+										<input type="checkbox" id="female-checkbox" value="female">Female
+										<input type="checkbox" id="male-checkbox" value="male">Male
+										</dd>
+										<dt>Birthday:</dt>
+										<dd><input type="text" id="birthday_input" value="21/2/1994"></dd>
+									
+										<dt> Marital status:</dt>  
+										<dd><select
+											id="status_select">
+											<option>Single</option>
+											<option>Married</option>
+										</select></dd>
+										<dt>Nationality:</dt>
+										<dd><input type="text" id="nationality_input" value="Vietnam"></dd>
+									</dl>	
+									<button type="submit" class="btn btn-default"
+										id="personal-submit">Save</button>
+									<button class="btn btn-default" id="personal-cancel">Cancel</button>
+								</form>
+							</div>
+							<!-- Contact Information -->
+							<div class="panel-heading">Contact Information
+							<button type="button" class="glyphicon glyphicon-pencil btn-link pull-right" id="contact-edit-button"></button></div>
+							<div class="panel-body">
+								<dl class="mydl" id="contact-list">
+									<dt>Address</dt>
+									<dd>Thủ Đức district, Hồ Chí Minh, vietnam</dd>
+									<dt>Email</dt>
+									<dd>
+										<a href="mailto:coxanh21294@gmail.com">coxanh21294@gmail.com</a>
+									</dd>
+									<dt>Mobile</dt>
+									<dd>0985 366 3123</dd>
+								</dl>
+								<form role="form" id="contact-form">
+									<dl>
+										<dt>Address</dt><dd><input type="text" id="" value="Thủ Đức district, Hồ Chí Minh, vietnam"></dd>
+										<dt>Email</dt><dd><input type="text" id="" value="coxanh21294@gmail.com"></dd>
+										<dt>Mobile</dt><dd><input type="text" id="" value="0985 366 3123"></dd>
+									</dl>
+									<button type="submit" class="btn btn-default"
+										id="contact-submit">Save</button>
+									<button class="btn btn-default" id="contact-cancel">Cancel</button>
+								</form>
+							</div>
+							<div class="panel-heading">Education
+							<button type="button" class="glyphicon glyphicon-pencil btn-link pull-right" id="education-edit-button"></button>
+							<button type="button" class="glyphicon glyphicon-plus btn-link pull-right" data-toggle="collapse" data-target="#education-form" id="education-add-button"></button>
+							</div>
+							<div class="panel-body">
+								<dl class="mydl" id="education-list">
+									<dt>7/9/2012-31/7/2016</dt>
+									<dd>University of Information Technology</dd>
+									<dt>Major</dt>
+									<dd>Software Engineering</dd>
+									<dt>Degree</dt>
+									<dd>Bachelor's Degree</dd>
+									<dt>Location</dt>
+									<dd>Ho Chi Minh city, Vietnam</dd>
+								</dl>
+								<form role="form" id="education-form">
+								<dl class="mydl" id="">
+									<dt>School name</dt>
+									<dd><input type="text" id="school" value="University of Information Technology"></dd>
+									<dt>Major</dt>
+									<dd> <input type="text" id="major" value="Software Engineering"></dd>
+									<dt>Degree</dt>
+									<dd><input type="text" id="major" value="Software Engineering"></dd>
+									<dt>Location</dt>
+									<dd> <input type="text" id="location-school" value="Ho Chi Minh city, Vietnam"></dd>
+									<dt>Start date</dt><dd><input type="text" id="end-date" value="31/7/2016"></dd>
+									<dt>End Date</dt><dd><input type="text" id="end-date" value="31/7/2016"></dd>
+									
+								</dl>
+								<button type="submit" class="btn btn-default"
+										id="education-submit">Save</button>
+									<button class="btn btn-default" id="education-cancel">Cancel</button>
+								</form>
+							</div>
+							<!-- Experience -->
+							<div class="panel-heading">Experience
+							<button type="button" class="glyphicon glyphicon-pencil btn-link pull-right" id="experience-edit-button"></button>
+							<button type="button" class="glyphicon glyphicon-plus btn-link pull-right" data-toggle="collapse" data-target="#experience-form" id="experience-add-button"></button>
+							</div>
+							<div class="panel-body">
+								<dl class="mydl" id="experience-list">
+									<dt>Job title</dt>
+									<dd>Java Web Developer</dd>
+									<dt>Position</dt>
+									<dd>Leader</dd>
+									<dt>Company</dt>
+									<dd>GameLoft</dd>
+									<dt>Description</dt>
+									<dd>Font-end, Spring mvc, hibernate</dd>
+									<dt>Period</dt>
+									<dd>1 year</dd>
+								</dl>
+								<form role="form" id="experience-form">
+									<dl class="mydl" id="">
+										<dt>Job title</dt>
+										<dd><input type="text" id="job-title" value="Java Web Developer"/></dd>
+										<dt>Position</dt>
+										<dd><input type="text" id="position" value="Leader"/></dd>
+										<dt>Company</dt>
+										<dd><input type="text" id="company" value="GameLoft"/></dd>
+										<dt>Description</dt>
+										<dd><input type="text" id="description" value="Font-end, Spring mvc, hibernate"/></dd>
+										<dt>Period</dt>
+										<dd><input type="text" id="period" value="1 year"/></dd>
+									</dl>
+								<button type="submit" class="btn btn-default"
+										id="experience-submit">Save</button>
+									<button class="btn btn-default" id="experience-cancel">Cancel</button>
+								</form>
+							</div>
+							<div class="panel-heading">Skill
+							<button type="button" class="glyphicon glyphicon-plus btn-link pull-right" data-toggle="collapse" data-target="#skill-add-form" id="skill-add-button"></button>
+							</div>
+							<div class="panel-body">
+								<ul id="skill-list">
+									<li>
+										<ul class="detail-list">
+											<li><p><strong>Professional Computer skills-MySQL</strong> 
+											<button type="button" class="glyphicon glyphicon-pencil btn-link " id="skill-edit-button"></button></p></li>
+											<li><p>good - 2 year(s)</p></li>
+										</ul>
+									</li>
+									<li>
+										<ul class="detail-list">
+											<li><p><strong>Manager skills</strong> <button type="button" class="glyphicon glyphicon-pencil btn-link " id="skill-edit-button"></button></p></li>
+											<li><p>Intermediate - 1 year(s)</p></li>
+										</ul>
+									</li>
+									<li>
+										<ul class="detail-list">
+											<li><p><strong>Office skills- excel</strong> <button type="button" class="glyphicon glyphicon-pencil btn-link " id="skill-edit-button"></button></p></li>
+											<li><p>Intermediate - 2 year(s)</p></li>
+										</ul >
+									</li>
+								</ul>
+								<form role="form" id="skill-edit-form">
+									<dl class="mydl">
+										<dt>Name</dt>
+										<dd><input type ="text" value="Professional Computer skills - Database - MySQL"></dd>
+										<dt>Level</dt><dd><input type="text" value="Intermediate - 2 year(s)"></dd>
+									</dl>
+									<button type="submit" class="btn btn-default"
+										id="skill-edit-submit">Save</button>
+									<button class="btn btn-default" id="skill-edit-cancel">Cancel</button>
+								</form>
+								<form role="form" id="skill-add-form">
+									<dl class="mydl">
+										<dt>Name</dt>
+										<dd><input type ="text" ></dd>
+										<dt>Level</dt>
+										<dd><input type="text" ></dd>
+									</dl>
+									<button type="submit" class="btn btn-default"
+										id="skill-add-submit">Save</button>
+									<button class="btn btn-default" id="skill-add-cancel">Cancel</button>
+								</form>
+								
+							</div>
+							<!-- References -->
+							<div class="panel-heading">References
+							<button type="button" class=" glyphicon glyphicon-plus btn-link pull-right " data-toggle="collapse" data-target="#reference-form" id="reference-add-button"></button>
+							</div>
+							
+							<div class="panel-body">
+								<ul id="reference-list">
+									<li>
+										<ul class="detail-list">
+											<li><strong>Phạm Hoàng Nam</strong> <button class="glyphicon glyphicon-pencil btn-link" id="reference-edit-button" ></button></li>
+											<li>Teacher</li>
+											<li>0973 533 335</li>
+											<li><a href="mailto:hoannam80@gmail.com">hoannam80@gmail.com</a></li>
+	
+										</ul>
+									</li>
+								</ul>
+								<form id="reference-form">
+									<dl class="mydl">
+										<dt>Name</dt>
+										<dd><input type="text" value="Phạm Hoàng Nam"></dd>
+										<dt>job</dt>
+										<dd><input type="text" value="Teacher"></dd>
+										<dt>Phone</dt>
+										<dd><input type="text" value="0973 533 335"></dd>
+										<dt>Email</dt>
+										<dd><input type="text" value="hoannam80@gmail.com"></dd>
+									</dl>
+									<button type="submit" class="btn btn-default"
+										id="reference-submit">Save</button>
+									<button class="btn btn-default" id="reference-cancel">Cancel</button>
+								</form>
+							</div>
+							<!-- Hoppies -->
+							<div class="panel-heading">Hoppies
+							<button type="button" class=" glyphicon glyphicon-pencil btn-link pull-right " id="hoppies-edit-button"></button>
+							<button type="button" class=" glyphicon glyphicon-plus btn-link pull-right " data-toggle="collapse" data-target="#hoppies-add-form"id="hoppies-add-button"></button>
+							</div>
+							<div class="panel-body" >
+								<ul class="detail-list" id="hoppies-list">
+									<li>Swimming</li>
+									<li>Singing</li>
+									<li>Creating software</li>
+								</ul>
+								<form id="hoppies-edit-form">
+									<input type="text" value="Swimming, Singing, Creating software"><br><br>
+									<button type="submit" class="btn btn-default"
+										id="hoppies-edit-submit">Save</button>
+									<button class="btn btn-default" id="hoppies-edit-cancel">Cancel</button>
+								</form>
+								<form id="hoppies-add-form">
+									<input type="text" value=""><br><br>
+									<button type="submit" class="btn btn-default"
+										id="hoppies-add-submit">Save</button>
+									<button class="btn btn-default" id="hoppies-add-cancel">Cancel</button>
+								</form>
+								
+							</div>
+							<!-- Career Object -->
+							<div class="panel-heading">Career Object
+							<button type="button" class=" glyphicon glyphicon-pencil btn-link pull-right " id="career-object-edit-button"></button>
+							</div>
+							<div class="panel-body">
+								<dl class="mydl" id="career-object-list">
+									<dt>Desire Salary</dt>
+									<dd>1000$</dd>
+									<dt>Recent Salary</dt>
+									<dd>600$</dd>
+									<dt>Position Type</dt>
+									<dd>Part-time Permanent</dd>
+									<dt>Desire Career Level</dt>
+									<dd>Student / Internship</dd>
+									<dt>Desire Work Location</dt>
+									<dd>Ho Chi Minh</dd>
+									<dt>Willing To Relocate</dt>
+									<dd>No</dd>
+									<dt>Willing To Travel</dt>
+									<dd>No</dd>
+									<dt>Career Objective</dt>
+									<dd>Get money</dd>
+								</dl>
+							
+							<form id="career-object-form">
+								<dl class="mydl">
+									<dt>Desire Salary</dt>
+									<dd><input type="text" name="desire-salary" value="1000$"></dd>
+									<dt>Recent Salary</dt>
+									<dd><input type="text" name="recent-salary"value="600$"></dd>
+									<dt>Position Type</dt>
+									<dd><input type="text" name="position-type" value="Part-time Permanent"></dd>
+									<dt>Desire Career Level</dt>
+									<dd><input type="text" name="desire-career-level"value="Student / Internship"></dd>
+									<dt>Desire Work Location</dt>
+									<dd><input type="text" name="desire-work-location"value="Ho Chi Minh"></dd>
+									<dt>Willing To Relocate</dt>
+									<dd><input type="checkbox">No<input type="checkbox">Yes</dd>
+									<dt>Willing To Travel</dt>
+									<dd><input type="checkbox">No<input type="checkbox">Yes</dd>
+									<dt>Career Objective</dt>
+									<dd><input type="text" value="Get money"></dd>
+								</dl>
+								<button type="submit" class="btn btn-default" id="career-object-submit">Save</button>
+								<button class="btn btn-default" id="career-object-cancel">Cancel</button>
+							</form>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</body>
+</html>
