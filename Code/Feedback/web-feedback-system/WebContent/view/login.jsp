@@ -57,28 +57,29 @@
 			</div>
 			<div class="col-lg-5">
 				<h2>Sign up for free!</h2>
-				<form action="ControllerLogin" class="form" role="form" method="post">
+				<form action="ControllerLogin" class="form" role="form" method="post" id = "reg-form">
 					<div class="form-group">
 						<div class="form-group">
 							<lable>Email</lable>
 							<input name="reg-email" type="email" placeholder="Email" class="form-control" id="reg-email">
-							<div id="txtHintEmail">								
-							</div>
+											<i id="txtHintEmail" style = "color:red;"></i>			
+							
 						</div>
 						<div class="form-group">
 							<lable>Tên tài khoản</lable>
 							<input name="reg-username" type="text" placeholder="Your user name" class="form-control"
 								id="reg-user"
 							>
-							<div id="txtHintUserName">								
+							<div > <i id="txtHintUserName"></i>								
 							</div>
 						</div>
 						<div class="radio-inline">
 							<label style="margin-right: 10px;"> Loại tài khoản </label> <label
 								class="radio-inline disabled" data-toggle="tooltip"
 								title="chức năng này chưa được kích hoạt"
-							> <input class="disabled" type="radio" name="radio" value="employer">Nhà tuyển dụng
-							</label> <label class="radio-inline"> <input type="radio" name="radio" value="job-seeker">Người
+							> <input class="disabled" disabled type="radio" name="radio" value="employer">Nhà tuyển dụng
+							</label> 
+							<label class="radio-inline"> <input type="radio" name="radio" value="job-seeker" checked>Người
 								tìm việc
 							</label>
 						</div>
@@ -95,12 +96,12 @@
 							<input name="reg-re-type-password" type="password" placeholder="mật khẩu"
 								class="form-control" id="reg-rpwd"
 							>
-							<div id="txtHintrpwd">				
-							</div>
+							<div > <i id="txtHintrpwd" style = "color:red;"></i>				
+							</div>							
 						</div>
 						<div class="form-group">
-							<button type="submit" name="submit" class="form-control btn btn-info" value="register">Đăng
-								ký</button>
+							<button type="submit" name="submit" class="form-control btn btn-info" disabled value="register" id = "reg-button">Đăng
+								ký </button>
 						</div>
 					</div>
 				</form>

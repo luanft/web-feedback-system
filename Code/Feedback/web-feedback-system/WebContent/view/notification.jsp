@@ -5,10 +5,10 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <title>Recommendation System</title>
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="resource/bootstrap/css/bootstrap.min.css">
-<script src="resource/lib/jquery-2.1.4.min.js"></script>
-<script src="resource/bootstrap/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="resource/css/theme_customize.css">
+<link rel="stylesheet" href="view/resource/bootstrap/css/bootstrap.min.css">
+<script src="view/resource/lib/jquery-2.1.4.min.js"></script>
+<script src="view/resource/bootstrap/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="view/resource/css/theme_customize.css">
 </head>
 <body>
 	<div class="row">

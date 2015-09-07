@@ -40,10 +40,8 @@ public class ControllerCheckRegister extends HttpServlet
 		response.setContentType("text/html; charset=UTF-8");
 		if (request.getParameter("email") != null)
 			checkEmail(request, response);
-		if (request.getParameter("pass") != null)
-			checkPassword(request, response);
-		if (request.getParameter("userName") != null)
-			checkUserName(request, response);
+		if (request.getParameter("pass") != null && request.getParameter("rpass") != null)
+			checkMatchPassword(request, response);
 	}
 
 	/**
@@ -70,43 +68,23 @@ public class ControllerCheckRegister extends HttpServlet
 			} else
 			{
 				response.setContentType("text/html; charset=UTF-8");
-				response.getWriter().write("<i>Email này đã được đăng ký!</i>");
+				response.getWriter().write("Email này đã được đăng ký!");
 			}
-		} else
-		{
-			response.setContentType("text/html; charset=UTF-8");
-			response.getWriter().write("<i>Email không được trống!</i>");
 		}
 	}
 
-	private void checkPassword(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+	private void checkMatchPassword(HttpServletRequest request, HttpServletResponse response) throws ServletException,
 			IOException
 	{
-
-		String pwd = request.getParameter("pass");
-		String rpwd = request.getParameter("rpass");
-		response.getWriter().flush();
-		if (pwd.equals(rpwd))
+		String s = request.getParameter("pass");
+		String ss = request.getParameter("rpass");
+		if (s.equals(ss))
 		{
 			response.getWriter().write("");
 		} else
 		{
 			response.getWriter().write("Mật khẩu không trùng khớp!");
 		}
-	}
 
-	private void checkUserName(HttpServletRequest request, HttpServletResponse response) throws ServletException,
-			IOException
-	{
-
-		String userName = request.getParameter("userName");
-		response.getWriter().flush();
-		if (userName != "")
-		{
-			response.getWriter().write("");
-		} else
-		{
-			response.getWriter().write("Tên tài khoản không được trống!");
-		}
 	}
 }

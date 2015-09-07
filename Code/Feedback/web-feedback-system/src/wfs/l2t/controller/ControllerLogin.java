@@ -50,7 +50,7 @@ public class ControllerLogin extends HttpServlet
 
 		} else
 		{
-			request.getRequestDispatcher("view/login.jsp").include(request, response);
+			request.getRequestDispatcher("view/login.jsp").forward(request, response);
 		}
 
 	}
@@ -83,7 +83,7 @@ public class ControllerLogin extends HttpServlet
 
 		} else
 		{
-			request.getRequestDispatcher("view/login.jsp").include(request, response);
+			request.getRequestDispatcher("view/login.jsp").forward(request, response);
 		}
 	}
 
@@ -102,17 +102,39 @@ public class ControllerLogin extends HttpServlet
 					// check if user want to keep login
 					if (request.getParameter("login-check") != null)
 					{
-						Cookie c = new Cookie("cookieName", account.email);
-						c.setMaxAge(5);
-						response.addCookie(c);
+						Cookie cookieEmail = new Cookie("cookieEmail", account.email);
+						cookieEmail.setMaxAge(3600);
+						response.addCookie(cookieEmail);
+						Cookie cookieUserName = new Cookie("cookieUserName", account.userName);
+						cookieUserName.setMaxAge(3600);
+						response.addCookie(cookieUserName);
+						Cookie cookiePassword = new Cookie("cookiePassword", account.password);
+						cookiePassword.setMaxAge(3600);
+						response.addCookie(cookiePassword);
+						Cookie cookieUserId = new Cookie("cookieUserId", account.accountId);
+						cookieUserId.setMaxAge(3600);
+						response.addCookie(cookieUserId);
+						Cookie cookieTimeReceiveEmail = new Cookie("cookieTimeReceiveEmail", account.timeReceiveEmail);
+						cookieTimeReceiveEmail.setMaxAge(3600);
+						response.addCookie(cookieTimeReceiveEmail);
+						Cookie cookieNumberReceiveEmail = new Cookie("cookieNumberReceiveEmail",
+								account.numberReceiveEmail);
+						cookieNumberReceiveEmail.setMaxAge(3600);
+						response.addCookie(cookieNumberReceiveEmail);
+						Cookie cookieIsActive = new Cookie("cookieIsActive", account.isActive.toString());
+						cookieIsActive.setMaxAge(3600);
+						response.addCookie(cookieIsActive);
+						Cookie cookieAccountType = new Cookie("cookieAccountType", account.accountType);
+						cookieAccountType.setMaxAge(3600);
+						response.addCookie(cookieAccountType);
 					} else
 					{
 						Cookie c = new Cookie("cookieName", "anonymous User");
-						c.setMaxAge(5);
+						c.setMaxAge(3600);
 						response.addCookie(c);
 					}
 					// login successful
-					request.getRequestDispatcher("view/new-job.jsp").include(request, response);
+					request.getRequestDispatcher("view/new-job.jsp").forward(request, response);
 				} else
 				{
 					// not activate account

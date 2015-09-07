@@ -17,18 +17,15 @@ $(document).ready(function(){
 	});
 });
 
-//check password
+//check null
 $(document).ready(function(){
-	$('#reg-pwd').blur(function(event){
-		$.ajax({
-			url:'ControllerCheckRegister',
-			data:{
-				pass : $('#reg-pwd').val()				
-			},
-			success: function(responseText){
-				$('#txtHintpwd').text(responseText);
-			}
-		});
+	$("#reg-form").keyup(function(event){
+		if($('#reg-email').val() != "" && $('#reg-user').val() != "" && $('#reg-pwd').val() != "" && $('#reg-rpwd').val() != "" && $("#txtHintEmail").text() == "" && $("#txtHintrpwd").text() == "")
+		{
+			$("#reg-button").prop('disabled', false);			
+		}
+		else
+			$("#reg-button").prop('disabled', true);
 	});
 });
 
@@ -43,21 +40,6 @@ $(document).ready(function(){
 			},
 			success: function(responseText){
 				$('#txtHintrpwd').text(responseText);
-			}
-		});
-	});
-});
-
-//check user name
-$(document).ready(function(){
-	$('#reg-user').blur(function(event){
-		$.ajax({
-			url:'ControllerCheckRegister',
-			data:{
-				userName : $('#reg-user').val()
-			},
-			success: function(responseText){
-				$('#txtHintUserName').text(responseText);
 			}
 		});
 	});
