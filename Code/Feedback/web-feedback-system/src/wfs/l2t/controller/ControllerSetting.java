@@ -90,7 +90,7 @@ public class ControllerSetting extends HttpServlet {
 //			request.getRequestDispatcher("/login").forward(request, response);
 			response.sendRedirect(request.getContextPath()+"/login");
 		}
-
+		request.setAttribute("user", this.currentUserId);
 		PrintWriter out = response.getWriter();
 
 		String submit_by_jquery = request.getParameter("jquery-sumit");
@@ -103,7 +103,7 @@ public class ControllerSetting extends HttpServlet {
 			String number = request.getParameter("fne_rdo_number");
 			ModelAccount model = new ModelAccount();
 			if (number != null)
-				model.setReceiveEmailNumber("1", number);
+				model.setReceiveEmailNumber(currentUserId, number);
 			request.getRequestDispatcher("view/configure-system.jsp").include(
 					request, response);
 			return;
@@ -114,7 +114,7 @@ public class ControllerSetting extends HttpServlet {
 			String time = request.getParameter("fte-rdo-time");
 			ModelAccount model = new ModelAccount();
 			if (time != null)
-				model.setReceiveEmailTime("1", time);
+				model.setReceiveEmailTime(currentUserId, time);
 			// fte-rdo-time
 			request.getRequestDispatcher("view/configure-system.jsp").include(
 					request, response);
@@ -128,8 +128,8 @@ public class ControllerSetting extends HttpServlet {
 			if (data.length > 0) {
 				// luu du liêu
 				ModelCare careModel = new ModelCare();
-				careModel.uncareAllCategory("1");
-				careModel.careCategory("1", data);
+				careModel.uncareAllCategory(currentUserId);
+				careModel.careCategory(currentUserId, data);
 				request.getRequestDispatcher("view/configure-system.jsp")
 						.include(request, response);
 			}

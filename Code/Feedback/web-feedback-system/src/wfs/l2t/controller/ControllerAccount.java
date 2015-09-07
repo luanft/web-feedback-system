@@ -10,16 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class ControllerHome
+ * Servlet implementation class ControllerAccount
  */
-@WebServlet("/ControllerHome")
-public class ControllerHome extends HttpServlet {
+@WebServlet("/ControllerAccount")
+public class ControllerAccount extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ControllerHome() {
+	public ControllerAccount() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -57,13 +57,16 @@ public class ControllerHome extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-		
+
 		if (isLoged(request, response)) {
-			//new-job.jsp
-			request.getRequestDispatcher("view/new-job.jsp").include(request, response);
+
+			request.setAttribute("user", this.currentUserId);
+			request.getRequestDispatcher("view/account-manager.jsp").include(
+					request, response);
 		} else {
-			response.sendRedirect(request.getContextPath()+"/login");
-			//request.getRequestDispatcher("/login").forward(request, response);
+			// request.getRequestDispatcher("/login").forward(request,
+			// response);
+			response.sendRedirect(request.getContextPath() + "/login");
 		}
 	}
 
