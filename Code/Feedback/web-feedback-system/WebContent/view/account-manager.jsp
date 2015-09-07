@@ -84,10 +84,7 @@
 					</div>
 				</div>
 				<div class="col-md-9 custom_background_color">
-					<br>
-					<!-- làm nhỏ lại-->
-
-
+					<br>					
 					<div>
 						<div class="panel panel-primary">
 							<div class="panel-heading">Thay đổi mật khẩu</div>
