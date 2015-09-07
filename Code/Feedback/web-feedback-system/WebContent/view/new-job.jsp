@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="view/resource/css/theme_customize.css">
 </head>
 <body>
-	<div class="container-fluid">
+	<div class="container">
 		<!-- menu top -->
 		<nav
 			class="navbar navbar-inverse navbar-fixed-top custom_navbar_color">
@@ -23,19 +23,25 @@
 						<div class="navbar-header">
 							<img
 								src="http://thumbs.dreamstime.com/x/job-search-3d-icon-16095671.jpg"
-								class="img-circle navbar-brand" width="60" height="70">
-							<a class="navbar-brand custom_color_white"> RECOMMENDATION
+								class="img-circle navbar-brand" width="60" height="70"> <a
+								class="navbar-brand custom_color_white"> RECOMMENDATION
 								SYSTEM</a>
 						</div>
 					</div>
-					<div class="col-md-8">
+					<div class="col-md-7">
 						<div>
 							<ul class="nav navbar-nav  navbar-right">
 								<li><a href="#">Home</a></li>
-								<li><a href="#"><span class="glyphicon glyphicon-user"></span>
-										Xin chào, HIhIhi</a></li>
-								<li><a href="#"><span
-										class="glyphicon glyphicon-log-in"></span> Thoát</a></li>
+								<li class="dropdown"><a href="#" class="dropdown-toggle"
+									data-toggle="dropdown"> <span
+										class="glyphicon glyphicon-user"></span> Xin chào, ABC<span
+										class="caret"></span>
+								</a>
+									<ul class="dropdown-menu">
+										<li><a href="#">Thay đổi mật khẩu</a></li>
+										<li><a href="#"><span
+												class="glyphicon glyphicon-log-in"></span> Đăng xuất</a></li>
+									</ul></li>
 							</ul>
 						</div>
 					</div>
@@ -57,7 +63,8 @@
 						<br>
 						<div>
 							<ul class="nav nav-pills nav-stacked custom_font_bold">
-								<li class><a href="#"><span
+								<li class><a
+									href="#"><span
 										class="glyphicon glyphicon-thumbs-up"></span> CÔNG VIỆC MỚI
 										NHẤT</a></li>
 								<li class><a href="#"><span
@@ -65,8 +72,7 @@
 										TÂM</a></li>
 								<li class><a href="#"><span
 										class="glyphicon glyphicon-thumbs-up"></span> THÔNG BÁO</a></li>
-								<li class><a href="#"><span
-										class="glyphicon glyphicon-cog"></span> THIẾT LẬP HỆ THỐNG</a></li>
+
 								<li class><a href="#"><span
 										class="glyphicon glyphicon-list-alt"></span> XEM HỒ SƠ CỦA BẠN</a></li>
 								<li class><a href="#"><span
