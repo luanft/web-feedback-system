@@ -37,6 +37,7 @@ public class ModelAccount extends Model
 					account.numberReceiveEmail = rs.getString("NumberReceiveEmail");
 					account.isActive = rs.getBoolean("IsActive");
 					account.confirmCode = rs.getString("ConfirmCode");
+					account.avatar = rs.getString("Avatar");
 				} else
 					return null;
 			} catch (SQLException e)
@@ -96,7 +97,7 @@ public class ModelAccount extends Model
 
 	public void addAccount(dtoAccount account)
 	{
-		String sql = "insert into `account` (`UserName`, `Email`, `Password`, `AccountType`, `TimeReceiveEmail`, `NumberReceiveEmail`, `IsActive`,`ConfirmCode`) values (?,?,?,?,?,?,?,?)";
+		String sql = "insert into `account` (`UserName`, `Email`, `Password`, `AccountType`, `TimeReceiveEmail`, `NumberReceiveEmail`, `IsActive`,`ConfirmCode`,`Avatar`) values (?,?,?,?,?,?,?,?,?)";
 		connection.connect();
 		try
 		{
@@ -109,6 +110,7 @@ public class ModelAccount extends Model
 			stm.setString(6, account.numberReceiveEmail);
 			stm.setInt(7, 0);
 			stm.setString(8, account.confirmCode);
+			stm.setString(9, account.avatar);
 			connection.setPrepareStatement(stm);
 			connection.writeSecure();
 			connection.close();
@@ -136,6 +138,7 @@ public class ModelAccount extends Model
 				account.timeReceiveEmail = rs.getString("TimeReceiveEmail");
 				account.numberReceiveEmail = rs.getString("NumberReceiveEmail");
 				account.confirmCode = rs.getString("ConfirmCode");
+				account.avatar = rs.getString("Avatar");
 			} catch (SQLException e)
 			{
 				// TODO Auto-generated catch block

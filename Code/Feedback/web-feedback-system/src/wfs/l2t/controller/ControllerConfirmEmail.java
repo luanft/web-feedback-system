@@ -43,11 +43,8 @@ public class ControllerConfirmEmail extends HttpServlet
 		ModelAccount md = new ModelAccount();
 		if (md.checkConfirmCode(code))
 		{
-			request.setAttribute(
-					"Message",
-					"Xác thực email thành công. Vui lòng đăng nhập tại <a href= 'http://localhost:8080/web-feedback-system/login'> recsys.com </a> để sử dụng hệ thống! ");
 			md.updateActivation(1);
-			response.sendRedirect(request.getContextPath() + "/notification");
+			response.sendRedirect(request.getContextPath() + "/ControllerLogin");
 		}
 	}
 

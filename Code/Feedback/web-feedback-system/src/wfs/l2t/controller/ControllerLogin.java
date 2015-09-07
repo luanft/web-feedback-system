@@ -84,7 +84,7 @@ public class ControllerLogin extends HttpServlet
 
 		} else
 		{
-			request.getRequestDispatcher("view/login.jsp").include(request, response);
+			response.sendRedirect(request.getContextPath() + "/ControllerLogin");
 		}
 	}
 
@@ -102,11 +102,11 @@ public class ControllerLogin extends HttpServlet
 				{
 					// check if user want to keep login
 					if (request.getParameter("login-check") != null)
-					{						
+					{
 						Cookie cookieUserId = new Cookie("jobrec_login_cookie", account.accountId);
 						cookieUserId.setMaxAge(3600);
 						response.addCookie(cookieUserId);
-						
+
 					} else
 					{
 						Cookie cookieUserId = new Cookie("jobrec_login_cookie", account.accountId);
@@ -114,14 +114,16 @@ public class ControllerLogin extends HttpServlet
 						response.addCookie(cookieUserId);
 					}
 					// login successful
-					//request.getRequestDispatcher("view/new-job.jsp").forward(request, response);
-					response.sendRedirect(request.getContextPath()+"/home");
+					// request.getRequestDispatcher("view/new-job.jsp").forward(request,
+					// response);
+					response.sendRedirect(request.getContextPath() + "/home");
 				} else
 				{
 					// not activate account
 					request.setAttribute("Message",
 							"Bạn chưa xác thực email. Vui lòng xác thực email để kích hoạt tài khoản của bạn!");
 					request.getRequestDispatcher("view/notification.jsp").include(request, response);
+					// response.sendRedirect(request.getContextPath() + "/");
 				}
 			} else
 			{
@@ -153,6 +155,7 @@ public class ControllerLogin extends HttpServlet
 			account.confirmCode = UUID.randomUUID().toString();
 			mdLogin.addAccount(account);
 		}
+
 		// verify by email
 		// reads SMTP server setting from web.xml file
 		ServletContext context = getServletContext();

@@ -40,8 +40,6 @@ public class ControllerCheckRegister extends HttpServlet
 		response.setContentType("text/html; charset=UTF-8");
 		if (request.getParameter("email") != null)
 			checkEmail(request, response);
-		if (request.getParameter("pass") != null && request.getParameter("rpass") != null)
-			checkMatchPassword(request, response);
 	}
 
 	/**
@@ -71,20 +69,5 @@ public class ControllerCheckRegister extends HttpServlet
 				response.getWriter().write("Email này đã được đăng ký!");
 			}
 		}
-	}
-
-	private void checkMatchPassword(HttpServletRequest request, HttpServletResponse response) throws ServletException,
-			IOException
-	{
-		String s = request.getParameter("pass");
-		String ss = request.getParameter("rpass");
-		if (s.equals(ss))
-		{
-			response.getWriter().write("");
-		} else
-		{
-			response.getWriter().write("Mật khẩu không trùng khớp!");
-		}
-
 	}
 }

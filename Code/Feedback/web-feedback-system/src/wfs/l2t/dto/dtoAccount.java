@@ -11,5 +11,5 @@ public class dtoAccount
 	public String numberReceiveEmail = "";
 	public Boolean isActive = false;
 	public String confirmCode = "";
-
+	public String avatar = "";
 }
