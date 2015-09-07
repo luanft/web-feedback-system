@@ -1,6 +1,7 @@
 package wfs.l2t.controller;
 
 import java.io.IOException;
+import java.util.UUID;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -149,7 +150,7 @@ public class ControllerLogin extends HttpServlet
 			account.accountType = "employer".equals(accType) ? "employer" : "job-seeker";
 			account.timeReceiveEmail = "weekly";
 			account.numberReceiveEmail = "10";
-
+			account.confirmCode = UUID.randomUUID().toString();
 			mdLogin.addAccount(account);
 		}
 		// verify by email
@@ -161,7 +162,8 @@ public class ControllerLogin extends HttpServlet
 		String pass = context.getInitParameter("pass");
 		String recipient = request.getParameter("reg-email");
 		String subject = "Verify Account";
-		String content = "This is email to verify your account on: abc.xyz";
+		String content = "This is email to verify your account on: http://localhost:8080/web-feedback-system/ControllerConfirmEmail?code="
+				+ account.confirmCode;
 
 		String resultMessage = "";
 		try
