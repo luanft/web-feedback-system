@@ -83,7 +83,7 @@ public class ControllerLogin extends HttpServlet
 
 		} else
 		{
-			request.getRequestDispatcher("view/login.jsp").forward(request, response);
+			request.getRequestDispatcher("view/login.jsp").include(request, response);
 		}
 	}
 
@@ -101,46 +101,26 @@ public class ControllerLogin extends HttpServlet
 				{
 					// check if user want to keep login
 					if (request.getParameter("login-check") != null)
-					{
-						Cookie cookieEmail = new Cookie("cookieEmail", account.email);
-						cookieEmail.setMaxAge(3600);
-						response.addCookie(cookieEmail);
-						Cookie cookieUserName = new Cookie("cookieUserName", account.userName);
-						cookieUserName.setMaxAge(3600);
-						response.addCookie(cookieUserName);
-						Cookie cookiePassword = new Cookie("cookiePassword", account.password);
-						cookiePassword.setMaxAge(3600);
-						response.addCookie(cookiePassword);
-						Cookie cookieUserId = new Cookie("cookieUserId", account.accountId);
+					{						
+						Cookie cookieUserId = new Cookie("jobrec_login_cookie", account.accountId);
 						cookieUserId.setMaxAge(3600);
 						response.addCookie(cookieUserId);
-						Cookie cookieTimeReceiveEmail = new Cookie("cookieTimeReceiveEmail", account.timeReceiveEmail);
-						cookieTimeReceiveEmail.setMaxAge(3600);
-						response.addCookie(cookieTimeReceiveEmail);
-						Cookie cookieNumberReceiveEmail = new Cookie("cookieNumberReceiveEmail",
-								account.numberReceiveEmail);
-						cookieNumberReceiveEmail.setMaxAge(3600);
-						response.addCookie(cookieNumberReceiveEmail);
-						Cookie cookieIsActive = new Cookie("cookieIsActive", account.isActive.toString());
-						cookieIsActive.setMaxAge(3600);
-						response.addCookie(cookieIsActive);
-						Cookie cookieAccountType = new Cookie("cookieAccountType", account.accountType);
-						cookieAccountType.setMaxAge(3600);
-						response.addCookie(cookieAccountType);
+						
 					} else
 					{
-						Cookie c = new Cookie("cookieName", "anonymous User");
-						c.setMaxAge(3600);
-						response.addCookie(c);
+						Cookie cookieUserId = new Cookie("jobrec_login_cookie", account.accountId);
+						cookieUserId.setMaxAge(3600);
+						response.addCookie(cookieUserId);
 					}
 					// login successful
-					request.getRequestDispatcher("view/new-job.jsp").forward(request, response);
+					//request.getRequestDispatcher("view/new-job.jsp").forward(request, response);
+					response.sendRedirect(request.getContextPath()+"/home");
 				} else
 				{
 					// not activate account
 					request.setAttribute("Message",
 							"Bạn chưa xác thực email. Vui lòng xác thực email để kích hoạt tài khoản của bạn!");
-					request.getRequestDispatcher("view/notification.jsp").forward(request, response);
+					request.getRequestDispatcher("view/notification.jsp").include(request, response);
 				}
 			} else
 			{
@@ -152,7 +132,7 @@ public class ControllerLogin extends HttpServlet
 		// email do not exist
 		{
 			request.setAttribute("Message", "Sai email!");
-			request.getRequestDispatcher("view/login.jsp").forward(request, response);
+			request.getRequestDispatcher("view/login.jsp").include(request, response);
 		}
 	}
 
@@ -195,7 +175,7 @@ public class ControllerLogin extends HttpServlet
 		} finally
 		{
 			request.setAttribute("Message", resultMessage);
-			request.getRequestDispatcher("view/notification.jsp").forward(request, response);
+			request.getRequestDispatcher("view/notification.jsp").include(request, response);
 		}
 	}
 }

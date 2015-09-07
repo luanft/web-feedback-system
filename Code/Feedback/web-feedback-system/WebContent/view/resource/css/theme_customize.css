@@ -35,3 +35,8 @@
 pre {
     white-space: pre-wrap;
 }
+
+.custom_margin
+{
+	margin-right: 10px;
+}
