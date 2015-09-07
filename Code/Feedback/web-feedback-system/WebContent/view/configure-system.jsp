@@ -33,7 +33,7 @@
 								SYSTEM</a>
 						</div>
 					</div>
-					<div class="col-md-8">
+					<div class="col-md-7">
 						<div>
 							<ul class="nav navbar-nav  navbar-right">
 								<li><a href="#">Home</a></li>
@@ -56,7 +56,7 @@
 		<!-- chia trang thanh 2 cot -->
 
 		<div class="container-fluid">
-			<br> <br> <br>
+			<br> <br> 
 			<div class="row">
 				<div class="col-md-3">
 					<div data-spy="affix" data-offset-top="0">
@@ -69,7 +69,8 @@
 						<br>
 						<div>
 							<ul class="nav nav-pills nav-stacked custom_font_bold">
-								<li class><a href="#"><span
+								<li class><a
+									href="<%out.print(request.getContextPath() + "/home");%>"><span
 										class="glyphicon glyphicon-thumbs-up"></span> CÔNG VIỆC MỚI
 										NHẤT</a></li>
 								<li class><a href="#"><span
@@ -77,8 +78,7 @@
 										TÂM</a></li>
 								<li class><a href="#"><span
 										class="glyphicon glyphicon-thumbs-up"></span> THÔNG BÁO</a></li>
-								<li class><a href="#"><span
-										class="glyphicon glyphicon-cog"></span> THIẾT LẬP HỆ THỐNG</a></li>
+
 								<li class><a href="#"><span
 										class="glyphicon glyphicon-list-alt"></span> XEM HỒ SƠ CỦA BẠN</a></li>
 								<li class><a href="#"><span

@@ -6,10 +6,11 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <title>Web theme</title>
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="resource/bootstrap/css/bootstrap.min.css">
-<script src="resource/lib/jquery-2.1.4.min.js"></script>
-<script src="resource/bootstrap/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="resource/css/theme_customize.css">
+<link rel="stylesheet"
+	href="view/resource/bootstrap/css/bootstrap.min.css">
+<script src="view/resource/lib/jquery-2.1.4.min.js"></script>
+<script src="view/resource/bootstrap/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="view/resource/css/theme_customize.css">
 </head>
 <body>
 	<div class="container">
@@ -86,78 +87,74 @@
 					<br>
 					<!-- làm nhỏ lại-->
 
-					<div class="container-fluid">
-						<div class="row">
-							<div class="col-md-1"></div>
-							<div class="col-md-10">
-								<div>
-									<div class="panel panel-primary">
-										<div class="panel-heading">Thay đổi mật khẩu</div>
-										<div class="panel-body">
+
+					<div>
+						<div class="panel panel-primary">
+							<div class="panel-heading">Thay đổi mật khẩu</div>
+							<div class="panel-body">
+								<form role="form">
+									<div class="form-group">
+										<label for="pwd">Password:</label> <input type="password"
+											class="form-control" id="pwd">
+									</div>
+									<div class="form-group">
+										<label for="pwd">Password:</label> <input type="password"
+											class="form-control" id="pwd">
+									</div>
+									<button type="submit"
+										class="btn btn-primary navbar-right custom_margin">Cập
+										nhật mật khẩu</button>
+								</form>
+							</div>
+						</div>
+
+						<div class="panel panel-primary">
+							<div class="panel-heading">Thay đổi ảnh đại diện</div>
+							<div class="panel-body">
+								<div class="container-fluid">
+									<div class="row">
+										<div class="col-md-6">
+											<img
+												src="http://vui3g.com/files/posts/images/5-2014/girl-xinh-dan-toc-mong.jpg"
+												class="img-rounded col-md-offset-3" width="170" height="170">
+										</div>
+										<div class="col-md-6">
 											<form role="form">
 												<div class="form-group">
-													<label for="pwd">Password:</label> <input type="password"
-														class="form-control" id="pwd">
-												</div>
-												<div class="form-group">
-													<label for="pwd">Password:</label> <input type="password"
-														class="form-control" id="pwd">
-												</div>
-												<button type="submit"
-													class="btn btn-primary navbar-right custom_margin">Cập
-													nhật mật khẩu</button>
-											</form>
-										</div>
-									</div>
-
-									<div class="panel panel-primary">
-										<div class="panel-heading">Thay đổi ảnh đại diện</div>
-										<div class="panel-body">
-											<div class="container-fluid">
-												<div class="row">
-													<div class="col-md-6">
-														<img
-															src="http://vui3g.com/files/posts/images/5-2014/girl-xinh-dan-toc-mong.jpg"
-															class="img-rounded col-md-offset-3" width="170"
-															height="170">
-													</div>
-													<div class="col-md-6">
-														<form role="form">
-															<div class="form-group">
-																<label for="pwd">Url ảnh:</label> <input type="file"
-																	accept="image/*" class="file" id="pwd">
-															</div>
-															<button type="submit"
-																class="btn btn-primary navbar-right custom_margin">Thay
-																đổi</button>
-														</form>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-
-									<div class="panel panel-primary">
-										<div class="panel-heading">Thay đổi tên truy cập</div>
-										<div class="panel-body">
-
-											<form role="form">
-												<div class="form-group">
-													<label for="pwd">Tên truy cập mới:</label> <input
-														type="text" class="form-control" id="pwd">
+													<label for="pwd">Url ảnh:</label> <input type="file"
+														accept="image/*" class="file" id="pwd">
 												</div>
 												<button type="submit"
 													class="btn btn-primary navbar-right custom_margin">Thay
 													đổi</button>
 											</form>
-
 										</div>
 									</div>
 								</div>
 							</div>
-							<div class="col-md-1"></div>
+						</div>
+
+						<div class="panel panel-primary">
+							<div class="panel-heading">Thay đổi tên truy cập</div>
+							<div class="panel-body">
+
+								<form role="form">
+									<div class="form-group">
+										<label for="pwd">Tên truy cập mới:</label> <input type="text"
+											class="form-control" id="pwd">
+									</div>
+									<button type="submit"
+										class="btn btn-primary navbar-right custom_margin">Thay
+										đổi</button>
+								</form>
+
+							</div>
 						</div>
 					</div>
+
+
+
+
 				</div>
 			</div>
 		</div>
