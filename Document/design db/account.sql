@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `account` (
   `NumberReceiveEmail` int(11) DEFAULT NULL,
   `IsActive` tinyint(1) DEFAULT NULL,
   `ConfirmCode` text NOT NULL,
-  `avatar` text NOT NULL
+  `Avatar` text NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 --
