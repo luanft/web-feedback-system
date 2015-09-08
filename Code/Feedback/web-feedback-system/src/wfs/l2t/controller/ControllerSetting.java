@@ -11,8 +11,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import sun.misc.Cache;
 import wfs.l2t.model.ModelAccount;
 import wfs.l2t.model.ModelCare;
 
