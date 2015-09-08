@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+<%@page import="wfs.l2t.dto.dtoAccount"%>
+<%@ page import="wfs.l2t.model.ModelAccount"%>
+
+
+<%
+	String userId = (String) request.getAttribute("user");
+	ModelAccount account = new ModelAccount();
+	dtoAccount dtoAcc = account.getAccountById(userId);
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -57,7 +66,7 @@
 						<div class="container-fluid col-md-offset-0">
 							<h4>Xin chào!</h4>
 							<img
-								src="http://vui3g.com/files/posts/images/5-2014/girl-xinh-dan-toc-mong.jpg"
+								src="<%out.print(request.getContextPath() + dtoAcc.avatar);%>"
 								class="img-rounded" width="170" height="170">
 						</div>
 						<br>
@@ -84,21 +93,35 @@
 					</div>
 				</div>
 				<div class="col-md-9 custom_background_color">
-					<br>					
+					<br>
+					<%
+						String error = (String) request.getAttribute("error_message");
+						if (error != null) {
+							out.print("<div class=\"alert alert-danger fade in\">");
+							out.print("<a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>");
+							out.print("<strong>Lỗi!</strong> " + error + " </div>");
+						}
+					%>
+
 					<div>
 						<div class="panel panel-primary">
 							<div class="panel-heading">Thay đổi mật khẩu</div>
 							<div class="panel-body">
-								<form role="form">
+								<form role="form" method="post" action="account">
 									<div class="form-group">
-										<label for="pwd">Password:</label> <input type="password"
-											class="form-control" id="pwd">
+										<label for="pwd">Mật khẩu cũ:</label> <input type="password"
+											name="fcp-old-pass" class="form-control" id="pwd">
 									</div>
 									<div class="form-group">
-										<label for="pwd">Password:</label> <input type="password"
-											class="form-control" id="pwd">
+										<label for="pwd">Mật khẩu mới:</label> <input type="password"
+											name="fcp-new-pass" class="form-control" id="pwd">
 									</div>
-									<button type="submit"
+									<div class="form-group">
+										<label for="pwd">Xác nhận mật khẩu mới:</label> <input
+											type="password" name="fcp-confirm-pass" class="form-control"
+											id="pwd">
+									</div>
+									<button type="submit" name="submit" value="fcp-btn-change"
 										class="btn btn-primary navbar-right custom_margin">Cập
 										nhật mật khẩu</button>
 								</form>
@@ -112,11 +135,11 @@
 									<div class="row">
 										<div class="col-md-6">
 											<img
-												src="http://vui3g.com/files/posts/images/5-2014/girl-xinh-dan-toc-mong.jpg"
+												src="<%out.print(request.getContextPath() + dtoAcc.avatar);%>"
 												class="img-rounded col-md-offset-3" width="170" height="170">
 										</div>
 										<div class="col-md-6">
-											<form role="form">
+											<form role="form" enctype="multipart/form-data">
 												<div class="form-group">
 													<label for="pwd">Url ảnh:</label> <input type="file"
 														accept="image/*" class="file" id="pwd">
