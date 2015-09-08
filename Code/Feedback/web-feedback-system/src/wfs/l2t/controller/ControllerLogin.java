@@ -84,7 +84,7 @@ public class ControllerLogin extends HttpServlet
 
 		} else
 		{
-			response.sendRedirect(request.getContextPath() + "/ControllerLogin");
+			response.sendRedirect(request.getContextPath() + "/Login");
 		}
 	}
 
@@ -123,13 +123,12 @@ public class ControllerLogin extends HttpServlet
 					request.setAttribute("Message",
 							"Bạn chưa xác thực email. Vui lòng xác thực email để kích hoạt tài khoản của bạn!");
 					request.getRequestDispatcher("view/notification.jsp").include(request, response);
-					// response.sendRedirect(request.getContextPath() + "/");
 				}
 			} else
 			{
 				// login fail - password do not match
 				request.setAttribute("Message", "Sai mật khẩu!");
-				request.getRequestDispatcher("view/login.jsp").forward(request, response);
+				request.getRequestDispatcher("view/login.jsp").include(request, response);
 			}
 		} else
 		// email do not exist

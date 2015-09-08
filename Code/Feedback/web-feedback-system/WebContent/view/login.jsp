@@ -15,12 +15,12 @@
 <body>
 	<div class="container-fluid" style="background-color: #D6D6FF;">
 		<div class="container-fluid row" style="background-color: #00CCFF;">
-			<div class="col-lg-7">
+			<div class="col-md-7">
 				<h1 class="text-center">JOB RECCOMENDATION SYSTEM</h1>
 			</div>
-			<div class="col-lg-5 row">
-				<form class="form" role="form" action="ControllerLogin" method="post">
-					<div class="col-lg-5">
+			<div class="col-md-5 row">
+				<form class="form" role="form" action="login" method="post">
+					<div class="col-md-5">
 						<div style="margin-top: 5px" class="form-group checkbox">
 							<lable> Email </lable>
 							<input type="email" class="form-control" placeholder="Email" name="login-email"> <input
@@ -34,7 +34,7 @@
 							</p>
 						</div>
 					</div>
-					<div class="col-lg-5">
+					<div class="col-md-5">
 						<div style="margin-top: 5px" class="form-group">
 							<lable for="pwd"> Mật khẩu</lable>
 							<input type="password" class="form-control" name="login-pass"> <a href="./view/forgot-password.jsp"
@@ -47,7 +47,7 @@
 							window.location.href= "/view/forgot-password.jps";
 						}
 					</script>
-					<div class="col-lg-2">
+					<div class="col-md-2">
 						<div style="margin-top: 25px;"></div>
 						<div>
 							<button type="submit" name="submit" class="btn btn-primary" value="login">Đăng nhập</button>
@@ -57,11 +57,11 @@
 			</div>
 		</div>
 		<div class="container-fluid row">
-			<div class="col-lg-7">
+			<div class="col-md-7">
 				<h1>Welcome to Job Recommendation System!</h1>
 				<h2>Getting started to join world employment :D</h2>
 			</div>
-			<div class="col-lg-5">
+			<div class="col-md-5">
 				<h2>Sign up for free!</h2>
 				<form action="ControllerLogin" class="form" role="form" method="post" id="reg-form">
 					<div class="form-group">
@@ -90,14 +90,15 @@
 							>Người tìm việc
 							</label>
 						</div>
-						<div class="form-group">
+						<div class="form-group" id = "reg-pass">
 							<lable>Mật khẩu</lable>
 							<input name="reg-password" type="password" placeholder="mật khẩu" class="form-control"
 								id="reg-pwd"
 							>
-							<div id="txtHintpwd"></div>
-						</div>
-						<div class="form-group">
+							<div >
+								<i id="txtHintpwd" style="color: red;"></i>
+							</div>
+						
 							<lable>Nhập lại mật khẩu</lable>
 							<input name="reg-re-type-password" type="password" placeholder="mật khẩu"
 								class="form-control" id="reg-rpwd"
