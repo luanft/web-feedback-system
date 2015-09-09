@@ -1,13 +1,32 @@
 package wfs.l2t.controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.util.Collection;
+import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import wfs.l2t.dto.dtoAccount;
+import wfs.l2t.model.ModelAccount;
+import wfs.l2t.utility.LoginUtility;
+
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.io.FilenameUtils;
+
+import com.sun.mail.imap.protocol.Item;
 
 /**
  * Servlet implementation class ControllerAccount
@@ -16,35 +35,51 @@ import javax.servlet.http.HttpServletResponse;
 public class ControllerAccount extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	private LoginUtility loginUtility;
+
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public ControllerAccount() {
 		super();
 		// TODO Auto-generated constructor stub
+		loginUtility = new LoginUtility();
 	}
 
-	private String currentUserId = "";
+	private void uploadAvatar(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		PrintWriter wr = response.getWriter();
 
-	private Boolean isLoged(HttpServletRequest request,
-			HttpServletResponse response) {
+		// process for change avatar
+		if (ServletFileUpload.isMultipartContent(request)) {
 
-		Cookie[] cookie = request.getCookies();
-		Boolean isLogged = false;
-		if (cookie == null)
-			return false;
-		for (int i = 0; i < cookie.length; i++) {
-			switch (cookie[i].getName()) {
-			case "jobrec_login_cookie":
-				isLogged = true;
-				this.currentUserId = cookie[i].getValue();
-				break;
+			// Create a factory for disk-based file items
+			DiskFileItemFactory factory = new DiskFileItemFactory();
 
-			default:
-				break;
+			ServletFileUpload fileUpload = new ServletFileUpload(factory);
+			List<FileItem> files = fileUpload.parseRequest(request);
+			for (FileItem i : files) {
+				if (!i.isFormField()) {
+					String path = this.getServletContext().getRealPath("/");
+					File f = new File(path + "/view/resource/image/avatar/");
+					int list = f.listFiles().length;
+					i.write(new File(path
+							+ "/view/resource/image/avatar/"
+							+ list
+							+ "."
+							+ FilenameUtils.getExtension(i.getName())
+									.toUpperCase()));
+
+					ModelAccount account = new ModelAccount();
+					account.changeAvatar(this.loginUtility.getLoggedUserId(),
+							"/view/resource/image/avatar/"
+									+ list
+									+ "."
+									+ FilenameUtils.getExtension(i.getName())
+											.toUpperCase());
+				}
 			}
 		}
-		return isLogged;
 	}
 
 	/**
@@ -58,9 +93,9 @@ public class ControllerAccount extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 
-		if (isLoged(request, response)) {
+		if (loginUtility.isLogged(request, response)) {
 
-			request.setAttribute("user", this.currentUserId);
+			request.setAttribute("user", loginUtility.getLoggedUserId());
 			request.getRequestDispatcher("view/account-manager.jsp").include(
 					request, response);
 		} else {
@@ -70,6 +105,43 @@ public class ControllerAccount extends HttpServlet {
 		}
 	}
 
+	String errorMessage = null;
+
+	// change password
+	private void changePassword(HttpServletRequest request,
+			HttpServletResponse response) {
+
+		String old_pass = request.getParameter("fcp-old-pass");
+		String new_pass = request.getParameter("fcp-new-pass");
+		String confirm_pass = request.getParameter("fcp-confirm-pass");
+
+		ModelAccount account = new ModelAccount();
+		dtoAccount dto = account.getAccountById(loginUtility.getLoggedUserId());
+		if (dto.password.equals(old_pass)) {
+
+			if (new_pass.equals(confirm_pass)) {
+
+				// thay đổi pass ở đây
+				account.updatePassword(loginUtility.getLoggedUserId(), new_pass);
+
+			} else {
+				errorMessage = "Mật khẩu mới không khớp!";
+			}
+
+		} else {// nofity error: password not match
+			errorMessage = "Mật khẩu cũ không khớp!";
+		}
+
+	}
+
+	public Boolean changeUserName(HttpServletRequest request,
+			HttpServletResponse response) {
+		String newUserName = request.getParameter("fcn-new-user-name");
+		ModelAccount account = new ModelAccount();
+		return account.changeUserName(this.loginUtility.getLoggedUserId(),
+				newUserName);
+	}
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -77,6 +149,58 @@ public class ControllerAccount extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+
+		if (!loginUtility.isLogged(request, response)) {
+			response.sendRedirect(request.getContextPath() + "/login");
+		}
+
+		this.errorMessage = null;
+
+		request.setAttribute("user", loginUtility.getLoggedUserId());
+
+		// change password from is submited
+		String change_pass = request.getParameter("btnChangePass");
+		// change user name
+		String changeUserName = request.getParameter("changeUserName");
+		// process for change password
+		if (change_pass != null) {
+			changePassword(request, response);
+			request.setAttribute("user", loginUtility.getLoggedUserId());
+			request.setAttribute("error_message", errorMessage);
+			request.getRequestDispatcher("view/account-manager.jsp").include(
+					request, response);
+			return;
+		}
+
+		if (changeUserName != null) {
+			this.changeUserName(request, response);
+
+			request.setAttribute("user", loginUtility.getLoggedUserId());
+			request.getRequestDispatcher("view/account-manager.jsp").include(
+					request, response);
+			return;
+		}
+		// change avatar from is submited
+		try {
+			uploadAvatar(request, response);
+			request.setAttribute("user", loginUtility.getLoggedUserId());
+			request.getRequestDispatcher("view/account-manager.jsp").include(
+					request, response);
+			// String path = this.getServletContext().getRealPath("/");
+			// response.getWriter().print(path);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			request.setAttribute("user", loginUtility.getLoggedUserId());
+			request.setAttribute("error_message",
+					"Lỗi xảy ra khi thay thế avatar");
+			request.getRequestDispatcher("view/account-manager.jsp").include(
+					request, response);
+			e.printStackTrace();
+		}
 	}
 
 }
