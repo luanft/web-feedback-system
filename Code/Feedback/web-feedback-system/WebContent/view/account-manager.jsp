@@ -43,7 +43,7 @@
 								<li><a href="#">Home</a></li>
 								<li class="dropdown"><a href="#" class="dropdown-toggle"
 									data-toggle="dropdown"> <span
-										class="glyphicon glyphicon-user"></span> Xin chào, ABC<span
+										class="glyphicon glyphicon-user"></span> Xin chào <%=dtoAcc.userName %><span
 										class="caret"></span>
 								</a>
 									<ul class="dropdown-menu">
@@ -102,7 +102,6 @@
 							out.print("<strong>Lỗi!</strong> " + error + " </div>");
 						}
 					%>
-
 					<div>
 						<div class="panel panel-primary">
 							<div class="panel-heading">Thay đổi mật khẩu</div>
@@ -121,13 +120,13 @@
 											type="password" name="fcp-confirm-pass" class="form-control"
 											id="pwd">
 									</div>
-									<button type="submit" name="submit" value="fcp-btn-change"
+									<button type="submit" name="btnChangePass"
+										value="fcp-btn-change"
 										class="btn btn-primary navbar-right custom_margin">Cập
 										nhật mật khẩu</button>
 								</form>
 							</div>
 						</div>
-
 						<div class="panel panel-primary">
 							<div class="panel-heading">Thay đổi ảnh đại diện</div>
 							<div class="panel-body">
@@ -139,35 +138,38 @@
 												class="img-rounded col-md-offset-3" width="170" height="170">
 										</div>
 										<div class="col-md-6">
-											<form role="form" enctype="multipart/form-data">
+											<form role="form" method="post" action="account"
+												enctype="multipart/form-data">
 												<div class="form-group">
-													<label for="pwd">Url ảnh:</label> <input type="file"
-														accept="image/*" class="file" id="pwd">
+													<label for="file">Url ảnh:</label> <input type="file"
+														accept="image/*" class="file" name="image-avatar"
+														id="file">
 												</div>
-												<button type="submit"
-													class="btn btn-primary navbar-right custom_margin">Thay
-													đổi</button>
+												<div class="form-group">
+													<button type="submit" name="btnChangeAvatar"
+														value="fca-btn-change"
+														class="btn btn-primary navbar-right custom_margin">Thay
+														đổi</button>
+												</div>
+
 											</form>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-
 						<div class="panel panel-primary">
 							<div class="panel-heading">Thay đổi tên truy cập</div>
 							<div class="panel-body">
-
-								<form role="form">
+								<form role="form" method="post" action="account">
 									<div class="form-group">
-										<label for="pwd">Tên truy cập mới:</label> <input type="text"
-											class="form-control" id="pwd">
+										<label for="pwd">Tên truy cập mới:</label> <input type="text" name="fcn-new-user-name"
+											class="form-control" value="<%=dtoAcc.userName %>" id="pwd">
 									</div>
-									<button type="submit"
+									<button type="submit" name="changeUserName"
 										class="btn btn-primary navbar-right custom_margin">Thay
 										đổi</button>
 								</form>
-
 							</div>
 						</div>
 					</div>
