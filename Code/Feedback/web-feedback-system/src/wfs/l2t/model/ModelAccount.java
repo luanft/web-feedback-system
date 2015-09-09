@@ -172,5 +172,38 @@ public class ModelAccount extends Model
 		}
 		return false;
 	}
+	
+	public Boolean updatePassword(String userId, String password) {
+		if (this.connection.connect()) {
+			String sql = "UPDATE `account` SET `Password`='" + password
+					+ "' WHERE `AccountId`=" + userId;
+			Boolean rs = this.connection.write(sql);
+			this.connection.close();
+			return rs;
+		}
+		return false;
+	}
 
+	public Boolean changeAvatar(String id, String avatar)
+	{
+		String sql = "UPDATE `account` SET `Avatar`='"+avatar+"' WHERE `AccountId`="+id;		
+		if (this.connection.connect()) {			
+			Boolean rs = this.connection.write(sql);
+			this.connection.close();
+			return rs;
+		}
+		return false;
+	}
+	
+	
+	public Boolean changeUserName(String id, String name)
+	{
+		String sql = "UPDATE `account` SET `UserName`='"+name+"' WHERE `AccountId`="+id;		
+		if (this.connection.connect()) {			
+			Boolean rs = this.connection.write(sql);
+			this.connection.close();
+			return rs;
+		}
+		return false;
+	}
 }
