@@ -1,4 +1,13 @@
+<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page import="wfs.l2t.dto.dtoJob"%>
+<%@ page import="wfs.l2t.model.ModelJob"%>
+<%@ page import="java.util.List"%>
+<%@page import="java.util.*"%>
+<%
+	ModelJob mdj = new ModelJob();
+	List<dtoJob> jobList = mdj.getJob(0);
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,8 +15,9 @@
 <title>Recommendation System</title>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="view/resource/bootstrap/css/bootstrap.min.css">
-<script src="view/resource/lib/jquery-2.1.4.min.js" async></script>
-<script src="view/resource/bootstrap/js/bootstrap.min.js" async></script>
+<script src="view/resource/lib/jquery-2.1.4.min.js" ></script>
+<script src="view/resource/bootstrap/js/bootstrap.min.js" ></script>
+
 <link rel="stylesheet" href="view/resource/css/theme_customize.css">
 </head>
 <body>
@@ -56,214 +66,78 @@
 						<br>
 						<div>
 							<ul class="nav nav-pills nav-stacked custom_font_bold">
-								<li class><a href="#"><span class="glyphicon glyphicon-thumbs-up"></span> CÔNG VIỆC
-										MỚI NHẤT</a></li>
-								<li class><a href="#"><span class="glyphicon glyphicon-thumbs-up"></span> LĨNH VỰC
-										QUAN TÂM</a></li>
-								<li class><a href="#"><span class="glyphicon glyphicon-thumbs-up"></span> THÔNG BÁO</a></li>
-								<li class><a href="#"><span class="glyphicon glyphicon-list-alt"></span> XEM HỒ SƠ
-										CỦA BẠN</a></li>
-								<li class><a href="#"><span class="glyphicon glyphicon-question-sign"></span> TRỢ
-										GIÚP</a></li>
-								<li class><a href="#"><span class="glyphicon glyphicon-envelope"></span> FEEDBACK</a></li>
+								<li ><a href="#"><span class="glyphicon glyphicon-thumbs-up"></span> CÔNG VIỆC	MỚI NHẤT</a></li>
+								<li ><a href="#"><span class="glyphicon glyphicon-thumbs-up"></span> LĨNH VỰC QUAN TÂM</a></li>
+								<li ><a href="#"><span class="glyphicon glyphicon-thumbs-up"></span> THÔNG BÁO</a></li>
+								<li ><a href="#"><span class="glyphicon glyphicon-list-alt"></span> XEM HỒ SƠ CỦA BẠN</a></li>
+								<li ><a href="#"><span class="glyphicon glyphicon-question-sign"></span> TRỢ GIÚP</a></li>
+								<li ><a href="#"><span class="glyphicon glyphicon-envelope"></span> FEEDBACK</a></li>
 							</ul>
 						</div>
 					</div>
 				</div>
 				<div class="col-md-9 custom_background_color panel-group">
 					<br>
-					<div class="panel panel-info">
-						<div class="panel-heading">
-							<a id="see-more" class="btn btn-link"> <b><%=request.getAttribute("jobTitle")%></b></a>
-						</div>
-						<div class="panel-body">
-							<div class="row">
-								<div class="company">
-									<pre>Công ty: <%=request.getAttribute("company")%></pre>
-								</div>
-								<div class="location">
-									<pre>Địa chỉ: <%=request.getAttribute("location")%></pre>
-								</div>
-								<div class="salary">
-									<pre><%=request.getAttribute("salary")%></pre>
-								</div>
-								<div id="short-description">
-									<pre>We are looking for a talented Ruby on Rails Developer who wants to work with new Developers in an interactive working Environment. If you are young,...</pre>
-								</div>
-								<div id="full-info" class="collapse">
-									<div class="description">
-										<pre>Description:
-<%=request.getAttribute("description")%>
-										</pre>
-									</div>
-									<div class="requirement">
-										<pre>Requirement:
-<%=request.getAttribute("requirement")%> </pre>
-									</div>
-									<div class="benifit">
-										<pre>Benifit:
-<%=request.getAttribute("benifit")%></pre>
-									</div>
-									<div class="expired">
-										<pre>Expired:<%=request.getAttribute("expired")%></pre>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="panel-footer">
-							<label>Bạn thấy công việc này có phù hợp với bạn không?</label> <a href="#"
-								class="btn btn-default glyphicon glyphicon-thumbs-up" data-toggle="tooltip"
-								title="Việc này phù hợp với tôi!"
-							></a> <a href="#" class="btn btn-default glyphicon glyphicon-thumbs-down" data-toggle="tooltip"
-								title="Việc này không hợp, bỏ đi!" style="margin-left: 8px; margin-right: 8px;"
-							></a>
-						</div>
-					</div>
-					<div class="panel panel-info">
-						<div class="panel-heading">
-							<a id="see-more" class="btn btn-link"> <b><%=request.getAttribute("jobTitle")%></b></a>
-						</div>
-						<div class="panel-body">
-							<div class="row">
-								<div class="company">
-									<pre>Công ty: <%=request.getAttribute("company")%></pre>
-								</div>
-								<div class="location">
-									<pre>Địa chỉ: <%=request.getAttribute("location")%></pre>
-								</div>
-								<div class="salary">
-									<pre><%=request.getAttribute("salary")%></pre>
-								</div>
-								<div id="short-description">
-									<pre>We are looking for a talented Ruby on Rails Developer who wants to work with new Developers in an interactive working Environment. If you are young,...</pre>
-								</div>
-								<div id="full-info" class="collapse">
-									<div class="description">
-										<pre>Description:
-<%=request.getAttribute("description")%>
-										</pre>
-									</div>
-									<div class="requirement">
-										<pre>Requirement:
-<%=request.getAttribute("requirement")%> </pre>
-									</div>
-									<div class="benifit">
-										<pre>Benifit:
-<%=request.getAttribute("benifit")%></pre>
-									</div>
-									<div class="expired">
-										<pre>Expired:<%=request.getAttribute("expired")%></pre>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="panel-footer">
-							<label>Bạn thấy công việc này có phù hợp với bạn không?</label> <a href="#"
-								class="btn btn-default glyphicon glyphicon-thumbs-up" data-toggle="tooltip"
-								title="Việc này phù hợp với tôi!"
-							></a> <a href="#" class="btn btn-default glyphicon glyphicon-thumbs-down" data-toggle="tooltip"
-								title="Việc này không hợp, bỏ đi!" style="margin-left: 8px; margin-right: 8px;"
-							></a>
-						</div>
-					</div>
-					<div class="panel panel-info">
-						<div class="panel-heading">
-							<a id="see-more" class="btn btn-link"> <b><%=request.getAttribute("jobTitle")%></b></a>
-						</div>
-						<div class="panel-body">
-							<div class="row">
-								<div class="company">
-									<pre>Công ty: <%=request.getAttribute("company")%></pre>
-								</div>
-								<div class="location">
-									<pre>Địa chỉ: <%=request.getAttribute("location")%></pre>
-								</div>
-								<div class="salary">
-									<pre><%=request.getAttribute("salary")%></pre>
-								</div>
-								<div id="short-description">
-									<pre>We are looking for a talented Ruby on Rails Developer who wants to work with new Developers in an interactive working Environment. If you are young,...</pre>
-								</div>
-								<div id="full-info" class="collapse">
-									<div class="description">
-										<pre>Description:
-<%=request.getAttribute("description")%>
-										</pre>
-									</div>
-									<div class="requirement">
-										<pre>Requirement:
-<%=request.getAttribute("requirement")%> </pre>
-									</div>
-									<div class="benifit">
-										<pre>Benifit:
-<%=request.getAttribute("benifit")%></pre>
-									</div>
-									<div class="expired">
-										<pre>Expired:<%=request.getAttribute("expired")%></pre>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="panel-footer">
-							<label>Bạn thấy công việc này có phù hợp với bạn không?</label> <a href="#"
-								class="btn btn-default glyphicon glyphicon-thumbs-up" data-toggle="tooltip"
-								title="Việc này phù hợp với tôi!"
-							></a> <a href="#" class="btn btn-default glyphicon glyphicon-thumbs-down" data-toggle="tooltip"
-								title="Việc này không hợp, bỏ đi!" style="margin-left: 8px; margin-right: 8px;"
-							></a>
-						</div>
-					</div>
-					<div class="panel panel-info">
-						<div class="panel-heading">
-							<a id="see-more" class="btn btn-link"> <b><%=request.getAttribute("jobTitle")%></b></a>
-						</div>
-						<div class="panel-body">
-							<div class="row">
-								<div class="company">
-									<pre>Công ty: <%=request.getAttribute("company")%></pre>
-								</div>
-								<div class="location">
-									<pre>Địa chỉ: <%=request.getAttribute("location")%></pre>
-								</div>
-								<div class="salary">
-									<pre><%=request.getAttribute("salary")%></pre>
-								</div>
-								<div id="short-description">
-									<pre>We are looking for a talented Ruby on Rails Developer who wants to work with new Developers in an interactive working Environment. If you are young,...</pre>
-								</div>
-								<div id="full-info" class="collapse">
-									<div class="description">
-										<pre>Description:
-<%=request.getAttribute("description")%>
-										</pre>
-									</div>
-									<div class="requirement">
-										<pre>Requirement:
-<%=request.getAttribute("requirement")%> </pre>
-									</div>
-									<div class="benifit">
-										<pre>Benifit:
-<%=request.getAttribute("benifit")%></pre>
-									</div>
-									<div class="expired">
-										<pre>Expired:<%=request.getAttribute("expired")%></pre>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="panel-footer">
-							<label>Bạn thấy công việc này có phù hợp với bạn không?</label> <a href="#"
-								class="btn btn-default glyphicon glyphicon-thumbs-up" data-toggle="tooltip"
-								title="Việc này phù hợp với tôi!"
-							></a> <a href="#" class="btn btn-default glyphicon glyphicon-thumbs-down" data-toggle="tooltip"
-								title="Việc này không hợp, bỏ đi!" style="margin-left: 8px; margin-right: 8px;"
-							></a>
-						</div>
-					</div>
+					<%
+					
+						dtoJob job = new dtoJob();
+						for (int i = 0; i < jobList.size(); i++)
+						{
+							job = jobList.get(i);
+							out.print("<div class=\"panel panel-info\">");
+							out.print("<div class='panel-heading'>");
+							out.print("<a id=\"see-more" + job.jobId + "\" class=\"btn btn-link\"onclick=\"myCollapse('"+job.jobId+"')\"> <b>" + job.jobName + "</b></a>");
+							out.print("</div>");
+							out.print("<div class='panel-body'>");
+							out.print("<div class='row'>");
+							out.print("<div class='company'>");
+							out.print("<pre>Công ty: " + job.company + "</pre>");
+							out.print("</div>");
+							out.print("<div class='location'>");
+							out.print("<pre>Địa chỉ: " + job.location + "</pre>");
+							out.print("</div>");
+							out.print("<div class='salary'>");
+							out.print("<pre>Salary: " + job.salary + " </pre>");
+							out.print("</div>");
+							out.print("<div id='short-description"+job.jobId+"'>");
+							out.print("<pre>We are looking for a talented Ruby on Rails Developer who wants to work with new Developers in an interactive working Environment. If you are young,...</pre>");
+							out.print("</div>");
+							out.print("<div id='full-info"+job.jobId+"' class='custom_hiden'>");
+							out.print("<div class='description'>");
+							out.print("<pre>Description:");
+							out.print(job.description);
+							out.print("</pre>");
+							out.print("</div>");
+							out.print("<div class='requirement'>");
+							out.print("<pre>Requirement:");
+							out.print(job.requirement);
+							out.print("</pre>");
+							out.print("</div>");
+							out.print("<div class='benifit'>");
+							out.print("<pre>Benifit:");
+							out.print(job.benifit);
+							out.print("</pre>");
+							out.print("</div>");
+							out.print("<div class='expire'>");
+							out.print("<pre>Expired: " + job.expired + " </pre>");
+							out.print("</div>");
+							out.print("</div>");
+							out.print("</div>");
+							out.print("</div>");
+							out.print("<div class='panel-footer'>");
+							out.print("<label>Bạn thấy công việc này có phù hợp với bạn không?</label>");
+							out.print("<a href='#'	class='btn btn-default glyphicon glyphicon-thumbs-up' data-toggle='tooltip'	title='Việc này phù hợp với tôi!'></a>");
+							out.print("<a href='#' class='btn btn-default glyphicon glyphicon-thumbs-down' data-toggle='tooltip' title='Việc này không hợp, bỏ đi!' style='margin-left: 8px; margin-right: 8px;'></a>");
+							out.print("</div>");
+							out.print("</div>");
+						}
+						
+					%>
 				</div>
 			</div>
 		</div>
 	</div>
-	<script src="view/resource/lib/collapse-job.js" async></script>
+	<script type="text/javascript" src = "view/resource/lib/collapse-job.js"> </script>
+	
 </body>
 </html>

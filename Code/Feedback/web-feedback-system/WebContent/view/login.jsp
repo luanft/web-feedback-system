@@ -10,7 +10,6 @@
 <script src="view/resource/bootstrap/js/bootstrap.min.js" async></script>
 <link rel="stylesheet" href="view/resource/css/theme_customize.css">
 <script src="view/resource/lib/check-register.js" async></script>
-<script src="view/resource/lib/clickable-button.js" async></script>
 </head>
 <body>
 	<div class="container-fluid" style="background-color: #D6D6FF;">
@@ -105,6 +104,7 @@
 							>
 							<div>
 								<i id="txtHintrpwd" style="color: red;"></i>
+								<i style = "color:red;"> <%=request.getAttribute("Message-Register-Error") != null ? request.getAttribute("Message-Register-Error") : "" %></i>
 							</div>
 						</div>
 						<div class="form-group">

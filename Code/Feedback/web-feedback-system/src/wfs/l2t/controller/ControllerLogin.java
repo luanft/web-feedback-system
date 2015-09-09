@@ -84,7 +84,8 @@ public class ControllerLogin extends HttpServlet
 
 		} else
 		{
-			response.sendRedirect(request.getContextPath() + "/Login");
+			request.getRequestDispatcher("view/login.jsp").include(request, response);
+			// response.sendRedirect(request.getContextPath() + "/Login");
 		}
 	}
 
@@ -142,7 +143,11 @@ public class ControllerLogin extends HttpServlet
 			IOException
 	{
 		// check condition register
-		if (mdLogin.getAccount(request.getParameter("reg-email")) == null)
+		String email = request.getParameter("reg-email");
+		String userName = request.getParameter("reg-username");
+		String password = request.getParameter("reg-password");
+		String rpassword = request.getParameter("reg-re-type-password");
+		if (email != "" && userName != "" && password != "" && rpassword != "")
 		{
 			account.userName = request.getParameter("reg-username");
 			account.email = request.getParameter("reg-email");
@@ -153,33 +158,37 @@ public class ControllerLogin extends HttpServlet
 			account.numberReceiveEmail = "10";
 			account.confirmCode = UUID.randomUUID().toString();
 			mdLogin.addAccount(account);
-		}
 
-		// verify by email
-		// reads SMTP server setting from web.xml file
-		ServletContext context = getServletContext();
-		String host = context.getInitParameter("host");
-		String port = context.getInitParameter("port");
-		String user = context.getInitParameter("user");
-		String pass = context.getInitParameter("pass");
-		String recipient = request.getParameter("reg-email");
-		String subject = "Verify Account";
-		String content = "This is email to verify your account on: http://localhost:8080/web-feedback-system/ControllerConfirmEmail?code="
-				+ account.confirmCode;
+			// verify by email
+			// reads SMTP server setting from web.xml file
+			ServletContext context = getServletContext();
+			String host = context.getInitParameter("host");
+			String port = context.getInitParameter("port");
+			String user = context.getInitParameter("user");
+			String pass = context.getInitParameter("pass");
+			String recipient = request.getParameter("reg-email");
+			String subject = "Verify Account";
+			String content = "This is email to verify your account on: http://localhost:8080/web-feedback-system/ControllerConfirmEmail?code="
+					+ account.confirmCode;
 
-		String resultMessage = "";
-		try
+			String resultMessage = "";
+			try
+			{
+				EmailUtility.sendEmail(host, port, user, pass, recipient, subject, content);
+				resultMessage = "Để bắt đầu sử dụng hệ thống vui lòng xác nhận đăng ký qua email của bạn!";
+			} catch (Exception ex)
+			{
+				ex.printStackTrace();
+				resultMessage = "Lỗi gửi mail. Sorry!!!" + ex.getMessage();
+			} finally
+			{
+				request.setAttribute("Message", resultMessage);
+				request.getRequestDispatcher("view/notification.jsp").include(request, response);
+			}
+		} else
 		{
-			EmailUtility.sendEmail(host, port, user, pass, recipient, subject, content);
-			resultMessage = "Để bắt đầu sử dụng hệ thống vui lòng xác nhận đăng ký qua email của bạn!";
-		} catch (Exception ex)
-		{
-			ex.printStackTrace();
-			resultMessage = "Lỗi gửi mail. Sorry!!!" + ex.getMessage();
-		} finally
-		{
-			request.setAttribute("Message", resultMessage);
-			request.getRequestDispatcher("view/notification.jsp").include(request, response);
+			request.setAttribute("Message-Register-Error", "Vui lòng điền đầy đủ thông tin!");
+			request.getRequestDispatcher("view/login.jsp").include(request, response);
 		}
 	}
 }

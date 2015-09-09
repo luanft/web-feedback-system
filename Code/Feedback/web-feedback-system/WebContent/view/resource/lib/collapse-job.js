@@ -1,13 +1,11 @@
 /**
  * 
  */
-$(document).ready(function() {
 
-	$("#see-more").click(function() {
-		$("#full-info").slideToggle("slow");
-		if($("#short-description").is(":visible"))
-			$("#short-description").hide();
-		else
-			$("#short-description").show();
-	});
-});
+function myCollapse(xxx){	
+	$("#full-info" + xxx).slideToggle("slow");
+	if($("#short-description" + xxx).is(":visible"))
+		$("#short-description" + xxx).hide();
+	else
+		$("#short-description" + xxx).show();
+}

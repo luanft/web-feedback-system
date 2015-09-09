@@ -1,7 +1,6 @@
 package wfs.l2t.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,9 +8,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import wfs.l2t.dto.dtoJob;
-import wfs.l2t.model.ModelJob;
 
 /**
  * Servlet implementation class ControllerHome
@@ -30,8 +26,6 @@ public class ControllerHome extends HttpServlet
 		// TODO Auto-generated constructor stub
 	}
 
-	private String currentUserId = "";
-
 	private Boolean isLoged(HttpServletRequest request, HttpServletResponse response)
 	{
 
@@ -45,7 +39,7 @@ public class ControllerHome extends HttpServlet
 			{
 			case "jobrec_login_cookie":
 				isLogged = true;
-				this.currentUserId = cookie[i].getValue();
+				cookie[i].getValue();
 				break;
 
 			default:
@@ -70,20 +64,10 @@ public class ControllerHome extends HttpServlet
 		{
 			// new-job.jsp
 			request.getRequestDispatcher("view/new-job.jsp").include(request, response);
-			loadJob();
+
 		} else
 		{
 			response.sendRedirect(request.getContextPath() + "/login");
-		}
-	}
-
-	private void loadJob()
-	{
-		ModelJob mdj = new ModelJob();
-		List<dtoJob> jobList = mdj.getJob(0);
-		for (dtoJob job : jobList)
-		{
-
 		}
 	}
 

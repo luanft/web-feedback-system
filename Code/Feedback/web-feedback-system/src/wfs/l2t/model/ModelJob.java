@@ -16,18 +16,19 @@ public class ModelJob extends Model
 
 	public List<dtoJob> getJob(int nums)
 	{
-		dtoJob job = new dtoJob();
+
 		List<dtoJob> jobList = new ArrayList<dtoJob>();
 		String sql = "select * from `job` order by JobId asc limit " + nums + ",10";
 		connection.connect();
 		ResultSet rs = connection.read(sql);
 		try
 		{
-			if (rs.next() != false)
+			while (rs.next())
 			{
+				dtoJob job = new dtoJob();
 				job.accountId = Integer.toString(rs.getInt("AccountId"));
 				job.jobId = rs.getString("JobId");
-				job.categoryId = rs.getString("Category");
+				job.categoryId = rs.getString("CategoryId");
 				job.accountId = rs.getString("AccountId");
 				job.jobName = rs.getString("JobName");
 				job.location = rs.getString("Location");
@@ -38,9 +39,9 @@ public class ModelJob extends Model
 				job.benifit = rs.getString("Benifit");
 				job.expired = rs.getString("Expired");
 				job.source = rs.getString("Source");
+				job.company = rs.getString("Company");
 				jobList.add(job);
-			} else
-				return null;
+			}
 		} catch (SQLException e)
 		{
 			// TODO Auto-generated catch block
