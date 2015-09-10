@@ -6,5 +6,29 @@ public class dtoSkill {
 	public String level;
 	public String skillId;
 	public String resumeId;
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getLevel() {
+		return level;
+	}
+	public void setLevel(String level) {
+		this.level = level;
+	}
+	public String getSkillId() {
+		return skillId;
+	}
+	public void setSkillId(String skillId) {
+		this.skillId = skillId;
+	}
+	public String getResumeId() {
+		return resumeId;
+	}
+	public void setResumeId(String resumeId) {
+		this.resumeId = resumeId;
+	}
 
 }
