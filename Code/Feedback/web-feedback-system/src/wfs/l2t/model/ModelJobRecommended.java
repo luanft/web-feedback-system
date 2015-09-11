@@ -16,7 +16,7 @@ public class ModelJobRecommended extends Model
 	public void add(dtoJobRecommended jobRec)
 	{
 		connection.connect();
-		String sql = "insert into `job_reccommended` value(?,?,?,?)";
+		String sql = "insert into `job_recommended` value(?,?,?,?)";
 		try
 		{
 			PreparedStatement stm = connection.getConnection().prepareStatement(sql);
@@ -38,7 +38,7 @@ public class ModelJobRecommended extends Model
 	public void updateFittable(String fit, String notFit, String accountId, String jobId)
 	{
 		connection.connect();
-		String sql = "update `job_reccommended` set `Fit` = ?, NotFit = ? where `AccountId` = ? and `JobId` = ?";
+		String sql = "update `job_recommended` set `Fit` = ?, NotFit = ? where `AccountId` = ? and `JobId` = ?";
 		try
 		{
 			PreparedStatement stm = connection.getConnection().prepareStatement(sql);
@@ -60,7 +60,7 @@ public class ModelJobRecommended extends Model
 	public boolean checkIfExist(String jobId, String accountId)
 	{
 		connection.connect();
-		String sql = "select * from `job_reccommended` where `AccountId` = ? and `JobId` = ?";
+		String sql = "select * from `job_recommended` where `AccountId` = ? and `JobId` = ?";
 		try
 		{
 			PreparedStatement stm = connection.getConnection().prepareStatement(sql);
