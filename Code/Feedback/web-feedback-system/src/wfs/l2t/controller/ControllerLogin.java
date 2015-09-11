@@ -122,15 +122,15 @@ public class ControllerLogin extends HttpServlet
 					{
 
 						Cookie cookieRemember = new Cookie("jobrec_login_remember", "true");
-						cookieRemember.setMaxAge(3600);
+						cookieRemember.setMaxAge(31104000);
 
 						Cookie cookieUserId = new Cookie("jobrec_login_cookie", account.accountId);
-						cookieUserId.setMaxAge(3600);
+						cookieUserId.setMaxAge(31104000);
 
 						String token = md5.generateToken();
 						mdLogin.setToken(account.accountId, token);
 						Cookie cookieToken = new Cookie("jobrec_login_token", token);
-						cookieToken.setMaxAge(3600);
+						cookieToken.setMaxAge(31104000);
 
 						response.addCookie(cookieUserId);
 						response.addCookie(cookieToken);
@@ -139,7 +139,7 @@ public class ControllerLogin extends HttpServlet
 					} else
 					{
 						Cookie cookieRemember = new Cookie("jobrec_login_remember", "false");
-						cookieRemember.setMaxAge(3600);
+						cookieRemember.setMaxAge(31104000);
 						HttpSession session = request.getSession();
 						loginSession obj = new loginSession();
 						obj.userId = account.accountId;
