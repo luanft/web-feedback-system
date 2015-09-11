@@ -215,11 +215,11 @@ public class ControllerCareJob extends HttpServlet
 		response.getWriter()
 				.write("<a onclick = likeClick(this,"
 						+ job.jobId
-						+ ") href='#/' value = '1' style='margin-left: 15px; margin-right: 15px;color:yellow;font-size:25px;'	class='glyphicon glyphicon-star' data-toggle='tooltip'	title='Việc này phù hợp với tôi!'></a>");
+						+ ") href='#/' value = '1' style='margin-left: 15px; margin-right: 15px;color:yellow;font-size:15px;'	class='glyphicon glyphicon-star' data-toggle='tooltip'	title='Việc này phù hợp với tôi!'></a>");
 		response.getWriter()
 				.write("<a onclick = dislikeClick("
 						+ job.jobId
-						+ ") href='#/' style='color:red;font-size:25px;' class='glyphicon glyphicon-remove' data-toggle='tooltip' title='Việc này không hợp, bỏ đi!' style='margin-left: 8px; margin-right: 8px;'></a>");
+						+ ") href='#/' style='color:red;font-size:15px;' class='glyphicon glyphicon-remove' data-toggle='tooltip' title='Việc này không hợp, bỏ đi!' style='margin-left: 8px; margin-right: 8px;'></a>");
 		response.getWriter().write("</div>");
 		response.getWriter().write("<br>");
 		response.getWriter().write("</div>");

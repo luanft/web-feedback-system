@@ -31,7 +31,7 @@ function likeClick(obj, xxx) {
 				index : xxx
 			}
 		});
-		$(obj).css("color", "black");
+		$(obj).css("color", "#CCCCFF");
 		$(obj).attr("value", "0");
 	}
 }
