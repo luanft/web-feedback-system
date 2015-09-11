@@ -38,12 +38,13 @@ public class ControllerConfirmEmail extends HttpServlet
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		String code = request.getParameter("code");
-		// response.getWriter().println(code);
+		int accountId = Integer.parseInt(request.getParameter("accountId"));
 
 		ModelAccount md = new ModelAccount();
-		if (md.checkConfirmCode(code))
+
+		if (md.checkConfirmCode(accountId, code))
 		{
-			md.updateActivation(1);
+			md.updateActivation(accountId, 1);
 			response.sendRedirect(request.getContextPath() + "/ControllerLogin");
 		}
 	}

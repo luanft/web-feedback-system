@@ -1,6 +1,7 @@
 package wfs.l2t.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,6 +9,13 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import wfs.l2t.dto.dtoJob;
+import wfs.l2t.dto.dtoJobRecommended;
+import wfs.l2t.model.ModelJob;
+import wfs.l2t.model.ModelJobRecommended;
+import wfs.l2t.utility.LoginUtility;
 
 /**
  * Servlet implementation class ControllerHome
@@ -16,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ControllerHome extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
+	private LoginUtility loginUtility;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -23,30 +32,7 @@ public class ControllerHome extends HttpServlet
 	public ControllerHome()
 	{
 		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	private Boolean isLoged(HttpServletRequest request, HttpServletResponse response)
-	{
-
-		Cookie[] cookie = request.getCookies();
-		Boolean isLogged = false;
-		if (cookie == null)
-			return false;
-		for (int i = 0; i < cookie.length; i++)
-		{
-			switch (cookie[i].getName())
-			{
-			case "jobrec_login_cookie":
-				isLogged = true;
-				cookie[i].getValue();
-				break;
-
-			default:
-				break;
-			}
-		}
-		return isLogged;
+		loginUtility = new LoginUtility();
 	}
 
 	/**
@@ -60,11 +46,15 @@ public class ControllerHome extends HttpServlet
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 
-		if (isLoged(request, response))
+		if (loginUtility.isLogged(request, response))
 		{
 			// new-job.jsp
+			response.setContentType("text/html; charset=UTF-8");
+			request.setAttribute("isFirstTimes", "fuck");
+			HttpSession session = request.getSession();
+			session.setAttribute("offset", "0");
 			request.getRequestDispatcher("view/new-job.jsp").include(request, response);
-
+			// loadNewJob(request, response);
 		} else
 		{
 			response.sendRedirect(request.getContextPath() + "/login");
@@ -79,5 +69,136 @@ public class ControllerHome extends HttpServlet
 			IOException
 	{
 		// TODO Auto-generated method stub
+
+		loadNewJob(request, response);
+		setSuitableJob(request);
+	}
+
+	private void setSuitableJob(HttpServletRequest request) throws ServletException, IOException
+	{
+		if (request.getParameter("status") != null)
+		{
+			Cookie[] cookies = request.getCookies();
+			String accountId = "";
+			ModelJobRecommended mjr = new ModelJobRecommended();
+			for (Cookie c : cookies)
+			{
+				if (c.getName().equals("jobrec_login_cookie"))
+				{
+					accountId = c.getValue();
+					break;
+				}
+			}
+			String key = request.getParameter("status");
+			String jobId = request.getParameter("index");
+			switch (key)
+			{
+			case "0":
+				if (mjr.checkIfExist(jobId, accountId))
+				{
+					mjr.updateFittable(key, "1", accountId, jobId);
+				} else
+				{
+					dtoJobRecommended jobRec = new dtoJobRecommended();
+					jobRec.accountId = accountId;
+					jobRec.jobId = jobId;
+					jobRec.fit = "0";
+					jobRec.notFit = "1";
+					mjr.add(jobRec);
+				}
+				break;
+			case "1":
+				if (mjr.checkIfExist(jobId, accountId))
+				{
+					mjr.updateFittable(key, "0", accountId, jobId);
+				} else
+				{
+					dtoJobRecommended jobRec = new dtoJobRecommended();
+					jobRec.accountId = accountId;
+					jobRec.jobId = jobId;
+					jobRec.fit = "1";
+					jobRec.notFit = "0";
+					mjr.add(jobRec);
+				}
+				break;
+			default:
+				break;
+			}
+		}
+	}
+
+	private void loadNewJob(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+			IOException
+	{
+		ModelJob mdj = new ModelJob();
+		HttpSession session = request.getSession();
+		int offset = Integer.parseInt(session.getAttribute("offset").toString());
+
+		List<dtoJob> jobList = mdj.getJob(offset);
+		dtoJob job = new dtoJob();
+		offset += 11;
+		session.setAttribute("offset", offset);
+
+		for (int i = 0; i < jobList.size(); i++)
+		{
+			job = jobList.get(i);
+			response.setContentType("text/html; charset=UTF-8");
+			response.getWriter().write("<div class=\"panel panel-info\" id = 'panel" + job.jobId + "'>");
+			response.getWriter().write("<div class='panel-heading'>");
+			response.getWriter().write(
+					"<a id=\"see-more" + job.jobId + "\" class=\"btn btn-link\"onclick=\"myCollapse('" + job.jobId
+							+ "')\"> <b>" + job.jobName + "</b></a>");
+			response.getWriter().write("</div>");
+			response.getWriter().write("<div class='panel-body'>");
+			response.getWriter().write("<div class='row'>");
+			response.getWriter().write("<div class='company'>");
+			response.getWriter().write("<pre>Công ty: " + job.company + "</pre>");
+			response.getWriter().write("</div>");
+			response.getWriter().write("<div class='location'>");
+			response.getWriter().write("<pre>Địa chỉ: " + job.location + "</pre>");
+			response.getWriter().write("</div>");
+			response.getWriter().write("<div class='salary'>");
+			response.getWriter().write("<pre>Salary: " + job.salary + " </pre>");
+			response.getWriter().write("</div>");
+			response.getWriter().write("<div id='short-description" + job.jobId + "'>");
+			response.getWriter()
+					.write("<pre>We are looking for a talented Ruby on Rails Developer who wants to work with new Developers in an interactive working Environment. If you are young,...</pre>");
+			response.getWriter().write("</div>");
+			response.getWriter().write("<div id='full-info" + job.jobId + "' class='custom_hiden'>");
+			response.getWriter().write("<div class='description'>");
+			response.getWriter().write("<pre>Description:");
+			response.getWriter().write(job.description);
+			response.getWriter().write("</pre>");
+			response.getWriter().write("</div>");
+			response.getWriter().write("<div class='requirement'>");
+			response.getWriter().write("<pre>Requirement:");
+			response.getWriter().write(job.requirement);
+			response.getWriter().write("</pre>");
+			response.getWriter().write("</div>");
+			response.getWriter().write("<div class='benifit'>");
+			response.getWriter().write("<pre>Benifit:");
+			response.getWriter().write(job.benifit);
+			response.getWriter().write("</pre>");
+			response.getWriter().write("</div>");
+			response.getWriter().write("<div class='expire'>");
+			response.getWriter().write("<pre>Expired: " + job.expired + " </pre>");
+			response.getWriter().write("</div>");
+			response.getWriter().write("</div>");
+			response.getWriter().write("</div>");
+			response.getWriter().write("</div>");
+			response.getWriter().write("<div class='panel-footer'>");
+			response.getWriter().write("<label>Bạn thấy công việc này có phù hợp với bạn không?</label>");
+			response.getWriter()
+					.write("<a onclick = likeClick(this,"
+							+ job.jobId
+							+ ") href='#/'	class='btn btn-default glyphicon glyphicon-thumbs-up' data-toggle='tooltip'	title='Việc này phù hợp với tôi!'></a>");
+			response.getWriter()
+					.write("<a onclick = dislikeClick("
+							+ job.jobId
+							+ ") href='#/' class='btn btn-default glyphicon glyphicon-thumbs-down' data-toggle='tooltip' title='Việc này không hợp, bỏ đi!' style='margin-left: 8px; margin-right: 8px;'></a>");
+			response.getWriter().write("</div>");
+			response.getWriter().write("<br>");
+			response.getWriter().write("</div>");
+		}
 	}
 }

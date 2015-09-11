@@ -52,14 +52,15 @@ public class ModelAccount extends Model
 		return account;
 	}
 
-	public boolean checkConfirmCode(String code)
+	public boolean checkConfirmCode(int accountId, String code)
 	{
-		String sql = "select * from `account` where `ConfirmCode` = ?";
+		String sql = "select * from `account` where `ConfirmCode` = ? and `AccountId` = ?";
 		connection.connect();
 		try
 		{
 			PreparedStatement stm = connection.getConnection().prepareStatement(sql);
 			stm.setString(1, code);
+			stm.setInt(2, accountId);
 			connection.setPrepareStatement(stm);
 			ResultSet rs = connection.readSecure();
 			try
@@ -78,14 +79,15 @@ public class ModelAccount extends Model
 		return true;
 	}
 
-	public void updateActivation(int status)
+	public void updateActivation(int accountId, int status)
 	{
-		String sql = "update `account` set `IsActive` = ?";
+		String sql = "update `account` set `IsActive` = ? where `AccountId` = ?";
 		connection.connect();
 		try
 		{
 			PreparedStatement stm = connection.getConnection().prepareStatement(sql);
 			stm.setInt(1, status);
+			stm.setInt(2, accountId);
 			connection.setPrepareStatement(stm);
 			connection.writeSecure();
 		} catch (SQLException e1)
@@ -118,6 +120,32 @@ public class ModelAccount extends Model
 		{
 			e.printStackTrace();
 		}
+	}
+
+	public String getAccountId(String email)
+	{
+		String accountId = "";
+		String sql = "select `AccountId` from `account` where `Email` = ?";
+		if (this.connection.connect())
+		{
+			PreparedStatement stm;
+			try
+			{
+				stm = connection.getConnection().prepareStatement(sql);
+				stm.setString(1, email);
+				connection.setPrepareStatement(stm);
+				ResultSet rs = connection.readSecure();
+				rs.next();
+				accountId = rs.getString("AccountId");
+			} catch (SQLException e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				return null;
+			}
+			this.connection.close();
+		}
+		return accountId;
 	}
 
 	public dtoAccount getAccountById(String id)
@@ -172,11 +200,12 @@ public class ModelAccount extends Model
 		}
 		return false;
 	}
-	
-	public Boolean updatePassword(String userId, String password) {
-		if (this.connection.connect()) {
-			String sql = "UPDATE `account` SET `Password`='" + password
-					+ "' WHERE `AccountId`=" + userId;
+
+	public Boolean updatePassword(String userId, String password)
+	{
+		if (this.connection.connect())
+		{
+			String sql = "UPDATE `account` SET `Password`='" + password + "' WHERE `AccountId`=" + userId;
 			Boolean rs = this.connection.write(sql);
 			this.connection.close();
 			return rs;
@@ -186,20 +215,21 @@ public class ModelAccount extends Model
 
 	public Boolean changeAvatar(String id, String avatar)
 	{
-		String sql = "UPDATE `account` SET `Avatar`='"+avatar+"' WHERE `AccountId`="+id;		
-		if (this.connection.connect()) {			
+		String sql = "UPDATE `account` SET `Avatar`='" + avatar + "' WHERE `AccountId`=" + id;
+		if (this.connection.connect())
+		{
 			Boolean rs = this.connection.write(sql);
 			this.connection.close();
 			return rs;
 		}
 		return false;
 	}
-	
-	
+
 	public Boolean changeUserName(String id, String name)
 	{
-		String sql = "UPDATE `account` SET `UserName`='"+name+"' WHERE `AccountId`="+id;		
-		if (this.connection.connect()) {			
+		String sql = "UPDATE `account` SET `UserName`='" + name + "' WHERE `AccountId`=" + id;
+		if (this.connection.connect())
+		{
 			Boolean rs = this.connection.write(sql);
 			this.connection.close();
 			return rs;

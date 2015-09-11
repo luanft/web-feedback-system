@@ -4,6 +4,7 @@
 <%@ page import="wfs.l2t.model.ModelJob"%>
 <%@ page import="java.util.List"%>
 <%@page import="java.util.*"%>
+<%@ page import="wfs.l2t.controller.ControllerHome"%>
 <%
 	ModelJob mdj = new ModelJob();
 	List<dtoJob> jobList = mdj.getJob(0);
@@ -78,66 +79,13 @@
 				</div>
 				<div class="col-md-9 custom_background_color panel-group">
 					<br>
-					<%
-					
-						dtoJob job = new dtoJob();
-						for (int i = 0; i < jobList.size(); i++)
-						{
-							job = jobList.get(i);
-							out.print("<div class=\"panel panel-info\">");
-							out.print("<div class='panel-heading'>");
-							out.print("<a id=\"see-more" + job.jobId + "\" class=\"btn btn-link\"onclick=\"myCollapse('"+job.jobId+"')\"> <b>" + job.jobName + "</b></a>");
-							out.print("</div>");
-							out.print("<div class='panel-body'>");
-							out.print("<div class='row'>");
-							out.print("<div class='company'>");
-							out.print("<pre>Công ty: " + job.company + "</pre>");
-							out.print("</div>");
-							out.print("<div class='location'>");
-							out.print("<pre>Địa chỉ: " + job.location + "</pre>");
-							out.print("</div>");
-							out.print("<div class='salary'>");
-							out.print("<pre>Salary: " + job.salary + " </pre>");
-							out.print("</div>");
-							out.print("<div id='short-description"+job.jobId+"'>");
-							out.print("<pre>We are looking for a talented Ruby on Rails Developer who wants to work with new Developers in an interactive working Environment. If you are young,...</pre>");
-							out.print("</div>");
-							out.print("<div id='full-info"+job.jobId+"' class='custom_hiden'>");
-							out.print("<div class='description'>");
-							out.print("<pre>Description:");
-							out.print(job.description);
-							out.print("</pre>");
-							out.print("</div>");
-							out.print("<div class='requirement'>");
-							out.print("<pre>Requirement:");
-							out.print(job.requirement);
-							out.print("</pre>");
-							out.print("</div>");
-							out.print("<div class='benifit'>");
-							out.print("<pre>Benifit:");
-							out.print(job.benifit);
-							out.print("</pre>");
-							out.print("</div>");
-							out.print("<div class='expire'>");
-							out.print("<pre>Expired: " + job.expired + " </pre>");
-							out.print("</div>");
-							out.print("</div>");
-							out.print("</div>");
-							out.print("</div>");
-							out.print("<div class='panel-footer'>");
-							out.print("<label>Bạn thấy công việc này có phù hợp với bạn không?</label>");
-							out.print("<a href='#'	class='btn btn-default glyphicon glyphicon-thumbs-up' data-toggle='tooltip'	title='Việc này phù hợp với tôi!'></a>");
-							out.print("<a href='#' class='btn btn-default glyphicon glyphicon-thumbs-down' data-toggle='tooltip' title='Việc này không hợp, bỏ đi!' style='margin-left: 8px; margin-right: 8px;'></a>");
-							out.print("</div>");
-							out.print("</div>");
-						}
-						
-					%>
+					<div id = "content-wrapper"> </div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript" src = "view/resource/lib/collapse-job.js"> </script>
+	<script type="text/javascript" src = "view/resource/lib/job-utility.js"> 
 	
+	</script>
 </body>
 </html>

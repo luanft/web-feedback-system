@@ -14,11 +14,11 @@ public class ModelJob extends Model
 		super();
 	}
 
-	public List<dtoJob> getJob(int nums)
+	public List<dtoJob> getJob(int offset)
 	{
 
 		List<dtoJob> jobList = new ArrayList<dtoJob>();
-		String sql = "select * from `job` order by JobId asc limit " + nums + ",10";
+		String sql = "select * from `job` order by JobId asc limit " + offset + ",10";
 		connection.connect();
 		ResultSet rs = connection.read(sql);
 		try
