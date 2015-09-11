@@ -5,6 +5,13 @@
 <%@ page import="java.util.List"%>
 <%@ page import="wfs.l2t.model.ModelCategory"%>
 <%@ page import="wfs.l2t.model.ModelAccount"%>
+
+<%
+	String userId = (String) request.getAttribute("user");
+	ModelAccount account = new ModelAccount();
+	dtoAccount dtoAcc = account.getAccountById(userId);
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,7 +34,8 @@
 					<div class="col-md-4">
 						<div class="navbar-header">
 							<img
-								src="http://thumbs.dreamstime.com/x/job-search-3d-icon-16095671.jpg"
+								src="<%out.print(request.getContextPath()
+					+ "/view/resource/image/logo.jpg");%>"
 								class="img-circle navbar-brand" width="60" height="70"> <a
 								class="navbar-brand custom_color_white"> RECOMMENDATION
 								SYSTEM</a>
@@ -39,12 +47,15 @@
 								<li><a href="#">Home</a></li>
 								<li class="dropdown"><a href="#" class="dropdown-toggle"
 									data-toggle="dropdown"> <span
-										class="glyphicon glyphicon-user"></span> Xin chào, ABC<span
+										class="glyphicon glyphicon-user"></span> Xin chào <%=dtoAcc.userName%><span
 										class="caret"></span>
 								</a>
 									<ul class="dropdown-menu">
-										<li><a href="#">Thay đổi mật khẩu</a></li>
-										<li><a href="#"><span
+										<li><a
+											href="<%out.print(request.getContextPath() + "/account");%>">Quản
+												lý tài khoản</a></li>
+										<li><a
+											href="<%out.print(request.getContextPath() + "/home?logout=true");%>"><span
 												class="glyphicon glyphicon-log-in"></span> Đăng xuất</a></li>
 									</ul></li>
 							</ul>
@@ -56,14 +67,14 @@
 		<!-- chia trang thanh 2 cot -->
 
 		<div class="container-fluid">
-			<br> <br> 
+			<br> <br> <br>
 			<div class="row">
 				<div class="col-md-3">
 					<div data-spy="affix" data-offset-top="0">
 						<div class="container-fluid col-md-offset-0">
 							<h4>Xin chào!</h4>
 							<img
-								src="http://vui3g.com/files/posts/images/5-2014/girl-xinh-dan-toc-mong.jpg"
+								src="<%out.print(request.getContextPath() + dtoAcc.avatar);%>"
 								class="img-rounded" width="170" height="170">
 						</div>
 						<br>
@@ -73,11 +84,13 @@
 									href="<%out.print(request.getContextPath() + "/home");%>"><span
 										class="glyphicon glyphicon-thumbs-up"></span> CÔNG VIỆC MỚI
 										NHẤT</a></li>
-								<li class><a href="#"><span
+								<li class><a
+									href="<%out.print(request.getContextPath() + "/recommendation");%>"><span
 										class="glyphicon glyphicon-thumbs-up"></span> LĨNH VỰC QUAN
 										TÂM</a></li>
-								<li class><a href="#"><span
-										class="glyphicon glyphicon-thumbs-up"></span> THÔNG BÁO</a></li>
+								<li><a
+									href="<%out.print(request.getContextPath() + "/settings");%>"><span
+										class="glyphicon glyphicon-cog"></span> THIẾT LẬP HỆ THỐNG</a></li>
 
 								<li class><a href="#"><span
 										class="glyphicon glyphicon-list-alt"></span> XEM HỒ SƠ CỦA BẠN</a></li>

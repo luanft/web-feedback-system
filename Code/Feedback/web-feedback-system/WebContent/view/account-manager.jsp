@@ -2,8 +2,6 @@
 	pageEncoding="utf-8"%>
 <%@page import="wfs.l2t.dto.dtoAccount"%>
 <%@ page import="wfs.l2t.model.ModelAccount"%>
-
-
 <%
 	String userId = (String) request.getAttribute("user");
 	ModelAccount account = new ModelAccount();
@@ -31,8 +29,10 @@
 					<div class="col-md-4">
 						<div class="navbar-header">
 							<img
-								src="http://thumbs.dreamstime.com/x/job-search-3d-icon-16095671.jpg"
+								src="<%out.print(request.getContextPath()
+					+ "/view/resource/image/logo.jpg");%>"
 								class="img-circle navbar-brand" width="60" height="70"> <a
+								href="<%out.print(request.getContextPath());%>"
 								class="navbar-brand custom_color_white"> RECOMMENDATION
 								SYSTEM</a>
 						</div>
@@ -40,14 +40,18 @@
 					<div class="col-md-8">
 						<div>
 							<ul class="nav navbar-nav  navbar-right">
-								<li><a href="#">Home</a></li>
+								<li><a href="<%out.print(request.getContextPath()); %>">Home</a></li>
 								<li class="dropdown"><a href="#" class="dropdown-toggle"
 									data-toggle="dropdown"> <span
-										class="glyphicon glyphicon-user"></span> Xin chào <%=dtoAcc.userName %><span
+										class="glyphicon glyphicon-user"></span> Xin chào <%=dtoAcc.userName%><span
 										class="caret"></span>
 								</a>
 									<ul class="dropdown-menu">
-										<li><a href="#"><span
+										<li><a
+											href="<%out.print(request.getContextPath() + "/account");%>">Quản
+												lý tài khoản</a></li>
+										<li><a
+											href="<%out.print(request.getContextPath() + "/home?logout=true");%>"><span
 												class="glyphicon glyphicon-log-in"></span> Đăng xuất</a></li>
 									</ul></li>
 							</ul>
@@ -59,7 +63,8 @@
 		<!-- chia trang thanh 2 cot -->
 
 		<div class="container-fluid">
-			<br> <br> <br><div class="row">
+			<br> <br> <br>
+			<div class="row">
 				<div class="col-md-3">
 					<div data-spy="affix" data-offset-top="0">
 						<div class="container-fluid col-md-offset-0">
@@ -71,15 +76,15 @@
 						<br>
 						<div>
 							<ul class="nav nav-pills nav-stacked custom_font_bold">
-								<li class><a href="#"><span
+								<li><a href="<%out.print(request.getContextPath());%>"><span
 										class="glyphicon glyphicon-thumbs-up"></span> CÔNG VIỆC MỚI
 										NHẤT</a></li>
-								<li class><a href="#"><span
+								<li><a
+									href="<%out.print(request.getContextPath() + "/recommendation");%>"><span
 										class="glyphicon glyphicon-thumbs-up"></span> LĨNH VỰC QUAN
 										TÂM</a></li>
-								<li class><a href="#"><span
-										class="glyphicon glyphicon-thumbs-up"></span> THÔNG BÁO</a></li>
-								<li class><a href="#"><span
+								<li><a
+									href="<%out.print(request.getContextPath() + "/settings");%>"><span
 										class="glyphicon glyphicon-cog"></span> THIẾT LẬP HỆ THỐNG</a></li>
 								<li class><a href="#"><span
 										class="glyphicon glyphicon-list-alt"></span> XEM HỒ SƠ CỦA BẠN</a></li>
@@ -162,8 +167,9 @@
 							<div class="panel-body">
 								<form role="form" method="post" action="account">
 									<div class="form-group">
-										<label for="pwd">Tên truy cập mới:</label> <input type="text" name="fcn-new-user-name"
-											class="form-control" value="<%=dtoAcc.userName %>" id="pwd">
+										<label for="pwd">Tên truy cập mới:</label> <input type="text"
+											name="fcn-new-user-name" class="form-control"
+											value="<%=dtoAcc.userName%>" id="pwd">
 									</div>
 									<button type="submit" name="changeUserName"
 										class="btn btn-primary navbar-right custom_margin">Thay
