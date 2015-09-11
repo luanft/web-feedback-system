@@ -16,7 +16,7 @@ public class ModelJobRecommended extends Model
 	public void add(dtoJobRecommended jobRec)
 	{
 		connection.connect();
-		String sql = "insert into `job_recommended` value(?,?,?,?)";
+		String sql = "insert into `job_recommended` value(?,?,?,?,?)";
 		try
 		{
 			PreparedStatement stm = connection.getConnection().prepareStatement(sql);
@@ -24,6 +24,7 @@ public class ModelJobRecommended extends Model
 			stm.setString(2, jobRec.jobId);
 			stm.setString(3, jobRec.fit);
 			stm.setString(4, jobRec.notFit);
+			stm.setString(5, jobRec.seen);
 			connection.setPrepareStatement(stm);
 			connection.writeSecure();
 		} catch (SQLException e)
@@ -38,7 +39,7 @@ public class ModelJobRecommended extends Model
 	public void updateFittable(String fit, String notFit, String accountId, String jobId)
 	{
 		connection.connect();
-		String sql = "update `job_recommended` set `Fit` = ?, NotFit = ? where `AccountId` = ? and `JobId` = ?";
+		String sql = "update `job_recommended` set `Fit` = ?, NotFit = ?, Seen = 1 where `AccountId` = ? and `JobId` = ?";
 		try
 		{
 			PreparedStatement stm = connection.getConnection().prepareStatement(sql);

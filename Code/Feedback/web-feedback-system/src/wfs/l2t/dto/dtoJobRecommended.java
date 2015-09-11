@@ -7,4 +7,5 @@ public class dtoJobRecommended
 	public String jobId;
 	public String fit;
 	public String notFit;
+	public String seen;
 }

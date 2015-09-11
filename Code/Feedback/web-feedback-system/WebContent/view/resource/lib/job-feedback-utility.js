@@ -14,7 +14,7 @@ function likeClick(obj, xxx) {
 	if (($(obj).attr("value")) === "0") {
 		$.ajax({
 			type : "POST",
-			url : "ControllerHome",
+			url : "ControllerJobRecommended",
 			data : {
 				status : "1",
 				index : xxx
@@ -25,7 +25,7 @@ function likeClick(obj, xxx) {
 	} else {
 		$.ajax({
 			type : "POST",
-			url : "ControllerHome",
+			url : "ControllerJobRecommended",
 			data : {
 				status : "0",
 				index : xxx
@@ -40,7 +40,7 @@ function dislikeClick(xxx) {
 	$("#panel" + xxx).hide();
 	$.ajax({
 		type : "POST",
-		url : "ControllerHome",
+		url : "ControllerJobRecommended",
 		data : {
 			status : "0",
 			index : xxx
@@ -50,11 +50,10 @@ function dislikeClick(xxx) {
 
 // load job when ready
 $(document).ready(function() {
-
 	{
 		$.ajax({
 			type : "POST",
-			url : "ControllerHome",
+			url : "ControllerJobRecommended",
 			data : {
 				xxx : "ready"
 			},
@@ -64,29 +63,3 @@ $(document).ready(function() {
 		});
 	}
 });
-
-// load job when user scroll down of page
-$(document).ready(
-		function() {
-			$contentLoadTriggered = false;
-			$(window).scroll(
-					function() {
-						if ($(window).scrollTop() + $(window).height() == $(
-								document).height()
-								&& $contentLoadTriggered == false) {
-							$contentLoadTriggered = true;
-							$.ajax({
-								type : "POST",
-								url : "ControllerHome",
-								data : {
-									xxx : "scroll"
-								},
-								success : function(data) {
-									$("#content-wrapper").append(data);
-									$contentLoadTriggered = false;
-								}
-							});
-						}
-
-					});
-		});

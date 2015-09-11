@@ -16,4 +16,7 @@ public class dtoJob
 	public String expired = "";
 	public String source = "";
 	public String company = "";
+	public String fit = "";
+	public String notFit = "";
+	public String userId = "";
 }
