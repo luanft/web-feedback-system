@@ -8,9 +8,9 @@ import java.util.List;
 
 import wfs.l2t.dto.dtoJob;
 
-public class ModelJob extends Model
+public class ModelCareJob extends Model
 {
-	public ModelJob()
+	public ModelCareJob()
 	{
 		super();
 	}
@@ -19,7 +19,7 @@ public class ModelJob extends Model
 	{
 
 		List<dtoJob> jobList = new ArrayList<dtoJob>();
-		String sql = "select job.AccountId, job.JobId, JobName, CategoryId, Location, Salary, Description, Tags, Requirement, Benifit, Expired, Source, Company, Fit, NotFit, job_recommended.AccountId as UserId from job left join job_recommended on job_recommended.JobId = job.JobId order by job.JobId desc limit "
+		String sql = "select job.AccountId, job.JobId, JobName, CategoryId, Location, Salary, Description, Tags, Requirement, Benifit, Expired, Source, Company, Fit, NotFit, job_recommended.AccountId as UserId from job join job_recommended on job_recommended.JobId = job.JobId and Fit = 1 order by job.JobId desc limit "
 				+ offset + ",10";
 		connection.connect();
 		ResultSet rs = connection.read(sql);
@@ -88,11 +88,11 @@ public class ModelJob extends Model
 		return txt;
 	}
 
-	public List<dtoJob> getJobRecommended(String userId)
+	public List<dtoJob> getJobRecommended()
 	{
+
 		List<dtoJob> jobList = new ArrayList<dtoJob>();
-		String sql = "select job.AccountId, job.JobId, JobName, CategoryId, Location, Salary, Description, Tags, Requirement, Benifit, Expired, Source, Company, Fit, NotFit, job_recommended.AccountId as UserId from job join job_recommended on job_recommended.JobId = job.JobId and Seen = 0 and job_recommended.AccountId = "
-				+ userId + " order by job.JobId desc";
+		String sql = "select job.AccountId, job.JobId, JobName, CategoryId, Location, Salary, Description, Tags, Requirement, Benifit, Expired, Source, Company, Fit, NotFit, job_recommended.AccountId as UserId from job join job_recommended on job_recommended.JobId = job.JobId and Seen = 0 order by job.JobId desc";
 		connection.connect();
 		ResultSet rs = connection.read(sql);
 		try

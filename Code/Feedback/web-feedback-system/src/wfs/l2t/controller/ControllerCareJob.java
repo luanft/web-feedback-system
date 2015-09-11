@@ -9,6 +9,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import wfs.l2t.dto.dtoJob;
 import wfs.l2t.dto.dtoJobRecommended;
@@ -17,10 +18,10 @@ import wfs.l2t.model.ModelJobRecommended;
 import wfs.l2t.utility.LoginUtility;
 
 /**
- * Servlet implementation class ControllerJobRecommended
+ * Servlet implementation class ControllerCareJob
  */
-@WebServlet("/ControllerJobRecommended")
-public class ControllerJobRecommended extends HttpServlet
+@WebServlet("/ControllerCareJob")
+public class ControllerCareJob extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
 	private LoginUtility loginUtility;
@@ -28,7 +29,7 @@ public class ControllerJobRecommended extends HttpServlet
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ControllerJobRecommended()
+	public ControllerCareJob()
 	{
 		super();
 		loginUtility = new LoginUtility();
@@ -48,7 +49,10 @@ public class ControllerJobRecommended extends HttpServlet
 		if (loginUtility.isLogged(request, response))
 		{
 			// new-job.jsp
-			request.getRequestDispatcher("view/job-feedback.jsp").include(request, response);
+			HttpSession session = request.getSession();
+			session.setAttribute("offset", "0");
+			request.getRequestDispatcher("view/care-job.jsp").include(request, response);
+			// loadNewJob(request, response);
 		} else
 		{
 			response.sendRedirect(request.getContextPath() + "/login");
@@ -63,8 +67,9 @@ public class ControllerJobRecommended extends HttpServlet
 			IOException
 	{
 		// TODO Auto-generated method stub
-		setSuitableJob(request);
+
 		loadNewJob(request, response);
+		setSuitableJob(request);
 	}
 
 	private void setSuitableJob(HttpServletRequest request) throws ServletException, IOException
@@ -140,21 +145,37 @@ public class ControllerJobRecommended extends HttpServlet
 	private void loadNewJob(HttpServletRequest request, HttpServletResponse response) throws ServletException,
 			IOException
 	{
-		if (loginUtility.isLogged(request, response))
+		ModelJob mdj = new ModelJob();
+		HttpSession session = request.getSession();
+		int offset = Integer.parseInt(session.getAttribute("offset").toString());
+
+		List<dtoJob> jobList = mdj.getJob(offset);
+		// mdj.getJob();
+		dtoJob job = new dtoJob();
+		offset += 11;
+		session.setAttribute("offset", offset);
+
+		for (int i = 0; i < jobList.size(); i++)
 		{
-			ModelJob mdj = new ModelJob();
-			List<dtoJob> jobList = mdj.getJobRecommended(loginUtility.getLoggedUserId());
-			dtoJob job = new dtoJob();
-			for (int i = 0; i < jobList.size(); i++)
+			job = jobList.get(i);
+			if (job.fit == null && job.notFit == null)
 			{
-				job = jobList.get(i);
-				writeHtml(job, mdj.getShortDescription(job.jobId), request, response);
+				writeHtml(job, mdj.getShortDescription(job.jobId), false, request, response);
+			} else
+			{
+				if (job.fit.equals("0"))
+					if (job.notFit.equals("0"))
+						writeHtml(job, mdj.getShortDescription(job.jobId), false, request, response);
+					else
+						continue;
+				else if (job.notFit.equals("0"))
+					writeHtml(job, mdj.getShortDescription(job.jobId), true, request, response);
 			}
 		}
 	}
 
-	private void writeHtml(dtoJob job, String shortDescription, HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException
+	private void writeHtml(dtoJob job, String shortDescription, boolean css, HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException
 	{
 		response.setContentType("text/html; charset=UTF-8");
 		response.getWriter().write("<div class=\"panel panel-info\" id = 'panel" + job.jobId + "'>");
@@ -201,10 +222,16 @@ public class ControllerJobRecommended extends HttpServlet
 		response.getWriter().write("</div>");
 		response.getWriter().write("<div class='panel-footer'>");
 		response.getWriter().write("<label>Bạn thấy công việc này có phù hợp với bạn không?</label>");
-		response.getWriter()
-				.write("<a onclick = likeClick(this,"
-						+ job.jobId
-						+ ") href='#/' value = '0' style='margin-left: 15px; margin-right: 15px;color:black;font-size:25px;' class='glyphicon glyphicon-star' data-toggle='tooltip'	title='Việc này phù hợp với tôi!'></a>");
+		if (!css)
+			response.getWriter()
+					.write("<a onclick = likeClick(this,"
+							+ job.jobId
+							+ ") href='#/' value = '0' style='margin-left: 15px; margin-right: 15px;color:black;font-size:25px;' class='glyphicon glyphicon-star' data-toggle='tooltip'	title='Việc này phù hợp với tôi!'></a>");
+		else
+			response.getWriter()
+					.write("<a onclick = likeClick(this,"
+							+ job.jobId
+							+ ") href='#/' value = '1' style='margin-left: 15px; margin-right: 15px;color:yellow;font-size:25px;'	class='glyphicon glyphicon-star' data-toggle='tooltip'	title='Việc này phù hợp với tôi!'></a>");
 		response.getWriter()
 				.write("<a onclick = dislikeClick("
 						+ job.jobId
