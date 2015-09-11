@@ -12,4 +12,5 @@ public class dtoAccount
 	public Boolean isActive = false;
 	public String confirmCode = "";
 	public String avatar = "";
+	public String token = "";
 }
