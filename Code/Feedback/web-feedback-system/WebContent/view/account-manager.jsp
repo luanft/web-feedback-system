@@ -59,8 +59,7 @@
 		<!-- chia trang thanh 2 cot -->
 
 		<div class="container-fluid">
-			<br> <br> <br>
-			<div class="row">
+			<br> <br> <br><div class="row">
 				<div class="col-md-3">
 					<div data-spy="affix" data-offset-top="0">
 						<div class="container-fluid col-md-offset-0">
