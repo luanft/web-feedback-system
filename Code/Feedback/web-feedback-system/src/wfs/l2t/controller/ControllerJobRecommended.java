@@ -47,6 +47,7 @@ public class ControllerJobRecommended extends HttpServlet
 
 		if (loginUtility.isLogged(request, response))
 		{
+			request.setAttribute("user", loginUtility.getLoggedUserId());
 			// rec-job.jsp
 			request.getRequestDispatcher("view/job-feedback.jsp").include(request, response);
 		} else
@@ -65,6 +66,7 @@ public class ControllerJobRecommended extends HttpServlet
 		// TODO Auto-generated method stub
 		if (loginUtility.isLogged(request, response))
 		{
+			request.setAttribute("user", loginUtility.getLoggedUserId());
 			setSuitableJob(request);
 			loadRecommendedJob(request, response);
 		}

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import wfs.l2t.model.ModelAccount;
+import wfs.l2t.utility.LoginUtility;
 
 /**
  * Servlet implementation class ControllerConfirmEmail
@@ -18,6 +19,7 @@ public class ControllerConfirmEmail extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
 
+	LoginUtility loginUtility = new LoginUtility();
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -37,6 +39,11 @@ public class ControllerConfirmEmail extends HttpServlet
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
+		//nêu đang đăng nhập
+		if (this.loginUtility.isLogged(request, response)) {
+			response.sendRedirect(request.getContextPath()+"/home");
+		}
+		
 		String code = request.getParameter("code");
 		int accountId = Integer.parseInt(request.getParameter("accountId"));
 

@@ -72,6 +72,10 @@ public class ControllerCareJob extends HttpServlet
 			loadCaredJob(request, response);
 			setSuitableJob(request);
 		}
+		 else
+		{
+			response.sendRedirect(request.getContextPath() + "/login");
+		}
 	}
 
 	private void setSuitableJob(HttpServletRequest request) throws ServletException, IOException

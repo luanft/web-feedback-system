@@ -52,6 +52,7 @@ public class ControllerLogin extends HttpServlet
 		response.setContentType("text/html; charset=UTF-8");
 		if (loginUtility.isLogged(request, response))
 		{
+			request.setAttribute("user", loginUtility.getLoggedUserId());
 			response.sendRedirect(request.getContextPath() + "/home");
 			return;
 		}
@@ -112,7 +113,9 @@ public class ControllerLogin extends HttpServlet
 		{
 			account = mdLogin.getAccount(request.getParameter("login-email"));
 			// check password
-			if (account.password.equals(md5.md5(request.getParameter("login-pass"))))
+			String pass = request.getParameter("login-pass");
+			pass = md5.md5(pass);
+			if (account.password.equals(pass))
 			{
 				// check activate status
 				if (account.isActive)
