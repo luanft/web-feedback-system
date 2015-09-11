@@ -50,6 +50,11 @@ public class ControllerLogin extends HttpServlet
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
+		if (loginUtility.isLogged(request, response))
+		{
+			response.sendRedirect(request.getContextPath() + "/home");
+			return;
+		}
 		if (request.getParameter("submit") != null)
 		{
 			response.getWriter().write("get cái gì ở đây !!!");
