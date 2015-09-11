@@ -11,8 +11,10 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import wfs.l2t.model.ModelAccount;
 import wfs.l2t.model.ModelCare;
+import wfs.l2t.utility.LoginUtility;
 
 /**
  * Servlet implementation class ControllerSetting
@@ -21,34 +23,13 @@ import wfs.l2t.model.ModelCare;
 public class ControllerSetting extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	private LoginUtility loginUtility = new LoginUtility();
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public ControllerSetting() {
 		super();
 		// TODO Auto-generated constructor stub
-	}
-
-	private String currentUserId = "";
-
-	private Boolean isLoged(HttpServletRequest request,
-			HttpServletResponse response) {
-
-		Cookie[] cookie = request.getCookies();
-		Boolean isLogged = false;
-		if(cookie == null) return false;
-		for (int i = 0; i < cookie.length; i++) {
-			switch (cookie[i].getName()) {
-			case "jobrec_login_cookie":
-				isLogged = true;
-				this.currentUserId = cookie[i].getValue();
-				break;
-
-			default:
-				break;
-			}
-		}
-		return isLogged;
 	}
 
 	/**
@@ -62,9 +43,9 @@ public class ControllerSetting extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 
-		if (isLoged(request, response)) {
+		if (this.loginUtility.isLogged(request, response)) {
 			
-			request.setAttribute("user", this.currentUserId);
+			request.setAttribute("user", this.loginUtility.getLoggedUserId());
 			request.getRequestDispatcher("view/configure-system.jsp").include(
 					request, response);
 		} else {
@@ -84,11 +65,11 @@ public class ControllerSetting extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 
-		if (!isLoged(request, response)) {
+		if (!this.loginUtility.isLogged(request, response)) {
 //			request.getRequestDispatcher("/login").forward(request, response);
 			response.sendRedirect(request.getContextPath()+"/login");
 		}
-		request.setAttribute("user", this.currentUserId);
+		request.setAttribute("user", this.loginUtility.getLoggedUserId());
 		PrintWriter out = response.getWriter();
 
 		String submit_by_jquery = request.getParameter("jquery-sumit");
@@ -101,7 +82,7 @@ public class ControllerSetting extends HttpServlet {
 			String number = request.getParameter("fne_rdo_number");
 			ModelAccount model = new ModelAccount();
 			if (number != null)
-				model.setReceiveEmailNumber(currentUserId, number);
+				model.setReceiveEmailNumber(this.loginUtility.getLoggedUserId(), number);
 			request.getRequestDispatcher("view/configure-system.jsp").include(
 					request, response);
 			return;
@@ -112,7 +93,7 @@ public class ControllerSetting extends HttpServlet {
 			String time = request.getParameter("fte-rdo-time");
 			ModelAccount model = new ModelAccount();
 			if (time != null)
-				model.setReceiveEmailTime(currentUserId, time);
+				model.setReceiveEmailTime(this.loginUtility.getLoggedUserId(), time);
 			// fte-rdo-time
 			request.getRequestDispatcher("view/configure-system.jsp").include(
 					request, response);
@@ -126,8 +107,8 @@ public class ControllerSetting extends HttpServlet {
 			if (data.length > 0) {
 				// luu du liêu
 				ModelCare careModel = new ModelCare();
-				careModel.uncareAllCategory(currentUserId);
-				careModel.careCategory(currentUserId, data);
+				careModel.uncareAllCategory(this.loginUtility.getLoggedUserId());
+				careModel.careCategory(this.loginUtility.getLoggedUserId(), data);
 				request.getRequestDispatcher("view/configure-system.jsp")
 						.include(request, response);
 			}
