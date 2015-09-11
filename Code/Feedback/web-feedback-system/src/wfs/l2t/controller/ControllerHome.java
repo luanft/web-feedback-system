@@ -49,8 +49,6 @@ public class ControllerHome extends HttpServlet
 		if (loginUtility.isLogged(request, response))
 		{
 			// new-job.jsp
-			response.setContentType("text/html; charset=UTF-8");
-			request.setAttribute("isFirstTimes", "fuck");
 			HttpSession session = request.getSession();
 			session.setAttribute("offset", "0");
 			request.getRequestDispatcher("view/new-job.jsp").include(request, response);
