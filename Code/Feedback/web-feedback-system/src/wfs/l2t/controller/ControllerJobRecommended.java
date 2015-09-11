@@ -47,7 +47,7 @@ public class ControllerJobRecommended extends HttpServlet
 
 		if (loginUtility.isLogged(request, response))
 		{
-			// new-job.jsp
+			// rec-job.jsp
 			request.getRequestDispatcher("view/job-feedback.jsp").include(request, response);
 		} else
 		{
@@ -63,8 +63,11 @@ public class ControllerJobRecommended extends HttpServlet
 			IOException
 	{
 		// TODO Auto-generated method stub
-		setSuitableJob(request);
-		loadNewJob(request, response);
+		if (loginUtility.isLogged(request, response))
+		{
+			setSuitableJob(request);
+			loadRecommendedJob(request, response);
+		}
 	}
 
 	private void setSuitableJob(HttpServletRequest request) throws ServletException, IOException
@@ -137,10 +140,9 @@ public class ControllerJobRecommended extends HttpServlet
 		}
 	}
 
-	private void loadNewJob(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+	private void loadRecommendedJob(HttpServletRequest request, HttpServletResponse response) throws ServletException,
 			IOException
 	{
-		if (loginUtility.isLogged(request, response))
 		{
 			ModelJob mdj = new ModelJob();
 			List<dtoJob> jobList = mdj.getJobRecommended(loginUtility.getLoggedUserId());

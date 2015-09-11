@@ -67,9 +67,11 @@ public class ControllerCareJob extends HttpServlet
 			IOException
 	{
 		// TODO Auto-generated method stub
-
-		loadNewJob(request, response);
-		setSuitableJob(request);
+		if (loginUtility.isLogged(request, response))
+		{
+			loadCaredJob(request, response);
+			setSuitableJob(request);
+		}
 	}
 
 	private void setSuitableJob(HttpServletRequest request) throws ServletException, IOException
@@ -142,15 +144,14 @@ public class ControllerCareJob extends HttpServlet
 		}
 	}
 
-	private void loadNewJob(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+	private void loadCaredJob(HttpServletRequest request, HttpServletResponse response) throws ServletException,
 			IOException
 	{
 		ModelJob mdj = new ModelJob();
 		HttpSession session = request.getSession();
 		int offset = Integer.parseInt(session.getAttribute("offset").toString());
 
-		List<dtoJob> jobList = mdj.getJob(offset);
-		// mdj.getJob();
+		List<dtoJob> jobList = mdj.getJobCared(loginUtility.getLoggedUserId(), offset);
 		dtoJob job = new dtoJob();
 		offset += 11;
 		session.setAttribute("offset", offset);
@@ -158,24 +159,13 @@ public class ControllerCareJob extends HttpServlet
 		for (int i = 0; i < jobList.size(); i++)
 		{
 			job = jobList.get(i);
-			if (job.fit == null && job.notFit == null)
-			{
-				writeHtml(job, mdj.getShortDescription(job.jobId), false, request, response);
-			} else
-			{
-				if (job.fit.equals("0"))
-					if (job.notFit.equals("0"))
-						writeHtml(job, mdj.getShortDescription(job.jobId), false, request, response);
-					else
-						continue;
-				else if (job.notFit.equals("0"))
-					writeHtml(job, mdj.getShortDescription(job.jobId), true, request, response);
-			}
+			writeHtml(job, mdj.getShortDescription(job.jobId), request, response);
+
 		}
 	}
 
-	private void writeHtml(dtoJob job, String shortDescription, boolean css, HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException
+	private void writeHtml(dtoJob job, String shortDescription, HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException
 	{
 		response.setContentType("text/html; charset=UTF-8");
 		response.getWriter().write("<div class=\"panel panel-info\" id = 'panel" + job.jobId + "'>");
@@ -222,16 +212,10 @@ public class ControllerCareJob extends HttpServlet
 		response.getWriter().write("</div>");
 		response.getWriter().write("<div class='panel-footer'>");
 		response.getWriter().write("<label>Bạn thấy công việc này có phù hợp với bạn không?</label>");
-		if (!css)
-			response.getWriter()
-					.write("<a onclick = likeClick(this,"
-							+ job.jobId
-							+ ") href='#/' value = '0' style='margin-left: 15px; margin-right: 15px;color:black;font-size:25px;' class='glyphicon glyphicon-star' data-toggle='tooltip'	title='Việc này phù hợp với tôi!'></a>");
-		else
-			response.getWriter()
-					.write("<a onclick = likeClick(this,"
-							+ job.jobId
-							+ ") href='#/' value = '1' style='margin-left: 15px; margin-right: 15px;color:yellow;font-size:25px;'	class='glyphicon glyphicon-star' data-toggle='tooltip'	title='Việc này phù hợp với tôi!'></a>");
+		response.getWriter()
+				.write("<a onclick = likeClick(this,"
+						+ job.jobId
+						+ ") href='#/' value = '1' style='margin-left: 15px; margin-right: 15px;color:yellow;font-size:25px;'	class='glyphicon glyphicon-star' data-toggle='tooltip'	title='Việc này phù hợp với tôi!'></a>");
 		response.getWriter()
 				.write("<a onclick = dislikeClick("
 						+ job.jobId
