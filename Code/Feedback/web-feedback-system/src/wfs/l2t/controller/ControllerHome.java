@@ -74,10 +74,10 @@ public class ControllerHome extends HttpServlet
 			IOException
 	{
 		// TODO Auto-generated method stub
-
 		// neu chua đăng nhập
-		if (!loginUtility.isLogged(request, response))
+		if (!loginUtility.isLogged(request, response))			
 		{
+			loginUtility.isLogged(request, response);
 			response.sendRedirect(request.getContextPath() + "/login");
 			return;
 		}

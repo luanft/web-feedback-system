@@ -12,6 +12,7 @@ public class LoginUtility {
 
 	ModelAccount account;
 	Md5Utility md5 = new Md5Utility();
+
 	public LoginUtility() {
 		account = new ModelAccount();
 	}
@@ -37,23 +38,24 @@ public class LoginUtility {
 		String checkSum = request.getParameter("ck");
 		if (userId != null && token != null) {
 			dtoAccount dto = this.account.getAccountById(userId);
-			if(dto.accountId != "")
-			{
+			if (dto.accountId != "") {
 				String auth = dto.email + dto.password + checkSum;
 				auth = md5.md5(auth);
 				auth = md5.md5(auth);
-				if(token.equals(auth))
-				{
+				if (token.equals(auth)) {
 					this.currentUserId = userId;
-					Cookie cookieRemember = new Cookie("jobrec_login_remember", "true");
+					Cookie cookieRemember = new Cookie("jobrec_login_remember",
+							"true");
 					cookieRemember.setMaxAge(31104000);
 
-					Cookie cookieUserId = new Cookie("jobrec_login_cookie", dto.accountId);
+					Cookie cookieUserId = new Cookie("jobrec_login_cookie",
+							dto.accountId);
 					cookieUserId.setMaxAge(31104000);
 
 					String _token = md5.generateToken();
 					account.setToken(dto.accountId, _token);
-					Cookie cookieToken = new Cookie("jobrec_login_token", _token);
+					Cookie cookieToken = new Cookie("jobrec_login_token",
+							_token);
 					cookieToken.setMaxAge(31104000);
 
 					response.addCookie(cookieUserId);
@@ -73,16 +75,15 @@ public class LoginUtility {
 		String token = "";
 		String remember = "";
 		Cookie[] cookie = request.getCookies();
-		Boolean isLogged = false;
 		if (cookie == null)
 			return false;
+
 		for (int i = 0; i < cookie.length; i++) {
 			switch (cookie[i].getName()) {
 			case "jobrec_login_remember":
 				remember = cookie[i].getValue();
 				break;
 			case "jobrec_login_cookie":
-				isLogged = true;
 				this.currentUserId = cookie[i].getValue();
 				break;
 			case "jobrec_login_token":
@@ -92,13 +93,14 @@ public class LoginUtility {
 				break;
 			}
 		}
+
 		switch (remember) {
 		case "true":
 			if (account.getLoginToken(this.currentUserId).equals(token)) {
-				return isLogged;
+				return true;
 			}
 			return false;
-		default:
+		case "false":
 			HttpSession session = request.getSession();
 			loginSession obj = (loginSession) session
 					.getAttribute("login_session");
@@ -112,6 +114,8 @@ public class LoginUtility {
 				}
 			}
 			break;
+		default:
+			return false;			
 		}
 		return false;
 	}
