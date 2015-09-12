@@ -1,18 +1,18 @@
 package wfs.l2t.dto;
 
 public class dtoExperience {
-	public String experienceId ="";
-	public String resumeId ="";
-	public String companyName ="";
-	public String jobTitle ="";
-	public String position ="";
-	public String description ="";
-	public String period ="";
-	public String jobCategory ="";
-	public String getExperienceId() {
+	public int experienceId;
+	public String resumeId;
+	public String companyName;
+	public String jobTitle;
+	public String position;
+	public String description;
+	public String period;
+	public String jobCategory;
+	public int getExperienceId() {
 		return experienceId;
 	}
-	public void setExperienceId(String experienceId) {
+	public void setExperienceId(int experienceId) {
 		this.experienceId = experienceId;
 	}
 	public String getResumeId() {

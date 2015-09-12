@@ -6,7 +6,7 @@ public class dtoEducation {
 	public String startDate;
 	public String endDate;
 	public String educationDescription ="";
-	public String educationId ="";
+	public int educationId;
 	public String resumeId ="";
 	public String schoolId ="";
 	public String educationLevel ="";
@@ -31,10 +31,10 @@ public class dtoEducation {
 	public void setEducationDescription(String educationDescription) {
 		this.educationDescription = educationDescription;
 	}
-	public String getEducationId() {
+	public int getEducationId() {
 		return educationId;
 	}
-	public void setEducationId(String educationId) {
+	public void setEducationId(int educationId) {
 		this.educationId = educationId;
 	}
 	public String getResumeId() {

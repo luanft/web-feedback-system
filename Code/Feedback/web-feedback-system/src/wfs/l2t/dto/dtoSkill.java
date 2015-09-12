@@ -4,7 +4,7 @@ public class dtoSkill {
 
 	public String name;
 	public String level;
-	public String skillId;
+	public int skillId;
 	public String resumeId;
 	public String getName() {
 		return name;
@@ -18,10 +18,10 @@ public class dtoSkill {
 	public void setLevel(String level) {
 		this.level = level;
 	}
-	public String getSkillId() {
+	public int getSkillId() {
 		return skillId;
 	}
-	public void setSkillId(String skillId) {
+	public void setSkillId(int skillId) {
 		this.skillId = skillId;
 	}
 	public String getResumeId() {

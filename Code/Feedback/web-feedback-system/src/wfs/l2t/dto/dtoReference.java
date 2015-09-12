@@ -6,7 +6,7 @@ public class dtoReference {
 	public String jobTitle;
 	public String phone;
 	public String email;
-	public String id;
+	public int id;
 	public String resumeId;
 	public String getName() {
 		return name;
@@ -32,10 +32,10 @@ public class dtoReference {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getId() {
+	public int getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public String getResumeId() {

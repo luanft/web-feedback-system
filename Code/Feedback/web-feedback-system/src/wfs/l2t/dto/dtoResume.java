@@ -1,6 +1,6 @@
 package wfs.l2t.dto;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class dtoResume {
 
@@ -8,7 +8,7 @@ public class dtoResume {
 	public String accountId;
 	public String resumeTitle;
 	public String name;
-	public String birthday;
+	public Date birthday;
 	public String gender;
 	public Boolean maritalStatus;
 	public String placeOfBirth;
@@ -43,10 +43,10 @@ public class dtoResume {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getBirthday() {
+	public Date getBirthday() {
 		return birthday;
 	}
-	public void setBirthday(String birthday) {
+	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
 	public String getGender() {
