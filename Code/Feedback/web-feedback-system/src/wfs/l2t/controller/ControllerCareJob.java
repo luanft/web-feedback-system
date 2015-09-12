@@ -161,7 +161,10 @@ public class ControllerCareJob extends HttpServlet
 		session.setAttribute("offset", offset);
 
 		if (jobList.size() == 0)
-			writeHtml(request, response);
+			if (offset == 11)
+				writeHtml("Bạn chưa chọn quan tâm công việc nào!", request, response);
+			else
+				writeHtml("Hết rồi! Đừng cuộn nữa mắc công. Hehe !!!", request, response);
 		else
 		{
 			for (int i = 0; i < jobList.size(); i++)
@@ -233,11 +236,10 @@ public class ControllerCareJob extends HttpServlet
 		response.getWriter().write("</div>");
 	}
 
-	private void writeHtml(HttpServletRequest request, HttpServletResponse response) throws ServletException,
-			IOException
+	private void writeHtml(String noti, HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException
 	{
 		response.setContentType("text/html; charset=UTF-8");
-		response.getWriter().write(
-				"<p class = 'text-center' <b> <i> Bạn chưa chọn quan tâm công việc nào! </i>  </b></p>");
+		response.getWriter().write("<p class = 'text-center' id = 'done' <b> <i> " + noti + " </i>  </b></p>");
 	}
 }

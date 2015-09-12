@@ -70,7 +70,8 @@ $(document).ready(
 		function() {
 			$contentLoadTriggered = false;
 			$(window).scroll(
-					function() {
+					function() {						
+						if($("#done").text().trim() !== "Hết rồi! Đừng cuộn nữa mắc công. Hehe !!!")
 						if ($(window).scrollTop() + $(window).height() == $(
 								document).height()
 								&& $contentLoadTriggered == false) {

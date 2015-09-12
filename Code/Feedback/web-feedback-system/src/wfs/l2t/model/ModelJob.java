@@ -67,7 +67,7 @@ public class ModelJob extends Model
 			connection.setPrepareStatement(stm);
 			ResultSet rs = connection.readSecure();
 			if (rs.next())
-				shortDes = rs.getString("ShortDescription");
+				shortDes = trimAll(rs.getString("ShortDescription"));
 			else
 				return "";
 		} catch (SQLException e)

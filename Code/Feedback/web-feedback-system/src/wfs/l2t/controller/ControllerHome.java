@@ -169,23 +169,29 @@ public class ControllerHome extends HttpServlet
 		offset += 11;
 		session.setAttribute("offset", offset);
 
-		for (int i = 0; i < jobList.size(); i++)
-		{
-			job = jobList.get(i);
-			if (job.fit == null && job.notFit == null)
+		if (jobList.size() == 0)
+			if (offset == 11)
+				writeHtml("Chưa có việc mới!", request, response);
+			else
+				writeHtml("Hết việc mới rồi. Hehe!", request, response);
+		else
+			for (int i = 0; i < jobList.size(); i++)
 			{
-				writeHtml(job, mdj.getShortDescription(job.jobId), false, request, response);
-			} else
-			{
-				if (job.fit.equals("0"))
-					if (job.notFit.equals("0"))
-						writeHtml(job, mdj.getShortDescription(job.jobId), false, request, response);
-					else
-						continue;
-				else if (job.notFit.equals("0"))
-					writeHtml(job, mdj.getShortDescription(job.jobId), true, request, response);
+				job = jobList.get(i);
+				if (job.fit == null && job.notFit == null)
+				{
+					writeHtml(job, mdj.getShortDescription(job.jobId), false, request, response);
+				} else
+				{
+					if (job.fit.equals("0"))
+						if (job.notFit.equals("0"))
+							writeHtml(job, mdj.getShortDescription(job.jobId), false, request, response);
+						else
+							continue;
+					else if (job.notFit.equals("0"))
+						writeHtml(job, mdj.getShortDescription(job.jobId), true, request, response);
+				}
 			}
-		}
 	}
 
 	private void writeHtml(dtoJob job, String shortDescription, boolean css, HttpServletRequest request,
@@ -253,5 +259,12 @@ public class ControllerHome extends HttpServlet
 		response.getWriter().write("</div>");
 		response.getWriter().write("<br>");
 		response.getWriter().write("</div>");
+	}
+
+	private void writeHtml(String noti, HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException
+	{
+		response.setContentType("text/html; charset=UTF-8");
+		response.getWriter().write("<p class = 'text-center' id = 'done' <b> <i> " + noti + " </i>  </b></p>");
 	}
 }

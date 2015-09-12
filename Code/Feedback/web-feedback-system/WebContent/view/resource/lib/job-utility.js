@@ -71,6 +71,7 @@ $(document).ready(
 			$contentLoadTriggered = false;
 			$(window).scroll(
 					function() {
+						if($("#done").text().trim() !== "Hết việc mới rồi. Hehe!")
 						if ($(window).scrollTop() + $(window).height() == $(
 								document).height()
 								&& $contentLoadTriggered == false) {
