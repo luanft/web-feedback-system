@@ -75,6 +75,7 @@ public class ModelJob extends Model
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		connection.close();
 		return shortDes;
 	}
 

@@ -75,7 +75,7 @@ public class ControllerHome extends HttpServlet
 	{
 		// TODO Auto-generated method stub
 		// neu chua đăng nhập
-		if (!loginUtility.isLogged(request, response))			
+		if (!loginUtility.isLogged(request, response))
 		{
 			loginUtility.isLogged(request, response);
 			response.sendRedirect(request.getContextPath() + "/login");
@@ -258,6 +258,7 @@ public class ControllerHome extends HttpServlet
 						+ ") href='#/' style='color:red;font-size:15px;' class='glyphicon glyphicon-remove' data-toggle='tooltip' title='Việc này không hợp, bỏ đi!' style='margin-left: 8px; margin-right: 8px;'></a>");
 		response.getWriter().write("</div>");
 		response.getWriter().write("<br>");
+		response.getWriter().write("<input type = 'hidden' id = 'numJobLoad' text ='" + job.jobId + "'>");
 		response.getWriter().write("</div>");
 	}
 
