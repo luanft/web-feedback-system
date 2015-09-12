@@ -72,6 +72,13 @@ public class ControllerJobRecommended extends HttpServlet {
 			setSuitableJob(request);
 			loadRecommendedJob(request, response);
 		} else {
+			//login sử dụng token
+			if (loginUtility.isLoggedByToken(request, response)) {
+				request.setAttribute("user", loginUtility.getLoggedUserId());
+				setSuitableJob(request);
+				loadRecommendedJob(request, response);
+				return;
+			}
 			request.setAttribute("fromJobRec", request.getContextPath());
 			response.sendRedirect(request.getContextPath() + "/login");
 		}
