@@ -44,7 +44,6 @@ public class ControllerJobRecommended extends HttpServlet
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-
 		if (loginUtility.isLogged(request, response))
 		{
 			request.setAttribute("user", loginUtility.getLoggedUserId());
@@ -52,6 +51,7 @@ public class ControllerJobRecommended extends HttpServlet
 			request.getRequestDispatcher("view/job-feedback.jsp").include(request, response);
 		} else
 		{
+			// request.setAttribute("fromJobRec", request.getContextPath());
 			response.sendRedirect(request.getContextPath() + "/login");
 		}
 	}
@@ -63,12 +63,15 @@ public class ControllerJobRecommended extends HttpServlet
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
 			IOException
 	{
-		// TODO Auto-generated method stub
 		if (loginUtility.isLogged(request, response))
 		{
 			request.setAttribute("user", loginUtility.getLoggedUserId());
 			setSuitableJob(request);
 			loadRecommendedJob(request, response);
+		} else
+		{
+			request.setAttribute("fromJobRec", request.getContextPath());
+			response.sendRedirect(request.getContextPath() + "/login");
 		}
 	}
 
@@ -149,10 +152,15 @@ public class ControllerJobRecommended extends HttpServlet
 			ModelJob mdj = new ModelJob();
 			List<dtoJob> jobList = mdj.getJobRecommended(loginUtility.getLoggedUserId());
 			dtoJob job = new dtoJob();
-			for (int i = 0; i < jobList.size(); i++)
+			if (jobList.size() == 0)
+				writeHtml(request, response);
+			else
 			{
-				job = jobList.get(i);
-				writeHtml(job, mdj.getShortDescription(job.jobId), request, response);
+				for (int i = 0; i < jobList.size(); i++)
+				{
+					job = jobList.get(i);
+					writeHtml(job, mdj.getShortDescription(job.jobId), request, response);
+				}
 			}
 		}
 	}
@@ -216,5 +224,13 @@ public class ControllerJobRecommended extends HttpServlet
 		response.getWriter().write("</div>");
 		response.getWriter().write("<br>");
 		response.getWriter().write("</div>");
+	}
+
+	private void writeHtml(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+			IOException
+	{
+		response.setContentType("text/html; charset=UTF-8");
+		response.getWriter().write(
+				"<p class = 'text-center' <b> <i> Bạn chưa có công việc nào được khuyến nghị! </i>  </b></p>");
 	}
 }

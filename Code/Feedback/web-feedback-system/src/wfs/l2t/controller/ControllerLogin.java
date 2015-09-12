@@ -61,7 +61,7 @@ public class ControllerLogin extends HttpServlet
 			response.getWriter().write("get cái gì ở đây !!!");
 		} else
 		{
-			request.getRequestDispatcher("view/login.jsp").forward(request, response);
+			request.getRequestDispatcher("view/login.jsp").include(request, response);
 		}
 	}
 
@@ -156,6 +156,7 @@ public class ControllerLogin extends HttpServlet
 					// login successful
 					// request.getRequestDispatcher("view/new-job.jsp").forward(request,
 					// response);
+					String s = request.getParameter("from");
 					response.sendRedirect(request.getContextPath() + "/home");
 				} else
 				{

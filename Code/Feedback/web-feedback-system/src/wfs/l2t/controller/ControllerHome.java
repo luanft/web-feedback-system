@@ -21,14 +21,16 @@ import wfs.l2t.utility.LoginUtility;
  * Servlet implementation class ControllerHome
  */
 @WebServlet("/ControllerHome")
-public class ControllerHome extends HttpServlet {
+public class ControllerHome extends HttpServlet
+{
 	private static final long serialVersionUID = 1L;
 	private LoginUtility loginUtility;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ControllerHome() {
+	public ControllerHome()
+	{
 		super();
 		loginUtility = new LoginUtility();
 	}
@@ -37,16 +39,18 @@ public class ControllerHome extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 
-		if (loginUtility.isLogged(request, response)) {
+		if (loginUtility.isLogged(request, response))
+		{
 
-			if (request.getParameter("logout") != null) {
+			if (request.getParameter("logout") != null)
+			{
 				this.loginUtility.logOut(request, response);
 				response.sendRedirect(request.getContextPath() + "/login");
 			}
@@ -54,10 +58,10 @@ public class ControllerHome extends HttpServlet {
 			request.setAttribute("user", loginUtility.getLoggedUserId());
 			HttpSession session = request.getSession();
 			session.setAttribute("offset", "0");
-			request.getRequestDispatcher("view/new-job.jsp").include(request,
-					response);
+			request.getRequestDispatcher("view/new-job.jsp").include(request, response);
 			// loadNewJob(request, response);
-		} else {
+		} else
+		{
 			response.sendRedirect(request.getContextPath() + "/login");
 		}
 	}
@@ -66,12 +70,14 @@ public class ControllerHome extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+			IOException
+	{
 		// TODO Auto-generated method stub
 
 		// neu chua đăng nhập
-		if (!loginUtility.isLogged(request, response)) {
+		if (!loginUtility.isLogged(request, response))
+		{
 			response.sendRedirect(request.getContextPath() + "/login");
 			return;
 		}
@@ -80,25 +86,31 @@ public class ControllerHome extends HttpServlet {
 		setSuitableJob(request);
 	}
 
-	private void setSuitableJob(HttpServletRequest request)
-			throws ServletException, IOException {
-		if (request.getParameter("status") != null) {
+	private void setSuitableJob(HttpServletRequest request) throws ServletException, IOException
+	{
+		if (request.getParameter("status") != null)
+		{
 			Cookie[] cookies = request.getCookies();
 			String accountId = "";
 			ModelJobRecommended mjr = new ModelJobRecommended();
-			for (Cookie c : cookies) {
-				if (c.getName().equals("jobrec_login_cookie")) {
+			for (Cookie c : cookies)
+			{
+				if (c.getName().equals("jobrec_login_cookie"))
+				{
 					accountId = c.getValue();
 					break;
 				}
 			}
 			String key = request.getParameter("status");
 			String jobId = request.getParameter("index");
-			switch (key) {
+			switch (key)
+			{
 			case "0":
-				if (mjr.checkIfExist(jobId, accountId)) {
+				if (mjr.checkIfExist(jobId, accountId))
+				{
 					mjr.updateFittable(key, "0", accountId, jobId);
-				} else {
+				} else
+				{
 					dtoJobRecommended jobRec = new dtoJobRecommended();
 					jobRec.accountId = accountId;
 					jobRec.jobId = jobId;
@@ -109,9 +121,11 @@ public class ControllerHome extends HttpServlet {
 				}
 				break;
 			case "1":
-				if (mjr.checkIfExist(jobId, accountId)) {
+				if (mjr.checkIfExist(jobId, accountId))
+				{
 					mjr.updateFittable(key, "0", accountId, jobId);
-				} else {
+				} else
+				{
 					dtoJobRecommended jobRec = new dtoJobRecommended();
 					jobRec.accountId = accountId;
 					jobRec.jobId = jobId;
@@ -122,9 +136,11 @@ public class ControllerHome extends HttpServlet {
 				}
 				break;
 			case "2":
-				if (mjr.checkIfExist(jobId, accountId)) {
+				if (mjr.checkIfExist(jobId, accountId))
+				{
 					mjr.updateFittable("0", "1", accountId, jobId);
-				} else {
+				} else
+				{
 					dtoJobRecommended jobRec = new dtoJobRecommended();
 					jobRec.accountId = accountId;
 					jobRec.jobId = jobId;
@@ -140,12 +156,12 @@ public class ControllerHome extends HttpServlet {
 		}
 	}
 
-	private void loadNewJob(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	private void loadNewJob(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+			IOException
+	{
 		ModelJob mdj = new ModelJob();
 		HttpSession session = request.getSession();
-		int offset = Integer
-				.parseInt(session.getAttribute("offset").toString());
+		int offset = Integer.parseInt(session.getAttribute("offset").toString());
 
 		List<dtoJob> jobList = mdj.getJob(offset);
 		// mdj.getJob();
@@ -153,37 +169,34 @@ public class ControllerHome extends HttpServlet {
 		offset += 11;
 		session.setAttribute("offset", offset);
 
-		for (int i = 0; i < jobList.size(); i++) {
+		for (int i = 0; i < jobList.size(); i++)
+		{
 			job = jobList.get(i);
-			if (job.fit == null && job.notFit == null) {
-				writeHtml(job, mdj.getShortDescription(job.jobId), false,
-						request, response);
-			} else {
+			if (job.fit == null && job.notFit == null)
+			{
+				writeHtml(job, mdj.getShortDescription(job.jobId), false, request, response);
+			} else
+			{
 				if (job.fit.equals("0"))
 					if (job.notFit.equals("0"))
-						writeHtml(job, mdj.getShortDescription(job.jobId),
-								false, request, response);
+						writeHtml(job, mdj.getShortDescription(job.jobId), false, request, response);
 					else
 						continue;
 				else if (job.notFit.equals("0"))
-					writeHtml(job, mdj.getShortDescription(job.jobId), true,
-							request, response);
+					writeHtml(job, mdj.getShortDescription(job.jobId), true, request, response);
 			}
 		}
 	}
 
-	private void writeHtml(dtoJob job, String shortDescription, boolean css,
-			HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	private void writeHtml(dtoJob job, String shortDescription, boolean css, HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException
+	{
 		response.setContentType("text/html; charset=UTF-8");
-		response.getWriter().write(
-				"<div class=\"panel panel-info\" id = 'panel" + job.jobId
-						+ "'>");
+		response.getWriter().write("<div class=\"panel panel-info\" id = 'panel" + job.jobId + "'>");
 		response.getWriter().write("<div class='panel-heading'>");
 		response.getWriter().write(
-				"<a id=\"see-more" + job.jobId
-						+ "\" class=\"btn btn-link\"onclick=\"myCollapse('"
-						+ job.jobId + "')\"> <b>" + job.jobName + "</b></a>");
+				"<a id=\"see-more" + job.jobId + "\" class=\"btn btn-link\"onclick=\"myCollapse('" + job.jobId
+						+ "')\"> <b>" + job.jobName + "</b></a>");
 		response.getWriter().write("</div>");
 		response.getWriter().write("<div class='panel-body'>");
 		response.getWriter().write("<div class='row'>");
@@ -196,37 +209,33 @@ public class ControllerHome extends HttpServlet {
 		response.getWriter().write("<div class='salary'>");
 		response.getWriter().write("<pre>" + job.salary + " </pre>");
 		response.getWriter().write("</div>");
-		response.getWriter().write(
-				"<div id='short-description" + job.jobId + "'>");
-		response.getWriter().write(
-				"<pre>Mô tả: " + shortDescription + " ...</pre>");
+		response.getWriter().write("<div id='short-description" + job.jobId + "'>");
+		response.getWriter().write("<pre>Mô tả: " + shortDescription + " ...</pre>");
 		response.getWriter().write("</div>");
-		response.getWriter().write(
-				"<div id='full-info" + job.jobId + "' class='custom_hiden'>");
+		response.getWriter().write("<div id='full-info" + job.jobId + "' class='custom_hiden'>");
 		response.getWriter().write("<div class='description'>");
-		response.getWriter().write("<pre>Description:");
+		response.getWriter().write("<pre>Mô tả:");
 		response.getWriter().write(job.description);
 		response.getWriter().write("</pre>");
 		response.getWriter().write("</div>");
 		response.getWriter().write("<div class='requirement'>");
-		response.getWriter().write("<pre>Requirement:");
+		response.getWriter().write("<pre>Yêu cầu:");
 		response.getWriter().write(job.requirement);
 		response.getWriter().write("</pre>");
 		response.getWriter().write("</div>");
 		response.getWriter().write("<div class='benifit'>");
-		response.getWriter().write("<pre>Benifit:");
+		response.getWriter().write("<pre>Lợi ích:");
 		response.getWriter().write(job.benifit);
 		response.getWriter().write("</pre>");
 		response.getWriter().write("</div>");
 		response.getWriter().write("<div class='expire'>");
-		response.getWriter().write("<pre>Expired: " + job.expired + " </pre>");
+		response.getWriter().write("<pre>Ngày hết hạn: " + job.expired + " </pre>");
 		response.getWriter().write("</div>");
 		response.getWriter().write("</div>");
 		response.getWriter().write("</div>");
 		response.getWriter().write("</div>");
 		response.getWriter().write("<div class='panel-footer'>");
-		response.getWriter()
-				.write("<label>Bạn thấy công việc này có phù hợp với bạn không?</label>");
+		response.getWriter().write("<label>Bạn thấy công việc này có phù hợp với bạn không?</label>");
 		if (!css)
 			response.getWriter()
 					.write("<a onclick = likeClick(this,"

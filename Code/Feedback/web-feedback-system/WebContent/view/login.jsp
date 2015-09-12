@@ -117,5 +117,6 @@
 			</div>
 		</div>
 	</div>
+	<input type = "hidden" name = "from" value = "${param.from }">
 </body>
 </html>

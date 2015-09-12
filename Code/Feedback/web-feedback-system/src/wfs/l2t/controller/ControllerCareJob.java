@@ -72,8 +72,7 @@ public class ControllerCareJob extends HttpServlet
 			request.setAttribute("user", this.loginUtility.getLoggedUserId());
 			loadCaredJob(request, response);
 			setSuitableJob(request);
-		}
-		 else
+		} else
 		{
 			response.sendRedirect(request.getContextPath() + "/login");
 		}
@@ -161,11 +160,15 @@ public class ControllerCareJob extends HttpServlet
 		offset += 11;
 		session.setAttribute("offset", offset);
 
-		for (int i = 0; i < jobList.size(); i++)
+		if (jobList.size() == 0)
+			writeHtml(request, response);
+		else
 		{
-			job = jobList.get(i);
-			writeHtml(job, mdj.getShortDescription(job.jobId), request, response);
-
+			for (int i = 0; i < jobList.size(); i++)
+			{
+				job = jobList.get(i);
+				writeHtml(job, mdj.getShortDescription(job.jobId), request, response);
+			}
 		}
 	}
 
@@ -228,5 +231,13 @@ public class ControllerCareJob extends HttpServlet
 		response.getWriter().write("</div>");
 		response.getWriter().write("<br>");
 		response.getWriter().write("</div>");
+	}
+
+	private void writeHtml(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+			IOException
+	{
+		response.setContentType("text/html; charset=UTF-8");
+		response.getWriter().write(
+				"<p class = 'text-center' <b> <i> Bạn chưa chọn quan tâm công việc nào! </i>  </b></p>");
 	}
 }

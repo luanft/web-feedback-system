@@ -63,3 +63,13 @@ $(document).ready(function() {
 		});
 	}
 });
+
+//$(window).load(function(){alert("rea");
+//	$.ajax({
+//		type : "GET",
+//		url : "ControllerJobRecommend",
+//		data : {
+//			xxx : $("#from").val()
+//		}
+//	});
+//});
