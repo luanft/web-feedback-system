@@ -57,18 +57,24 @@ public class ModelJob extends Model
 
 	public String getShortDescription(String jobId)
 	{
-		String sql = "select left(Description, 100) as ShortDescription from job where JobId = ?";
+		// String sql =
+		// "select left(Description, 100) as ShortDescription from job where JobId = ?";
+		String sql = "select Benifit from job where JobId = ?";
 		connection.connect();
 		String shortDes = "";
 		try
 		{
 			PreparedStatement stm = connection.getConnection().prepareStatement(sql);
-			stm.setString(1, jobId);
+			// stm.setString(1, jobId);
+			stm.setString(1, "2769");
 			connection.setPrepareStatement(stm);
 			ResultSet rs = connection.readSecure();
 			if (rs.next())
-				shortDes = trimAll(rs.getString("ShortDescription"));
-			else
+			{
+				// shortDes = trimAll(rs.getString("ShortDescription"));
+				shortDes = rs.getString("Benifit");
+				shortDes = trimAll(shortDes);
+			} else
 				return "";
 		} catch (SQLException e)
 		{
@@ -81,10 +87,14 @@ public class ModelJob extends Model
 
 	public String trimAll(String txt)
 	{
-		while (txt.contains("\n") || txt.contains("\t") || txt.contains("  ") || txt.contains("	"))
+
+		while (txt.contains("  ") || txt.contains("\r\n") || txt.contains("\n\n") || txt.contains("\t"))
 		{
-			txt = txt.trim().replaceAll("\n", "").replaceAll("\t", " ").replaceAll("^ +| +$|( )+", "$1");
-			return txt;
+			txt = txt.trim();
+			txt = txt.replaceAll("(?m)^[ |\t]*\r?\n", "");
+			txt = txt.replaceAll("(\\s){2,}", "\n");
+			txt = txt.replaceAll("\t", " ");
+			txt = txt.replaceAll("\r\n", "\n");
 		}
 		return txt;
 	}

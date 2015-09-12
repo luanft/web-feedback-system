@@ -118,6 +118,3 @@ $(document).ready(
 
 					});
 		});
-
-
-//if($("#numJobLoad").text().trim() > 100) alert("over");
