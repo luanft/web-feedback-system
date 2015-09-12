@@ -24,7 +24,18 @@
   <servlet-mapping>
     <servlet-name>recommendation</servlet-name>
     <url-pattern>/recommendation</url-pattern>
-  </servlet-mapping>  
+  </servlet-mapping> 
+  
+  
+  <servlet>
+    <servlet-name>care</servlet-name>
+    <servlet-class>wfs.l2t.controller.ControllerCareJob</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>care</servlet-name>
+    <url-pattern>/care</url-pattern>
+  </servlet-mapping> 
+  
   <servlet>
     <servlet-name>home</servlet-name>
     <servlet-class>wfs.l2t.controller.ControllerHome</servlet-class>

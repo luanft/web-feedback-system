@@ -51,8 +51,8 @@ public class ControllerCareJob extends HttpServlet
 			// new-job.jsp
 			HttpSession session = request.getSession();
 			session.setAttribute("offset", "0");
+			request.setAttribute("user", this.loginUtility.getLoggedUserId());
 			request.getRequestDispatcher("view/care-job.jsp").include(request, response);
-			// loadNewJob(request, response);
 		} else
 		{
 			response.sendRedirect(request.getContextPath() + "/login");
@@ -69,6 +69,7 @@ public class ControllerCareJob extends HttpServlet
 		// TODO Auto-generated method stub
 		if (loginUtility.isLogged(request, response))
 		{
+			request.setAttribute("user", this.loginUtility.getLoggedUserId());
 			loadCaredJob(request, response);
 			setSuitableJob(request);
 		}

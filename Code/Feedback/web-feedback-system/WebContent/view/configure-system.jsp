@@ -37,14 +37,15 @@
 								src="<%out.print(request.getContextPath()
 					+ "/view/resource/image/logo.jpg");%>"
 								class="img-circle navbar-brand" width="60" height="70"> <a
-								class="navbar-brand custom_color_white"> RECOMMENDATION
-								SYSTEM</a>
+								class="navbar-brand custom_color_white"
+								href="<%out.print(request.getContextPath());%>">
+								RECOMMENDATION SYSTEM</a>
 						</div>
 					</div>
 					<div class="col-md-7">
 						<div>
 							<ul class="nav navbar-nav  navbar-right">
-								<li><a href="#">Home</a></li>
+								<li><a href="<%out.print(request.getContextPath());%>">Home</a></li>
 								<li class="dropdown"><a href="#" class="dropdown-toggle"
 									data-toggle="dropdown"> <span
 										class="glyphicon glyphicon-user"></span> Xin chào <%=dtoAcc.userName%><span
@@ -81,17 +82,20 @@
 						<div>
 							<ul class="nav nav-pills nav-stacked custom_font_bold">
 								<li class><a
-									href="<%out.print(request.getContextPath() + "/home");%>"><span
-										class="glyphicon glyphicon-thumbs-up"></span> CÔNG VIỆC MỚI
+									href="<%out.print(request.getContextPath());%>"><span
+										class="glyphicon glyphicon glyphicon-home"></span> CÔNG VIỆC MỚI
 										NHẤT</a></li>
 								<li class><a
-									href="<%out.print(request.getContextPath() + "/recommendation");%>"><span
-										class="glyphicon glyphicon-thumbs-up"></span> LĨNH VỰC QUAN
+									href="<%out.print(request.getContextPath() + "/care");%>"><span
+										class="glyphicon glyphicon-heart"></span> CÔNG VIỆC QUAN
 										TÂM</a></li>
+
+								<li class><a
+									href="<%out.print(request.getContextPath() + "/recommendation");%>"><span
+										class="glyphicon glyphicon glyphicon-pencil"></span> KHẢO SÁT</a></li>
 								<li><a
 									href="<%out.print(request.getContextPath() + "/settings");%>"><span
-										class="glyphicon glyphicon-cog"></span> THIẾT LẬP HỆ THỐNG</a></li>
-
+										class="glyphicon glyphicon-cog"></span> THIẾT LẬP GỬI MAIL</a></li>
 								<li class><a href="#"><span
 										class="glyphicon glyphicon-list-alt"></span> XEM HỒ SƠ CỦA BẠN</a></li>
 								<li class><a href="#"><span
