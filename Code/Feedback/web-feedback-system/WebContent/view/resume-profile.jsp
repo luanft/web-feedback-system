@@ -338,7 +338,7 @@
 								</dl>
 							
 							<form id="career-object-form" method="post">
-								<dl class="mydl">
+								<dl class="dl-horizontal">
 									<dt>Desire Salary</dt>
 									<dd><input type="text" name="desire-salary" value="${carObject.desireSalary}$"></dd>
 									<dt>Recent Salary</dt>

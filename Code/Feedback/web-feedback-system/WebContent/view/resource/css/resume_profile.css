@@ -4,18 +4,20 @@ ul.detail-list {
 	padding-left: 0px;
 	
 	}
-dl.mydl{
+dl{
 	width: 100%;
   	overflow: hidden;
-  	padding-left: 20px;
+  	padding-left: 20px; 
 }
 dt{
 	font-weight: bold;
-	width: 40%;
+	width:300px; 
+	float:left; 
+	margin-right:10px; 
 }
-dd{
+dd,dt{
 	padding-bottom: 10px;
-	width: 60%;
+ 	
 }
 ul.list_info{
 	margin-left: 200px;
