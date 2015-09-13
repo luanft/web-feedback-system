@@ -111,11 +111,12 @@ public class LoginUtility {
 			if (this.currentUserId != null) {
 				if (account.getLoginToken(this.currentUserId).equals(token)) {
 					return true;
-				}
+				} else
+					return false;
 			}
 			break;
 		default:
-			return false;			
+			return false;
 		}
 		return false;
 	}
