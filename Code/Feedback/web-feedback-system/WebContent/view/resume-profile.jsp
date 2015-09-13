@@ -209,7 +209,7 @@
 							
 							<c:forEach var="exp" items="${experience}" varStatus="loop">
 								<dl class="mydl" id="experience-list_${loop.index}">
-									<dt>Job title</dt>
+									<dt >Job title</dt>
 									<dd>${exp.jobTitle}<button type="button" class="glyphicon glyphicon-remove btn-link " name="experience-remove-button" onclick="removeExpEven(${exp.experienceId})"></button></dd>
 									<dt>Position</dt>
 									<dd>${exp.position}</dd>
