@@ -132,7 +132,8 @@
 								</form>
 							</div>
 							<!-- Contact Information -->
-							<div class="panel-heading">Contact Information
+							
+												<div class="panel-heading">Contact Information
 							<button type="button" class="glyphicon glyphicon-pencil btn-link pull-right" id="contact-edit-button"></button></div>
 							<div class="panel-body">
 								<dl class="mydl" id="contact-list">
@@ -156,11 +157,11 @@
 									<button class="btn btn-default" id="contact-cancel">Cancel</button>
 								</form>
 							</div>
+							<!-- Education -->
 							<div class="panel-heading">Education
 							<button type="button" class="glyphicon glyphicon-plus btn-link pull-right" data-toggle="collapse" data-target="#education-form" id="education-add-button"></button>
 							</div>
 							<div class="panel-body">
-				
 							<c:forEach var="edu" items="${education}" varStatus="loop">
 								<dl class="mydl" id="education-list">
 									<dt>${edu.startDate}-${edu.endDate}</dt>
@@ -273,7 +274,6 @@
 							<div class="panel-heading">References
 							<button type="button" class=" glyphicon glyphicon-plus btn-link pull-right " data-toggle="collapse" data-target="#reference-form" id="reference-add-button"></button>
 							</div>
-							
 							<div class="panel-body">
 							
 								<ul id="reference-list">
