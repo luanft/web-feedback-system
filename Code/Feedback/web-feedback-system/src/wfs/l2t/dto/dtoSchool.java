@@ -2,7 +2,7 @@ package wfs.l2t.dto;
 
 public class dtoSchool {
 
-	public int schoolID;
+	public int schoolID=0;
 	public int getSchoolID() {
 		return schoolID;
 	}
@@ -15,6 +15,6 @@ public class dtoSchool {
 	public void setSchoolName(String schoolName) {
 		this.schoolName = schoolName;
 	}
-	public String schoolName;
+	public String schoolName="";
 
 }

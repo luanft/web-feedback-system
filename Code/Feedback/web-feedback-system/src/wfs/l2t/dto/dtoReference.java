@@ -2,11 +2,11 @@ package wfs.l2t.dto;
 
 public class dtoReference {
 
-	public String name;
-	public String jobTitle;
-	public String phone;
-	public String email;
-	public int id;
+	public String name="";
+	public String jobTitle="";
+	public String phone="";
+	public String email="";
+	public int id=0;
 	public String resumeId;
 	public String getName() {
 		return name;

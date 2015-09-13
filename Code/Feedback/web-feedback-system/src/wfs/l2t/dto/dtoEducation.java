@@ -3,10 +3,10 @@ package wfs.l2t.dto;
 
 
 public class dtoEducation {
-	public String startDate;
-	public String endDate;
+	public String startDate=null;
+	public String endDate=null;
 	public String educationDescription ="";
-	public int educationId;
+	public int educationId=0;
 	public String resumeId ="";
 	public String schoolId ="";
 	public String educationLevel ="";
