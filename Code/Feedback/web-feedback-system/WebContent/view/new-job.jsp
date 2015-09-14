@@ -108,6 +108,9 @@
 					<div id="content-wrapper" class="panel-group">
 					
 					</div>
+					<div style="text-align: center" id = "loading" class = "custom_hiden">
+						<button class="btn btn-default pull-center"><i class="glyphicon glyphicon-repeat gly-spin"></i>	 Đang lấy dữ liệu...</button>
+					</div>
 				</div>
 			</div>
 		</div>

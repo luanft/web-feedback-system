@@ -67,21 +67,23 @@ $(document).ready(function() {
 
 // load job when user scroll down of page
 var count = 0;
+$contentLoadTriggered = false;
 $(document)
 		.ready(
 				function() {
-					$contentLoadTriggered = false;
+
 					$(window)
 							.scroll(
 									function() {
 										if (count < 5) {
 											count += 1;
-											if ($("#done").text().trim() !== "Hết việc mới rồi. Hehe!")
+											if ($("#done").text().trim() !== "Hết việc mới rồi. Hehe!") {
 												if ($(window).scrollTop()
 														+ $(window).height() == $(
 														document).height()
 														&& $contentLoadTriggered == false) {
 													$contentLoadTriggered = true;
+													$("#loading").show();
 													$
 															.ajax({
 																type : "POST",
@@ -99,14 +101,17 @@ $(document)
 																}
 															});
 												}
+											} else
+												$("#loading").hide();
 										} else {
 											count = 0;
-											if ($("#done").text().trim() !== "Hết việc mới rồi. Hehe!")
+											if ($("#done").text().trim() !== "Hết việc mới rồi. Hehe!") {
 												if ($(window).scrollTop()
 														+ $(window).height() == $(
 														document).height()
 														&& $contentLoadTriggered == false) {
 													$contentLoadTriggered = true;
+													$("#loading").show();
 													$
 															.ajax({
 																type : "POST",
@@ -124,18 +129,9 @@ $(document)
 																}
 															});
 												}
+											} else
+												$("#loading").hide();
 										}
 
 									});
 				});
-
-function categoryClick(index)
-{
-	$.ajax({
-		type : "POST",
-		data : {
-			categoryId : index
-		},
-		url : "ControllerHome"
-	});
-}

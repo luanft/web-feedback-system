@@ -20,14 +20,16 @@ import wfs.l2t.utility.LoginUtility;
  * Servlet implementation class ControllerJobRecommended
  */
 @WebServlet("/ControllerJobRecommended")
-public class ControllerJobRecommended extends HttpServlet {
+public class ControllerJobRecommended extends HttpServlet
+{
 	private static final long serialVersionUID = 1L;
 	private LoginUtility loginUtility;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ControllerJobRecommended() {
+	public ControllerJobRecommended()
+	{
 		super();
 		loginUtility = new LoginUtility();
 	}
@@ -36,24 +38,25 @@ public class ControllerJobRecommended extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-		if (loginUtility.isLogged(request, response)) {
+		if (loginUtility.isLogged(request, response))
+		{
 			request.setAttribute("user", loginUtility.getLoggedUserId());
 			// rec-job.jsp
-			request.getRequestDispatcher("view/job-feedback.jsp").include(
-					request, response);
-		} else {
-			//login sử dụng token
-			if (loginUtility.isLoggedByToken(request, response)) {
+			request.getRequestDispatcher("view/job-feedback.jsp").include(request, response);
+		} else
+		{
+			// login sử dụng token
+			if (loginUtility.isLoggedByToken(request, response))
+			{
 				request.setAttribute("user", loginUtility.getLoggedUserId());
 				// rec-job.jsp
-				request.getRequestDispatcher("view/job-feedback.jsp").include(
-						request, response);
+				request.getRequestDispatcher("view/job-feedback.jsp").include(request, response);
 				return;
 			}
 			// request.setAttribute("fromJobRec", request.getContextPath());
@@ -65,15 +68,19 @@ public class ControllerJobRecommended extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		if (loginUtility.isLogged(request, response)) {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+			IOException
+	{
+		if (loginUtility.isLogged(request, response))
+		{
 			request.setAttribute("user", loginUtility.getLoggedUserId());
 			setSuitableJob(request);
 			loadRecommendedJob(request, response);
-		} else {
-			//login sử dụng token
-			if (loginUtility.isLoggedByToken(request, response)) {
+		} else
+		{
+			// login sử dụng token
+			if (loginUtility.isLoggedByToken(request, response))
+			{
 				request.setAttribute("user", loginUtility.getLoggedUserId());
 				setSuitableJob(request);
 				loadRecommendedJob(request, response);
@@ -84,25 +91,31 @@ public class ControllerJobRecommended extends HttpServlet {
 		}
 	}
 
-	private void setSuitableJob(HttpServletRequest request)
-			throws ServletException, IOException {
-		if (request.getParameter("status") != null) {
+	private void setSuitableJob(HttpServletRequest request) throws ServletException, IOException
+	{
+		if (request.getParameter("status") != null)
+		{
 			Cookie[] cookies = request.getCookies();
 			String accountId = "";
 			ModelJobRecommended mjr = new ModelJobRecommended();
-			for (Cookie c : cookies) {
-				if (c.getName().equals("jobrec_login_cookie")) {
+			for (Cookie c : cookies)
+			{
+				if (c.getName().equals("jobrec_login_cookie"))
+				{
 					accountId = c.getValue();
 					break;
 				}
 			}
 			String key = request.getParameter("status");
 			String jobId = request.getParameter("index");
-			switch (key) {
+			switch (key)
+			{
 			case "0":
-				if (mjr.checkIfExist(jobId, accountId)) {
+				if (mjr.checkIfExist(jobId, accountId))
+				{
 					mjr.updateFittable(key, "0", accountId, jobId);
-				} else {
+				} else
+				{
 					dtoJobRecommended jobRec = new dtoJobRecommended();
 					jobRec.accountId = accountId;
 					jobRec.jobId = jobId;
@@ -113,9 +126,11 @@ public class ControllerJobRecommended extends HttpServlet {
 				}
 				break;
 			case "1":
-				if (mjr.checkIfExist(jobId, accountId)) {
+				if (mjr.checkIfExist(jobId, accountId))
+				{
 					mjr.updateFittable(key, "0", accountId, jobId);
-				} else {
+				} else
+				{
 					dtoJobRecommended jobRec = new dtoJobRecommended();
 					jobRec.accountId = accountId;
 					jobRec.jobId = jobId;
@@ -126,9 +141,11 @@ public class ControllerJobRecommended extends HttpServlet {
 				}
 				break;
 			case "2":
-				if (mjr.checkIfExist(jobId, accountId)) {
+				if (mjr.checkIfExist(jobId, accountId))
+				{
 					mjr.updateFittable("0", "1", accountId, jobId);
-				} else {
+				} else
+				{
 					dtoJobRecommended jobRec = new dtoJobRecommended();
 					jobRec.accountId = accountId;
 					jobRec.jobId = jobId;
@@ -144,37 +161,35 @@ public class ControllerJobRecommended extends HttpServlet {
 		}
 	}
 
-	private void loadRecommendedJob(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	private void loadRecommendedJob(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+			IOException
+	{
 		{
 			ModelJob mdj = new ModelJob();
-			List<dtoJob> jobList = mdj.getJobRecommended(loginUtility
-					.getLoggedUserId());
+			List<dtoJob> jobList = mdj.getJobRecommended(loginUtility.getLoggedUserId());
 			dtoJob job = new dtoJob();
 			if (jobList.size() == 0)
 				writeHtml(request, response);
-			else {
-				for (int i = 0; i < jobList.size(); i++) {
+			else
+			{
+				for (int i = 0; i < jobList.size(); i++)
+				{
 					job = jobList.get(i);
-					writeHtml(job, mdj.getShortDescription(job.jobId), request,
-							response);
+					writeHtml(job, mdj.getShortDescription(job.jobId), request, response);
 				}
 			}
 		}
 	}
 
-	private void writeHtml(dtoJob job, String shortDescription,
-			HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	private void writeHtml(dtoJob job, String shortDescription, HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException
+	{
 		response.setContentType("text/html; charset=UTF-8");
-		response.getWriter().write(
-				"<div class=\"panel panel-info\" id = 'panel" + job.jobId
-						+ "'>");
+		response.getWriter().write("<div class=\"panel panel-info\" id = 'panel" + job.jobId + "'>");
 		response.getWriter().write("<div class='panel-heading'>");
 		response.getWriter().write(
-				"<a id=\"see-more" + job.jobId
-						+ "\" class=\"btn btn-link\"onclick=\"myCollapse('"
-						+ job.jobId + "')\"> <b>" + job.jobName + "</b></a>");
+				"<a id=\"see-more" + job.jobId + "\" class=\"btn btn-link\"onclick=\"myCollapse('" + job.jobId
+						+ "')\"> <b>" + job.jobName + "</b></a>");
 		response.getWriter().write("</div>");
 		response.getWriter().write("<div class='panel-body'>");
 		response.getWriter().write("<div class='row'>");
@@ -187,13 +202,10 @@ public class ControllerJobRecommended extends HttpServlet {
 		response.getWriter().write("<div class='salary'>");
 		response.getWriter().write("<pre>" + job.salary + " </pre>");
 		response.getWriter().write("</div>");
-		response.getWriter().write(
-				"<div id='short-description" + job.jobId + "'>");
-		response.getWriter().write(
-				"<pre>Mô tả: " + shortDescription + " ...</pre>");
+		response.getWriter().write("<div id='short-description" + job.jobId + "'>");
+		response.getWriter().write("<pre>Mô tả: " + shortDescription + " ...</pre>");
 		response.getWriter().write("</div>");
-		response.getWriter().write(
-				"<div id='full-info" + job.jobId + "' class='custom_hiden'>");
+		response.getWriter().write("<div id='full-info" + job.jobId + "' class='custom_hiden'>");
 		response.getWriter().write("<div class='description'>");
 		response.getWriter().write("<pre>Description:");
 		response.getWriter().write(job.description);
@@ -212,12 +224,14 @@ public class ControllerJobRecommended extends HttpServlet {
 		response.getWriter().write("<div class='expire'>");
 		response.getWriter().write("<pre>Expired: " + job.expired + " </pre>");
 		response.getWriter().write("</div>");
+		response.getWriter().write("<div class='source'>");
+		response.getWriter().write("<pre>Nguồn: " + job.source + " </pre>");
+		response.getWriter().write("</div>");
 		response.getWriter().write("</div>");
 		response.getWriter().write("</div>");
 		response.getWriter().write("</div>");
 		response.getWriter().write("<div class='panel-footer'>");
-		response.getWriter()
-				.write("<label>Bạn thấy công việc này có phù hợp với bạn không?</label>");
+		response.getWriter().write("<label>Bạn thấy công việc này có phù hợp với bạn không?</label>");
 		response.getWriter()
 				.write("<a onclick = likeClick(this,"
 						+ job.jobId
@@ -231,10 +245,11 @@ public class ControllerJobRecommended extends HttpServlet {
 		response.getWriter().write("</div>");
 	}
 
-	private void writeHtml(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	private void writeHtml(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+			IOException
+	{
 		response.setContentType("text/html; charset=UTF-8");
-		response.getWriter()
-				.write("<p class = 'text-center' <b> <i> Bạn chưa có công việc nào được khuyến nghị! </i>  </b></p>");
+		response.getWriter().write(
+				"<p class = 'text-center' <b> <i> Bạn chưa có công việc nào được khuyến nghị! </i>  </b></p>");
 	}
 }

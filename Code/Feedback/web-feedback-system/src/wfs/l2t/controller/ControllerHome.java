@@ -213,8 +213,8 @@ public class ControllerHome extends HttpServlet
 						+ "')\"> <b>" + job.jobName + "</b></a>");
 		response.getWriter().write(
 				"<a id=\"categoryId" + job.categoryId + "\" class=\"btn btn-link pull-right\" href ='"
-						+ request.getContextPath() + "/home?cate=" + job.categoryId + "'> <i>" + job.category
-						+ "</i></a>");
+						+ request.getContextPath() + "/home?cate=" + job.categoryId + "'> <i> Lĩnh vực: "
+						+ job.category + "</i></a>");
 		response.getWriter().write("</div>");
 		response.getWriter().write("<div class='panel-body'>");
 		response.getWriter().write("<div class='row'>");
@@ -248,6 +248,9 @@ public class ControllerHome extends HttpServlet
 		response.getWriter().write("</div>");
 		response.getWriter().write("<div class='expire'>");
 		response.getWriter().write("<pre>Ngày hết hạn: " + job.expired + " </pre>");
+		response.getWriter().write("</div>");
+		response.getWriter().write("<div class='source'>");
+		response.getWriter().write("<pre>Nguồn: " + job.source + " </pre>");
 		response.getWriter().write("</div>");
 		response.getWriter().write("</div>");
 		response.getWriter().write("</div>");

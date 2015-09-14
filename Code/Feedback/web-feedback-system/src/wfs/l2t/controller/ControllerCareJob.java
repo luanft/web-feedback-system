@@ -218,6 +218,9 @@ public class ControllerCareJob extends HttpServlet
 		response.getWriter().write("<div class='expire'>");
 		response.getWriter().write("<pre>Expired: " + job.expired + " </pre>");
 		response.getWriter().write("</div>");
+		response.getWriter().write("<div class='source'>");
+		response.getWriter().write("<pre>Nguồn: " + job.source + " </pre>");
+		response.getWriter().write("</div>");
 		response.getWriter().write("</div>");
 		response.getWriter().write("</div>");
 		response.getWriter().write("</div>");
