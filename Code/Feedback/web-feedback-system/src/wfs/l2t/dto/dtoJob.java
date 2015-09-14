@@ -19,4 +19,5 @@ public class dtoJob
 	public String fit = "";
 	public String notFit = "";
 	public String userId = "";
+	public String category = "";
 }

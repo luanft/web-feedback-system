@@ -66,28 +66,55 @@ $(document).ready(function() {
 });
 
 // load job when user scroll down of page
+var count = 0;
 $(document).ready(
 		function() {
 			$contentLoadTriggered = false;
 			$(window).scroll(
-					function() {						
-						if($("#done").text().trim() !== "Hết rồi! Đừng cuộn nữa mắc công. Hehe !!!")
-						if ($(window).scrollTop() + $(window).height() == $(
-								document).height()
-								&& $contentLoadTriggered == false) {
-							$contentLoadTriggered = true;
-							$.ajax({
-								type : "POST",
-								url : "ControllerCareJob",
-								data : {
-									xxx : "scroll"
-								},
-								success : function(data) {
-									$("#content-wrapper").append(data);
-									$contentLoadTriggered = false;
+					function() {
+						if(count < 5)
+							{
+							count +=1;
+							if($("#done").text().trim() !== "Hết rồi! Đừng cuộn nữa mắc công. Hehe !!!")							
+								if ($(window).scrollTop() + $(window).height() == $(
+										document).height()
+										&& $contentLoadTriggered == false) {
+									$contentLoadTriggered = true;
+									$.ajax({
+										type : "POST",
+										url : "ControllerCareJob",
+										data : {
+											xxx : "scroll"
+										},
+										success : function(data) {
+											$("#content-wrapper").append(data);
+											$contentLoadTriggered = false;
+										}
+									});
 								}
-							});
-						}
+							}
+						else
+							{
+							count = 0;
+							if($("#done").text().trim() !== "Hết rồi! Đừng cuộn nữa mắc công. Hehe !!!")							
+								if ($(window).scrollTop() + $(window).height() == $(
+										document).height()
+										&& $contentLoadTriggered == false) {
+									$contentLoadTriggered = true;
+									$.ajax({
+										type : "POST",
+										url : "ControllerCareJob",
+										data : {
+											xxx : "scroll"
+										},
+										success : function(data) {
+											$("#content-wrapper").html(data);
+											$contentLoadTriggered = false;
+										}
+									});
+								}
+							}
+						
 
 					});
 		});

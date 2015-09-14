@@ -54,10 +54,16 @@ public class ControllerHome extends HttpServlet
 				this.loginUtility.logOut(request, response);
 				response.sendRedirect(request.getContextPath() + "/login");
 			}
-			// new-job.jsp
+			//
 			request.setAttribute("user", loginUtility.getLoggedUserId());
+
+			// new-job.jsp
+
 			HttpSession session = request.getSession();
 			session.setAttribute("offset", "0");
+			// if(request.getParameter("cate") != null)
+			session.setAttribute("cate", request.getParameter("cate"));
+			// if (request.getParameter("cate") == null)
 			request.getRequestDispatcher("view/new-job.jsp").include(request, response);
 			// loadNewJob(request, response);
 		} else
@@ -74,7 +80,7 @@ public class ControllerHome extends HttpServlet
 			IOException
 	{
 		// TODO Auto-generated method stub
-		// neu chua đăng nhập
+		// neu chua Ä‘Äƒng nháº­p
 		if (!loginUtility.isLogged(request, response))
 		{
 			loginUtility.isLogged(request, response);
@@ -82,77 +88,76 @@ public class ControllerHome extends HttpServlet
 			return;
 		}
 		request.setAttribute("user", loginUtility.getLoggedUserId());
+
 		loadNewJob(request, response);
-		setSuitableJob(request);
+		if (request.getParameter("status") != null)
+			setSuitableJob(request);
 	}
 
 	private void setSuitableJob(HttpServletRequest request) throws ServletException, IOException
 	{
-		if (request.getParameter("status") != null)
+		Cookie[] cookies = request.getCookies();
+		String accountId = "";
+		ModelJobRecommended mjr = new ModelJobRecommended();
+		for (Cookie c : cookies)
 		{
-			Cookie[] cookies = request.getCookies();
-			String accountId = "";
-			ModelJobRecommended mjr = new ModelJobRecommended();
-			for (Cookie c : cookies)
+			if (c.getName().equals("jobrec_login_cookie"))
 			{
-				if (c.getName().equals("jobrec_login_cookie"))
-				{
-					accountId = c.getValue();
-					break;
-				}
-			}
-			String key = request.getParameter("status");
-			String jobId = request.getParameter("index");
-			switch (key)
-			{
-			case "0":
-				if (mjr.checkIfExist(jobId, accountId))
-				{
-					mjr.updateFittable(key, "0", accountId, jobId);
-				} else
-				{
-					dtoJobRecommended jobRec = new dtoJobRecommended();
-					jobRec.accountId = accountId;
-					jobRec.jobId = jobId;
-					jobRec.fit = "0";
-					jobRec.notFit = "0";
-					jobRec.seen = "1";
-					mjr.add(jobRec);
-				}
-				break;
-			case "1":
-				if (mjr.checkIfExist(jobId, accountId))
-				{
-					mjr.updateFittable(key, "0", accountId, jobId);
-				} else
-				{
-					dtoJobRecommended jobRec = new dtoJobRecommended();
-					jobRec.accountId = accountId;
-					jobRec.jobId = jobId;
-					jobRec.fit = "1";
-					jobRec.notFit = "0";
-					jobRec.seen = "1";
-					mjr.add(jobRec);
-				}
-				break;
-			case "2":
-				if (mjr.checkIfExist(jobId, accountId))
-				{
-					mjr.updateFittable("0", "1", accountId, jobId);
-				} else
-				{
-					dtoJobRecommended jobRec = new dtoJobRecommended();
-					jobRec.accountId = accountId;
-					jobRec.jobId = jobId;
-					jobRec.fit = "0";
-					jobRec.notFit = "1";
-					jobRec.seen = "1";
-					mjr.add(jobRec);
-				}
-				break;
-			default:
+				accountId = c.getValue();
 				break;
 			}
+		}
+		String key = request.getParameter("status");
+		String jobId = request.getParameter("index");
+		switch (key)
+		{
+		case "0":
+			if (mjr.checkIfExist(jobId, accountId))
+			{
+				mjr.updateFittable(key, "0", accountId, jobId);
+			} else
+			{
+				dtoJobRecommended jobRec = new dtoJobRecommended();
+				jobRec.accountId = accountId;
+				jobRec.jobId = jobId;
+				jobRec.fit = "0";
+				jobRec.notFit = "0";
+				jobRec.seen = "1";
+				mjr.add(jobRec);
+			}
+			break;
+		case "1":
+			if (mjr.checkIfExist(jobId, accountId))
+			{
+				mjr.updateFittable(key, "0", accountId, jobId);
+			} else
+			{
+				dtoJobRecommended jobRec = new dtoJobRecommended();
+				jobRec.accountId = accountId;
+				jobRec.jobId = jobId;
+				jobRec.fit = "1";
+				jobRec.notFit = "0";
+				jobRec.seen = "1";
+				mjr.add(jobRec);
+			}
+			break;
+		case "2":
+			if (mjr.checkIfExist(jobId, accountId))
+			{
+				mjr.updateFittable("0", "1", accountId, jobId);
+			} else
+			{
+				dtoJobRecommended jobRec = new dtoJobRecommended();
+				jobRec.accountId = accountId;
+				jobRec.jobId = jobId;
+				jobRec.fit = "0";
+				jobRec.notFit = "1";
+				jobRec.seen = "1";
+				mjr.add(jobRec);
+			}
+			break;
+		default:
+			break;
 		}
 	}
 
@@ -162,8 +167,11 @@ public class ControllerHome extends HttpServlet
 		ModelJob mdj = new ModelJob();
 		HttpSession session = request.getSession();
 		int offset = Integer.parseInt(session.getAttribute("offset").toString());
-
-		List<dtoJob> jobList = mdj.getJob(offset);
+		List<dtoJob> jobList;
+		if (session.getAttribute("cate") != null)
+			jobList = mdj.getJobByCategory(offset, Integer.parseInt(session.getAttribute("cate").toString()));
+		else
+			jobList = mdj.getJob(offset);
 		// mdj.getJob();
 		dtoJob job = new dtoJob();
 		offset += 11;
@@ -173,7 +181,7 @@ public class ControllerHome extends HttpServlet
 			if (offset == 11)
 				writeHtml("Chưa có việc mới!", request, response);
 			else
-				writeHtml("Hết việc mới rồi. Hehe!", request, response);
+				writeHtml("Hết rồi đừng cuộn nữa mắc công. Hehe!", request, response);
 		else
 			for (int i = 0; i < jobList.size(); i++)
 			{
@@ -203,6 +211,10 @@ public class ControllerHome extends HttpServlet
 		response.getWriter().write(
 				"<a id=\"see-more" + job.jobId + "\" class=\"btn btn-link\"onclick=\"myCollapse('" + job.jobId
 						+ "')\"> <b>" + job.jobName + "</b></a>");
+		response.getWriter().write(
+				"<a id=\"categoryId" + job.categoryId + "\" class=\"btn btn-link pull-right\" href ='"
+						+ request.getContextPath() + "/home?cate=" + job.categoryId + "'> <i>" + job.category
+						+ "</i></a>");
 		response.getWriter().write("</div>");
 		response.getWriter().write("<div class='panel-body'>");
 		response.getWriter().write("<div class='row'>");
