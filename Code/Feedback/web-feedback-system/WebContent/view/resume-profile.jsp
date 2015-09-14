@@ -88,77 +88,77 @@
 					<br>
 					<div class="container-fluid">
 						<div class="panel panel-default">
-							<h2>Hồ Thị Thanh Thảo</h2><br>
+							<h2>${resume.name}</h2><br>
 							<h3>${resume.resumeTitle}</h3>
 							<%!dtoResume resume;dtoCareerObjective cao;%>
 							<!-- Personal Detail -->
 							<div class="panel-heading">
-								Personal Detail
+								Thông tin cá nhân
 								<button type="button" class="glyphicon glyphicon-pencil btn-link pull-right" id="personal-edit-button"></button>
 							</div>
 							<div class="panel-body">
 								<ul class="detail-list" id="personal-list">
-									<li>Gender :<strong>${resume.gender}</strong></li>
-									<li>Birthday: <strong>${resume.birthday}</strong></li>
-									<li>Marital status: <strong><% resume= (dtoResume)request.getAttribute("resume");
+									<li>Giới tính :<strong>${resume.gender}</strong></li>
+									<li>Ngày sinh: <strong>${resume.birthday}</strong></li>
+									<li>Tình trạng hôn nhân: <strong><% resume= (dtoResume)request.getAttribute("resume");
 									if(resume.getMaritalStatus()==false) {out.print("Độc thân");} 
 									else out.print("có gia đình");%></strong></li>
-									<li>Nationality: <strong>${resume.nationality}</strong></li>
+									<li>Quốc gia: <strong>${resume.nationality}</strong></li>
 									
 								</ul>
 								<br/>
 								<form id="personal-form" method="post">
 									<dl class="mydl">
-										<dt>Gender :</dt>
+										<dt>Giới tính </dt>
 										<dd>
 										<input type="text" name="gender_input" value="${resume.gender}">
 										
 										</dd>
-										<dt>Birthday:</dt>
+										<dt>Ngày sinh</dt>
 										<dd><input type="text" name="birthday_input" value="${resume.birthday}"></dd>
 									
-										<dt> Marital status:</dt>  
+										<dt> Tình trạng hôn nhân</dt>  
 										<dd><select
 											name="status_select">
 											<option value="false"<% if(resume.getMaritalStatus()==false) out.print("selected='selected'");%>>Độc thân</option>
 											<option value="true"<% if(resume.getMaritalStatus()==true) out.print("selected='selected'");%>>Có gia đình</option>
 										</select></dd>
-										<dt>Nationality:</dt>
+										<dt>Quốc gia</dt>
 										<dd><input type="text" name="nationality_input" value="${resume.nationality}"></dd>
 									</dl>	
 									<button type="submit" class="btn btn-default"
-										name="personal-submit">Save</button>
-									<button class="btn btn-default" id="personal-cancel">Cancel</button>
+										name="personal-submit">Lưu</button>
+									<button class="btn btn-default" id="personal-cancel">Hủy bỏ</button>
 								</form>
 							</div>
 							<!-- Contact Information -->
 							
-												<div class="panel-heading">Contact Information
+												<div class="panel-heading">Thông tin liên lạc
 							<button type="button" class="glyphicon glyphicon-pencil btn-link pull-right" id="contact-edit-button"></button></div>
 							<div class="panel-body">
 								<dl class="mydl" id="contact-list">
-									<dt>Address</dt>
+									<dt>Địa chỉ</dt>
 									<dd>${resume.address}</dd>
 									<dt>Email</dt>
 									<dd>
 										<a href="mailto:coxanh21294@gmail.com">${resume.email}</a>
 									</dd>
-									<dt>Mobile</dt>
+									<dt>Số điện thoại</dt>
 									<dd>${resume.phone}</dd>
 								</dl>
 								<form role="form" id="contact-form" method="post">
 									<dl>
-										<dt>Address</dt><dd><input type="text" name="address-input" value="${resume.address}"></dd>
+										<dt>Địa chỉ</dt><dd><input type="text" name="address-input" value="${resume.address}"></dd>
 										<dt>Email</dt><dd><input type="text" name="email-input" value="${resume.email}"></dd>
-										<dt>Mobile</dt><dd><input type="text" name="phone-input" value="${resume.phone}"></dd>
+										<dt>Số điện thoại</dt><dd><input type="text" name="phone-input" value="${resume.phone}"></dd>
 									</dl>
 									<button type="submit" class="btn btn-default"
-										name="contact-submit">Save</button>
-									<button class="btn btn-default" id="contact-cancel">Cancel</button>
+										name="contact-submit">Lưu</button>
+									<button class="btn btn-default" id="contact-cancel">Hủy bỏ</button>
 								</form>
 							</div>
 							<!-- Education -->
-							<div class="panel-heading">Education
+							<div class="panel-heading">Trình độ học vấn
 							<button type="button" class="glyphicon glyphicon-plus btn-link pull-right" data-toggle="collapse" data-target="#education-form" id="education-add-button"></button>
 							</div>
 							<div class="panel-body">
@@ -166,80 +166,80 @@
 								<dl class="mydl" id="education-list">
 									<dt>${edu.startDate}-${edu.endDate}</dt>
 									<dd>${edu.schoolName}<button type="button" class="glyphicon glyphicon-remove btn-link " name="education-remove-button" onclick="removeEduEven(${edu.educationId})"></button></dd>
-									<dt>Major</dt>
+									<dt>Ngành học</dt>
 									<dd>${edu.educationMajor}</dd>
-									<dt>Level</dt>
+									<dt>Cấp độ (cử nhân/thạc sĩ)</dt>
 									<dd>${edu.educationLevel}</dd>
-									<dt>Location</dt>
+									<dt>Địa điểm học</dt>
 									<dd>${edu.educationLocation}</dd>
-									<dt>Description</dt>
+									<dt>Mô tả</dt>
 									<dd>${edu.educationDescription}</dd>
 								</dl>
 							</c:forEach>
 								<form id="education-form" method="POST">
 								<dl class="mydl" id="">
-									<dt>School</dt>
+									<dt>Trường</dt>
 									<dd><select name="edu-school">
 									<c:forEach var="s" items="${schools}">
 										<option value="${s.schoolID}">${s.schoolName}</option>
 									</c:forEach>
 									</select>
 									<br><br>khác: <input type="text" name="edu-another-school" ></dd>
-									<dt>Major</dt>
+									<dt>Ngành</dt>
 									<dd> <input type="text" name="edu-major" ></dd>
-									<dt>Level</dt>
+									<dt>Cấp độ</dt>
 									<dd> <input type="text" name="edu-level" ></dd>
-									<dt>Location</dt>
+									<dt>Địa điểm</dt>
 									<dd> <input type="text" name="edu-location" ></dd>
-									<dt>Start date</dt><dd><input type="text" name="edu-start-date" ></dd>
-									<dt>End Date</dt><dd><input type="text" name="edu-end-date"></dd>
-									<dt>Description</dt><dd><input type="text" name="edu-description"></dd>
+									<dt>Ngày bắt đầu</dt><dd><input type="date" name="edu-start-date" ></dd>
+									<dt>Ngày kết thúc</dt><dd><input type="date" name="edu-end-date"></dd>
+									<dt>Mô tả</dt><dd><input type="text" name="edu-description"></dd>
 									
 								</dl>
 								<button type="submit" class="btn btn-default"
-										id="education-submit" name="education-submit-button">Save</button>
-									<button class="btn btn-default" id="education-cancel" name="education-cancel-button">Cancel</button>
+										id="education-submit" name="education-submit-button">Lưu</button>
+									<button class="btn btn-default" id="education-cancel" name="education-cancel-button">Hủy bỏ</button>
 								</form>
 							</div>
 							<!-- Experience -->
-							<div class="panel-heading">Experience
+							<div class="panel-heading">Kinh nghiệm
 							<button type="button" class="glyphicon glyphicon-plus btn-link pull-right" data-toggle="collapse" data-target="#experience-form" id="experience-add-button"></button>
 							</div>
 							<div class="panel-body">
 							
 							<c:forEach var="exp" items="${experience}" varStatus="loop">
 								<dl class="mydl" id="experience-list_${loop.index}">
-									<dt >Job title</dt>
+									<dt >Tên công việc</dt>
 									<dd>${exp.jobTitle}<button type="button" class="glyphicon glyphicon-remove btn-link " name="experience-remove-button" onclick="removeExpEven(${exp.experienceId})"></button></dd>
-									<dt>Position</dt>
+									<dt>Vị trí</dt>
 									<dd>${exp.position}</dd>
-									<dt>Company</dt>
+									<dt>Công ty</dt>
 									<dd>${exp.companyName}</dd>
-									<dt>Description</dt>
+									<dt>Mô tả</dt>
 									<dd>${exp.description}</dd>
-									<dt>Period</dt>
+									<dt>Thời gian</dt>
 									<dd>${exp.period}</dd>
 								</dl>
 							</c:forEach>
 								<form id="experience-form" method="POST">
 									<dl class="mydl" id="">
-										<dt>Job title</dt>
+										<dt>Tên công việc</dt>
 										<dd><input type="text" name="exp-job-title"/></dd>
-										<dt>Position</dt>
+										<dt>Vị trí</dt>
 										<dd><input type="text" name="exp-position"/></dd>
-										<dt>Company</dt>
+										<dt>Công ty</dt>
 										<dd><input type="text" name="exp-company"/></dd>
-										<dt>Description</dt>
+										<dt>Mô tả</dt>
 										<dd><input type="text" name="exp-description"/></dd>
-										<dt>Period</dt>
+										<dt>Thời gian</dt>
 										<dd><input type="text" name="exp-period" /></dd>
 									</dl>
 								<button type="submit" class="btn btn-default"
-										id="experience-submit" name="exp-submit">Save</button>
-									<button class="btn btn-default" id="experience-cancel">Cancel</button>
+										id="experience-submit" name="exp-submit">Lưu</button>
+									<button class="btn btn-default" id="experience-cancel">Hủy bỏ</button>
 								</form>
 							</div>
-							<div class="panel-heading">Skill
+							<div class="panel-heading">Kỹ năng
 							<button type="button" class="glyphicon glyphicon-plus btn-link pull-right" data-toggle="collapse" data-target="#skill-add-form" id="skill-add-button"></button>
 							</div>
 							<div class="panel-body">
@@ -259,19 +259,19 @@
 								</ul>
 								<form id="skill-add-form" method="POST">
 									<dl class="mydl">
-										<dt>Name</dt>
+										<dt>Tên</dt>
 										<dd><input type ="text" name="skill-name"></dd>
-										<dt>Level</dt>
+										<dt>Mức độ: </dt>
 										<dd><input type="text" name="skill-level"></dd>
 									</dl>
 									<button type="submit" class="btn btn-default"
-										id="skill-add-submit" name="skill-submit">Save</button>
-									<button class="btn btn-default" id="skill-add-cancel">Cancel</button>
+										id="skill-add-submit" name="skill-submit">Lưu</button>
+									<button class="btn btn-default" id="skill-add-cancel">Hủy bỏ</button>
 								</form>
 								
 							</div>
 							<!-- References -->
-							<div class="panel-heading">References
+							<div class="panel-heading">Người tham khảo
 							<button type="button" class=" glyphicon glyphicon-plus btn-link pull-right " data-toggle="collapse" data-target="#reference-form" id="reference-add-button"></button>
 							</div>
 							<div class="panel-body">
@@ -291,22 +291,22 @@
 								</ul>
 								<form id="reference-form" method="post">
 									<dl class="mydl">
-										<dt>Name</dt>
+										<dt>Tên</dt>
 										<dd><input type="text" name="ref-name"></dd>
-										<dt>job</dt>
+										<dt>Công việc</dt>
 										<dd><input type="text" name="ref-job"></dd>
-										<dt>Phone</dt>
+										<dt>Số điện thoại</dt>
 										<dd><input type="text" name="ref-phone"></dd>
 										<dt>Email</dt>
 										<dd><input type="text" name="ref-email"></dd>
 									</dl>
 									<button type="submit" class="btn btn-default"
-										id="reference-submit" name="ref-submit">Save</button>
-									<button class="btn btn-default" id="reference-cancel">Cancel</button>
+										id="reference-submit" name="ref-submit">Lưu</button>
+									<button class="btn btn-default" id="reference-cancel">Hủy bỏ</button>
 								</form>
 							</div>
 							<!-- hobbies -->
-							<div class="panel-heading">hobbies
+							<div class="panel-heading">Sở thích
 							<button type="button" class=" glyphicon glyphicon-pencil btn-link pull-right " id="hobbies-edit-button"></button>
 							</div>
 							<div class="panel-body" >
@@ -316,48 +316,48 @@
 								<form id="hobbies-edit-form" method="post">
 									<input type="text" name="hobbies" value="${resume.hobby }"><br><br>
 									<button type="submit" class="btn btn-default"
-										id="hobbies-edit-submit" name="hobbies-button">Save</button>
-									<button class="btn btn-default" id="hobbies-edit-cancel">Cancel</button>
+										id="hobbies-edit-submit" name="hobbies-button">Lưu</button>
+									<button class="btn btn-default" id="hobbies-edit-cancel">Hủy bỏ</button>
 								</form>
 								
 							</div>
 							<!-- Career Object -->
-							<div class="panel-heading">Career Object
+							<div class="panel-heading">Mục đích nghề nghiệp
 							<button type="button" class=" glyphicon glyphicon-pencil btn-link pull-right " id="career-object-edit-button"></button>
 							</div>
 							<div class="panel-body">
 								<dl class="mydl" id="career-object-list">
-									<dt>Desire Salary</dt><dd>${carObject.desireSalary}$</dd>
-									<dt>Recent Salary</dt><dd>${carObject.recentSalary}$</dd>
-									<dt>Position Type</dt><dd>${carObject.positionType}</dd>
-									<dt>Desire Career Level</dt><dd>${carObject.desireCareerLevel}</dd>
-									<dt>Desire Work Location</dt><dd>${carObject.desireWorkLocation}</dd>
-									<dt>Willing To Relocate</dt><dd>${carObject.willingToRelocate}</dd>
-									<dt>Willing To Travel</dt><dd>${carObject.willingToTravel}</dd>
-									<dt>Career Objective</dt><dd>${carObject.careerObjective}</dd>
+									<dt>Mức lương mong muốn</dt><dd>${carObject.desireSalary}$</dd>
+									<dt>Mức lương hiện tại</dt><dd>${carObject.recentSalary}$</dd>
+									<dt>Vị trí</dt><dd>${carObject.positionType}</dd>
+									<dt>Mức độ công việc mong muốn </dt><dd>${carObject.desireCareerLevel}</dd>
+									<dt>Địa điểm mong muốn </dt><dd>${carObject.desireWorkLocation}</dd>
+									<dt>Có thể thay đổi nơi sống</dt><dd>${carObject.willingToRelocate}</dd>
+									<dt>Có thể đi xa</dt><dd>${carObject.willingToTravel}</dd>
+									<dt>Mục đích nghề nghiệp</dt><dd>${carObject.careerObjective}</dd>
 								</dl>
 							
 							<form id="career-object-form" method="post">
-								<dl class="dl-horizontal">
-									<dt>Desire Salary</dt>
-									<dd><input type="text" name="desire-salary" value="${carObject.desireSalary}$"></dd>
-									<dt>Recent Salary</dt>
-									<dd><input type="text" name="recent-salary"value="${carObject.recentSalary}$"></dd>
-									<dt>Position Type</dt>
+								<dl >
+									<dt>Mức lương mong muốn</dt>
+									<dd><input type="text" name="desire-salary" value="${carObject.desireSalary}">$</dd>
+									<dt>Mức lương hiện tại</dt>
+									<dd><input type="text" name="recent-salary"value="${carObject.recentSalary}">$</dd>
+									<dt>Vị trí</dt>
 									<dd><input type="text" name="position-type" value="${carObject.positionType}"></dd>
-									<dt>Desire Career Level</dt>
+									<dt>Mức độ công việc mong muố</dt>
 									<dd><input type="text" name="desire-career-level"value="${carObject.desireCareerLevel}"></dd>
-									<dt>Desire Work Location</dt>
+									<dt>Địa điểm mong muốn</dt>
 									<dd><input type="text" name="desire-work-location"value="${carObject.desireWorkLocation}"></dd>
-									<dt>Willing To Relocate</dt>
+									<dt>Có thể thay đổi nơi sống</dt>
 									<dd><input type="checkbox" name="willing-to-relocation"<%cao= (dtoCareerObjective)request.getAttribute("carObject");if(cao.getWillingToRelocate()=="Yes") out.print("checked='checked'"); %>>Yes</dd>
-									<dt>Willing To Travel</dt>
+									<dt>Có thể đi xa</dt>
 									<dd><input type="checkbox" name="willing-to-travel"<%if(cao.getWillingToTravel()=="Yes")out.print("checked='checked'"); %>>Yes</dd>
-									<dt>Career Objective</dt>
+									<dt>Mục đích nghề nghiệp</dt>
 									<dd><input type="text" name="career-objective"value="${carObject.careerObjective}"></dd>
 								</dl>
-								<button type="submit" class="btn btn-default" id="career-object-submit" name="cao-submit">Save</button>
-								<button class="btn btn-default" id="career-object-cancel">Cancel</button>
+								<button type="submit" class="btn btn-default" id="career-object-submit" name="cao-submit">Lưu</button>
+								<button class="btn btn-default" id="career-object-cancel">Hủy bỏ</button>
 							</form>
 							</div>
 						</div>

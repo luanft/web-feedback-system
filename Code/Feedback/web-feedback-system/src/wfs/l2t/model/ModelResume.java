@@ -5,26 +5,47 @@ package wfs.l2t.model;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import wfs.l2t.dto.*;
+
 
 public class ModelResume extends Model {
 	private int resumeId;
 	SimpleDateFormat sm= new SimpleDateFormat("dd/MM/yyyy");
 	public ModelResume(){
 	}
-	public dtoResume getResume(int AccountId){
-		dtoResume resume= new dtoResume();
-		String sql="SELECT * FROM resume WHERE AccountId="+AccountId;
+	
+	public HashMap<Integer,String> getResumeTitle(int accountId){
+		HashMap<Integer,String> listTitle= new HashMap<Integer,String>();
+		String sql="SELECT * FROM resume WHERE AccountId="+accountId;
 		try {
 			connection.connect();
 			ResultSet result= connection.read(sql);
 			while (result.next()){
-				resumeId=result.getInt("ResumeId");
+				listTitle.put(result.getInt("ResumeId"), result.getString("Title"));
+			}
+			result.close();
+			connection.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();	
+		}
+		return listTitle;
+	}
+	public dtoResume getResume(int resumeId){
+		dtoResume resume= new dtoResume();
+		String sql="SELECT * FROM resume WHERE resumeId="+resumeId;
+		resume.setResumeId(resumeId);
+		this.resumeId=resumeId;
+		try {
+			connection.connect();
+			ResultSet result= connection.read(sql);
+			while (result.next()){
+				
 				resume.address=result.getString("Address");
 				resume.avatar=result.getString("Avatar");
 				resume.birthday=result.getDate("Birthday");
@@ -189,8 +210,8 @@ public class ModelResume extends Model {
 		return cao;
 	}
 	//update avartar
-	public void UpdatePersonal( String gender, Boolean maritalStatus,String nationality ) {
-		String sql="update resume set Gender=?, MaritalStatus=?, Nationality=?";
+	public void UpdatePersonal( String gender, Boolean maritalStatus,String nationality) {
+		String sql="update resume set Gender=?, MaritalStatus=?, Nationality=? where ResumeId="+resumeId;
 		try{
 			connection.connect();
 			PreparedStatement stm=connection.getConnection().prepareStatement(sql);
@@ -208,8 +229,8 @@ public class ModelResume extends Model {
 		connection.close();
 		
 	}
-	public void UpdateContact(String address, String email, String phone, int resumeId){
-		String sql="update resume set Address=?, Email=?, Phone=? where resumeId=?";
+	public void UpdateContact(String address, String email, String phone){
+		String sql="update resume set Address=?, Email=?, Phone=? where ResumeId="+resumeId;
 		try{
 		connection.connect();
 		PreparedStatement stm= connection.getConnection().prepareStatement(sql);
@@ -258,9 +279,11 @@ public class ModelResume extends Model {
 	}
 	public int AddSchool(String schoolName){
 		List<dtoSchool> listSchool= getSchool();
-		for(dtoSchool s : listSchool){
-			if(s.schoolName==schoolName)
-				return -1;
+		if(listSchool.size()!=0){
+			for(dtoSchool s : listSchool){
+				if(s.schoolName==schoolName)
+					return -1;
+			}
 		}
 		int schoolID=-1;
 		String sql="insert into school (SchoolName) values('"+schoolName+"')";
@@ -356,6 +379,12 @@ public class ModelResume extends Model {
 		connection.close();
 	}
 	public void UpdateCareerObject(int DesireSalary, int RecentSalary,String PositionType,String DesireCareerLevel,String DesireWorkLocation, Boolean WillingToRelocate, Boolean WillingToTravel,String CareerObjective, int resumeId){
+		dtoCareerObjective cao = getCareerObjective();
+		if(cao.getCareerObjectiveId()==0){
+			AddCareerObjective(DesireSalary, RecentSalary, PositionType, DesireCareerLevel, DesireWorkLocation, WillingToRelocate, WillingToTravel, CareerObjective, resumeId);
+			return;
+		}
+		
 		String sql="Update career_objective set DesireSalary=?, RecentSalary=?, PositionType=?, DesireCareerLevel=?, DesireWorkLocation=?, WillingToRelocate=?,WillingToTravel=?, CareerObjective=? where ResumeId=?";
 		connection.connect();
 		try {
@@ -377,4 +406,33 @@ public class ModelResume extends Model {
 		}
 		connection.close();
 	}
+	public void AddResume(int resumeId, int accountId,String title, String name, String birthday, String gender, Boolean maritalStatus, String nationality, String avatar, String address, String email, String phone, String hobbies){
+		String sql="INSERT INTO `resume` (`ResumeId`, `AccountId`, `Title`, `Name`, `Birthday`, `Gender`, `MaritalStatus`, `Nationality`, `Avatar`, `Address`, `Email`, `Phone`, `Hobby`)"+
+				" VALUES("+resumeId+","+accountId+", '"+title+"', '"+name+"', '"+birthday+"', '"+gender+"',"+maritalStatus+",'"+nationality+"', '"+avatar+"', '"+address+"','"+email+"', '"+phone+"','"+hobbies+"')";
+		connection.connect();
+		connection.write(sql);
+		connection.close();
+	}
+	public void AddCareerObjective(int desireSalary, int recentSalary,String positionType,String desireCareerLevel,String desireWorkLocation, Boolean willingToRelocate, Boolean willingToTravel,String careerObjective, int resumeId){
+		String sql="insert into career_objective (DesireSalary,RecentSalary, PositionType, DesireCareerLevel, DesireWorkLocation, WillingToRelocate, WillingToTravel, CareerObjective, resumeId) values ("+desireSalary+","+recentSalary+",'"+positionType+"','"+desireCareerLevel+"','"+desireWorkLocation+"',"+willingToRelocate+","+willingToTravel+",'"+careerObjective+"',"+resumeId+")";
+		connection.connect();
+		connection.write(sql);
+		connection.close();
+	}
+	public int getNextResumeId(int accountId){
+		connection.connect();
+		int id=0;
+		ResultSet re=connection.read("select*from resume where AccountId="+accountId);
+		try {
+			while (re.next())
+			{
+				id= re.getInt("ResumeId");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return id+1;
+	}
+
 }

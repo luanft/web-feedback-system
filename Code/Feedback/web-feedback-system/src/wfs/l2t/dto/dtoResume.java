@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class dtoResume {
 
-	public int resumeId=0;
+	public int resumeId=-1;
 	public String accountId="";
 	public String resumeTitle="";
 	public String name="";

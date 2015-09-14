@@ -9,7 +9,7 @@ public class dtoCareerObjective {
 	public String willingToRelocate;
 	public String willingToTravel;
 	public String careerObjective ="";
-	public String careerObjectiveId ="";
+	public int careerObjectiveId =0;
 	public String resumeId ="";
 	public int getDesireSalary() {
 		return desireSalary;
@@ -59,10 +59,10 @@ public class dtoCareerObjective {
 	public void setCareerObjective(String careerObjective) {
 		this.careerObjective = careerObjective;
 	}
-	public String getCareerObjectiveId() {
+	public int getCareerObjectiveId() {
 		return careerObjectiveId;
 	}
-	public void setCareerObjectiveId(String careerObjectiveId) {
+	public void setCareerObjectiveId(int careerObjectiveId) {
 		this.careerObjectiveId = careerObjectiveId;
 	}
 	public String getResumeId() {

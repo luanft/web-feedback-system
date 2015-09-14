@@ -29,6 +29,14 @@
     <servlet-name>care</servlet-name>
     <servlet-class>wfs.l2t.controller.ControllerCareJob</servlet-class>
   </servlet>
+  <servlet>
+      <servlet-name>ListResume</servlet-name>
+      <servlet-class>wfs.l2t.controller.ControllerListResume</servlet-class>
+  </servlet>
+  <servlet>
+      <servlet-name>Resume</servlet-name>
+      <servlet-class>wfs.l2t.controller.ControllerResume</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>care</servlet-name>
     <url-pattern>/care</url-pattern>
@@ -52,6 +60,14 @@
   <servlet-mapping>
     <servlet-name>login</servlet-name>
     <url-pattern>/notification</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+      <servlet-name>ListResume</servlet-name>
+      <url-pattern>/listresume</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+      <servlet-name>Resume</servlet-name>
+      <url-pattern>/resume</url-pattern>
   </servlet-mapping>
   <context-param>
     <param-name>host</param-name>
