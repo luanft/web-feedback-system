@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="view/resource/bootstrap/css/bootstrap.min.css">
 <script src="view/resource/lib/jquery-2.1.4.min.js"></script>
 <script src="view/resource/bootstrap/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="view/resource/css/resume_profile.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/view/resource/css/resume_profile.css">
 <link rel="stylesheet" href="view/resource/css/theme_customize.css">
 <script src="view/resource/lib/add-resume.js"></script>
 
@@ -99,13 +99,12 @@
 							<div class="panel-body">
 								<% if((int)request.getAttribute("listCount")==0) out.print("Bạn chưa có CV nào!");%>
 								<c:forEach var="entry" items="${listTitle}">
-									<a href="<%out.print(request.getContextPath());%>/resume?id=${entry.key}">${entry.value}</a>
+									<a href="${pageContext.request.contextPath}/resume?id=${entry.key}">${entry.value}</a><br>
 								</c:forEach>
 								<br><a href='#' id= 'add-resume-link'>Thêm CV</a>
 							</div>
-							<div id="add-resume-div">
 							<jsp:include page="./add-resume.jsp"></jsp:include>
-							</div>
+							
 					</div>
 				</div>
 

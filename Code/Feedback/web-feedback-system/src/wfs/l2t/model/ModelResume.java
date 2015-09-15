@@ -15,7 +15,6 @@ import wfs.l2t.dto.*;
 
 public class ModelResume extends Model {
 	private int resumeId;
-	SimpleDateFormat sm= new SimpleDateFormat("dd/MM/yyyy");
 	public ModelResume(){
 	}
 	
@@ -45,7 +44,7 @@ public class ModelResume extends Model {
 			connection.connect();
 			ResultSet result= connection.read(sql);
 			while (result.next()){
-				
+				resume.resumeId=resumeId;
 				resume.address=result.getString("Address");
 				resume.avatar=result.getString("Avatar");
 				resume.birthday=result.getDate("Birthday");
@@ -58,6 +57,7 @@ public class ModelResume extends Model {
 				resume.nationality=result.getString("Nationality");
 				resume.phone=result.getString("Phone");
 				resume.resumeTitle=result.getString("Title");
+				
 			}
 			result.close();
 			connection.close();
@@ -81,8 +81,8 @@ public class ModelResume extends Model {
 				edu.educationLevel= result.getString("EducationLevel");
 				edu.educationMajor=result.getString("EducationMajor");
 				edu.educationLocation=result.getString("EducationLocation");
-				edu.startDate=sm.format(result.getDate("StartDate"));
-				edu.endDate=sm.format(result.getDate("EndDate"));
+				edu.startDate=result.getDate("StartDate");
+				edu.endDate=result.getDate("EndDate");
 				edu.schoolName=result.getString("SchoolName");
 				edu.educationId=result.getInt("EducationId");
 				listEdu.add(edu);
@@ -374,8 +374,10 @@ public class ModelResume extends Model {
 		connection.close();
 	}
 	public void UpdateHobbies(String hobbies, int resumeId){
+		String sql="update resume set Hobby='"+hobbies+"' where ResumeId="+resumeId;
+		System.out.print(sql);
 		connection.connect();
-		connection.write("update resume set Hobby='"+hobbies+"' where ResumeId="+resumeId);
+		connection.write(sql);
 		connection.close();
 	}
 	public void UpdateCareerObject(int DesireSalary, int RecentSalary,String PositionType,String DesireCareerLevel,String DesireWorkLocation, Boolean WillingToRelocate, Boolean WillingToTravel,String CareerObjective, int resumeId){

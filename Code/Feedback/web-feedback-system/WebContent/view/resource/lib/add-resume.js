@@ -1,9 +1,9 @@
 $(document).ready(function(){
-	$("#add-resume-div").hide();
+	$("form[name='add-resume-form']").hide();
 	$("#add-resume-link").click( function(){
-		$("#add-resume-div").show();
+		$("form[name='add-resume-form']").show();
 	});
 	$("#cancel-add-resume-button").click(function(){
-		$("#add-resume-div").hide();
+		$("form[name='add-resume-form']").hide();
 	});
 });

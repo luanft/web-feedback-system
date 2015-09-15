@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
   <%@ page import ="wfs.l2t.dto.*" %>
+  <%@page import="java.text.SimpleDateFormat" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -10,8 +12,9 @@
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="view/resource/bootstrap/css/bootstrap.min.css">
 <script src="view/resource/lib/jquery-2.1.4.min.js"></script>
-<script src="view/resource/bootstrap/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="view/resource/css/resume_profile.css">
+<script src="view/resource/bootstrap/js/bootstrap.min.js"></script>
+
 <link rel="stylesheet" href="view/resource/css/theme_customize.css">
 <script src="view/resource/lib/resume.js"></script>
 </head>
@@ -90,7 +93,11 @@
 						<div class="panel panel-default">
 							<h2>${resume.name}</h2><br>
 							<h3>${resume.resumeTitle}</h3>
-							<%!dtoResume resume;dtoCareerObjective cao;%>
+							<%!dtoResume resume;
+							dtoCareerObjective cao;
+							SimpleDateFormat sm;
+							dtoEducation edu;
+							%>
 							<!-- Personal Detail -->
 							<div class="panel-heading">
 								Thông tin cá nhân
@@ -98,10 +105,11 @@
 							</div>
 							<div class="panel-body">
 								<ul class="detail-list" id="personal-list">
+								<%resume= (dtoResume)request.getAttribute("resume");
+									%>
 									<li>Giới tính :<strong>${resume.gender}</strong></li>
-									<li>Ngày sinh: <strong>${resume.birthday}</strong></li>
-									<li>Tình trạng hôn nhân: <strong><% resume= (dtoResume)request.getAttribute("resume");
-									if(resume.getMaritalStatus()==false) {out.print("Độc thân");} 
+									<li>Ngày sinh: <strong><fmt:formatDate pattern="dd/MM/yyyy" value="${resume.birthday}"/></strong></li>
+									<li>Tình trạng hôn nhân: <strong><% if(resume.getMaritalStatus()==false) {out.print("Độc thân");} 
 									else out.print("có gia đình");%></strong></li>
 									<li>Quốc gia: <strong>${resume.nationality}</strong></li>
 									
@@ -115,7 +123,7 @@
 										
 										</dd>
 										<dt>Ngày sinh</dt>
-										<dd><input type="text" name="birthday_input" value="${resume.birthday}"></dd>
+										<dd><input type="date" name="birthday_input" value="${resume.birthday}"></dd>
 									
 										<dt> Tình trạng hôn nhân</dt>  
 										<dd><select
@@ -149,7 +157,7 @@
 								<form role="form" id="contact-form" method="post">
 									<dl>
 										<dt>Địa chỉ</dt><dd><input type="text" name="address-input" value="${resume.address}"></dd>
-										<dt>Email</dt><dd><input type="text" name="email-input" value="${resume.email}"></dd>
+										<dt>Email</dt><dd><input type="email" name="email-input" value="${resume.email}"></dd>
 										<dt>Số điện thoại</dt><dd><input type="text" name="phone-input" value="${resume.phone}"></dd>
 									</dl>
 									<button type="submit" class="btn btn-default"
@@ -164,7 +172,7 @@
 							<div class="panel-body">
 							<c:forEach var="edu" items="${education}" varStatus="loop">
 								<dl class="mydl" id="education-list">
-									<dt>${edu.startDate}-${edu.endDate}</dt>
+									<dt><fmt:formatDate pattern="dd/MM/yyyy" value="${edu.startDate}"/> - <fmt:formatDate pattern="dd/MM/yyyy" value="${edu.endDate}"/></dt>
 									<dd>${edu.schoolName}<button type="button" class="glyphicon glyphicon-remove btn-link " name="education-remove-button" onclick="removeEduEven(${edu.educationId})"></button></dd>
 									<dt>Ngành học</dt>
 									<dd>${edu.educationMajor}</dd>
@@ -183,8 +191,9 @@
 									<c:forEach var="s" items="${schools}">
 										<option value="${s.schoolID}">${s.schoolName}</option>
 									</c:forEach>
-									</select>
-									<br><br>khác: <input type="text" name="edu-another-school" ></dd>
+									</select></dd>
+									<dt></dt>
+									<dd>khác: <input type="text" name="edu-another-school" ></dd>
 									<dt>Ngành</dt>
 									<dd> <input type="text" name="edu-major" ></dd>
 									<dt>Cấp độ</dt>
@@ -193,7 +202,7 @@
 									<dd> <input type="text" name="edu-location" ></dd>
 									<dt>Ngày bắt đầu</dt><dd><input type="date" name="edu-start-date" ></dd>
 									<dt>Ngày kết thúc</dt><dd><input type="date" name="edu-end-date"></dd>
-									<dt>Mô tả</dt><dd><input type="text" name="edu-description"></dd>
+									<dt>Mô tả</dt><dd><textarea name="edu-description"></textarea></dd>
 									
 								</dl>
 								<button type="submit" class="btn btn-default"
@@ -230,7 +239,7 @@
 										<dt>Công ty</dt>
 										<dd><input type="text" name="exp-company"/></dd>
 										<dt>Mô tả</dt>
-										<dd><input type="text" name="exp-description"/></dd>
+										<dd><textarea name="exp-description"></textarea></dd>
 										<dt>Thời gian</dt>
 										<dd><input type="text" name="exp-period" /></dd>
 									</dl>
@@ -296,9 +305,9 @@
 										<dt>Công việc</dt>
 										<dd><input type="text" name="ref-job"></dd>
 										<dt>Số điện thoại</dt>
-										<dd><input type="text" name="ref-phone"></dd>
+										<dd><input type="" name="ref-phone"></dd>
 										<dt>Email</dt>
-										<dd><input type="text" name="ref-email"></dd>
+										<dd><input type="email" name="ref-email"></dd>
 									</dl>
 									<button type="submit" class="btn btn-default"
 										id="reference-submit" name="ref-submit">Lưu</button>
@@ -314,7 +323,7 @@
 									<li>${resume.hobby}</li>
 								</ul>
 								<form id="hobbies-edit-form" method="post">
-									<input type="text" name="hobbies" value="${resume.hobby }"><br><br>
+									<textarea name="hobbies">${resume.hobby}</textarea><br><br>
 									<button type="submit" class="btn btn-default"
 										id="hobbies-edit-submit" name="hobbies-button">Lưu</button>
 									<button class="btn btn-default" id="hobbies-edit-cancel">Hủy bỏ</button>
@@ -327,8 +336,8 @@
 							</div>
 							<div class="panel-body">
 								<dl class="mydl" id="career-object-list">
-									<dt>Mức lương mong muốn</dt><dd>${carObject.desireSalary}$</dd>
-									<dt>Mức lương hiện tại</dt><dd>${carObject.recentSalary}$</dd>
+									<dt>Mức lương mong muốn</dt><dd>${carObject.desireSalary} triệu VNĐ</dd>
+									<dt>Mức lương hiện tại</dt><dd>${carObject.recentSalary} triệu VNĐ</dd>
 									<dt>Vị trí</dt><dd>${carObject.positionType}</dd>
 									<dt>Mức độ công việc mong muốn </dt><dd>${carObject.desireCareerLevel}</dd>
 									<dt>Địa điểm mong muốn </dt><dd>${carObject.desireWorkLocation}</dd>
@@ -340,9 +349,9 @@
 							<form id="career-object-form" method="post">
 								<dl >
 									<dt>Mức lương mong muốn</dt>
-									<dd><input type="text" name="desire-salary" value="${carObject.desireSalary}">$</dd>
+									<dd><input type="text" name="desire-salary" value="${carObject.desireSalary}"> triệu VNĐ</dd>
 									<dt>Mức lương hiện tại</dt>
-									<dd><input type="text" name="recent-salary"value="${carObject.recentSalary}">$</dd>
+									<dd><input type="text" name="recent-salary"value="${carObject.recentSalary}"> triệu VNĐ</dd>
 									<dt>Vị trí</dt>
 									<dd><input type="text" name="position-type" value="${carObject.positionType}"></dd>
 									<dt>Mức độ công việc mong muố</dt>
@@ -354,7 +363,7 @@
 									<dt>Có thể đi xa</dt>
 									<dd><input type="checkbox" name="willing-to-travel"<%if(cao.getWillingToTravel()=="Yes")out.print("checked='checked'"); %>>Yes</dd>
 									<dt>Mục đích nghề nghiệp</dt>
-									<dd><input type="text" name="career-objective"value="${carObject.careerObjective}"></dd>
+									<dd><textarea name="career-objective">${carObject.careerObjective}</textarea></dd>
 								</dl>
 								<button type="submit" class="btn btn-default" id="career-object-submit" name="cao-submit">Lưu</button>
 								<button class="btn btn-default" id="career-object-cancel">Hủy bỏ</button>

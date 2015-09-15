@@ -1,10 +1,12 @@
 package wfs.l2t.dto;
 
+import java.sql.Date;
+
 
 
 public class dtoEducation {
-	public String startDate=null;
-	public String endDate=null;
+	public Date startDate=null;
+	public Date endDate=null;
 	public String educationDescription ="";
 	public int educationId=0;
 	public String resumeId ="";
@@ -13,16 +15,16 @@ public class dtoEducation {
 	public String educationMajor="";
 	public String educationLocation="";
 	public String schoolName="";
-	public String getstartDate() {
+	public Date getstartDate() {
 		return startDate;
 	}
-	public void setstartDate(String startDate) {
+	public void setstartDate(Date startDate) {
 		this.startDate = startDate;
 	}
-	public String getendDate() {
+	public Date getendDate() {
 		return endDate;
 	}
-	public void setendDate(String endDate) {
+	public void setendDate(Date endDate) {
 		this.endDate = endDate;
 	}
 	public String getEducationDescription() {

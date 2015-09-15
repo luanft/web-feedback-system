@@ -11,7 +11,7 @@ dl{
 }
 dt{
 	font-weight: bold;
-	width:300px; 
+	width:250px; 
 	float:left; 
 	margin-right:10px; 
 }
@@ -34,4 +34,7 @@ ul.list_info{
 }
 br{
 	clear: left;
+}
+select[name=edu-school]{
+	width:70px
 }

@@ -13,12 +13,14 @@ import java.util.HashMap;
 
 
 
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import wfs.l2t.dto.dtoResume;
 import wfs.l2t.model.ModelResume;
 import wfs.l2t.utility.LoginUtility;
 
@@ -53,6 +55,13 @@ public class ControllerListResume extends HttpServlet {
 			request.setAttribute("listTitle", li);
 			request.setAttribute("listCount", li.size());
 			request.setAttribute("schools", model.getSchool());
+			int firstResumeId=0;
+			for(int i :li.keySet()){
+				firstResumeId=i;
+					break;
+			}
+			dtoResume resume = model.getResume(firstResumeId);
+			request.setAttribute("resume", resume);
 			request.getRequestDispatcher("view/list-resume.jsp").include(request, response);
 		}
 		else

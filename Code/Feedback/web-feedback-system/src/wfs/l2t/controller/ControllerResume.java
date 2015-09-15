@@ -148,6 +148,7 @@ public class ControllerResume extends HttpServlet{
 		if(editHobbies!=null){
 			String hobbies=request.getParameter("hobbies");
 			model.UpdateHobbies(hobbies, resume.getResumeId());
+			
 		}
 		LoadPage(request);
 		request.getRequestDispatcher("view/resume-profile.jsp").include(request, response);
@@ -164,6 +165,7 @@ public class ControllerResume extends HttpServlet{
 		List<dtoSkill> skills= model.getSkill();
 		List<dtoReference> ref= model.getReference();
 		dtoCareerObjective cao= model.getCareerObjective();
+		
 		request.setAttribute("resume", resume);
 		request.setAttribute("education",edu);
 		request.setAttribute("schools", sch);
@@ -171,6 +173,7 @@ public class ControllerResume extends HttpServlet{
 		request.setAttribute("skills", skills);
 		request.setAttribute("references", ref);
 		request.setAttribute("carObject", cao);
+		
 	}
 	
 }
