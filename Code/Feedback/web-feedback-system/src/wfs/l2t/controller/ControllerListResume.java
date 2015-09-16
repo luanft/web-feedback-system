@@ -53,6 +53,7 @@ public class ControllerListResume extends HttpServlet {
 			accountId=Integer.parseInt(login.getLoggedUserId());
 			HashMap<Integer,String> li=model.getResumeTitle(accountId);
 			request.setAttribute("listTitle", li);
+			
 			request.setAttribute("listCount", li.size());
 			request.setAttribute("schools", model.getSchool());
 			int firstResumeId=0;

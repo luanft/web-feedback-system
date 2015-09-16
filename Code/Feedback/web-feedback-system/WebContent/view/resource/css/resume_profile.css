@@ -12,12 +12,21 @@ dl{
 dt{
 	font-weight: bold;
 	width:250px; 
-	float:left; 
-	margin-right:10px; 
+	margin-right:10px;
+	
+	
 }
 dd,dt{
 	padding-bottom: 10px;
- 	
+	display: inline;
+}
+dd{
+	position:absolute;
+	left: 300px;
+}
+dt:before{
+	content:"";
+	display: block;
 }
 ul.list_info{
 	margin-left: 200px;

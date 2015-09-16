@@ -25,6 +25,7 @@ public class ModelResume extends Model {
 			connection.connect();
 			ResultSet result= connection.read(sql);
 			while (result.next()){
+				
 				listTitle.put(result.getInt("ResumeId"), result.getString("Title"));
 			}
 			result.close();
