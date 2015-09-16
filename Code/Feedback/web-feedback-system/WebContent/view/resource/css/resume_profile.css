@@ -6,27 +6,18 @@ ul.detail-list {
 	}
 dl{
 	width: 100%;
-  	overflow: hidden;
-  	padding-left: 20px; 
+  	padding-left: 20px;
+  	overflow:hidden;
+  	
 }
 dt{
 	font-weight: bold;
-	width:250px; 
+	width:300px;
 	margin-right:10px;
-	
-	
-}
-dd,dt{
-	padding-bottom: 10px;
-	display: inline;
+	float:left;
 }
 dd{
-	position:absolute;
-	left: 300px;
-}
-dt:before{
-	content:"";
-	display: block;
+	
 }
 ul.list_info{
 	margin-left: 200px;
