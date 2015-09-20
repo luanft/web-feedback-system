@@ -2,6 +2,7 @@ package wfs.l2t.model;
 
 
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,7 +15,7 @@ import wfs.l2t.dto.*;
 
 
 public class ModelResume extends Model {
-	private int resumeId;
+	
 	public ModelResume(){
 	}
 	
@@ -40,7 +41,7 @@ public class ModelResume extends Model {
 		dtoResume resume= new dtoResume();
 		String sql="SELECT * FROM resume WHERE resumeId="+resumeId;
 		resume.setResumeId(resumeId);
-		this.resumeId=resumeId;
+		
 		try {
 			connection.connect();
 			ResultSet result= connection.read(sql);
@@ -68,7 +69,7 @@ public class ModelResume extends Model {
 		}
 		return resume;
 	}
-	public List<dtoEducation> getEducation(){
+	public List<dtoEducation> getEducation(int resumeId){
 		List<dtoEducation> listEdu= new ArrayList<dtoEducation>();
 		//StartDate,EndDate, EducationDescription, EducationLevel, EducationMajor, EducationLocation, SchoolName
 		String sql="SELECT * FROM education, school WHERE education.SchoolID=school.SchoolID and ResumeId="+resumeId;
@@ -116,7 +117,7 @@ public class ModelResume extends Model {
 		connection.close();
 		return listSchool;
 	}
-	public List<dtoExperience> getExperience()
+	public List<dtoExperience> getExperience(int resumeId)
 	{
 		
 		String sql="select * from experience where ResumeId="+resumeId;
@@ -142,7 +143,7 @@ public class ModelResume extends Model {
 		}
 		return listExp;
 	}
-	public List<dtoSkill> getSkill()
+	public List<dtoSkill> getSkill(int resumeId)
 	{
 		List<dtoSkill> listSkill= new ArrayList<dtoSkill>();
 		String sql= "select * from skill where ResumeId="+resumeId;
@@ -164,7 +165,7 @@ public class ModelResume extends Model {
 		}
 		return listSkill;
 	}
-	public List<dtoReference> getReference()
+	public List<dtoReference> getReference(int resumeId)
 	{
 		connection.connect();
 		List<dtoReference> listRef= new ArrayList<dtoReference>();
@@ -186,7 +187,7 @@ public class ModelResume extends Model {
 		connection.close();
 		return listRef;
 	}
-	public dtoCareerObjective getCareerObjective()
+	public dtoCareerObjective getCareerObjective(int resumeId)
 	{
 		
 		dtoCareerObjective cao= new dtoCareerObjective();
@@ -211,14 +212,15 @@ public class ModelResume extends Model {
 		return cao;
 	}
 	//update avartar
-	public void UpdatePersonal( String gender, Boolean maritalStatus,String nationality) {
-		String sql="update resume set Gender=?, MaritalStatus=?, Nationality=? where ResumeId="+resumeId;
+	public void UpdatePersonal(Date birthday, String gender, Boolean maritalStatus,String nationality, int resumeId) {
+		String sql="update resume set Gender=?, MaritalStatus=?, Nationality=?, Birthday=?  where ResumeId="+resumeId;
 		try{
 			connection.connect();
 			PreparedStatement stm=connection.getConnection().prepareStatement(sql);
 			stm.setString(1, gender);
 			stm.setBoolean(2, maritalStatus);
 			stm.setString(3, nationality);
+			stm.setDate(4, birthday);
 			connection.setPrepareStatement(stm);
 			connection.writeSecure();
 			
@@ -230,7 +232,7 @@ public class ModelResume extends Model {
 		connection.close();
 		
 	}
-	public void UpdateContact(String address, String email, String phone){
+	public void UpdateContact(String address, String email, String phone, int resumeId){
 		String sql="update resume set Address=?, Email=?, Phone=? where ResumeId="+resumeId;
 		try{
 		connection.connect();
@@ -376,13 +378,12 @@ public class ModelResume extends Model {
 	}
 	public void UpdateHobbies(String hobbies, int resumeId){
 		String sql="update resume set Hobby='"+hobbies+"' where ResumeId="+resumeId;
-		System.out.print(sql);
 		connection.connect();
 		connection.write(sql);
 		connection.close();
 	}
 	public void UpdateCareerObject(int DesireSalary, int RecentSalary,String PositionType,String DesireCareerLevel,String DesireWorkLocation, Boolean WillingToRelocate, Boolean WillingToTravel,String CareerObjective, int resumeId){
-		dtoCareerObjective cao = getCareerObjective();
+		dtoCareerObjective cao = getCareerObjective(resumeId);
 		if(cao.getCareerObjectiveId()==0){
 			AddCareerObjective(DesireSalary, RecentSalary, PositionType, DesireCareerLevel, DesireWorkLocation, WillingToRelocate, WillingToTravel, CareerObjective, resumeId);
 			return;
@@ -437,5 +438,30 @@ public class ModelResume extends Model {
 		}
 		return id+1;
 	}
+	public void RemoveResume(int resumeId){
+		
+		//remove edu
+		//remove ref
+		//remove experiment
+		//remove skill
+		//remove cao
+		String sql_edu="Delete from education where ResumeId="+resumeId;
+		String sql_ref=" Delete from reference where ResumeId="+resumeId;
+		String sql_exp="Delete from experience where ResumeId="+resumeId;
+		String sql_ski="delete from skill where ResumeId="+resumeId;
+		String sql_cao=" Delete from career_objective where ResumeId="+resumeId;
+		String sql_res=" Delete from resume where ResumeId="+resumeId;
+		//System.out.print(sql);
+		connection.connect();
+		connection.write(sql_edu);
+		connection.write(sql_ref);
+		connection.write(sql_exp);
+		connection.write(sql_ski);
+		connection.write(sql_cao);
+		connection.write(sql_res);
+		connection.close();
+		
+	}
 
 }
+

@@ -1,6 +1,7 @@
 package wfs.l2t.dto;
 
 import java.sql.Date;
+import java.util.Calendar;
 
 public class dtoResume {
 
@@ -19,6 +20,13 @@ public class dtoResume {
 	public String email="";
 	public String phone="";
 	public String hobby="";
+
+	Calendar cal= Calendar.getInstance();
+	public dtoResume(){
+		 if(this.birthday!=null)
+			 cal.setTime(this.birthday);
+		
+	}
 	public int getResumeId() {
 		return resumeId;
 	}
@@ -99,6 +107,25 @@ public class dtoResume {
 	}
 	public String getPhone() {
 		return phone;
+	}
+	public int getDay() {
+		
+		return cal.get(Calendar.DAY_OF_MONTH);
+	}
+	public void setDay(int day) {
+		cal.set(Calendar.DAY_OF_MONTH, day);
+	}
+	public int getMonth() {
+		return cal.get(Calendar.MONTH);
+	}
+	public void setMonth(int month) {
+		
+	}
+	public int getYear() {
+		return cal.get(Calendar.YEAR);
+	}
+	public void setYear(int year) {
+	
 	}
 	public void setPhone(String phone) {
 		this.phone = phone;

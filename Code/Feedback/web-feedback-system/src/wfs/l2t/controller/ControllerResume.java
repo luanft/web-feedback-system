@@ -4,6 +4,7 @@ import wfs.l2t.model.*;
 import wfs.l2t.utility.*;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class ControllerResume extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	private LoginUtility login = new LoginUtility();
 	dtoResume resume= new dtoResume();
+	int resumeId;
 	ModelResume model= new ModelResume();
 	public ControllerResume() {
 		super();
@@ -31,10 +33,10 @@ public class ControllerResume extends HttpServlet{
 		
 		if(login.isLogged(request, response)){
 //			int accountId=Integer.parseInt(login.getLoggedUserId());
-			String resumeId=request.getParameter("id");
-			if(resumeId!=null){
-				resume= model.getResume(Integer.parseInt(resumeId));
-				if(resume.getResumeId()>0){
+			resumeId=Integer.parseInt(request.getParameter("id"));
+			if(resumeId>0){
+				resume= model.getResume(resumeId);
+				if(resumeId>0){
 					LoadPage(request);
 					request.getRequestDispatcher("view/resume-profile.jsp").include(request, response);
 				}
@@ -69,14 +71,22 @@ public class ControllerResume extends HttpServlet{
 			//System.out.print("dzo lan 1");
 			String gender=request.getParameter("gender_input");
 			boolean maritalStatus=Boolean.parseBoolean(request.getParameter("status_select"));
+			String year=request.getParameter("year");
+			String month=request.getParameter("month");
+			String day=request.getParameter("day");
+			int m=Integer.parseInt(month);
+			int d=Integer.parseInt(day);
+			month=m<10?"0"+month:month;
+			day=d<10?"0"+day:day;
+			Date birthday= Date.valueOf(year+"-"+month+"-"+day);
 			String nationality=request.getParameter("nationality_input");
-			model.UpdatePersonal(gender, maritalStatus, nationality );
+			model.UpdatePersonal(birthday,gender, maritalStatus, nationality,resumeId);
 		}
 		if(updateContact!=null){
-			String address= request.getParameter("address-input");
-			String email= request.getParameter("email-input");
-			String phone=request.getParameter("phone-input");
-			model.UpdateContact(address, email, phone);
+			String address= request.getParameter("address_input");
+			String email= request.getParameter("email_input");
+			String phone=request.getParameter("phone_input");
+			model.UpdateContact(address, email, phone, resumeId);
 		}
 		if(removeEducation!=null){
 			model.RemoveEducation(Integer.parseInt(removeEducation));
@@ -91,8 +101,8 @@ public class ControllerResume extends HttpServlet{
 			model.RemoveReference(Integer.parseInt(removeReference));
 		}
 		if(addEducation!=null){
-			String startDate= request.getParameter("edu-start-date");
-			String endDate = request.getParameter("edu-end-date");
+			String startDate= request.getParameter("edu-start-year")+"-"+request.getParameter("edu-start-month")+"-01";
+			String endDate = request.getParameter("edu-end-year")+"-"+request.getParameter("edu-end-month")+"-01";
 			String educationDescription=request.getParameter("edu-description");
 			
 			String schoolID_str=request.getParameter("edu-school");
@@ -112,7 +122,7 @@ public class ControllerResume extends HttpServlet{
 					schoolID= result;
 			}
 			
-			model.AddEducation(startDate, endDate, educationDescription, resume.getResumeId(), schoolID, educationLevel, educationMajor, educationLocation);
+			model.AddEducation(startDate, endDate, educationDescription, resumeId, schoolID, educationLevel, educationMajor, educationLocation);
 		}
 		if(addExperience!=null){
 			 String Company_name=request.getParameter("exp-company");
@@ -120,19 +130,19 @@ public class ControllerResume extends HttpServlet{
 			 String Position= request.getParameter("exp-position");
 			 String Period=request.getParameter("exp-period");
 			 String Description= request.getParameter("exp-description");
-			model.AddExperience(resume.getResumeId(), Company_name, JobTitle, Position, Description, Period);
+			model.AddExperience(resumeId, Company_name, JobTitle, Position, Description, Period);
 		}
 		if(addSkill!=null){
 			String skillName= request.getParameter("skill-name");
 			String skillLevel= request.getParameter("skill-level");
-			model.addSkill(skillName, skillLevel, resume.getResumeId());
+			model.addSkill(skillName, skillLevel, resumeId);
 		}
 		if(addReference!=null){
 			String refName= request.getParameter("ref-name");
 			String refJob=request.getParameter("ref-job");
 			String refPhone= request.getParameter("ref-phone");
 			String refEmail= request.getParameter("ref-email");
-			model.AddReference(refName, refJob, refPhone, refEmail, resume.getResumeId());
+			model.AddReference(refName, refJob, refPhone, refEmail, resumeId);
 		}
 		if(updateCareerObject!=null){
 			int DesireSalary= Integer.parseInt(request.getParameter("desire-salary"));
@@ -143,11 +153,11 @@ public class ControllerResume extends HttpServlet{
 			Boolean WillingToRelocate= request.getParameter("willing-to-relocation")==null?false:true;
 			Boolean WillingToTravel= request.getParameter("willing-to-travel")==null?false:true;
 			String CareerObjective= request.getParameter("career-objective");
-			model.UpdateCareerObject(DesireSalary, RecentSalary, PositionType, DesireCareerLevel, DesireWorkLocation, WillingToRelocate, WillingToTravel, CareerObjective, resume.getResumeId());
+			model.UpdateCareerObject(DesireSalary, RecentSalary, PositionType, DesireCareerLevel, DesireWorkLocation, WillingToRelocate, WillingToTravel, CareerObjective, resumeId);
 		}
 		if(editHobbies!=null){
 			String hobbies=request.getParameter("hobbies");
-			model.UpdateHobbies(hobbies, resume.getResumeId());
+			model.UpdateHobbies(hobbies, resumeId);
 			
 		}
 		LoadPage(request);
@@ -159,12 +169,12 @@ public class ControllerResume extends HttpServlet{
 //	}
 	public void LoadPage(HttpServletRequest request){
 		
-		List<dtoEducation> edu= model.getEducation();
+		List<dtoEducation> edu= model.getEducation(resumeId);
 		List<dtoSchool> sch= model.getSchool();
-		List<dtoExperience> exp= model.getExperience();
-		List<dtoSkill> skills= model.getSkill();
-		List<dtoReference> ref= model.getReference();
-		dtoCareerObjective cao= model.getCareerObjective();
+		List<dtoExperience> exp= model.getExperience(resumeId);
+		List<dtoSkill> skills= model.getSkill(resumeId);
+		List<dtoReference> ref= model.getReference(resumeId);
+		dtoCareerObjective cao= model.getCareerObjective(resumeId);
 		
 		request.setAttribute("resume", resume);
 		request.setAttribute("education",edu);

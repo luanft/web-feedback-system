@@ -81,28 +81,36 @@ public class ControllerListResume extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		String addResume= request.getParameter("add-resume-button");
+		String removeResumeId= request.getParameter("resumeId");
 		if(addResume!=null){
 			
 			
-			String title=request.getParameter("title-input");
+			String title=request.getParameter("title_input");
 			//personal
-			String name=request.getParameter("full-name-input");
-			String birthday=request.getParameter("birthday-input");
-			String gender=request.getParameter("gender-input");
+			String name=request.getParameter("full_name_input");
+			String birthday=request.getParameter("year")+"-"+request.getParameter("month")+"-"+request.getParameter("day");
+			String gender=request.getParameter("gender_input");
 			boolean maritalStatus=Boolean.parseBoolean(request.getParameter("status_select"));
 			String nationality=request.getParameter("nationality_input");
 			//contact
-			String address= request.getParameter("address-input");
-			String email= request.getParameter("email-input");
-			String phone=request.getParameter("phone-input");
+			String address= request.getParameter("address_input");
+			String email= request.getParameter("email_input");
+			String phone=request.getParameter("phone_input");
 			//hobbies
-			String hobbies=request.getParameter("hobbies-input");
+			String hobbies=request.getParameter("hobbies_input");
 			int resumeId=model.getNextResumeId(accountId);
+			if(name==null||title==null||birthday==null||address==null||email==null||phone==null){
+				response.sendRedirect(request.getContextPath()+"/listresume");
+			}
 			model.AddResume(resumeId, accountId, title, name, birthday, gender, maritalStatus, nationality,"", address, email, phone, hobbies);
 			response.sendRedirect(request.getContextPath()+"/resume?id="+resumeId);
 			
 			
 		}
+		if(removeResumeId!=null){
+			model.RemoveResume(Integer.parseInt(removeResumeId));
+		}
+		
 	}
 
 }

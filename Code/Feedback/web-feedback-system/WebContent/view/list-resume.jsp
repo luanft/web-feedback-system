@@ -10,11 +10,20 @@
 <title>Resume Profile</title>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="view/resource/bootstrap/css/bootstrap.min.css">
-<script src="view/resource/lib/jquery-2.1.4.min.js"></script>
-<script src="view/resource/bootstrap/js/bootstrap.min.js"></script>
+
+
+
 <link rel="stylesheet" href="${pageContext.request.contextPath}/view/resource/css/resume_profile.css">
 <link rel="stylesheet" href="view/resource/css/theme_customize.css">
+<!-- Bootstrap Validation CSS -->
+<link rel="stylesheet" href="view/resource/bootstrap/css/bootstrapValidator.min.css">
+
+<script src="view/resource/lib/jquery-2.1.4.min.js"></script>
+<script src="view/resource/bootstrap/js/bootstrap.min.js"></script>
+<!-- Bootstrap Validation JS -->
+<script src="view/resource/bootstrap/js/bootstrapValidator.min.js"></script>
 <script src="view/resource/lib/add-resume.js"></script>
+
 
 </head>
 
@@ -90,21 +99,175 @@
 					<br>
 					<div class="container-fluid">
 						<div class="panel panel-default">
-	
-							
 							<!-- Personal Detail -->
-							<div class="panel-heading">
-							Danh sách CV
-							</div>
+							<div class="panel-heading">Danh sách CV</div>
 							<div class="panel-body">
-								<% if((int)request.getAttribute("listCount")==0) out.print("Bạn chưa có CV nào!");%>
+								<%
+									if ((int) request.getAttribute("listCount") == 0)
+										out.print("Bạn chưa có CV nào!");
+								%>
 								<c:forEach var="entry" items="${listTitle}">
-									<a href="${pageContext.request.contextPath}/resume?id=${entry.key}">${entry.value}</a><br>
+									<p>
+										<a
+											href="${pageContext.request.contextPath}/resume?id=${entry.key}">${entry.value}
+										</a><a href="#" name="remove" onclick="removeResume(${entry.key})">Xóa</a>
+									<p>
 								</c:forEach>
-								<br><a href='#' id= 'add-resume-link'>Thêm CV</a>
+								<br>
+								<a href='#' id='add-resume-link'>Thêm CV</a>
 							</div>
-							<jsp:include page="./add-resume.jsp"></jsp:include>
-							
+							<div class="panel-heading">Thông tin cơ bản</div>
+							<div class="panel-body">
+								<form method="post" id="add-resume-form" action="" role="form"
+									class="form-horizontal">
+									<p class="pull-right">Các nội dung có đánh dấu <span id="required">*</span> là bắt buộc</p>
+									<fieldset>
+										<legend>Tiêu đề CV</legend>
+										<div class="form-group">
+										<label for="title_input" class="control-label col-md-5 clearfix">Tiêu
+											đề<span id="required">*</span></label>
+										<div class="input-group">
+											<input type="text" class="form-control" name="title_input"
+												id="title-input">
+											<p id="title_error" class="text-danger">Chưa nhập tiêu đề</p>
+											</div>
+										</div>
+
+									</fieldset>
+									<fieldset>
+										<legend>Thông tin cá nhân</legend>
+										<div class="form-group">
+											<label for="full-name-input" class="control-label col-md-5">Họ
+												Tên<span id="required">*</span></label>
+											<div class="input-group">
+												<input class="form-control " type="text"
+													id="name-input"name="full_name_input" value="${resume.name}">
+												<p id="name_error" class="text-danger">Chưa nhập họ tên</p>
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="gender-input" class="control-label col-md-5">Giới
+												tính<span id="required">*</span></label>
+											<div class="input-group">
+												<select name="gender_input" class="form-control">
+													<option
+														<c:if test="${resume.gender=='Nam' || resume.gender==''}">selected='selected'</c:if>>Nam</option>
+													<option
+														<c:if test="${resume.gender=='Nữ'}">selected='selected'</c:if>>Nữ</option>
+													<option
+														<c:if test="${resume.gender=='Khác'}">selected='selected'</c:if>>Khác</option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="day" class="control-label col-md-5">Ngày
+												sinh<span id="required">*</span></label>
+											<div class="input-group">
+												<select id="day" name="day">
+													<option>...</option>
+													<c:forEach var="i" begin="1" end="31">
+														<option
+															<c:if test="${resume.day==i}">selected='selected'</c:if>><c:out
+																value="${i}" /></option>
+													</c:forEach>
+												</select> <select id="month" name="month">
+													<option>...</option>
+													<c:forEach var="i" begin="1" end="12">
+														<option
+															<c:if test="${resume.month==i}">selected='selected'</c:if>><c:out
+																value="${i}" /></option>
+													</c:forEach>
+												</select> <select id="year" name="year">
+													<option>...</option>
+													<c:forEach var="i" begin="1945" end="2015">
+														<option
+															<c:if test="${resume.year==i}">selected='selected'</c:if>><c:out
+																value="${i}" /></option>
+													</c:forEach>
+												</select>
+												<p class="text-danger" id="birthday_error">Chưa nhập ngày sinh</p>
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="status_select" class="control-label col-md-5">Tình
+												trạng hôn nhân</label> <select name="status_select"
+												class="form-control">
+												<option value="false"
+													<c:if test="${!resume.maritalStatus}">selected=selected</c:if>>Độc
+													thân</option>
+												<option value="true"
+													<c:if test="${resume.maritalStatus}">selected=selected</c:if>>Có
+													gia đình</option>
+												<option value="false"> </option>
+											</select>
+										</div>
+										<div class="form-group">
+											<label for="nationality_input" class="control-label col-md-5">Quốc
+												tịch<span id="required">*</span></label>
+											<div class="input-group">
+												<select name="nationality_input" class="form-control">
+													<option
+														<c:if test="${resume.nationality=='Việt Nam'}">selected='selected'</c:if>>Việt
+														Nam</option>
+													<option
+														<c:if test="${resume.nationality=='Nước Ngoài'}">selected='selected'</c:if>>Nước
+														ngoài</option>
+												</select>
+											</div>
+										</div>
+									</fieldset>
+									<fieldset>
+										<legend>Thông tin liên lạc</legend>
+										<div class="form-group">
+											<label for="address-input" class="control-label col-md-5">Địa
+												chỉ</label>
+											<div class="input-group">
+												<input class="form-control" type="text" name="address_input"
+													placeholder="Địa chỉ" value="${resume.address}">
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="email-input" class="control-label col-md-5">Email<span id="required">*</span></label>
+											<div class="input-group">
+												<input class="form-control" type="text" placeholder="Email"
+													name="email_input" id="email"
+													
+													value="${resume.email}">
+												<p id="email2_error" class="text-danger">Email Không hợp lệ</p>
+												<p id="email_error" class="text-danger">Chưa nhập Email</p>
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label for="phone-input" class="control-label col-md-5">Số
+												điện thoại</label>
+
+											<div class="input-group">
+												<input class="form-control" type="text" id="phone_input" name="phone_input"
+													placeholder="Điện thoại" maxlength="15"
+													value="${resume.phone}">
+												<p id="phone_error" class="text-danger">Số điện thoại Không hợp lệ</p>
+											</div>
+											
+										</div>
+									</fieldset>
+									<fieldset>
+										<legend>Sở thích</legend>
+										<div class="form-group">
+											<div class="input-group">
+												<textarea style="margin-left: 20px" name="hobbies_input"
+													class="form-control">${resume.hobby}</textarea>
+											</div>
+										</div>
+									</fieldset>
+									<button id="add-resume-button"name="add-resume-button" type="submit"
+										class="btn btn-primary col-md-offset-4">Tiếp tục</button>
+									<button id="cancel-add-resume-button" type="button"
+										class="btn btn-default">Huỷ bỏ</button>
+								</form>
+							</div>
+						</div>
+
 					</div>
 				</div>
 
@@ -112,5 +275,6 @@
 		</div>
 	</div>
 	</div>
+
 </body>
 </html>

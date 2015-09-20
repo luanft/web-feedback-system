@@ -1,6 +1,7 @@
 package wfs.l2t.dto;
 
 import java.sql.Date;
+import java.util.Calendar;
 
 
 
@@ -15,6 +16,14 @@ public class dtoEducation {
 	public String educationMajor="";
 	public String educationLocation="";
 	public String schoolName="";
+	Calendar calStart= Calendar.getInstance();
+	Calendar calEnd= Calendar.getInstance();
+	public dtoEducation(){
+		if(startDate!=null)
+			calStart.setTime(startDate);
+		if(endDate!=null)
+			calEnd.setTime(endDate);
+	}
 	public Date getstartDate() {
 		return startDate;
 	}
@@ -75,5 +84,18 @@ public class dtoEducation {
 	public void setSchoolName(String schoolName) {
 		this.schoolName = schoolName;
 	}
+	public int getMonthStart(){
+		return calStart.get(Calendar.MONTH);
+	}
+	public int getYearStart(){
+		return calStart.get(Calendar.YEAR);
+	}
+	public int getMonthEnd(){
+		return calEnd.get(Calendar.MONTH);
+	}
+	public int getYearEnd(){
+		return calEnd.get(Calendar.YEAR);
+	}
+	
 	
 }
