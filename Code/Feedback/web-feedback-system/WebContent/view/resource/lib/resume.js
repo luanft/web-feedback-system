@@ -214,7 +214,7 @@ $(document).ready(function() {
 			}
 			
 		});
-		$("#experience-form").submit(function(event){
+		$("#education-form").submit(function(event){
 			if($("#edu-major").val()==""){
 				alert("Chưa nhập ngành học");
 				$("#experience-form").attr({class:"collapse in", style:""});
@@ -223,7 +223,7 @@ $(document).ready(function() {
 			}
 			
 		});
-		$("#education-form").submit(function(event){
+		$("#experience-form").submit(function(event){
 		if($("#exp-job-title").val()==""){
 			alert("Chưa nhập tên công việc");
 			$("#education-form").attr({class:"collapse in", style:""});

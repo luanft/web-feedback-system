@@ -34,12 +34,10 @@ public class ControllerResume extends HttpServlet{
 		if(login.isLogged(request, response)){
 //			int accountId=Integer.parseInt(login.getLoggedUserId());
 			resumeId=Integer.parseInt(request.getParameter("id"));
-			if(resumeId>0){
-				resume= model.getResume(resumeId);
-				if(resumeId>0){
-					LoadPage(request);
-					request.getRequestDispatcher("view/resume-profile.jsp").include(request, response);
-				}
+			if(request.getParameter("id")!=null){
+				LoadPage(request);
+				request.getRequestDispatcher("view/resume-profile.jsp").include(request, response);
+				
 			}
 			else
 				response.sendRedirect(request.getContextPath()+"/listresume");
@@ -169,21 +167,23 @@ public class ControllerResume extends HttpServlet{
 //	}
 	public void LoadPage(HttpServletRequest request){
 		
-		List<dtoEducation> edu= model.getEducation(resumeId);
-		List<dtoSchool> sch= model.getSchool();
-		List<dtoExperience> exp= model.getExperience(resumeId);
-		List<dtoSkill> skills= model.getSkill(resumeId);
-		List<dtoReference> ref= model.getReference(resumeId);
-		dtoCareerObjective cao= model.getCareerObjective(resumeId);
-		
-		request.setAttribute("resume", resume);
-		request.setAttribute("education",edu);
-		request.setAttribute("schools", sch);
-		request.setAttribute("experience", exp);
-		request.setAttribute("skills", skills);
-		request.setAttribute("references", ref);
-		request.setAttribute("carObject", cao);
-		
+		resume= model.getResume(resumeId);
+		if(resumeId>0){
+			List<dtoEducation> edu= model.getEducation(resumeId);
+			List<dtoSchool> sch= model.getSchool();
+			List<dtoExperience> exp= model.getExperience(resumeId);
+			List<dtoSkill> skills= model.getSkill(resumeId);
+			List<dtoReference> ref= model.getReference(resumeId);
+			dtoCareerObjective cao= model.getCareerObjective(resumeId);
+			
+			request.setAttribute("resume", resume);
+			request.setAttribute("education",edu);
+			request.setAttribute("schools", sch);
+			request.setAttribute("experience", exp);
+			request.setAttribute("skills", skills);
+			request.setAttribute("references", ref);
+			request.setAttribute("carObject", cao);
+		}
 	}
 	
 }

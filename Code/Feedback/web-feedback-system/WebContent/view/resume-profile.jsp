@@ -498,7 +498,7 @@
 								</ul>
 								<form id="hobbies-edit-form" method="post">
 									<textarea name="hobbies">${resume.hobby}</textarea><br><br>
-									<button type="submit" class="btn btn-default"
+									<button type="submit" class="btn btn-primary"
 										id="hobbies-edit-submit" name="hobbies-button">Lưu</button>
 									<button class="btn btn-default" id="hobbies-edit-cancel">Hủy bỏ</button>
 								</form>
