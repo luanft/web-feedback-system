@@ -57,7 +57,9 @@
 										class="caret"></span>
 								</a>
 									<ul class="dropdown-menu">
-										<li><a href="<%out.print(request.getContextPath() + "/account");%>">Quản lý tài khoản</a></li>
+										<li><a
+											href="<%out.print(request.getContextPath() + "/account");%>">Quản
+												lý tài khoản</a></li>
 										<li><a
 											href="<%out.print(request.getContextPath() + "/home?logout=true");%>"><span
 												class="glyphicon glyphicon-log-in"></span> Đăng xuất</a></li>
@@ -83,27 +85,28 @@
 						<br>
 						<div>
 							<ul class="nav nav-pills nav-stacked custom_font_bold">
-								<li><a
-									href="<%out.print(request.getContextPath());%>"><span
-										class="glyphicon glyphicon glyphicon-home"></span> CÔNG VIỆC MỚI
-										NHẤT</a></li>
+								<li><a href="<%out.print(request.getContextPath());%>"><span
+										class="glyphicon glyphicon glyphicon-home"></span> CÔNG VIỆC
+										MỚI</a></li>
 								<li><a
 									href="<%out.print(request.getContextPath() + "/care");%>"><span
-										class="glyphicon glyphicon-heart"></span> CÔNG VIỆC QUAN
-										TÂM</a></li>
-										
+										class="glyphicon glyphicon-heart"></span> CÔNG VIỆC QUAN TÂM</a></li>
+
 								<li><a
 									href="<%out.print(request.getContextPath() + "/recommendation");%>"><span
-										class="glyphicon glyphicon glyphicon-pencil"></span> KHẢO SÁT</a></li>										
+										class="glyphicon glyphicon glyphicon-pencil"></span> KHẢO SÁT</a></li>
 								<li><a
-									href="<%out.print(request.getContextPath()+"/settings");%>"><span
+									href="<%out.print(request.getContextPath() + "/settings");%>"><span
 										class="glyphicon glyphicon-cog"></span> THIẾT LẬP GỬI MAIL</a></li>
-								<li><a href="#"><span
+								<li class><a
+									href="<%out.print(request.getContextPath() + "/listresume");%>"><span
 										class="glyphicon glyphicon-list-alt"></span> XEM HỒ SƠ CỦA BẠN</a></li>
-								<li><a href="#"><span
+								<li class><a
+									href="<%out.print(request.getContextPath() + "/help");%>"><span
 										class="glyphicon glyphicon-question-sign"></span> TRỢ GIÚP</a></li>
-								<li><a href="#"><span
-										class="glyphicon glyphicon-envelope"></span> FEEDBACK</a></li>
+								<li class><a
+									href="<%out.print(request.getContextPath() + "/help?about");%>"><span
+										class="glyphicon glyphicon-question-sign"></span> ABOUT</a></li>
 							</ul>
 						</div>
 					</div>
@@ -111,8 +114,11 @@
 				<div class="col-md-9 custom_background_color panel-group">
 					<br>
 					<div id="content-wrapper"></div>
-					<div style="text-align: center" id = "loading" class = "custom_hiden">
-						<button class="btn btn-default pull-center"><i class="glyphicon glyphicon-repeat gly-spin"></i>	 Đang lấy dữ liệu...</button>
+					<div style="text-align: center" id="loading" class="custom_hiden">
+						<button class="btn btn-default pull-center">
+							<i class="glyphicon glyphicon-repeat gly-spin"></i> Đang lấy dữ
+							liệu...
+						</button>
 					</div>
 				</div>
 			</div>

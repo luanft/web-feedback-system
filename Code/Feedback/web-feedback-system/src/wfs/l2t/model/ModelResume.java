@@ -1,321 +1,447 @@
 package wfs.l2t.model;
 
-
-
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import wfs.l2t.dto.*;
 
-
 public class ModelResume extends Model {
-	
-	public ModelResume(){
+
+	public ModelResume() {
 	}
-	
-	public HashMap<Integer,String> getResumeTitle(int accountId){
-		HashMap<Integer,String> listTitle= new HashMap<Integer,String>();
-		String sql="SELECT * FROM resume WHERE AccountId="+accountId;
-		try {
-			connection.connect();
-			ResultSet result= connection.read(sql);
-			while (result.next()){
-				
-				listTitle.put(result.getInt("ResumeId"), result.getString("Title"));
+
+	public void updateObjective(String resumeId, String desireSalary,
+			String recentSalary, String positionType, String desireCareerLevel,
+			String desireWorkLocation, String willingToRelocate,
+			String WillingToTravel, String CareerObjective) {
+
+		String sql = "UPDATE `career_objective` " + " SET `DesireSalary`="
+				+ desireSalary + ",`RecentSalary`=" + recentSalary
+				+ ",`PositionType`='" + positionType
+				+ "',`DesireCareerLevel`='" + desireCareerLevel
+				+ "',`DesireWorkLocation`='" + desireWorkLocation
+				+ "',`WillingToRelocate`=" + willingToRelocate
+				+ ",`WillingToTravel`=" + WillingToTravel
+				+ ",`CareerObjective`='" + CareerObjective
+				+ "' WHERE `ResumeId`=" + resumeId;
+		if (this.connection.connect()) {
+			this.connection.write(sql);
+			this.connection.close();
+		}
+	}
+
+	public void addObjective(String resumeId, String desireSalary,
+			String recentSalary, String positionType, String desireCareerLevel,
+			String desireWorkLocation, String willingToRelocate,
+			String WillingToTravel, String CareerObjective) {
+
+		String sql = "INSERT INTO `career_objective`(`ResumeId`, `DesireSalary`, `RecentSalary`, `PositionType`, `DesireCareerLevel`, `DesireWorkLocation`, `WillingToRelocate`, `WillingToTravel`, `CareerObjective`) "
+				+ " VALUES ("
+				+ resumeId
+				+ ",'"
+				+ desireSalary
+				+ "','"
+				+ recentSalary
+				+ "','"
+				+ positionType
+				+ "','"
+				+ desireCareerLevel
+				+ "','"
+				+ desireWorkLocation
+				+ "',"
+				+ willingToRelocate
+				+ ","
+				+ WillingToTravel
+				+ ",'"
+				+ CareerObjective + "')";
+		if (this.connection.connect()) {
+			this.connection.write(sql);
+			this.connection.close();
+		}
+	}
+
+	public Boolean hasAObject(String resume) {
+		String sql = "SELECT count(*) as `has_objective` FROM `career_objective` WHERE `ResumeId`="
+				+ resume;
+		if (this.connection.connect()) {
+			ResultSet rs = this.connection.read(sql);
+			try {
+				rs.next();
+				if (rs.getInt("has_objective") > 0) {
+					this.connection.close();
+					return true;
+				} else {
+					this.connection.close();
+					return false;
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return false;
 			}
-			result.close();
-			connection.close();
+		}
+		return false;
+	}
+
+	public Boolean canModify(String user, String resume) {
+		String sql = "SELECT count(*) as `valid` FROM `resume` WHERE `ResumeId`="
+				+ resume + " and `AccountId`=" + user;
+		if (this.connection.connect()) {
+			ResultSet rs = this.connection.read(sql);
+			try {
+				rs.next();
+				if (rs.getInt("valid") > 0) {
+					this.connection.close();
+					return true;
+
+				} else {
+					this.connection.close();
+					return false;
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return false;
+			}
+
+		}
+		return false;
+	}
+
+	public dtoCareerObjective getObjective(String resumeId) {
+		dtoCareerObjective data = new dtoCareerObjective();
+		String sql = "SELECT `CareerObjectiveId`, `ResumeId`, `DesireSalary`, `RecentSalary`, `PositionType`, `DesireCareerLevel`,"+
+		"  `DesireWorkLocation`, `WillingToRelocate`, `WillingToTravel`, `CareerObjective` FROM `career_objective` WHERE  `ResumeId` = "
+				+ resumeId;
+		if(this.connection.connect())
+		{
+			ResultSet rs = this.connection.read(sql);
+			try {
+				rs.next();
+				data.careerObjectiveId = rs.getString("CareerObjectiveId");
+				data.resumeId = rs.getString("ResumeId");
+				data.desireSalary = rs.getString("DesireSalary");
+				data.recentSalary = rs.getString("RecentSalary");
+				data.positionType = rs.getString("PositionType");
+				data.desireWorkLocation = rs.getString("DesireWorkLocation");
+				data.willingToRelocate = rs.getString("WillingToRelocate");
+				data.willingToTravel = rs.getString("WillingToTravel");
+				data.careerObjective = rs.getString("CareerObjective");
+				data.desireCareerLevel = rs.getString("DesireCareerLevel");
+				this.connection.close();
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			this.connection.close();
+		}
+		return data;
+	}
+
+	public List<dtoLanguage> getAllLanguage(String resumeId) {
+		List<dtoLanguage> data = new ArrayList<dtoLanguage>();
+		String sql = "SELECT * FROM `language` WHERE  `ResumeId` = " + resumeId;
+		if (this.connection.connect()) {
+			ResultSet rs = this.connection.read(sql);
+			try {
+				while (rs.next()) {
+					dtoLanguage lang = new dtoLanguage();
+					lang.languageId = rs.getString("LanguageId");
+					lang.resumeId = rs.getString("ResumeId");
+					lang.name = rs.getString("Name");
+					lang.level = rs.getString("Level");
+					data.add(lang);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			this.connection.close();
+		}
+		return data;
+	}
+
+	public void addLanguage(String resumeId, String language, String level) {
+
+		String sql = "INSERT INTO `language`(`ResumeId`, `Name`, `Level`) VALUES ("
+				+ resumeId + ",'" + language + "','" + level + "')";
+		if (this.connection.connect()) {
+			this.connection.write(sql);
+			this.connection.close();
+		}
+	}
+
+	public void deleteLanguage(String resumeId, String languageId) {
+		String sql = "DELETE FROM `language` WHERE `LanguageId`= " + languageId
+				+ " and `ResumeId`=" + resumeId;
+		if (this.connection.connect()) {
+			this.connection.write(sql);
+			this.connection.close();
+		}
+	}
+
+	public void deleteExperience(String resumeId, String languageId) {
+		String sql = "DELETE FROM `experience` WHERE `ExperienceId`= "
+				+ languageId + " and `ResumeId`=" + resumeId;
+		if (this.connection.connect()) {
+			this.connection.write(sql);
+			this.connection.close();
+		}
+	}
+
+	public void deleteSkill(String resumeId, String skillId) {
+
+		String sql = "DELETE FROM `skill` WHERE `SkillId`= " + skillId
+				+ " and `ResumeId`=" + resumeId;
+		if (this.connection.connect()) {
+			this.connection.write(sql);
+			this.connection.close();
+		}
+	}
+
+	public void deleteEducation(String cv, String educationId) {
+		String sql = "DELETE FROM `education` WHERE `ResumeId` =" + cv
+				+ " and `EducationId`=" + educationId;
+		if (this.connection.connect()) {
+			this.connection.write(sql);
+			this.connection.close();
+
+		}
+	}
+
+	public void deleteResumeById(String cv, String accountId) {
+		String sql = "DELETE FROM `resume` WHERE `ResumeId` = " + cv
+				+ " and `AccountId` = " + accountId;
+		if (this.connection.connect()) {
+			this.connection.write("DELETE FROM `language` WHERE `ResumeId` = "+cv);
+			this.connection.write("DELETE FROM `experience` WHERE `ResumeId` = "+cv);
+			this.connection.write("DELETE FROM `education` WHERE `ResumeId` = "+cv);
+			this.connection.write("DELETE FROM `career_objective` WHERE `ResumeId` = "+cv);
+			this.connection.write("DELETE FROM `skill` WHERE `ResumeId` = "+cv);
+			this.connection.write("DELETE FROM `career_objective` WHERE `ResumeId` = "+cv);			
+			this.connection.write(sql);
+			this.connection.close();
+		}
+	}
+
+	public List<dtoResume> getUserResumes(String userId) {
+
+		List<dtoResume> data = new ArrayList<dtoResume>();
+
+		String sql = "SELECT * FROM resume WHERE `AccountId`=" + userId;
+
+		try {
+			if (connection.connect()) {
+				ResultSet result = connection.read(sql);
+				while (result.next()) {
+					dtoResume resume = new dtoResume();
+					resume.resumeId = result.getString("ResumeId");
+					resume.address = result.getString("Address");
+					resume.avatar = result.getString("Avatar");
+					resume.birthday = result.getDate("Birthday");
+					resume.email = result.getString("Email");
+					resume.gender = result.getString("Gender");
+					resume.hobby = result.getString("Hobby");
+					resume.hometown = result.getString("Hometown");
+					resume.maritalStatus = result.getBoolean("MaritalStatus");
+					resume.name = result.getString("Name");
+					resume.nationality = result.getString("Nationality");
+					resume.phone = result.getString("Phone");
+					resume.resumeTitle = result.getString("Title");
+					data.add(resume);
+				}
+				result.close();
+				connection.close();
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();	
+			e.printStackTrace();
 		}
-		return listTitle;
+		return data;
 	}
-	public dtoResume getResume(int resumeId){
-		dtoResume resume= new dtoResume();
-		String sql="SELECT * FROM resume WHERE resumeId="+resumeId;
-		resume.setResumeId(resumeId);
-		
+
+	public dtoResume getResume(String resumeId) {
+		dtoResume resume = new dtoResume();
+		String sql = "SELECT * FROM resume WHERE ResumeId=" + resumeId;
 		try {
-			connection.connect();
-			ResultSet result= connection.read(sql);
-			while (result.next()){
-				resume.resumeId=resumeId;
-				resume.address=result.getString("Address");
-				resume.avatar=result.getString("Avatar");
-				resume.birthday=result.getDate("Birthday");
-				resume.email=result.getString("Email");
-				resume.gender=result.getString("Gender");
-				resume.hobby=result.getString("Hobby");
-				resume.hometown=result.getString("Hometown");
-				resume.maritalStatus=result.getBoolean("MaritalStatus");
-				resume.name=result.getString("Name");
-				resume.nationality=result.getString("Nationality");
-				resume.phone=result.getString("Phone");
-				resume.resumeTitle=result.getString("Title");
-				
+			if (connection.connect()) {
+				ResultSet result = connection.read(sql);
+				while (result.next()) {
+					resume.resumeId = resumeId;
+					resume.address = result.getString("Address");
+					resume.avatar = result.getString("Avatar");
+					resume.birthday = result.getDate("Birthday");
+					resume.email = result.getString("Email");
+					resume.gender = result.getString("Gender");
+					resume.hobby = result.getString("Hobby");
+					resume.hometown = result.getString("Hometown");
+					resume.maritalStatus = result.getBoolean("MaritalStatus");
+					resume.name = result.getString("Name");
+					resume.nationality = result.getString("Nationality");
+					resume.phone = result.getString("Phone");
+					resume.resumeTitle = result.getString("Title");
+				}
+				result.close();
+				connection.close();
+				return resume;
+
 			}
-			result.close();
-			connection.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();	
+			e.printStackTrace();
 		}
-		return resume;
+		return null;
 	}
-	public List<dtoEducation> getEducation(int resumeId){
-		List<dtoEducation> listEdu= new ArrayList<dtoEducation>();
-		//StartDate,EndDate, EducationDescription, EducationLevel, EducationMajor, EducationLocation, SchoolName
-		String sql="SELECT * FROM education, school WHERE education.SchoolID=school.SchoolID and ResumeId="+resumeId;
-	
-		try{
+
+	public List<dtoEducation> getEducation(String resumeId) {
+		List<dtoEducation> listEdu = new ArrayList<dtoEducation>();
+		String sql = "SELECT * FROM education WHERE ResumeId=" + resumeId;
+		try {
 			connection.connect();
-			ResultSet result=connection.read(sql);
-			while(result.next()){
-				dtoEducation edu= new dtoEducation();
-				edu.educationDescription=result.getString("EducationDescription");
-				edu.educationLevel= result.getString("EducationLevel");
-				edu.educationMajor=result.getString("EducationMajor");
-				edu.educationLocation=result.getString("EducationLocation");
-				edu.startDate=result.getDate("StartDate");
-				edu.endDate=result.getDate("EndDate");
-				edu.schoolName=result.getString("SchoolName");
-				edu.educationId=result.getInt("EducationId");
+			ResultSet result = connection.read(sql);
+			while (result.next()) {
+				dtoEducation edu = new dtoEducation();
+				edu.educationDescription = result
+						.getString("EducationDescription");
+				edu.educationLevel = result.getString("EducationLevel");
+				edu.educationMajor = result.getString("EducationMajor");
+				edu.startDate = result.getDate("StartDate");
+				edu.endDate = result.getDate("EndDate");
+				edu.schoolName = result.getString("SchoolName");
+				edu.educationId = result.getInt("EducationId");
+				edu.resumeId = result.getString("ResumeId");
 				listEdu.add(edu);
 			}
 			result.close();
 			connection.close();
-		}catch(SQLException e)
-		{
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return listEdu;
-		
+
 	}
-	public List<dtoSchool> getSchool(){
-		List<dtoSchool> listSchool= new ArrayList<dtoSchool>();
-		String sql="select * from school";
-		connection.connect();
-		ResultSet result=connection.read(sql);
+
+	public List<dtoExperience> getExperience(String resumeId) {
+
+		String sql = "select * from experience where ResumeId=" + resumeId;
+		List<dtoExperience> listExp = new ArrayList<dtoExperience>();
 		try {
-			while (result.next()){
-				dtoSchool s= new dtoSchool();
-				s.schoolID= result.getInt("SchoolID");
-				s.schoolName=result.getString("SchoolName");
-				listSchool.add(s);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		connection.close();
-		return listSchool;
-	}
-	public List<dtoExperience> getExperience(int resumeId)
-	{
-		
-		String sql="select * from experience where ResumeId="+resumeId;
-		List<dtoExperience> listExp=new ArrayList<dtoExperience>();
-		try{
 			connection.connect();
-			ResultSet result= connection.read(sql);
-			while(result.next()){
-				dtoExperience exp= new dtoExperience();
-				exp.companyName=result.getString("Company_name");
-				exp.description=result.getString("Description");
-				exp.jobCategory=result.getString("JobCategory");
-				exp.period=result.getString("Period");
-				exp.position= result.getString("Position");
-				exp.jobTitle=result.getString("JobTitle");
-				exp.experienceId= result.getInt("ExperienceId");
+			ResultSet result = connection.read(sql);
+			while (result.next()) {
+				dtoExperience exp = new dtoExperience();
+				exp.companyName = result.getString("Company_name");
+				exp.description = result.getString("Description");
+				exp.period = result.getString("Period");
+				exp.position = result.getString("Position");
+				exp.jobTitle = result.getString("JobTitle");
+				exp.experienceId = result.getInt("ExperienceId");
+				exp.resumeId = result.getString("ResumeId");
+
 				listExp.add(exp);
 			}
 			result.close();
 			connection.close();
-		}catch(SQLException e){
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return listExp;
 	}
-	public List<dtoSkill> getSkill(int resumeId)
-	{
-		List<dtoSkill> listSkill= new ArrayList<dtoSkill>();
-		String sql= "select * from skill where ResumeId="+resumeId;
-		try{
+
+	public List<dtoSkill> getSkill(String resumeId) {
+		List<dtoSkill> listSkill = new ArrayList<dtoSkill>();
+		String sql = "select * from skill where ResumeId=" + resumeId;
+		try {
 			connection.connect();
-			ResultSet result= connection.read(sql);
-			while(result.next()){
-				dtoSkill skill= new dtoSkill();
-				skill.name=result.getString("Name");
-				skill.level=result.getString("Level");
-				skill.skillId=result.getInt("Skillid");
+			ResultSet result = connection.read(sql);
+			while (result.next()) {
+				dtoSkill skill = new dtoSkill();
+				skill.name = result.getString("Name");
+				skill.level = result.getString("Level");
+				skill.skillId = result.getString("SkillId");
+				skill.resumeId = result.getString("ResumeId");
 				listSkill.add(skill);
-				
-				
+
 			}
 			connection.close();
-		}catch(SQLException e){
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return listSkill;
 	}
-	public List<dtoReference> getReference(int resumeId)
-	{
+
+	public List<dtoReference> getReference(String resumeId) {
 		connection.connect();
-		List<dtoReference> listRef= new ArrayList<dtoReference>();
-		String sql= "select * from reference where ResumeId="+resumeId;
-		try{
-			ResultSet result= connection.read(sql);
-			while(result.next()){
-				dtoReference ref= new dtoReference();
-				ref.name= result.getString("Name");
-				ref.jobTitle= result.getString("JobTitle");
-				ref.phone= result.getString("Phone");
-				ref.email= result.getString("Email");
-				ref.id=result.getInt("ReferenceId");
+		List<dtoReference> listRef = new ArrayList<dtoReference>();
+		String sql = "select * from reference where ResumeId=" + resumeId;
+		try {
+			ResultSet result = connection.read(sql);
+			while (result.next()) {
+				dtoReference ref = new dtoReference();
+				ref.name = result.getString("Name");
+				ref.jobTitle = result.getString("JobTitle");
+				ref.phone = result.getString("Phone");
+				ref.email = result.getString("Email");
+				ref.id = result.getInt("ReferenceId");
 				listRef.add(ref);
 			}
-		}catch(SQLException e){
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		connection.close();
 		return listRef;
 	}
-	public dtoCareerObjective getCareerObjective(int resumeId)
-	{
-		
-		dtoCareerObjective cao= new dtoCareerObjective();
-		String sql= "select * from career_objective where ResumeId="+resumeId;
-		try{
-			connection.connect();
-			ResultSet result= connection.read(sql);
-			while(result.next()){
-				cao.desireSalary=result.getInt("DesireSalary");
-				cao.recentSalary=result.getInt("RecentSalary");
-				cao.positionType=result.getString("PositionType");
-				cao.desireCareerLevel=result.getString("DesireCareerLevel");
-				cao.desireWorkLocation=result.getString("DesireWorkLocation");
-				cao.willingToRelocate=result.getBoolean("WillingToRelocate")==false?"No":"Yes";
-				cao.willingToTravel=result.getBoolean("WillingToTravel")==false?"No":"Yes";
-				cao.careerObjective=result.getString("CareerObjective");
-			}
+
+	// update avartar
+
+	public void AddEducation(String resumeId, String schoolName,
+			String educationLevel, String educationMajor,
+			String educationDescription, String startDate, String endDate) {
+
+		String sql = "INSERT INTO `education`( `ResumeId`, `SchoolName`, `EducationLevel`, `EducationMajor`, `EducationDescription`, `StartDate`, `EndDate`)"
+				+ " VALUES ("
+				+ resumeId
+				+ ",'"
+				+ schoolName
+				+ "','"
+				+ educationLevel
+				+ "','"
+				+ educationMajor
+				+ "','"
+				+ educationDescription
+				+ "','"
+				+ startDate
+				+ "','"
+				+ endDate
+				+ "')";
+
+		if (connection.connect()) {
+
+			this.connection.write(sql);
 			connection.close();
-		}catch(SQLException e){
-			e.printStackTrace();
 		}
-		return cao;
+
 	}
-	//update avartar
-	public void UpdatePersonal(Date birthday, String gender, Boolean maritalStatus,String nationality, int resumeId) {
-		String sql="update resume set Gender=?, MaritalStatus=?, Nationality=?, Birthday=?  where ResumeId="+resumeId;
-		try{
-			connection.connect();
-			PreparedStatement stm=connection.getConnection().prepareStatement(sql);
-			stm.setString(1, gender);
-			stm.setBoolean(2, maritalStatus);
-			stm.setString(3, nationality);
-			stm.setDate(4, birthday);
-			connection.setPrepareStatement(stm);
-			connection.writeSecure();
-			
-			
-		} catch (SQLException e) {
-		// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		connection.close();
-		
-	}
-	public void UpdateContact(String address, String email, String phone, int resumeId){
-		String sql="update resume set Address=?, Email=?, Phone=? where ResumeId="+resumeId;
-		try{
-		connection.connect();
-		PreparedStatement stm= connection.getConnection().prepareStatement(sql);
-		stm.setString(1, address);
-		stm.setString(2, email);
-		stm.setString(3, phone);
-		
-		connection.setPrepareStatement(stm);
-		connection.writeSecure();
-		
-		
-	} catch (SQLException e) {
-	// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-	connection.close();
-	
-	}
-	public void RemoveEducation(int eduId){
-		String sql= "Delete from education where EducationId="+eduId;
-		connection.connect();
-		connection.write(sql);
-		connection.close();
-	}
-	public void AddEducation(String startDate,String endDate, String educationDescription, int resumeId, int schoolID, String educationLevel, String educationMajor, String educationLocation){
-		String sql="Insert into education(StartDate, EndDate, EducationDescription, ResumeId, SchoolID, EducationLevel, EducationMajor, EducationLocation) values(?,?,?,?,?,?,?,?)";
-		try {
-			connection.connect();
-			PreparedStatement stm= connection.getConnection().prepareStatement(sql);
-			stm.setString(1,startDate);
-			stm.setString(2,endDate);
-			stm.setString(3,educationDescription);
-			stm.setInt(4,resumeId);
-			stm.setInt(5,schoolID);
-			stm.setString(6,educationLevel);
-			stm.setString(7,educationMajor);
-			stm.setString(8,educationLocation);
-			connection.setPrepareStatement(stm);
-			connection.writeSecure();
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		connection.close();
-	}
-	public int AddSchool(String schoolName){
-		List<dtoSchool> listSchool= getSchool();
-		if(listSchool.size()!=0){
-			for(dtoSchool s : listSchool){
-				if(s.schoolName==schoolName)
-					return -1;
-			}
-		}
-		int schoolID=-1;
-		String sql="insert into school (SchoolName) values('"+schoolName+"')";
-		connection.connect();
-		connection.write(sql);
-		
-		try {
-			ResultSet re=connection.read("select * from school where SchoolName='"+schoolName+"'");
-			while(re.next()){
-			schoolID= re.getInt("SchoolID");
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		connection.close();
-		return schoolID;
-	}
-	public void AddExperience(int ResumeId, String Company_name, String JobTitle, String Position, String Description, String Period){
-		String sql="insert into experience (ResumeId,Company_name, JobTitle, Position, Description, Period) values(?, ?, ?, ?,?,?)";
+
+	public void addExperience(String ResumeId, String Company_name,
+			String JobTitle, String Position, String Description, String Period) {
+		String sql = "insert into experience (ResumeId,Company_name, JobTitle, Position, Description, Period) values(?, ?, ?, ?,?,?)";
 		connection.connect();
 		try {
-			PreparedStatement stm= connection.getConnection().prepareStatement(sql);
-			stm.setInt(1,ResumeId);
-			stm.setString(2,Company_name );
-			stm.setString(3,JobTitle );
-			stm.setString(4,Position );
-			stm.setString(5,Description );
-			stm.setString(6,Period );
+			PreparedStatement stm = connection.getConnection()
+					.prepareStatement(sql);
+			stm.setString(1, ResumeId);
+			stm.setString(2, Company_name);
+			stm.setString(3, JobTitle);
+			stm.setString(4, Position);
+			stm.setString(5, Description);
+			stm.setString(6, Period);
 			connection.setPrepareStatement(stm);
 			connection.writeSecure();
 		} catch (SQLException e) {
@@ -324,20 +450,23 @@ public class ModelResume extends Model {
 		}
 		connection.close();
 	}
-	public void RemoveExperience(int expId){
-		String sql= "Delete from experience where ExperienceId="+expId;
+
+	public void RemoveExperience(int expId) {
+		String sql = "Delete from experience where ExperienceId=" + expId;
 		connection.connect();
 		connection.write(sql);
 		connection.close();
 	}
-	public void addSkill(String name, String level, int resumeId){
-		String sql="insert into skill (Name, Level, ResumeId) values(?,?,?)";
+
+	public void addSkill(String name, String level, String resumeId) {
+		String sql = "insert into skill (Name, Level, ResumeId) values(?,?,?)";
 		connection.connect();
 		try {
-			PreparedStatement stm= connection.getConnection().prepareStatement(sql);
+			PreparedStatement stm = connection.getConnection()
+					.prepareStatement(sql);
 			stm.setString(1, name);
 			stm.setString(2, level);
-			stm.setInt(3, resumeId);
+			stm.setString(3, resumeId);
 			connection.setPrepareStatement(stm);
 			connection.writeSecure();
 		} catch (SQLException e) {
@@ -346,122 +475,111 @@ public class ModelResume extends Model {
 		}
 		connection.close();
 	}
-	public void RemoveSkill(int skillId){
-		String sql= "Delete from skill where SkillId="+skillId;
+
+	public void RemoveSkill(int skillId) {
+		String sql = "Delete from skill where SkillId=" + skillId;
 		connection.connect();
 		connection.write(sql);
 		connection.close();
 	}
-	public void AddReference (String name, String job, String phone, String email, int resumeId){
-		String sql="insert into reference (Name, JobTitle,Phone, Email,ResumeId) values(?,?,?,?,?)";
-		connection.connect();
-		try {
-			PreparedStatement stm= connection.getConnection().prepareStatement(sql);
-			stm.setString(1, name);
-			stm.setString(2, job);
-			stm.setString(3, phone);
-			stm.setString(4, email);
-			stm.setInt(5, resumeId);
-			connection.setPrepareStatement(stm);
-			connection.writeSecure();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+	public void updateResume(String resumeId, String accountId, String title,
+			String name, String birthday, String gender, String maritalStatus,
+			String nationality, String address, String email, String phone,
+			String hobby) {
+
+		String sql = "";
+		sql = "UPDATE `resume` SET";
+		sql += "`Title`='" + title + "',`Name`='" + name + "',`Birthday`='"
+				+ birthday + "',`Gender`='" + gender + "',";
+		sql += "`MaritalStatus`=" + maritalStatus + ",`Nationality`='"
+				+ nationality + "',";
+		sql += "`Address`='" + address + "',`Email`='" + email + "',`Phone`='"
+				+ phone + "',`Hobby`='" + hobby + "'";
+		sql += "WHERE `ResumeId`=" + resumeId + " and `AccountId`=" + accountId;
+		if (this.connection.connect()) {
+			this.connection.write(sql);
+			this.connection.close();
 		}
-		connection.close();
 	}
-	public void RemoveReference(int refId){
-		String sql= "Delete from reference where ReferenceId="+refId;
+
+	public void AddResume(String accountId, String title, String name,
+			String birthday, String gender, String maritalStatus,
+			String nationality, String avatar, String address, String email,
+			String phone, String hobbies) {
+
+		String sql = "INSERT INTO `resume` (`AccountId`, `Title`, `Name`, `Birthday`, `Gender`, `MaritalStatus`, `Nationality`, `Avatar`, `Address`, `Email`, `Phone`, `Hobby`)"
+				+ " VALUES("
+				+ accountId
+				+ ", '"
+				+ title
+				+ "', '"
+				+ name
+				+ "','"
+				+ birthday
+				+ "', '"
+				+ gender
+				+ "',"
+				+ maritalStatus
+				+ ",'"
+				+ nationality
+				+ "', '"
+				+ avatar
+				+ "', '"
+				+ address
+				+ "','"
+				+ email
+				+ "', '"
+				+ phone + "','" + hobbies + "')";
 		connection.connect();
 		connection.write(sql);
 		connection.close();
 	}
-	public void UpdateHobbies(String hobbies, int resumeId){
-		String sql="update resume set Hobby='"+hobbies+"' where ResumeId="+resumeId;
+
+	public void AddCareerObjective(int desireSalary, int recentSalary,
+			String positionType, String desireCareerLevel,
+			String desireWorkLocation, Boolean willingToRelocate,
+			Boolean willingToTravel, String careerObjective, int resumeId) {
+		String sql = "insert into career_objective (DesireSalary,RecentSalary, PositionType, DesireCareerLevel, DesireWorkLocation, WillingToRelocate, WillingToTravel, CareerObjective, resumeId) values ("
+				+ desireSalary
+				+ ","
+				+ recentSalary
+				+ ",'"
+				+ positionType
+				+ "','"
+				+ desireCareerLevel
+				+ "','"
+				+ desireWorkLocation
+				+ "',"
+				+ willingToRelocate
+				+ ","
+				+ willingToTravel
+				+ ",'"
+				+ careerObjective + "'," + resumeId + ")";
 		connection.connect();
 		connection.write(sql);
 		connection.close();
 	}
-	public void UpdateCareerObject(int DesireSalary, int RecentSalary,String PositionType,String DesireCareerLevel,String DesireWorkLocation, Boolean WillingToRelocate, Boolean WillingToTravel,String CareerObjective, int resumeId){
-		dtoCareerObjective cao = getCareerObjective(resumeId);
-		if(cao.getCareerObjectiveId()==0){
-			AddCareerObjective(DesireSalary, RecentSalary, PositionType, DesireCareerLevel, DesireWorkLocation, WillingToRelocate, WillingToTravel, CareerObjective, resumeId);
-			return;
-		}
-		
-		String sql="Update career_objective set DesireSalary=?, RecentSalary=?, PositionType=?, DesireCareerLevel=?, DesireWorkLocation=?, WillingToRelocate=?,WillingToTravel=?, CareerObjective=? where ResumeId=?";
-		connection.connect();
-		try {
-			PreparedStatement stm=connection.getConnection().prepareStatement(sql);
-			stm.setInt(1,DesireSalary);
-			stm.setInt(2, RecentSalary);
-			stm.setString(3, PositionType);
-			stm.setString(4, DesireCareerLevel);
-			stm.setString(5, DesireWorkLocation);
-			stm.setBoolean(6, WillingToRelocate);
-			stm.setBoolean(7, WillingToTravel);
-			stm.setString(8, CareerObjective);
-			stm.setInt(9, resumeId);
-			connection.setPrepareStatement(stm);
-			connection.writeSecure();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		connection.close();
-	}
-	public void AddResume(int resumeId, int accountId,String title, String name, String birthday, String gender, Boolean maritalStatus, String nationality, String avatar, String address, String email, String phone, String hobbies){
-		String sql="INSERT INTO `resume` (`ResumeId`, `AccountId`, `Title`, `Name`, `Birthday`, `Gender`, `MaritalStatus`, `Nationality`, `Avatar`, `Address`, `Email`, `Phone`, `Hobby`)"+
-				" VALUES("+resumeId+","+accountId+", '"+title+"', '"+name+"', '"+birthday+"', '"+gender+"',"+maritalStatus+",'"+nationality+"', '"+avatar+"', '"+address+"','"+email+"', '"+phone+"','"+hobbies+"')";
-		connection.connect();
-		connection.write(sql);
-		connection.close();
-	}
-	public void AddCareerObjective(int desireSalary, int recentSalary,String positionType,String desireCareerLevel,String desireWorkLocation, Boolean willingToRelocate, Boolean willingToTravel,String careerObjective, int resumeId){
-		String sql="insert into career_objective (DesireSalary,RecentSalary, PositionType, DesireCareerLevel, DesireWorkLocation, WillingToRelocate, WillingToTravel, CareerObjective, resumeId) values ("+desireSalary+","+recentSalary+",'"+positionType+"','"+desireCareerLevel+"','"+desireWorkLocation+"',"+willingToRelocate+","+willingToTravel+",'"+careerObjective+"',"+resumeId+")";
-		connection.connect();
-		connection.write(sql);
-		connection.close();
-	}
-	public int getNextResumeId(int accountId){
-		connection.connect();
-		int id=0;
-		ResultSet re=connection.read("select*from resume where AccountId="+accountId);
-		try {
-			while (re.next())
-			{
-				id= re.getInt("ResumeId");
+
+	public int getMaxResumeId(String accountId) {
+		if (connection.connect()) {
+			int id = 0;
+			ResultSet re = connection
+					.read("SELECT COALESCE(max(ResumeId),-1) as Max FROM `resume` WHERE `AccountId` ="
+							+ accountId);
+			try {
+				re.next();
+				id = re.getInt("Max");
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return -1;
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return id;
 		}
-		return id+1;
-	}
-	public void RemoveResume(int resumeId){
-		
-		//remove edu
-		//remove ref
-		//remove experiment
-		//remove skill
-		//remove cao
-		String sql_edu="Delete from education where ResumeId="+resumeId;
-		String sql_ref=" Delete from reference where ResumeId="+resumeId;
-		String sql_exp="Delete from experience where ResumeId="+resumeId;
-		String sql_ski="delete from skill where ResumeId="+resumeId;
-		String sql_cao=" Delete from career_objective where ResumeId="+resumeId;
-		String sql_res=" Delete from resume where ResumeId="+resumeId;
-		//System.out.print(sql);
-		connection.connect();
-		connection.write(sql_edu);
-		connection.write(sql_ref);
-		connection.write(sql_exp);
-		connection.write(sql_ski);
-		connection.write(sql_cao);
-		connection.write(sql_res);
-		connection.close();
-		
+		return -1;
+
 	}
 
 }
-

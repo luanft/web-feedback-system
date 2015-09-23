@@ -1,62 +1,106 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
-  <%@ page import ="wfs.l2t.dto.*" %>
-  <%@ page import ="java.util.HashMap" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+	pageEncoding="utf-8"%>
+<%@ page import="wfs.l2t.dto.*"%>
+<%@ page import="wfs.l2t.model.ModelResume"%>
+<%@ page import="wfs.l2t.model.ModelAccount"%>
+<%@ page import="java.util.List"%>
+
+<%
+	String userId = (String) request.getAttribute("user");
+	ModelAccount account = new ModelAccount();
+	dtoAccount dtoAcc = account.getAccountById(userId);
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <title>Resume Profile</title>
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="view/resource/bootstrap/css/bootstrap.min.css">
+
+<script
+	src="${pageContext.request.contextPath}/view/resource/lib/jquery-2.1.4.min.js"></script>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/view/resource/bootstrap/css/bootstrap.min.css">
+
+<script
+	src="${pageContext.request.contextPath}/view/resource/bootstrap/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/view/resource/css/resume_profile.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/view/resource/css/theme_customize.css">
 
 
-
-<link rel="stylesheet" href="${pageContext.request.contextPath}/view/resource/css/resume_profile.css">
-<link rel="stylesheet" href="view/resource/css/theme_customize.css">
-<!-- Bootstrap Validation CSS -->
-<link rel="stylesheet" href="view/resource/bootstrap/css/bootstrapValidator.min.css">
-
-<script src="view/resource/lib/jquery-2.1.4.min.js"></script>
-<script src="view/resource/bootstrap/js/bootstrap.min.js"></script>
-<!-- Bootstrap Validation JS -->
-<script src="view/resource/bootstrap/js/bootstrapValidator.min.js"></script>
-<script src="view/resource/lib/add-resume.js"></script>
-
+<script
+	src="${pageContext.request.contextPath}/view/resource/datepicker/js/bootstrap-datepicker.js"></script>
 
 </head>
 
 <body>
 
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+
+			//bấm nút thêm cv
+			$("#btn_add_cv").click(function() {
+
+				$("#form_enter_resume").slideDown();
+				$("#btn_add_cv").hide();
+			});
+
+			//bấm nút hủy cv
+			$("#btn_cancel_cv").click(function() {
+
+				$("#form_enter_resume").slideUp();
+				$("#btn_add_cv").show();
+			});
+
+			$('#birthday').datepicker({
+				format : 'dd/mm/yyyy'
+			});
+		});
+	</script>
+
+
 	<div class="container">
 		<!-- menu top -->
 		<nav
 			class="navbar navbar-inverse navbar-fixed-top custom_navbar_color">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-4">
-						<div class="navbar-header">
-							<img
-								src="http://thumbs.dreamstime.com/x/job-search-3d-icon-16095671.jpg"
-								class="img-circle navbar-brand" width="60" height="70"> <a
-								class="navbar-brand custom_color_white"> RECOMMENDATION
-								SYSTEM</a>
-						</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="navbar-header">
+						<img
+							src="<%out.print(request.getContextPath()
+					+ "/view/resource/image/logo.jpg");%>"
+							class="img-circle navbar-brand" width="60" height="70"> <a
+							href="<%out.print(request.getContextPath());%>"
+							class="navbar-brand custom_color_white"> RECOMMENDATION
+							SYSTEM</a>
 					</div>
-					<div class="col-md-8">
-						<div>
-							<ul class="nav navbar-nav  navbar-right">
-								<li><a href="#">Home</a></li>
-								<li><a href="#"><span class="glyphicon glyphicon-user"></span>
-										Xin chào, HIhIhi</a></li>
-								<li><a href="#"><span
-										class="glyphicon glyphicon-log-in"></span> Thoát</a></li>
-							</ul>
-						</div>
+				</div>
+				<div class="col-md-8">
+					<div>
+						<ul class="nav navbar-nav  navbar-right">
+							<li><a href="<%out.print(request.getContextPath());%>">Home</a></li>
+							<li class="dropdown"><a href="#" class="dropdown-toggle"
+								data-toggle="dropdown"> <span
+									class="glyphicon glyphicon-user"></span> Xin chào <%=dtoAcc.userName%><span
+									class="caret"></span>
+							</a>
+								<ul class="dropdown-menu">
+									<li><a
+										href="<%out.print(request.getContextPath() + "/account");%>">Quản
+											lý tài khoản</a></li>
+									<li><a
+										href="<%out.print(request.getContextPath() + "/home?logout=true");%>"><span
+											class="glyphicon glyphicon-log-in"></span> Đăng xuất</a></li>
+								</ul></li>
+						</ul>
 					</div>
 				</div>
 			</div>
+		</div>
 		</nav>
 		<!-- chia trang thanh 2 cot -->
 
@@ -68,213 +112,368 @@
 						<div class="container-fluid col-md-offset-0">
 							<h4>Xin chào!</h4>
 							<img
-								src="http://vui3g.com/files/posts/images/5-2014/girl-xinh-dan-toc-mong.jpg"
+								src="<%out.print(request.getContextPath() + dtoAcc.avatar);%>"
 								class="img-rounded" width="170" height="170">
 						</div>
 						<br>
 						<div>
 
 							<ul class="nav nav-pills nav-stacked custom_font_bold">
-								<li class><a href="#"><span
-										class="glyphicon glyphicon-thumbs-up"></span> CÔNG VIỆC MỚI
-										NHẤT</a></li>
-								<li class><a href="#"><span
-										class="glyphicon glyphicon-thumbs-up"></span> LĨNH VỰC QUAN
-										TÂM</a></li>
-								<li class><a href="#"><span
-										class="glyphicon glyphicon-thumbs-up"></span> THÔNG BÁO</a></li>
-								<li class><a href="#"><span
-										class="glyphicon glyphicon-cog"></span> THIẾT LẬP HỆ THỐNG</a></li>
-								<li class><a href="#"><span
+								<li><a href="<%out.print(request.getContextPath());%>"><span
+										class="glyphicon glyphicon glyphicon-home"></span> CÔNG VIỆC
+										MỚI</a></li>
+								<li><a
+									href="<%out.print(request.getContextPath() + "/care");%>"><span
+										class="glyphicon glyphicon-heart"></span> CÔNG VIỆC QUAN TÂM</a></li>
+
+								<li><a
+									href="<%out.print(request.getContextPath() + "/recommendation");%>"><span
+										class="glyphicon glyphicon glyphicon-pencil"></span> KHẢO SÁT</a></li>
+								<li><a
+									href="<%out.print(request.getContextPath() + "/settings");%>"><span
+										class="glyphicon glyphicon-cog"></span> THIẾT LẬP GỬI MAIL</a></li>
+								<li class><a
+									href="<%out.print(request.getContextPath() + "/listresume");%>"><span
 										class="glyphicon glyphicon-list-alt"></span> XEM HỒ SƠ CỦA BẠN</a></li>
-								<li class><a href="#"><span
+								<li class><a
+									href="<%out.print(request.getContextPath() + "/help");%>"><span
 										class="glyphicon glyphicon-question-sign"></span> TRỢ GIÚP</a></li>
-								<li class><a href="#"><span
-										class="glyphicon glyphicon-envelope"></span> FEEDBACK</a></li>
+								<li class><a
+									href="<%out.print(request.getContextPath() + "/help?about");%>"><span
+										class="glyphicon glyphicon-question-sign"></span> ABOUT</a></li>
 							</ul>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-9 custom_background_color">
+				<div class="col-md-9 ">
 					<br>
-					<div class="container-fluid">
-						<div class="panel panel-default">
-							<!-- Personal Detail -->
-							<div class="panel-heading">Danh sách CV</div>
-							<div class="panel-body">
-								<%
-									if ((int) request.getAttribute("listCount") == 0)
-										out.print("Bạn chưa có CV nào!");
-								%>
-								<c:forEach var="entry" items="${listTitle}">
-									<p>
-										<a
-											href="${pageContext.request.contextPath}/resume?id=${entry.key}">${entry.value}
-										</a><a href="#" name="remove" onclick="removeResume(${entry.key})">Xóa</a>
-									<p>
-								</c:forEach>
-								<br>
-								<a href='#' id='add-resume-link'>Thêm CV</a>
+					<div>
+						<div id="form_enter_resume"
+							class="panel panel-default custom_hiden">
+							<div class="panel-heading">
+								<h3>Thêm một CV</h3>
 							</div>
-							<div class="panel-heading">Thông tin cơ bản</div>
 							<div class="panel-body">
-								<form method="post" id="add-resume-form" action="" role="form"
-									class="form-horizontal">
-									<p class="pull-right">Các nội dung có đánh dấu <span id="required">*</span> là bắt buộc</p>
-									<fieldset>
-										<legend>Tiêu đề CV</legend>
-										<div class="form-group">
-										<label for="title_input" class="control-label col-md-5 clearfix">Tiêu
-											đề<span id="required">*</span></label>
-										<div class="input-group">
-											<input type="text" class="form-control" name="title_input"
-												id="title-input">
-											<p id="title_error" class="text-danger">Chưa nhập tiêu đề</p>
-											</div>
-										</div>
 
-									</fieldset>
-									<fieldset>
-										<legend>Thông tin cá nhân</legend>
-										<div class="form-group">
-											<label for="full-name-input" class="control-label col-md-5">Họ
-												Tên<span id="required">*</span></label>
-											<div class="input-group">
-												<input class="form-control " type="text"
-													id="name-input"name="full_name_input" value="${resume.name}">
-												<p id="name_error" class="text-danger">Chưa nhập họ tên</p>
-											</div>
-										</div>
-										<div class="form-group">
-											<label for="gender-input" class="control-label col-md-5">Giới
-												tính<span id="required">*</span></label>
-											<div class="input-group">
-												<select name="gender_input" class="form-control">
-													<option
-														<c:if test="${resume.gender=='Nam' || resume.gender==''}">selected='selected'</c:if>>Nam</option>
-													<option
-														<c:if test="${resume.gender=='Nữ'}">selected='selected'</c:if>>Nữ</option>
-													<option
-														<c:if test="${resume.gender=='Khác'}">selected='selected'</c:if>>Khác</option>
-												</select>
-											</div>
-										</div>
-										<div class="form-group">
-											<label for="day" class="control-label col-md-5">Ngày
-												sinh<span id="required">*</span></label>
-											<div class="input-group">
-												<select id="day" name="day">
-													<option>...</option>
-													<c:forEach var="i" begin="1" end="31">
-														<option
-															<c:if test="${resume.day==i}">selected='selected'</c:if>><c:out
-																value="${i}" /></option>
-													</c:forEach>
-												</select> <select id="month" name="month">
-													<option>...</option>
-													<c:forEach var="i" begin="1" end="12">
-														<option
-															<c:if test="${resume.month==i}">selected='selected'</c:if>><c:out
-																value="${i}" /></option>
-													</c:forEach>
-												</select> <select id="year" name="year">
-													<option>...</option>
-													<c:forEach var="i" begin="1945" end="2015">
-														<option
-															<c:if test="${resume.year==i}">selected='selected'</c:if>><c:out
-																value="${i}" /></option>
-													</c:forEach>
-												</select>
-												<p class="text-danger" id="birthday_error">Chưa nhập ngày sinh</p>
-											</div>
-										</div>
-										<div class="form-group">
-											<label for="status_select" class="control-label col-md-5">Tình
-												trạng hôn nhân</label> <select name="status_select"
-												class="form-control">
-												<option value="false"
-													<c:if test="${!resume.maritalStatus}">selected=selected</c:if>>Độc
-													thân</option>
-												<option value="true"
-													<c:if test="${resume.maritalStatus}">selected=selected</c:if>>Có
-													gia đình</option>
-												<option value="false"> </option>
-											</select>
-										</div>
-										<div class="form-group">
-											<label for="nationality_input" class="control-label col-md-5">Quốc
-												tịch<span id="required">*</span></label>
-											<div class="input-group">
-												<select name="nationality_input" class="form-control">
-													<option
-														<c:if test="${resume.nationality=='Việt Nam'}">selected='selected'</c:if>>Việt
-														Nam</option>
-													<option
-														<c:if test="${resume.nationality=='Nước Ngoài'}">selected='selected'</c:if>>Nước
-														ngoài</option>
-												</select>
-											</div>
-										</div>
-									</fieldset>
-									<fieldset>
-										<legend>Thông tin liên lạc</legend>
-										<div class="form-group">
-											<label for="address-input" class="control-label col-md-5">Địa
-												chỉ</label>
-											<div class="input-group">
-												<input class="form-control" type="text" name="address_input"
-													placeholder="Địa chỉ" value="${resume.address}">
-											</div>
-										</div>
-										<div class="form-group">
-											<label for="email-input" class="control-label col-md-5">Email<span id="required">*</span></label>
-											<div class="input-group">
-												<input class="form-control" type="text" placeholder="Email"
-													name="email_input" id="email"
-													
-													value="${resume.email}">
-												<p id="email2_error" class="text-danger">Email Không hợp lệ</p>
-												<p id="email_error" class="text-danger">Chưa nhập Email</p>
-											</div>
-										</div>
 
-										<div class="form-group">
-											<label for="phone-input" class="control-label col-md-5">Số
-												điện thoại</label>
 
-											<div class="input-group">
-												<input class="form-control" type="text" id="phone_input" name="phone_input"
-													placeholder="Điện thoại" maxlength="15"
-													value="${resume.phone}">
-												<p id="phone_error" class="text-danger">Số điện thoại Không hợp lệ</p>
-											</div>
-											
-										</div>
-									</fieldset>
-									<fieldset>
-										<legend>Sở thích</legend>
-										<div class="form-group">
-											<div class="input-group">
-												<textarea style="margin-left: 20px" name="hobbies_input"
-													class="form-control">${resume.hobby}</textarea>
-											</div>
-										</div>
-									</fieldset>
-									<button id="add-resume-button"name="add-resume-button" type="submit"
-										class="btn btn-primary col-md-offset-4">Tiếp tục</button>
-									<button id="cancel-add-resume-button" type="button"
-										class="btn btn-default">Huỷ bỏ</button>
+
+								<form role="form" method="post" action="listresume">
+									<div class="form-group">
+										<label for="cv_title">Tên của CV:</label> <input type="text"
+											name="title-input" class="form-control" id="email">
+									</div>
+
+
+									<div class="form-group">
+										<label for="cv_title">Họ và tên:</label> <input type="text"
+											class="form-control" name="full-name-input" id="email">
+									</div>
+
+									<div class="form-group">
+										<label for="birthday">Ngày Sinh:</label> <input
+											class="form-control" id="birthday" readonly
+											data-date-format="dd-mm-yyyy" name="birthday-input"
+											value="26/05/1994">
+									</div>
+
+
+									<div class="form-group">
+										<label for="cv_title">Giới tính:</label> <label
+											class="radio-inline"> <input checked="checked"
+											type="radio" name="gender-input" value="Nam">Nam
+										</label> <label class="radio-inline"> <input type="radio"
+											name="gender-input" value="Nữ">Nữ
+										</label>
+									</div>
+
+
+
+
+									<div class="form-group">
+										<label for="cv_title">Tình trạng hôn nhân:</label> <label
+											class="radio-inline"> <input value="0"
+											checked="checked" type="radio" name="status_select">Chưa
+											kết hôn
+										</label> <label class="radio-inline"> <input value="1"
+											type="radio" name="status_select">Đã kết hôn
+										</label>
+									</div>
+
+
+
+
+									<div class="form-group">
+										<label for="sel1">Quốc tịch:</label> <select
+											class="form-control" name="nationality_input" id="sel1">
+											<option>Vietnam</option>
+											<option>Afghanistan</option>
+											<option>Albania</option>
+											<option>Algeria</option>
+											<option>Andorra</option>
+											<option>Angola</option>
+											<option>Antigua and Barbuda</option>
+											<option>Argentina</option>
+											<option>Armenia</option>
+											<option>Australia</option>
+											<option>Austria</option>
+											<option>Azerbaijan</option>
+											<option>Bahamas</option>
+											<option>Bahrain</option>
+											<option>Bangladesh</option>
+											<option>Barbados</option>
+											<option>Belarus</option>
+											<option>Belgium</option>
+											<option>Belize</option>
+											<option>Benin</option>
+											<option>Bhutan</option>
+											<option>Bolivia</option>
+											<option>Bosnia and Herzegovina</option>
+											<option>Botswana</option>
+											<option>Brazil</option>
+											<option>Brunei Darussalam</option>
+											<option>Bulgaria</option>
+											<option>Burkina Faso</option>
+											<option>Burma</option>
+											<option>Burundi</option>
+											<option>Cambodia</option>
+											<option>Cameroon</option>
+											<option>Canada</option>
+											<option>Cape Verde</option>
+											<option>Central African Republic</option>
+											<option>Chad</option>
+											<option>Chile</option>
+											<option>China</option>
+											<option>Colombia</option>
+											<option>Comoros</option>
+											<option>Congo, Republic of</option>
+											<option>Congo, Democratic Republic of the</option>
+											<option>Costa Rica</option>
+											<option>CÃ´te d'Ivoire</option>
+											<option>Croatia</option>
+											<option>Cuba</option>
+											<option>Cyprus</option>
+											<option>Czech Republic</option>
+											<option>Denmark</option>
+											<option>Djibouti</option>
+											<option>Dominica</option>
+											<option>Dominican Republic</option>
+											<option>Ecuador</option>
+											<option>Egypt</option>
+											<option>El Salvador</option>
+											<option>Equatorial</option>
+											<option>Eritrea</option>
+											<option>Estonia</option>
+											<option>Ethiopia</option>
+											<option>Fiji</option>
+											<option>Finland</option>
+											<option>France</option>
+											<option>Gabon</option>
+											<option>Gambia, The</option>
+											<option>Georgia</option>
+											<option>Germany</option>
+											<option>Ghana</option>
+											<option>Greece</option>
+											<option>Grenada</option>
+											<option>Guatemala</option>
+											<option>Guinea</option>
+											<option>Guinea-Bissau</option>
+											<option>Guyana</option>
+											<option>Haiti</option>
+											<option>Honduras</option>
+											<option>Hungary</option>
+											<option>Iceland</option>
+											<option>India</option>
+											<option>Indonesia</option>
+											<option>Iran</option>
+											<option>Iraq</option>
+											<option>Ireland</option>
+											<option>Israel</option>
+											<option>Italy</option>
+											<option>Jamaica</option>
+											<option>Japan</option>
+											<option>Jordan</option>
+											<option>Kazakhstan</option>
+											<option>Kenya</option>
+											<option>Kiribati</option>
+											<option>Korea, North</option>
+											<option>Korea, South</option>
+											<option>Kuwait</option>
+											<option>Kyrgyzstan</option>
+											<option>Laos</option>
+											<option>Latvia</option>
+											<option>Lebanon</option>
+											<option>Lesotho</option>
+											<option>Liberia</option>
+											<option>Libya</option>
+											<option>Liechtenstein</option>
+											<option>Lithuania</option>
+											<option>Luxembourg</option>
+											<option>Macedonia</option>
+											<option>Madagascar</option>
+											<option>Malawi</option>
+											<option>Malaysia</option>
+											<option>Maldives</option>
+											<option>Mali</option>
+											<option>Malta</option>
+											<option>Marshall Islands</option>
+											<option>Mauritania</option>
+											<option>Mauritius</option>
+											<option>Mexico</option>
+											<option>Micronesia</option>
+											<option>Moldova</option>
+											<option>Monaco</option>
+											<option>Mongolia</option>
+											<option>Montenegro</option>
+											<option>Morocco</option>
+											<option>Mozambique</option>
+											<option>Myanmar</option>
+											<option>Namibia</option>
+											<option>Nauru</option>
+											<option>Nepal</option>
+											<option>Netherlands</option>
+											<option>New Zealand</option>
+											<option>Nicaragua</option>
+											<option>Niger</option>
+											<option>Nigeria</option>
+											<option>Norway</option>
+											<option>Oman</option>
+											<option>Pakistan</option>
+											<option>Palau</option>
+											<option>Palestinian State</option>
+											<option>Panama</option>
+											<option>Papua New Guinea</option>
+											<option>Paraguay</option>
+											<option>Peru</option>
+											<option>Philippines</option>
+											<option>Poland</option>
+											<option>Portugal</option>
+											<option>Qatar</option>
+											<option>Romania</option>
+											<option>Russia</option>
+											<option>Rwanda</option>
+											<option>St. Kitts and Nevis</option>
+											<option>St. Lucia</option>
+											<option>St. Vincent and The Grenadines</option>
+											<option>Samoa</option>
+											<option>San Marino</option>
+											<option>SÃ£o TomÃ© and PrÃ­ncipe</option>
+											<option>Saudi Arabia</option>
+											<option>Senegal</option>
+											<option>Serbia</option>
+											<option>Seychelles</option>
+											<option>Sierra Leone</option>
+											<option>Singapore</option>
+											<option>Slovakia</option>
+											<option>Slovenia</option>
+											<option>Solomon Islands</option>
+											<option>Somalia</option>
+											<option>South Africa</option>
+											<option>Spain</option>
+											<option>Sri Lanka</option>
+											<option>Sudan</option>
+											<option>Suriname</option>
+											<option>Swaziland</option>
+											<option>Sweden</option>
+											<option>Switzerland</option>
+											<option>Syria</option>
+											<option>Taiwan</option>
+											<option>Tajikistan</option>
+											<option>Tanzania</option>
+											<option>Thailand</option>
+											<option>Togo</option>
+											<option>Tonga</option>
+											<option>Trinidad and Tobago</option>
+											<option>Tunisia</option>
+											<option>Turkey</option>
+											<option>Turkmenistan</option>
+											<option>Tuvalu</option>
+											<option>Uganda</option>
+											<option>Ukraine</option>
+											<option>United Arab Emirates</option>
+											<option>United Kingdom</option>
+											<option>United States</option>
+											<option>Uruguay</option>
+											<option>Uzbekistan</option>
+											<option>Vanuatu</option>
+											<option>Vatican City</option>
+											<option>Venezuela</option>
+											<option>Western Sahara</option>
+											<option>Yemen, Republic of</option>
+											<option>Yugoslavia</option>
+											<option>Zaire</option>
+											<option>Zambia</option>
+											<option>Zimbabwe</option>
+										</select>
+									</div>
+
+
+									<div class="form-group">
+										<label for="cv_title">Địa chỉ:</label> <input type="text"
+											class="form-control" name="address-input" id="email">
+									</div>
+
+
+									<div class="form-group">
+										<label for="cv_title">Email liên hệ:</label> <input
+											type="email" class="form-control" name="email-input"
+											id="email">
+									</div>
+
+
+									<div class="form-group">
+										<label for="cv_title">Số điện thoại:</label> <input
+											type="text" class="form-control" name="phone-input"
+											id="email">
+									</div>
+
+									<div class="form-group">
+										<label for="cv_title">Sở thích cá nhân:</label> <input
+											type="text" class="form-control" id="email"
+											name="hobbies-input">
+									</div>
+
+									<button type="submit" class="btn btn-primary"
+										name="add-resume-button">Thêm CV</button>
+
+									<button id="btn_cancel_cv" type="button"
+										class="btn btn-primary">Hủy</button>
 								</form>
 							</div>
 						</div>
 
-					</div>
-				</div>
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h3>
+									CV của bạn
+									<button id="btn_add_cv" type="button"
+										class="btn btn-primary navbar-right custom_margin">Thêm
+										một CV</button>
+								</h3>
+							</div>
+							<div class="panel-body">
 
+								<%
+									ModelResume resumeModel = new ModelResume();
+									List<dtoResume> list = resumeModel.getUserResumes(userId);
+									for (dtoResume i : list) {
+										out.print("<h4><a href=\"resume?id="
+												+ i.resumeId
+												+ "\">"
+												+ i.resumeTitle
+												+ "</a><a href=\"listresume?delete="
+												+ i.resumeId
+												+ "\" class=\"navbar-right custom_margin\">Xóa</a></h4><hr>");
+
+									}
+								%>
+							</div>
+						</div>
+					</div>
+
+				</div>
 			</div>
 		</div>
 	</div>
-	</div>
-
 </body>
 </html>

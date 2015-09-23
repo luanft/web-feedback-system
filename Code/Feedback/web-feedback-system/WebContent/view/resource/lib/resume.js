@@ -1,44 +1,6 @@
 /**
  * 
  */
-function validEmail(v) {
-    var r = new RegExp("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?");
-    return (v.match(r) == null) ? false : true;
-}
-function validPhone(v){
-	var r= new RegExp("[0-9]{9,12}");
-	return (v.match(r) == null) ? false : true;
-}
-function processEmail(emailTab, errorTab){
-	var email = emailTab.val();  
-	if (!validEmail(email)) {
-			
-		errorTab.show();  
-		emailTab.focus();
-		emailTab.parent().parent().toggleClass("has-error", true);		 
-	} 
-	else{
-		errorTab.hide();
-		emailTab.parent().parent().toggleClass("has-error",false);
-		emailTab.parent().parent().toggleClass("has-success", true);	
-	}
-
-}
-function processPhone(phoneTab, errorTag){
-	var phone=phoneTab.val();
-	if(!validPhone(phone)){
-		
-		errorTag.show();  
-		phoneTab.focus();
-		phoneTab.parent().parent().toggleClass("has-error", true);
-	} 
-	
-	else{
-		errorTag.hide();  
-		phoneTab.parent().parent().toggleClass("has-error",false);
-		phoneTab.parent().parent().toggleClass("has-success", true);	
-	}
-}
 function removeEduEven(id)
 {
 	$.ajax({
@@ -82,14 +44,10 @@ function removeRefEven(id)
 
 
 $(document).ready(function() {
-		
+
 		$("form").attr("class","collapse");
 		$("#male-checkbox").attr("checked", false);
 		$("#female-checkbox").attr("checked", false);
-		$("#email_error").hide();
-		$("#phone_error").hide();
-		$("#ref_email_error").hide();
-		$("#ref_phone_error").hide();
 		//personal
 		
 		$("#personal-edit-button").click(function() {
@@ -187,69 +145,4 @@ $(document).ready(function() {
 			$("#career-object-list").show();
 			$("#career-object-form").hide();
 		});
-		$("#email_input").focusout(function(){
-			
-			processEmail($(this),$("#email_error"));
-		});
-		$("#ref_email_input").focusout(function (){
-			processEmail($(this),$("#ref_email_error"));
-		});
-		
-		$("#phone_input").focusout(function(){
-			processPhone($(this), $("#phone_error"));
-		});	
-		$("#ref_phone_input").focusout(function(){
-			processPhone($(this), $("#ref_phone_error"));
-		
-			});
-		
-		$("#contact-form").submit(function(event){
-			var email=$("#email_input");
-			if(email.val()==""){
-				email.focus();
-				$("#contact-form").show()
-				$("#email_error").show();
-				email.parent().parent().toggleClass("has-error", true);
-				event.preventDefault();
-			}
-			
-		});
-		$("#education-form").submit(function(event){
-			if($("#edu-major").val()==""){
-				alert("Chưa nhập ngành học");
-				$("#experience-form").attr({class:"collapse in", style:""});
-				$("#edu-major").focus();
-				event.preventDefault();
-			}
-			
-		});
-		$("#experience-form").submit(function(event){
-		if($("#exp-job-title").val()==""){
-			alert("Chưa nhập tên công việc");
-			$("#education-form").attr({class:"collapse in", style:""});
-			$("#exp-job-title").focus();
-			event.preventDefault();
-		}
-		});
-		$("#reference-form").submit(function(event){
-			var email=$("#ref_email_input");
-			if(email.val()==""){
-				email.focus();
-				$("#reference-form").attr({class:"collapse in", style:""});
-				$("#ref_email_error").show();
-				email.parent().parent().toggleClass("has-error", true);
-				event.preventDefault();
-			}
-		});
-		$("#career-object-form").submit(function(event){
-			if($("#career-objective-text").val()==""){
-				alert("Chưa nhập mục tiêu công việc");
-				$("#career-object-form").show();
-				$("#career-objective-text").focus();
-				event.preventDefault();
-			}
-				
-		});
-		
-		
 	});

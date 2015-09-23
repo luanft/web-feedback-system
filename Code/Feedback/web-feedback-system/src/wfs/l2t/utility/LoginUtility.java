@@ -47,7 +47,6 @@ public class LoginUtility {
 					Cookie cookieRemember = new Cookie("jobrec_login_remember",
 							"true");
 					cookieRemember.setMaxAge(31104000);
-
 					Cookie cookieUserId = new Cookie("jobrec_login_cookie",
 							dto.accountId);
 					cookieUserId.setMaxAge(31104000);

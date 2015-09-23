@@ -12,12 +12,12 @@ dl{
 }
 dt{
 	font-weight: bold;
-	width:250px;
+	width:300px;
 	margin-right:10px;
 	float:left;
 }
-dd,dt{
-	padding-bottom: 10px;
+dd{
+	
 }
 ul.list_info{
 	margin-left: 200px;
@@ -35,32 +35,6 @@ ul.list_info{
 br{
 	clear: left;
 }
-select{
-	height: 25px;
-	width: auto;
-}
-#edu-school-select{
-	width: 200px;
-}
 select[name=edu-school]{
 	width:70px
-}
-select[name="gender-input"]{
-	width: 80px
-}
-select[name="status_select"], [name="nationality_input"]{
-	width: 100px;
-}
-#day, #month {
-	
-	width: 60px
-}
-#year{
-	width:80px
-}
-a[name='remove']{
-	color: red;
-}
-#required{
-	color:red;
 }

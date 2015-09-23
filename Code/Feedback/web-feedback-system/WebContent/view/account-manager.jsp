@@ -85,17 +85,19 @@
 
 								<li><a
 									href="<%out.print(request.getContextPath() + "/recommendation");%>"><span
-										class="glyphicon glyphicon glyphicon-pencil"></span> KHẢO
-										SÁT</a></li>
+										class="glyphicon glyphicon glyphicon-pencil"></span> KHẢO SÁT</a></li>
 								<li><a
 									href="<%out.print(request.getContextPath() + "/settings");%>"><span
 										class="glyphicon glyphicon-cog"></span> THIẾT LẬP GỬI MAIL</a></li>
-								<li class><a href="#"><span
+								<li class><a
+									href="<%out.print(request.getContextPath() + "/listresume");%>"><span
 										class="glyphicon glyphicon-list-alt"></span> XEM HỒ SƠ CỦA BẠN</a></li>
-								<li class><a href="#"><span
+								<li class><a
+									href="<%out.print(request.getContextPath() + "/help");%>"><span
 										class="glyphicon glyphicon-question-sign"></span> TRỢ GIÚP</a></li>
-								<li class><a href="#"><span
-										class="glyphicon glyphicon-envelope"></span> FEEDBACK</a></li>
+								<li class><a
+									href="<%out.print(request.getContextPath() + "/help?about");%>"><span
+										class="glyphicon glyphicon-question-sign"></span> ABOUT</a></li>
 							</ul>
 						</div>
 					</div>
