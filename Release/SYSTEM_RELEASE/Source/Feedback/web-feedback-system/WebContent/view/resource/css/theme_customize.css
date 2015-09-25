@@ -1,0 +1,64 @@
+.custom_navbar_color {
+	color: #ffffff;
+	background-color: #3b5998;
+	font-weight: bold;
+}
+
+.custom_color_white {
+	color: white;
+}
+
+.gly-spin {
+  -webkit-animation: spin 2s infinite linear;
+  -moz-animation: spin 2s infinite linear;
+  -o-animation: spin 2s infinite linear;
+  animation: spin 2s infinite linear;
+}
+
+pre {
+    white-space: pre-wrap;       /* CSS 3 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+
+.custom_background_color {
+	background-color: #f7f7f7;
+}
+
+.custom_sider_bar_color
+{
+	background-color: #f7f7f7;
+}
+
+.custom_menu_background
+{
+	background-color: #ff0000;
+}
+
+.custom_hiden {
+    display: none;
+}
+
+.custom_font_bold
+{
+	font-weight: bold;	
+	
+}
+
+
+.custom_margin
+{
+	margin-right: 10px;
+}
+
+.custom_margin_center
+{
+	margin: auto;
+}
+
+.custom_margin_left
+{
+	margin-left: 3px;	
+}
