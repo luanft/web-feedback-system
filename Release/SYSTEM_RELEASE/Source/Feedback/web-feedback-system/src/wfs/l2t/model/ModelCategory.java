@@ -3,11 +3,7 @@ package wfs.l2t.model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
-
 import wfs.l2t.dto.dtoCategory;
 
 public class ModelCategory extends Model {

@@ -6,7 +6,6 @@ import wfs.l2t.utility.*;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.annotation.WebServlet;

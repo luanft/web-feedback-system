@@ -144,10 +144,6 @@ public class ControllerLogin extends HttpServlet {
 						session.setAttribute("login_session", obj);
 						response.addCookie(cookieRemember);
 					}
-					// login successful
-					// request.getRequestDispatcher("view/new-job.jsp").forward(request,
-					// response);
-					String s = request.getParameter("from");
 					response.sendRedirect(request.getContextPath() + "/home");
 				} else {
 					// not activate account

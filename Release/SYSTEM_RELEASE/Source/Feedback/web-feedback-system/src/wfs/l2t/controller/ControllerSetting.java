@@ -1,13 +1,8 @@
 package wfs.l2t.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Enumeration;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -70,9 +65,6 @@ public class ControllerSetting extends HttpServlet {
 			response.sendRedirect(request.getContextPath()+"/login");
 		}
 		request.setAttribute("user", this.loginUtility.getLoggedUserId());
-		PrintWriter out = response.getWriter();
-
-		String submit_by_jquery = request.getParameter("jquery-sumit");
 		String form_number_email = request.getParameter("fne-btn-submit");
 		String form_time_email = request.getParameter("fte-btn-submit");
 		String form_care_category = request.getParameter("fcc-btn-submit");

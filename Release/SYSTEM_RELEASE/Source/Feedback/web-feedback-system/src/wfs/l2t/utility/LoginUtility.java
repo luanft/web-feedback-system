@@ -22,7 +22,6 @@ public class LoginUtility {
 	public void logOut(HttpServletRequest request, HttpServletResponse response) {
 		this.currentUserId = null;
 		Cookie[] cookie = request.getCookies();
-		Boolean isLogged = false;
 		if (cookie == null)
 			return;
 		for (Cookie c : cookie) {

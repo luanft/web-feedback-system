@@ -11,10 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import wfs.l2t.dto.dtoCategory;
 import wfs.l2t.dto.dtoJob;
 import wfs.l2t.dto.dtoJobRecommended;
-import wfs.l2t.model.Model;
-import wfs.l2t.model.ModelAccount;
+import wfs.l2t.model.ModelCategory;
 import wfs.l2t.model.ModelJob;
 import wfs.l2t.model.ModelJobRecommended;
 import wfs.l2t.utility.LoginUtility;
@@ -168,6 +168,7 @@ public class ControllerHome extends HttpServlet
 		}
 	}
 
+	List<dtoCategory> categoryList;
 	private void loadNewJob(HttpServletRequest request, HttpServletResponse response) throws ServletException,
 			IOException
 	{
@@ -183,7 +184,10 @@ public class ControllerHome extends HttpServlet
 		dtoJob job = new dtoJob();
 		offset += 11;
 		session.setAttribute("offset", offset);
-
+		//get category list
+		ModelCategory mdc = new ModelCategory();
+		categoryList = mdc.getAllCategory();
+		
 		if (jobList.size() == 0)
 			if (offset == 11)
 				writeHtml("Chưa có việc mới!", request, response);
@@ -212,6 +216,7 @@ public class ControllerHome extends HttpServlet
 	private void writeHtml(dtoJob job, String shortDescription, boolean css, HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException
 	{
+		
 		response.setContentType("text/html; charset=UTF-8");
 		response.getWriter().write("<div class=\"panel panel-info\" id = 'panel" + job.jobId + "'>");
 		response.getWriter().write("<div class='panel-heading'>");
@@ -219,9 +224,14 @@ public class ControllerHome extends HttpServlet
 				"<a id=\"see-more" + job.jobId + "\" class=\"btn btn-link\"onclick=\"myCollapse('" + job.jobId
 						+ "')\"> <b>" + job.jobName + "</b></a>");
 		response.getWriter().write(
-				"<a id=\"categoryId" + job.categoryId + "\" class=\"btn btn-link pull-right\" href ='"
-						+ request.getContextPath() + "/home?cate=" + job.categoryId + "'> <i> Lĩnh vực: "
+				"<div class='dropdown pull-right'> <a href ='" + request.getContextPath() + "/home?cate=" + job.categoryId + "' class='btn btn-link pull-right dropdown-toggle' data-toggle = 'dropdown' id='categoryId" + job.categoryId + "'<i> Lĩnh vực: "
 						+ job.category + "</i></a>");
+		response.getWriter().write("<ul role='menu' class='dropdown-menu' style = 'height: auto; max-height: 200px; overflow-x: hidden;'>");
+		for(dtoCategory cate : categoryList)
+		{			 
+			 response.getWriter().write("<li> <a href ='" + request.getContextPath() + "/home?cate=" + cate.categoryId + "'><i> Lĩnh vực: " + cate.categoryName + "</i></a></li>");
+		}
+		response.getWriter().write("</ul></div>");
 		response.getWriter().write("</div>");
 		response.getWriter().write("<div class='panel-body'>");
 		response.getWriter().write("<div class='row'>");

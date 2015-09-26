@@ -4,10 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-
-import com.sun.org.apache.bcel.internal.generic.ACONST_NULL;
 
 import wfs.l2t.dto.*;
 
