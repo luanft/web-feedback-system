@@ -145,14 +145,14 @@
 										<div class="col-md-6">
 											<img
 												src="<%out.print(request.getContextPath() + dtoAcc.avatar);%>"
-												class="img-rounded col-md-offset-3" width="170" height="170">
+												class="img-rounded col-md-offset-3" width="170" height="170" id="avartar_preview">
 										</div>
 										<div class="col-md-6">
 											<form role="form" method="post" action="account"
 												enctype="multipart/form-data">
 												<div class="form-group">
 													<label for="file">Url ảnh:</label> <input type="file"
-														accept="image/*" class="file" name="image-avatar"
+														accept="image/*" onchange="loadFile(event)" class="file" name="image-avatar"
 														id="file">
 												</div>
 												<div class="form-group">
@@ -167,7 +167,14 @@
 									</div>
 								</div>
 							</div>
-						</div>
+						</div>											
+						<script>
+							var loadFile = function(event) {
+								var output = document.getElementById('avartar_preview');
+								output.src = URL
+										.createObjectURL(event.target.files[0]);
+							};
+						</script>
 						<div class="panel panel-primary">
 							<div class="panel-heading">Thay đổi tên truy cập</div>
 							<div class="panel-body">

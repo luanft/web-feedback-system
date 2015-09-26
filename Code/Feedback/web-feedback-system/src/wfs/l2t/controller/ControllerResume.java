@@ -5,7 +5,7 @@ import wfs.l2t.model.*;
 import wfs.l2t.utility.*;
 
 import java.io.IOException;
-import java.sql.SQLException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.annotation.WebServlet;
@@ -60,6 +60,9 @@ public class ControllerResume extends HttpServlet {
 					if (delete_skill != null && delete_skill != "") {
 						resume.deleteSkill(resumeId, delete_skill);
 					}
+				}else{
+					response.sendRedirect(request.getContextPath() + "/listresume");
+					return;
 				}
 
 				request.setAttribute("user", this.login.getLoggedUserId());
@@ -86,7 +89,7 @@ public class ControllerResume extends HttpServlet {
 			String btn_add_education = request
 					.getParameter("btn_add_education");
 			String btn_add_language = request.getParameter("btn_add_language");
-			String addResume = request.getParameter("add-resume-button");
+			String addResume = request.getParameter("add_resume_button");
 			String btn_add_experience = request
 					.getParameter("btn_add_experience");
 			String btn_add_skill = request.getParameter("btn_add_skill");
@@ -96,36 +99,36 @@ public class ControllerResume extends HttpServlet {
 			// xu ly cap nhat thong tin cá nhân
 			if (addResume != null) {
 				this.updateResume(request, response);
+				return;
 			}
-
 			// xu ly them skill
 			if (btn_add_skill != null) {
 				this.addSkill(request, response);
+				return;
 			}
 
 			// xu ly them kinh nghiêm lam viec
 
 			if (btn_add_experience != null) {
 				this.addExperience(request, response);
-
+				return;
 			}
-
 			// xu ly them education
 			if (btn_add_education != null) {
-
 				this.addAnEduation(request, response);
-
+				return;
 			}
 
 			// xu ly them language
 			if (btn_add_language != null) {
 				this.addAnLanguage(request, response);
-
+				return;
 			}
 
 			// them objective
 			if (btn_add_objective != null) {
 				this.updateObjective(request, response);
+				return;
 			}
 
 			request.setAttribute("user", this.login.getLoggedUserId());
@@ -165,6 +168,30 @@ public class ControllerResume extends HttpServlet {
 		ModelResume resume = new ModelResume();
 		resume.AddEducation(resumeId, school, level, major, description, start,
 				end);
+		
+		PrintWriter out;
+		try {
+			out = response.getWriter();
+			List<dtoEducation> edu = resume.getEducation(resumeId);
+			for (dtoEducation i : edu) {
+
+				out.print("<p><b>" + i.schoolName + " "
+						+ "<button type=\"button\" onclick=\"location.href='"
+						+ "resume?id=" + i.resumeId + "&delete_education="
+						+ i.educationId
+						+ "'\" class=\"btn btn-danger btn-xs\">Xóa</button>"
+						+ " </b><br>");
+				out.print("<b>Trình độ</b>: " + i.educationLevel + "<br>");
+				out.print("<b>Chuyên ngành</b>:" + i.educationMajor + "<br>");
+				out.print("<b>Thời gian đào tạo</b>: Từ ngày " + i.startDate
+						+ " đến ngày " + i.endDate + "<br></p><hr>");
+			}
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return true;
 	}
 
@@ -175,6 +202,27 @@ public class ControllerResume extends HttpServlet {
 		String level = request.getParameter("language_level");
 		ModelResume resume = new ModelResume();
 		resume.addLanguage(resumeId, language, level);
+		PrintWriter out;
+		try {
+			out = response.getWriter();
+			List<dtoLanguage> languages = resume.getAllLanguage(resumeId);
+			for (dtoLanguage i : languages) {
+				out.print("<p>");
+				out.print("<h4><b>Chứng chỉ:</b> "
+						+ i.name
+						+ "   <button type=\"button\" onclick=\"location.href='"
+						+ "resume?id=" + i.resumeId + "&delete_language="
+						+ i.languageId
+						+ "'\" class=\"btn btn-danger btn-xs\">Xóa</button>"
+						+ "</h4>");
+				out.print("<b>Cấp độ/Điểm:</b> " + i.level + "<br>");
+				out.print("</p><hr>");
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return true;
 	}
 
@@ -182,25 +230,50 @@ public class ControllerResume extends HttpServlet {
 			HttpServletResponse response) {
 
 		String resumeId = request.getParameter("id");
-		String title = request.getParameter("title-input");
+		String title = request.getParameter("title_input");
 		// personal
-		String name = request.getParameter("full-name-input");
-		String birthday = request.getParameter("birthday-input");
+		String name = request.getParameter("full_name_input");
+		String birthday = request.getParameter("birthday_input");
 
-		String gender = request.getParameter("gender-input");
+		String gender = request.getParameter("gender_input");
 		String maritalStatus = request.getParameter("status_select");
 		String nationality = request.getParameter("nationality_input");
 		// contact
-		String address = request.getParameter("address-input");
-		String email = request.getParameter("email-input");
-		String phone = request.getParameter("phone-input");
+		String address = request.getParameter("address_input");
+		String email = request.getParameter("email_input");
+		String phone = request.getParameter("phone_input");
 		// hobbies
-		String hobbies = request.getParameter("hobbies-input");
+		String hobbies = request.getParameter("hobbies_input");
 		ModelResume model = new ModelResume();
 
 		model.updateResume(resumeId, this.login.getLoggedUserId(), title, name,
 				birthday, gender, maritalStatus, nationality, address, email,
 				phone, hobbies);
+
+		ModelResume cvModel = new ModelResume();
+		dtoResume cv = cvModel.getResume(resumeId);
+
+		try {
+			PrintWriter out = response.getWriter();
+
+			out.print("<h1>" + cv.name + "</h1> ");
+			out.print("<h5><b>Ngày Sinh: </b> " + cv.birthday + "</h5>");
+			out.print("<h5><b>Giới tính: </b> " + cv.gender + "</h5>");
+			out.print("<h5><b>Tình trạng hôn nhân: </b> ");
+			if (cv.maritalStatus) {
+				out.print("Đã kết hôn");
+			} else {
+				out.print("Chưa kết hôn");
+			}
+			out.print("</h5><h5><b>Email: </b> " + cv.email + "</h5>");
+			out.print("<h5><b>Điện thoại: </b> " + cv.phone + "</h5>");
+			out.print("<h5><b>Địa chỉ: </b> " + cv.address + "</h5>");
+			out.print("<h5><b>Quốc tịch: </b> " + cv.nationality + "</h5>");
+			out.print("<h5><b>Sở thích cá nhân: </b> " + cv.hobby + "</h5>");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		return true;
 
@@ -214,6 +287,27 @@ public class ControllerResume extends HttpServlet {
 		String skill_level = request.getParameter("skill_level");
 		ModelResume model = new ModelResume();
 		model.addSkill(skill_name, skill_level, resumeId);
+		try {
+			PrintWriter out = response.getWriter();
+			List<dtoSkill> skills = model.getSkill(resumeId);
+			for (dtoSkill i : skills) {
+				String url = "   <button type=\"button\" onclick=\"location.href='"
+						+ "resume?id="
+						+ i.resumeId
+						+ "&delete_skill="
+						+ i.skillId
+						+ "'\" class=\"btn btn-danger btn-xs\">Xóa</button>";
+				out.print("<p>");
+				out.print("<h4>");
+				out.print(i.name + " " + url);
+				out.print("</h4>");
+				out.print(i.level);
+				out.print("<br><hr></p>");
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return true;
 
 	}
@@ -230,6 +324,33 @@ public class ControllerResume extends HttpServlet {
 		ModelResume model = new ModelResume();
 		model.addExperience(resumeId, company_name, job_name, job_position,
 				job_description, job_time);
+		
+		PrintWriter out;
+		try {
+			out = response.getWriter();
+			List<dtoExperience> epx = model.getExperience(resumeId);
+			for (dtoExperience i : epx) {
+				out.print("<p>");
+				String url = "   <button type=\"button\" onclick=\"location.href='"
+						+ "resume?id="
+						+ i.resumeId
+						+ "&delete_experience="
+						+ i.experienceId
+						+ "'\" class=\"btn btn-danger btn-xs\">Xóa</button>";
+
+				out.print("<h4>" + i.jobTitle + " tại " + i.companyName + " "
+						+ url + " </h4>");
+				out.print("Vị Trí: " + i.position + "<br>");
+				out.print("Mô Tả: " + i.description + "<br>");
+				out.print("Thời Gian: " + i.period + "<br>");
+				out.print("</p><hr>");
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 		return true;
 	}
 
@@ -252,7 +373,7 @@ public class ControllerResume extends HttpServlet {
 		String willingToRelocate = "0";
 		String WillingToTravel = "0";
 
-		String[] data = request.getParameterValues("opt_object");
+		String[] data = request.getParameterValues("opt_object[]");
 		if (data != null) {
 			for (String i : data) {
 				if (i.equals("willingToRelocate")) {
@@ -267,6 +388,33 @@ public class ControllerResume extends HttpServlet {
 		model.updateObjective(resumeId, desireSalary, recentSalary,
 				positionType, desireCareerLevel, desireWorkLocation,
 				willingToRelocate, WillingToTravel, CareerObjective);
+		
+		try {
+			PrintWriter out = response.getWriter();
+			dtoCareerObjective objective = model.getObjective(resumeId);
+			out.print("<h4>Mức lương mong muốn(VND): "+objective.desireSalary+"</h4><hr>");
+			out.print("<h4>Mức lương gần đây(VND): "+objective.recentSalary+"</h4><hr>");
+			out.print("<h4>Loại công việc: "+objective.positionType+"</h4><hr>");
+			out.print("<h4>Cấp bậc mong muốn: "+objective.desireCareerLevel+"</h4><hr>");
+			out.print("<h4>Nơi làm việc mong muốn:"+objective.desireWorkLocation+"</h4><hr>");
+			
+			if (objective.willingToTravel.equals("1")){
+				out.print("<h4>Có thể đi công tác: "+"Có thể"+"</h4><hr>");
+			}else{
+				out.print("<h4>Có thể đi công tác: "+"Không"+"</h4><hr>");
+			}
+			
+			if (objective.willingToRelocate.equals("1")){
+				out.print("<h4>Có thể đổi chỗ ở: "+"Có thể"+"</h4><hr>");
+			}else{
+				out.print("<h4>Có thể đổi chỗ ở: "+"Không"+"</h4><hr>");
+			}
+			
+			out.print("<h4>Mục tiêu nghề nghiệp:"+objective.careerObjective+"</h4>");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return true;
 	}
 }

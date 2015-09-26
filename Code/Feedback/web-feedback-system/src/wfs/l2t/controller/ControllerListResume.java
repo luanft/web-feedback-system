@@ -1,19 +1,12 @@
 package wfs.l2t.controller;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import wfs.l2t.dto.dtoResume;
 import wfs.l2t.model.ModelResume;
 import wfs.l2t.utility.LoginUtility;
 
@@ -71,8 +64,6 @@ public class ControllerListResume extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 
-		String message = "";
-		String user = "";
 		if (login.isLogged(request, response)) {
 
 			String addResume = request.getParameter("add-resume-button");

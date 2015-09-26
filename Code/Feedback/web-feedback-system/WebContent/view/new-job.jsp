@@ -10,10 +10,7 @@
 <%@ page import="wfs.l2t.controller.ControllerHome"%>
 <%@page import="wfs.l2t.dto.dtoAccount"%>
 <%@ page import="wfs.l2t.model.ModelAccount"%>
-<%
-	ModelCategory mdc = new ModelCategory();
-	List<dtoCategory> categoryList = mdc.getAllCategory();
-%>
+
 <%
 	String userId = (String) request.getAttribute("user");
 	ModelAccount account = new ModelAccount();

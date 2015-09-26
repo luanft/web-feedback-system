@@ -33,131 +33,18 @@
 <script
 	src="${pageContext.request.contextPath}/view/resource/datepicker/js/bootstrap-datepicker.js"></script>
 
+
+<script
+	src="${pageContext.request.contextPath}/view/resource/lib/form_validate.js"></script>
+<script
+	src="${pageContext.request.contextPath}/view/resource/lib/form_submit.js"></script>
 </head>
 
 <body>
 
-	<script type="text/javascript">
-		//xu ly form nhap mục tiêu nghê nghiep
-		$(document).ready(function() {
 
-			//bấm nút thêm education
-			$("#btn_add_objective").click(function() {
+	<!-- Xu ly tren submit form -->
 
-				$("#form_nhap_objective").slideDown();
-				$("#btn_add_objective").hide();
-			});
-
-			//bấm nút hủy add education
-			$("#btn_cancel_objective").click(function() {
-
-				$("#form_nhap_objective").slideUp();
-				$("#btn_add_objective").show();
-			});
-		});
-
-		$(document).ready(function() {
-
-			//bấm nút thêm education
-			$("#btn_add_education").click(function() {
-
-				$("#form_nhap_education").slideDown();
-				$("#btn_add_education").hide();
-			});
-
-			//bấm nút hủy add education
-			$("#btn_cancel_education").click(function() {
-
-				$("#form_nhap_education").slideUp();
-				$("#btn_add_education").show();
-			});
-
-			$('#startday_input').datepicker({
-				format : 'dd/mm/yyyy'
-			});
-
-			$('#endday_input').datepicker({
-				format : 'dd/mm/yyyy'
-			});
-		});
-
-		//xu ly form nhap ngoai ngu
-		$(document).ready(function() {
-
-			//bấm nút thêm education
-			$("#btn_add_language").click(function() {
-
-				$("#form_nhap_language").slideDown();
-				$("#btn_add_language").hide();
-			});
-
-			//bấm nút hủy add education
-			$("#btn_cancel_language").click(function() {
-
-				$("#form_nhap_language").slideUp();
-				$("#btn_add_language").show();
-			});
-		});
-
-		//xu ly form nhap kinh nghiệm
-		$(document).ready(function() {
-
-			//bấm nút thêm education
-			$("#btn_add_experience").click(function() {
-
-				$("#form_nhap_experience").slideDown();
-				$("#btn_add_experience").hide();
-			});
-
-			//bấm nút hủy add education
-			$("#btn_cancel_experience").click(function() {
-
-				$("#form_nhap_experience").slideUp();
-				$("#btn_add_experience").show();
-			});
-		});
-
-		//xu ly form nhap kỹ năng
-		$(document).ready(function() {
-
-			//bấm nút thêm kỹ năng
-			$("#btn_add_skill").click(function() {
-
-				$("#form_nhap_skill").slideDown();
-				$("#btn_add_skill").hide();
-			});
-
-			//bấm nút hủy add education
-			$("#btn_cancel_skill").click(function() {
-
-				$("#form_nhap_skill").slideUp();
-				$("#btn_add_skill").show();
-			});
-		});
-
-		$(document).ready(function() {
-
-			//bấm nút thêm cv
-			$("#btn_edit_cv").click(function() {
-
-				$("#form_enter_resume").slideDown();
-				$("#btn_edit_cv").hide();
-				$("#profile_content").hide();
-			});
-
-			//bấm nút hủy cv
-			$("#btn_cancel_cv").click(function() {
-
-				$("#form_enter_resume").slideUp();
-				$("#btn_edit_cv").show();
-				$("#profile_content").show();
-			});
-
-			$('#birthday').datepicker({
-				format : 'yyyy/mm/dd'
-			});
-		});
-	</script>
 
 	<div class="container">
 		<!-- menu top -->
@@ -254,12 +141,6 @@
 						dtoResume cv = cvModel.getResume(resumeId);
 					%>
 					<div>
-						<h1>
-							<%
-								out.print(cv.resumeTitle);
-							%>
-						</h1>
-
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								<h4>
@@ -272,27 +153,28 @@
 							<div class="panel-body">
 
 								<div id="form_enter_resume" class="custom_hiden">
-									<form role="form" method="post" action="resume">
+									<form id="form_update_profile" role="form" method="post"
+										action="resume">
 
 
 										<input name="id" type="hidden"
 											value="<%out.print(resumeId);%>">
 										<div class="form-group">
 											<label for="cv_title">Tên của CV:</label> <input type="text"
-												name="title-input" value="<%out.print(cv.resumeTitle);%>"
+												name="title_input" value="<%out.print(cv.resumeTitle);%>"
 												class="form-control" id="email">
 										</div>
 
 										<div class="form-group">
 											<label for="cv_title">Họ và tên:</label> <input type="text"
 												class="form-control" value="<%out.print(cv.name);%>"
-												name="full-name-input" id="email">
+												name="full_name_input" id="email">
 										</div>
 
 										<div class="form-group">
 											<label for="birthday">Ngày Sinh:</label> <input
 												class="form-control" id="birthday" readonly
-												data-date-format="dd-mm-yyyy" name="birthday-input"
+												data-date-format="dd-mm-yyyy" name="birthday_input"
 												value="<%out.print(cv.birthday);%>">
 										</div>
 
@@ -300,9 +182,9 @@
 										<div class="form-group">
 											<label for="cv_title">Giới tính:</label> <label
 												class="radio-inline"> <input checked="checked"
-												type="radio" name="gender-input" value="Nam">Nam
+												type="radio" name="gender_input" value="Nam">Nam
 											</label> <label class="radio-inline"> <input type="radio"
-												name="gender-input" value="Nữ">Nữ
+												name="gender_input" value="Nữ">Nữ
 											</label>
 										</div>
 
@@ -320,8 +202,8 @@
 										</div>
 
 										<div class="form-group">
-											<label for="sel1">Quốc tịch:</label> <select
-												class="form-control" name="nationality_input" id="sel1">
+											<label for="selelect_qt">Quốc tịch:</label> <select
+												class="form-control" name="nationality_input" id="selelect_qt">
 												<option>Vietnam</option>
 												<option>Afghanistan</option>
 												<option>Albania</option>
@@ -527,14 +409,14 @@
 										<div class="form-group">
 											<label for="cv_title">Địa chỉ:</label> <input type="text"
 												class="form-control" value="<%out.print(cv.address);%>"
-												name="address-input" id="email">
+												name="address_input" id="email">
 										</div>
 
 
 										<div class="form-group">
 											<label for="cv_title">Email liên hệ:</label> <input
 												type="email" class="form-control"
-												value="<%out.print(cv.email);%>" name="email-input"
+												value="<%out.print(cv.email);%>" name="email_input"
 												id="email">
 										</div>
 
@@ -542,19 +424,19 @@
 										<div class="form-group">
 											<label for="cv_title">Số điện thoại:</label> <input
 												type="text" class="form-control"
-												value="<%out.print(cv.phone);%>" name="phone-input"
+												value="<%out.print(cv.phone);%>" name="phone_input"
 												id="email">
 										</div>
 
 										<div class="form-group">
-											cv.hobby <label for="cv_title">Sở thích cá nhân:</label> <input
+											<label for="cv_title">Sở thích cá nhân:</label> <input
 												type="text" class="form-control"
 												value="<%out.print(cv.hobby);%>" id="email"
-												name="hobbies-input">
+												name="hobbies_input">
 										</div>
 
 										<button type="submit" class="btn btn-primary"
-											name="add-resume-button">Cập nhật CV</button>
+											name="add_resume_button">Cập nhật CV</button>
 
 										<button id="btn_cancel_cv" type="button"
 											class="btn btn-primary">Hủy</button>
@@ -635,7 +517,7 @@
 							<div class="panel-body">
 
 								<div id="form_nhap_education" class="custom_hiden">
-									<form role="form" method="post" action="resume">
+									<form id="form_update_education" role="form" method="post" action="resume">
 
 
 										<input name="id" type="hidden"
@@ -687,7 +569,7 @@
 									</form>
 									<br>
 								</div>
-								<div>
+								<div id="education_content">
 									<%
 										List<dtoEducation> edu = cvModel.getEducation(resumeId);
 										for (dtoEducation i : edu) {
@@ -722,7 +604,7 @@
 							</div>
 							<div class="panel-body">
 								<div id="form_nhap_language" class="custom_hiden">
-									<form role="form" method="post" action="resume">
+									<form id="form_update_language" role="form" method="post" action="resume">
 
 
 										<input name="id" type="hidden"
@@ -747,22 +629,23 @@
 									</form>
 									<br>
 								</div>
-
-								<%
-									List<dtoLanguage> languages = cvModel.getAllLanguage(resumeId);
-									for (dtoLanguage i : languages) {
-										out.print("<p>");
-										out.print("<h4><b>Chứng chỉ:</b> "
-												+ i.name
-												+ "   <button type=\"button\" onclick=\"location.href='"
-												+ "resume?id=" + i.resumeId + "&delete_language="
-												+ i.languageId
-												+ "'\" class=\"btn btn-danger btn-xs\">Xóa</button>"
-												+ "</h4>");
-										out.print("<b>Cấp độ/Điểm:</b> " + i.level + "<br>");
-										out.print("</p><hr>");
-									}
-								%>
+								<div id="language_content">
+									<%
+										List<dtoLanguage> languages = cvModel.getAllLanguage(resumeId);
+										for (dtoLanguage i : languages) {
+											out.print("<p>");
+											out.print("<h4><b>Chứng chỉ:</b> "
+													+ i.name
+													+ "   <button type=\"button\" onclick=\"location.href='"
+													+ "resume?id=" + i.resumeId + "&delete_language="
+													+ i.languageId
+													+ "'\" class=\"btn btn-danger btn-xs\">Xóa</button>"
+													+ "</h4>");
+											out.print("<b>Cấp độ/Điểm:</b> " + i.level + "<br>");
+											out.print("</p><hr>");
+										}
+									%>
+								</div>
 							</div>
 						</div>
 
@@ -779,7 +662,7 @@
 							</div>
 							<div class="panel-body">
 								<div id="form_nhap_experience" class="custom_hiden">
-									<form role="form" method="post" action="resume">
+									<form id="form_update_experience" role="form" method="post" action="resume">
 
 
 										<input name="id" type="hidden"
@@ -818,7 +701,7 @@
 									<br>
 								</div>
 
-								<div>
+								<div id="experience_content">
 									<%
 										List<dtoExperience> epx = cvModel.getExperience(resumeId);
 										for (dtoExperience i : epx) {
@@ -853,8 +736,8 @@
 								</h4>
 							</div>
 							<div class="panel-body">
-								<div id="form_nhap_skill" class="custom_hiden">
-									<form role="form" method="post" action="resume">
+								<div  id="form_nhap_skill" class="custom_hiden">
+									<form id="form_update_skills" role="form" method="post" action="resume">
 
 										<input name="id" type="hidden"
 											value="<%out.print(resumeId);%>">
@@ -921,7 +804,7 @@
 										dtoCareerObjective objective = cvModel.getObjective(resumeId);
 									%>
 
-									<form role="form" method="post" action="resume">
+									<form id="form_update_objective" role="form" method="post" action="resume">
 
 										<input name="id" type="hidden"
 											value="<%out.print(resumeId);%>">
@@ -961,13 +844,16 @@
 												class="form-control" id="email">
 										</div>
 
+
+
 										<div class="form-group">
-											<label for="cv_title">Mục tiêu nghề nghiệp:</label> <input
-												type="text" class="form-control" name="CareerObjective"
-												value="<%out.print(objective.careerObjective);%>" id="email">
+											<label for="txt_CareerObjective">Mục tiêu nghề nghiệp:</label>
+											<textarea class="form-control" rows="5"
+												id="txt_CareerObjective"" name="CareerObjective"><%out.print(objective.careerObjective);%></textarea>
 										</div>
+
 										<div class="form-group">
-											<label class="checkbox-inline"> <input
+											<label class="checkbox-inline"> <input 
 												name="opt_object" type="checkbox" value="willingToRelocate"
 												<%if (objective.willingToRelocate.equals("1"))
 				out.print("checked");%>>Có
@@ -987,7 +873,7 @@
 									</form>
 									<br>
 								</div>
-								<div>
+								<div id="objective_content">
 									<h4>
 										Mức lương mong muốn(VND):
 										<%

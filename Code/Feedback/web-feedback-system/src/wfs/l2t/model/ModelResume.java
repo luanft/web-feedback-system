@@ -3,9 +3,7 @@ package wfs.l2t.model;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import wfs.l2t.dto.*;
@@ -20,6 +18,16 @@ public class ModelResume extends Model {
 			String desireWorkLocation, String willingToRelocate,
 			String WillingToTravel, String CareerObjective) {
 
+		resumeId = this.escape(resumeId);
+		desireSalary = this.escape(desireSalary);
+		recentSalary = this.escape(recentSalary);
+		positionType = this.escape(positionType);
+		desireCareerLevel = this.escape(desireCareerLevel);
+		desireWorkLocation = this.escape(desireWorkLocation);
+		willingToRelocate = this.escape(willingToRelocate);
+		WillingToTravel = this.escape(WillingToTravel);
+		CareerObjective = this.escape(CareerObjective);
+		
 		String sql = "UPDATE `career_objective` " + " SET `DesireSalary`="
 				+ desireSalary + ",`RecentSalary`=" + recentSalary
 				+ ",`PositionType`='" + positionType
@@ -66,6 +74,7 @@ public class ModelResume extends Model {
 	}
 
 	public Boolean hasAObject(String resume) {
+		resume = this.escape(resume);
 		String sql = "SELECT count(*) as `has_objective` FROM `career_objective` WHERE `ResumeId`="
 				+ resume;
 		if (this.connection.connect()) {
@@ -89,6 +98,8 @@ public class ModelResume extends Model {
 	}
 
 	public Boolean canModify(String user, String resume) {
+		user = this.escape(user);
+		resume = this.escape(resume);
 		String sql = "SELECT count(*) as `valid` FROM `resume` WHERE `ResumeId`="
 				+ resume + " and `AccountId`=" + user;
 		if (this.connection.connect()) {
@@ -108,6 +119,10 @@ public class ModelResume extends Model {
 				e.printStackTrace();
 				return false;
 			}
+			catch (Exception e) {
+				// TODO: handle exception
+				return false;
+			}
 
 		}
 		return false;
@@ -118,6 +133,8 @@ public class ModelResume extends Model {
 		String sql = "SELECT `CareerObjectiveId`, `ResumeId`, `DesireSalary`, `RecentSalary`, `PositionType`, `DesireCareerLevel`,"+
 		"  `DesireWorkLocation`, `WillingToRelocate`, `WillingToTravel`, `CareerObjective` FROM `career_objective` WHERE  `ResumeId` = "
 				+ resumeId;
+		
+		resumeId = this.escape(resumeId);
 		if(this.connection.connect())
 		{
 			ResultSet rs = this.connection.read(sql);
@@ -145,6 +162,7 @@ public class ModelResume extends Model {
 	}
 
 	public List<dtoLanguage> getAllLanguage(String resumeId) {
+		resumeId = this.escape(resumeId);
 		List<dtoLanguage> data = new ArrayList<dtoLanguage>();
 		String sql = "SELECT * FROM `language` WHERE  `ResumeId` = " + resumeId;
 		if (this.connection.connect()) {
@@ -169,6 +187,9 @@ public class ModelResume extends Model {
 
 	public void addLanguage(String resumeId, String language, String level) {
 
+		resumeId = this.escape(resumeId);
+		language = this.escape(language);
+		level = this.escape(level);
 		String sql = "INSERT INTO `language`(`ResumeId`, `Name`, `Level`) VALUES ("
 				+ resumeId + ",'" + language + "','" + level + "')";
 		if (this.connection.connect()) {
@@ -178,6 +199,8 @@ public class ModelResume extends Model {
 	}
 
 	public void deleteLanguage(String resumeId, String languageId) {
+		resumeId = this.escape(resumeId);
+		languageId = this.escape(languageId);
 		String sql = "DELETE FROM `language` WHERE `LanguageId`= " + languageId
 				+ " and `ResumeId`=" + resumeId;
 		if (this.connection.connect()) {
@@ -187,6 +210,9 @@ public class ModelResume extends Model {
 	}
 
 	public void deleteExperience(String resumeId, String languageId) {
+		
+		resumeId = this.escape(resumeId);
+		languageId = this.escape(languageId);
 		String sql = "DELETE FROM `experience` WHERE `ExperienceId`= "
 				+ languageId + " and `ResumeId`=" + resumeId;
 		if (this.connection.connect()) {
@@ -197,6 +223,8 @@ public class ModelResume extends Model {
 
 	public void deleteSkill(String resumeId, String skillId) {
 
+		resumeId = this.escape(resumeId);
+		skillId = this.escape(skillId);
 		String sql = "DELETE FROM `skill` WHERE `SkillId`= " + skillId
 				+ " and `ResumeId`=" + resumeId;
 		if (this.connection.connect()) {
@@ -206,6 +234,8 @@ public class ModelResume extends Model {
 	}
 
 	public void deleteEducation(String cv, String educationId) {
+		cv = this.escape(cv);
+		educationId = this.escape(educationId);
 		String sql = "DELETE FROM `education` WHERE `ResumeId` =" + cv
 				+ " and `EducationId`=" + educationId;
 		if (this.connection.connect()) {
@@ -216,6 +246,8 @@ public class ModelResume extends Model {
 	}
 
 	public void deleteResumeById(String cv, String accountId) {
+		cv = this.escape(cv);
+		accountId = this.escape(accountId);
 		String sql = "DELETE FROM `resume` WHERE `ResumeId` = " + cv
 				+ " and `AccountId` = " + accountId;
 		if (this.connection.connect()) {
@@ -232,6 +264,7 @@ public class ModelResume extends Model {
 
 	public List<dtoResume> getUserResumes(String userId) {
 
+		userId = this.escape(userId);
 		List<dtoResume> data = new ArrayList<dtoResume>();
 
 		String sql = "SELECT * FROM resume WHERE `AccountId`=" + userId;
@@ -267,6 +300,7 @@ public class ModelResume extends Model {
 	}
 
 	public dtoResume getResume(String resumeId) {
+		resumeId = this.escape(resumeId);
 		dtoResume resume = new dtoResume();
 		String sql = "SELECT * FROM resume WHERE ResumeId=" + resumeId;
 		try {
@@ -300,6 +334,7 @@ public class ModelResume extends Model {
 	}
 
 	public List<dtoEducation> getEducation(String resumeId) {
+		resumeId = this.escape(resumeId);
 		List<dtoEducation> listEdu = new ArrayList<dtoEducation>();
 		String sql = "SELECT * FROM education WHERE ResumeId=" + resumeId;
 		try {
@@ -328,7 +363,7 @@ public class ModelResume extends Model {
 	}
 
 	public List<dtoExperience> getExperience(String resumeId) {
-
+		resumeId = this.escape(resumeId);
 		String sql = "select * from experience where ResumeId=" + resumeId;
 		List<dtoExperience> listExp = new ArrayList<dtoExperience>();
 		try {
@@ -355,6 +390,7 @@ public class ModelResume extends Model {
 	}
 
 	public List<dtoSkill> getSkill(String resumeId) {
+		resumeId = this.escape(resumeId);
 		List<dtoSkill> listSkill = new ArrayList<dtoSkill>();
 		String sql = "select * from skill where ResumeId=" + resumeId;
 		try {
@@ -377,6 +413,7 @@ public class ModelResume extends Model {
 	}
 
 	public List<dtoReference> getReference(String resumeId) {
+		resumeId = this.escape(resumeId);
 		connection.connect();
 		List<dtoReference> listRef = new ArrayList<dtoReference>();
 		String sql = "select * from reference where ResumeId=" + resumeId;
@@ -404,6 +441,13 @@ public class ModelResume extends Model {
 			String educationLevel, String educationMajor,
 			String educationDescription, String startDate, String endDate) {
 
+		resumeId = this.escape(resumeId);
+		schoolName = this.escape(schoolName);
+		educationLevel = this.escape(educationLevel);
+		educationMajor = this.escape(educationMajor);
+		educationDescription = this.escape(educationDescription);
+		startDate = this.escape(startDate);
+		endDate = this.escape(endDate);
 		String sql = "INSERT INTO `education`( `ResumeId`, `SchoolName`, `EducationLevel`, `EducationMajor`, `EducationDescription`, `StartDate`, `EndDate`)"
 				+ " VALUES ("
 				+ resumeId
@@ -451,12 +495,6 @@ public class ModelResume extends Model {
 		connection.close();
 	}
 
-	public void RemoveExperience(int expId) {
-		String sql = "Delete from experience where ExperienceId=" + expId;
-		connection.connect();
-		connection.write(sql);
-		connection.close();
-	}
 
 	public void addSkill(String name, String level, String resumeId) {
 		String sql = "insert into skill (Name, Level, ResumeId) values(?,?,?)";
@@ -476,18 +514,25 @@ public class ModelResume extends Model {
 		connection.close();
 	}
 
-	public void RemoveSkill(int skillId) {
-		String sql = "Delete from skill where SkillId=" + skillId;
-		connection.connect();
-		connection.write(sql);
-		connection.close();
-	}
 
 	public void updateResume(String resumeId, String accountId, String title,
 			String name, String birthday, String gender, String maritalStatus,
 			String nationality, String address, String email, String phone,
 			String hobby) {
 
+		resumeId = this.escape(resumeId);
+		accountId = this.escape(accountId);
+		title = this.escape(title);
+		name = this.escape(name);
+		birthday = this.escape(birthday);
+		gender = this.escape(gender);
+		maritalStatus = this.escape(maritalStatus);
+		nationality = this.escape(nationality);
+		address = this.escape(address);
+		email = this.escape(email);
+		phone = this.escape(phone);
+		hobby = this.escape(hobby);
+		
 		String sql = "";
 		sql = "UPDATE `resume` SET";
 		sql += "`Title`='" + title + "',`Name`='" + name + "',`Birthday`='"
@@ -508,6 +553,19 @@ public class ModelResume extends Model {
 			String nationality, String avatar, String address, String email,
 			String phone, String hobbies) {
 
+		
+		accountId = this.escape(accountId);
+		title = this.escape(title);
+		name = this.escape(name);
+		birthday = this.escape(birthday);
+		gender = this.escape(gender);
+		maritalStatus = this.escape(maritalStatus);
+		nationality = this.escape(nationality);
+		address = this.escape(address);
+		email = this.escape(email);
+		phone = this.escape(phone);
+		hobbies = this.escape(hobbies);
+		
 		String sql = "INSERT INTO `resume` (`AccountId`, `Title`, `Name`, `Birthday`, `Gender`, `MaritalStatus`, `Nationality`, `Avatar`, `Address`, `Email`, `Phone`, `Hobby`)"
 				+ " VALUES("
 				+ accountId
@@ -536,30 +594,7 @@ public class ModelResume extends Model {
 		connection.close();
 	}
 
-	public void AddCareerObjective(int desireSalary, int recentSalary,
-			String positionType, String desireCareerLevel,
-			String desireWorkLocation, Boolean willingToRelocate,
-			Boolean willingToTravel, String careerObjective, int resumeId) {
-		String sql = "insert into career_objective (DesireSalary,RecentSalary, PositionType, DesireCareerLevel, DesireWorkLocation, WillingToRelocate, WillingToTravel, CareerObjective, resumeId) values ("
-				+ desireSalary
-				+ ","
-				+ recentSalary
-				+ ",'"
-				+ positionType
-				+ "','"
-				+ desireCareerLevel
-				+ "','"
-				+ desireWorkLocation
-				+ "',"
-				+ willingToRelocate
-				+ ","
-				+ willingToTravel
-				+ ",'"
-				+ careerObjective + "'," + resumeId + ")";
-		connection.connect();
-		connection.write(sql);
-		connection.close();
-	}
+	
 
 	public int getMaxResumeId(String accountId) {
 		if (connection.connect()) {

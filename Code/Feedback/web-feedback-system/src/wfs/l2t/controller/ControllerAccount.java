@@ -2,7 +2,6 @@ package wfs.l2t.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -42,8 +41,6 @@ public class ControllerAccount extends HttpServlet {
 	// where this project's location?
 	private void uploadAvatar(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		PrintWriter wr = response.getWriter();
-
 		// process for change avatar
 		if (ServletFileUpload.isMultipartContent(request)) {
 

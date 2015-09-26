@@ -84,7 +84,7 @@ body {
 					width="700" height="400">
 			</div>
 			<div class="col-md-5">
-				<h2>Sign up for free!</h2>
+				<h2>Đăng ký ngay!</h2>
 				<form action="ControllerLogin" class="form" role="form"
 					method="post" id="reg-form">
 					<div class="form-group">
@@ -97,7 +97,7 @@ body {
 						<div class="form-group">
 							<lable>Tên tài khoản</lable>
 							<input name="reg-username" type="text"
-								placeholder="Your user name" class="form-control" id="reg-user">
+								placeholder="tên tài khoản" class="form-control" id="reg-user">
 							<div>
 								<i id="txtHintUserName"></i>
 							</div>
