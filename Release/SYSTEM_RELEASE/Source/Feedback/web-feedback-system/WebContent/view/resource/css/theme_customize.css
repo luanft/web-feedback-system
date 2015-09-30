@@ -42,9 +42,10 @@ pre {
 }
 
 .custom_font_bold
-{
-	font-weight: bold;	
-	
+{		
+	font-weight:lighter;
+	font-family: sans-serif;
+	font-size: 16;
 }
 
 

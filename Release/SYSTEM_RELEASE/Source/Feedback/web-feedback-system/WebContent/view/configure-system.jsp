@@ -16,7 +16,7 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title>Web theme</title>
+<title>Thiết lập hệ thống</title>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
 	href="view/resource/bootstrap/css/bootstrap.min.css">
@@ -80,31 +80,33 @@
 						</div>
 						<br>
 						<div>
-							<ul class="nav nav-pills nav-stacked custom_font_bold">
+							<ul class="nav nav-stacked nav-pills custom_font_bold" role="tablist">
 								<li><a href="<%out.print(request.getContextPath());%>"><span
-										class="glyphicon glyphicon glyphicon-home"></span> CÔNG VIỆC
-										MỚI</a></li>
-								<li><a
-									href="<%out.print(request.getContextPath() + "/care");%>"><span
-										class="glyphicon glyphicon-heart"></span> CÔNG VIỆC QUAN TÂM</a></li>
-
+										class="glyphicon glyphicon glyphicon-home"></span> Việc Làm Mới</a></li>
 								<li><a
 									href="<%out.print(request.getContextPath() + "/recommendation");%>"><span
-										class="glyphicon glyphicon glyphicon-pencil"></span> KHẢO SÁT</a></li>
-								<li><a
-									href="<%out.print(request.getContextPath() + "/settings");%>"><span
-										class="glyphicon glyphicon-cog"></span> THIẾT LẬP GỬI MAIL</a></li>
+										class="glyphicon glyphicon glyphicon-pencil"></span> Có Thể Bạn Quan Tâm</a></li>
 								<li class><a
 									href="<%out.print(request.getContextPath() + "/listresume");%>"><span
-										class="glyphicon glyphicon-list-alt"></span> XEM HỒ SƠ CỦA BẠN</a></li>
-								<li class><a
+										class="glyphicon glyphicon-list-alt"></span> Hồ Sơ Của Bạn</a></li>								
+								<li ><a 
+									href="<%out.print(request.getContextPath() + "/care");%>"><span
+										class="glyphicon glyphicon-heart"></span> Việc Đã Lưu</a></li>
+								<li class="active"><a
+									href="<%out.print(request.getContextPath() + "/settings");%>"><span
+										class="glyphicon glyphicon-cog"></span> Thiết Lập Gửi Mail</a></li>
+
+								<li ><a
 									href="<%out.print(request.getContextPath() + "/help");%>"><span
-										class="glyphicon glyphicon-question-sign"></span> TRỢ GIÚP</a></li>
+										class="glyphicon glyphicon-question-sign"></span> Trợ Giúp</a></li>
+								<li ><a
+									href="<%out.print(request.getContextPath() + "/help?about");%>"><span
+										class="glyphicon glyphicon-question-sign"></span> About</a></li>										
 							</ul>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-9 custom_background_color">
+				<div class="col-md-9">
 					<br>
 					<!-- Menu chỉnh thời gian nhận mail -->
 					<div class="container-fluid">
@@ -117,34 +119,30 @@
 								dtoAccount acc_info = ac.getAccountById(currentUserId);
 							%>
 							<div class="col-md-6">
-								<div class="panel panel-primary">
-									<div class="panel-heading">Bạn muốn nhận email vào thời
-										gian nào?</div>
+								<div class="panel panel-default">
+									<div class="panel-heading"><h4>Thời gian nhận mail:</h4></div>
 									<div class="panel-body">
 										<form role="form" id="form-time-email" action="settings"
 											method="post">
 											<div class="form-group">
-												<div class="radio-inline">
-													<label><input type="radio" value="daily"
+												<div>
+													<label class="radio-inline"><input type="radio" value="daily"
 														name="fte-rdo-time"
 														<%if (acc_info.timeReceiveEmail.equals("daily"))
 				out.print("checked=\"checked\"");%>>Hàng
 														ngày </label>
-												</div>
-												<div class="radio-inline">
-													<label><input type="radio" value="weekly"
+														
+														<label class="radio-inline"><input type="radio" value="weekly"
 														name="fte-rdo-time"
 														<%if (acc_info.timeReceiveEmail.equals("weekly"))
 				out.print("checked=\"checked\"");%>>Hàng
 														tuần </label>
-												</div>
-												<div class="radio-inline">
-													<label><input type="radio" value="monthly"
+														<label class="radio-inline"><input type="radio" value="monthly"
 														name="fte-rdo-time"
 														<%if (acc_info.timeReceiveEmail.equals("monthly"))
 				out.print("checked=\"checked\"");%>>Hàng
 														tháng </label>
-												</div>
+												</div>																								
 											</div>
 											<div class="form-group custom_margin">
 												<button type="submit" name="fte-btn-submit"
@@ -157,29 +155,26 @@
 							</div>
 
 							<div class="col-md-6">
-								<div class="panel panel-primary">
-									<div class="panel-heading">Bạn muốn nhận bao nhiêu công
-										việc trong một email?</div>
+								<div class="panel panel-default">
+									<div class="panel-heading"><h4>Số công việc một lần gửi:</h4></div>
 									<div class="panel-body">
 										<form action="settings" method="post" role="form"
 											id="form-number-email">
 											<div class="form-group">
-												<div class="radio-inline">
-													<label><input type="radio" value="5"
+												<div>
+													<label class="radio-inline"><input type="radio" value="5"
 														name="fne_rdo_number"
 														<%if (acc_info.numberReceiveEmail.equals("5"))
 				out.print("checked=\"checked\"");%>>Từ
 														0 - 5</label>
-												</div>
-												<div class="radio-inline">
-													<label><input type="radio" value="10"
+														
+														<label class="radio-inline"><input type="radio" value="10"
 														name="fne_rdo_number"
 														<%if (acc_info.numberReceiveEmail.equals("10"))
 				out.print("checked=\"checked\"");%>>Từ
 														5 - 10</label>
-												</div>
-												<div class="radio-inline">
-													<label><input type="radio" value="20"
+														
+														<label class="radio-inline"><input type="radio" value="20"
 														name="fne_rdo_number"
 														<%if (acc_info.numberReceiveEmail.equals("20"))
 				out.print("checked=\"checked\"");%>>Từ
@@ -199,7 +194,7 @@
 					</div>
 					<!-- Chọn lĩnh vực người dùng quan tâm -->
 					<div>
-						<div class="panel panel-primary">
+						<div class="panel panel-default">
 							<div class="panel-heading">Chọn lĩnh vực mà bạn quan tâm</div>
 							<div class="panel-body">
 								<div>
