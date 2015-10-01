@@ -1,9 +1,11 @@
 package wfs.l2t.model;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import wfs.l2t.dto.dtoCategory;
 
 public class ModelCategory extends Model {
@@ -62,6 +64,30 @@ public class ModelCategory extends Model {
 			this.connection.close();
 		}
 		return data;
+	}
+	
+	public String getCategoryName(String id) {		
+		String sql = "select Description from category where CategoryId = ?";
+		 String ret = "";
+		connection.connect();		
+		try
+		{
+			PreparedStatement stm = connection.getConnection().prepareStatement(sql);
+			stm.setString(1, id);
+			connection.setPrepareStatement(stm);
+			ResultSet rs = connection.readSecure();
+			if (rs.next())
+			{
+				ret = rs.getString("Description");
+			} else
+				return "";
+		} catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		connection.close();
+		return ret;
 	}
 
 }

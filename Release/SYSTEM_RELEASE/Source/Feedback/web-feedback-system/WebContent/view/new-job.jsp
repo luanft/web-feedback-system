@@ -15,6 +15,10 @@
 	String userId = (String) request.getAttribute("user");
 	ModelAccount account = new ModelAccount();
 	dtoAccount dtoAcc = account.getAccountById(userId);
+
+	//get category list
+	ModelCategory mdc = new ModelCategory();
+	List<dtoCategory> categoryList = mdc.getAllCategory();
 %>
 <!DOCTYPE html>
 <html>
@@ -27,9 +31,28 @@
 <script src="view/resource/lib/jquery-2.1.4.min.js"></script>
 <script src="view/resource/bootstrap/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="view/resource/css/theme_customize.css">
-<script src="view/resource/bootstrap/js/bootstrap-multiselect.js"></script>
-<link rel="stylesheet"
-	href="view/resource/bootstrap/css/bootstrap-multiselect.css" />
+<style>
+.panel-footer {
+	background-color: #F6F7F8;
+}
+
+.panel.search {
+	padding: 40px;
+	background-color: #00B9F2;
+	margin-top: 20px;
+}
+
+.dropdown-menu {
+	min-width: auto;
+	width: 100%;
+}
+
+.scrollable-menu {
+	height: auto;
+	max-height: 200px;
+	overflow-x: hidden;
+}
+</style>
 </head>
 <body>
 	<div class="container">
@@ -43,8 +66,8 @@
 							<img
 								src="<%out.print(request.getContextPath()
 					+ "/view/resource/image/logo.jpg");%>"
-								class="img-circle navbar-brand" width="60" height="70">
-							<a class="navbar-brand custom_color_white"
+								class="img-circle navbar-brand" width="60" height="70"> <a
+								class="navbar-brand custom_color_white"
 								href="<%out.print(request.getContextPath());%>">
 								RECOMMENDATION SYSTEM</a>
 						</div>
@@ -64,8 +87,7 @@
 												lý tài khoản</a></li>
 										<li><a
 											href="<%out.print(request.getContextPath() + "/home?logout=true");%>"><span
-												class="glyphicon glyphicon-log-in"></span> Đăng
-												xuất</a></li>
+												class="glyphicon glyphicon-log-in"></span> Đăng xuất</a></li>
 									</ul></li>
 							</ul>
 						</div>
@@ -114,8 +136,34 @@
 					</div>
 				</div>
 				<div class="col-md-9 custom_background_color ">
+					<div class="panel search panel-default">
+						<label style="color: white"><i> Tìm việc làm theo
+								ngành nghề...</i></label>
 
-					<br> <br>
+						<div class="input-group" style="width: 60%; margin: 0 auto;">
+							<div class="dropdown center">
+								<%
+									if (request.getParameter("cate") != null)
+										out.write("<button class='btn btn-primary dropdown-toggle' type='button' data-toggle='dropdown' style='width: 100%'>"+ mdc.getCategoryName(request.getParameter("cate")) +" <span class='caret'></span></button>");
+									else
+										out.write("<button class='btn btn-primary dropdown-toggle' type='button' data-toggle='dropdown' style='width: 100%'>Tất cả ngành nghề <span class='caret'></span></button>");
+								%>
+								
+								<ul class="dropdown-menu scrollable-menu" role="menu">
+									<%
+										for (dtoCategory cate : categoryList) {
+											out.write("<li> <a href ='" + request.getContextPath()
+													+ "/home?cate=" + cate.categoryId + "'>"
+													+ cate.categoryName + "</a></li>");
+										}
+									%>
+								</ul>
+							</div>
+						</div>
+
+						<!-- /input-group -->
+					</div>
+					<br>
 					<div id="content-wrapper" class="panel-group"></div>
 					<div style="text-align: center" id="loading" class="custom_hiden">
 						<button class="btn btn-default pull-center">
@@ -127,6 +175,7 @@
 			</div>
 		</div>
 	</div>
+
 	<script type="text/javascript" src="view/resource/lib/job-utility.js"></script>
 </body>
 </html>

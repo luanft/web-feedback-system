@@ -1,6 +1,12 @@
 /**
  * 
  */
+$(document).ready(function() {
+	$(".dropdown-menu").on('click', 'li a', function() {
+		$(".btn:first-child").text($(this).text());
+		$(".btn:first-child").val($(this).text());
+	});
+});
 
 function myCollapse(xxx) {
 	$("#full-info" + xxx).slideToggle("slow");
@@ -20,7 +26,7 @@ function likeClick(obj, xxx) {
 				index : xxx
 			}
 		});
-		$(obj).css("color", "yellow");
+		$(obj).css("color", "#5890ff");
 		$(obj).attr("value", "1");
 	} else {
 		$.ajax({
@@ -31,7 +37,7 @@ function likeClick(obj, xxx) {
 				index : xxx
 			}
 		});
-		$(obj).css("color", "#CCCCFF");
+		$(obj).css("color", "#9197a3");
 		$(obj).attr("value", "0");
 	}
 }

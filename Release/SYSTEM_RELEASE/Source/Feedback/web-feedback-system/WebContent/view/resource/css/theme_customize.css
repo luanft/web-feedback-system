@@ -16,11 +16,19 @@
 }
 
 pre {
-    white-space: pre-wrap;       /* CSS 3 */
-    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
-    white-space: -pre-wrap;      /* Opera 4-6 */
-    white-space: -o-pre-wrap;    /* Opera 7 */
-    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+	white-space: pre-wrap; /* CSS 3 */
+	white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+	white-space: -pre-wrap; /* Opera 4-6 */
+	white-space: -o-pre-wrap; /* Opera 7 */
+	word-wrap: break-word; /* Internet Explorer 5.5+ */
+	font-family: arial;
+	font-size: 15px;
+	padding: 0px 15px;
+	background: #ffffff;
+	border: none;
+	margin: 0px;
+	border-radius: 0px;
+	word-break: normal;
 }
 
 .custom_background_color {
