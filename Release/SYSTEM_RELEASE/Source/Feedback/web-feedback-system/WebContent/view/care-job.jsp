@@ -29,6 +29,17 @@
 <script src="view/resource/bootstrap/js/bootstrap.min.js"></script>
 
 <link rel="stylesheet" href="view/resource/css/theme_customize.css">
+<style>
+.panel-footer {
+	background-color: #F6F7F8;
+}
+
+.panel.search {
+	padding: 40px;
+	background-color: #00B9F2;
+	margin-top: 20px;
+}
+</style>
 </head>
 <body>
 	<div class="container">

@@ -20,7 +20,7 @@ function likeClick(obj, xxx) {
 				index : xxx
 			}
 		});
-		$(obj).css("color", "yellow");
+		$(obj).css("color", "#5890ff");
 		$(obj).attr("value", "1");
 	} else {
 		$.ajax({
@@ -31,7 +31,7 @@ function likeClick(obj, xxx) {
 				index : xxx
 			}
 		});
-		$(obj).css("color", "#CCCCFF");
+		$(obj).css("color", "#9197a3");
 		$(obj).attr("value", "0");
 	}
 }

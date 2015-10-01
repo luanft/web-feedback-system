@@ -30,6 +30,17 @@
 <script src="view/resource/lib/jquery-2.1.4.min.js"></script>
 <script src="view/resource/bootstrap/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="view/resource/css/theme_customize.css">
+<style>
+.panel-footer {
+	background-color: #F6F7F8;
+}
+
+.panel.search {
+	padding: 40px;
+	background-color: #00B9F2;
+	margin-top: 20px;
+}
+</style>
 </head>
 <body>
 	<div class="container">
@@ -86,28 +97,31 @@
 						</div>
 						<br>
 						<div>
-							<ul class="nav nav-stacked nav-pills custom_font_bold" role="tablist">
+							<ul class="nav nav-stacked nav-pills custom_font_bold"
+								role="tablist">
 								<li><a href="<%out.print(request.getContextPath());%>"><span
-										class="glyphicon glyphicon glyphicon-home"></span> Việc Làm Mới</a></li>
+										class="glyphicon glyphicon glyphicon-home"></span> Việc Làm
+										Mới</a></li>
 								<li class="active"><a
 									href="<%out.print(request.getContextPath() + "/recommendation");%>"><span
-										class="glyphicon glyphicon glyphicon-pencil"></span> Có Thể Bạn Quan Tâm</a></li>
+										class="glyphicon glyphicon glyphicon-pencil"></span> Có Thể
+										Bạn Quan Tâm</a></li>
 								<li><a
 									href="<%out.print(request.getContextPath() + "/listresume");%>"><span
-										class="glyphicon glyphicon-list-alt"></span> Hồ Sơ Của Bạn</a></li>								
-								<li ><a 
+										class="glyphicon glyphicon-list-alt"></span> Hồ Sơ Của Bạn</a></li>
+								<li><a
 									href="<%out.print(request.getContextPath() + "/care");%>"><span
 										class="glyphicon glyphicon-heart"></span> Việc Đã Lưu</a></li>
-								<li ><a
+								<li><a
 									href="<%out.print(request.getContextPath() + "/settings");%>"><span
 										class="glyphicon glyphicon-cog"></span> Thiết Lập Gửi Mail</a></li>
 
-								<li ><a
+								<li><a
 									href="<%out.print(request.getContextPath() + "/help");%>"><span
 										class="glyphicon glyphicon-question-sign"></span> Trợ Giúp</a></li>
-								<li ><a
+								<li><a
 									href="<%out.print(request.getContextPath() + "/help?about");%>"><span
-										class="glyphicon glyphicon-question-sign"></span> About</a></li>										
+										class="glyphicon glyphicon-question-sign"></span> About</a></li>
 							</ul>
 						</div>
 					</div>
