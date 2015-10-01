@@ -1,6 +1,7 @@
 /**
  * 
  */
+
 $(document).ready(function() {
 	$(".dropdown-menu").on('click', 'li a', function() {
 		$(".btn:first-child").text($(this).text());

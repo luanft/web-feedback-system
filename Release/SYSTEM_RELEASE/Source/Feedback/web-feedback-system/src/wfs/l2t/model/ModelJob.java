@@ -33,7 +33,7 @@ public class ModelJob extends Model
 				job.accountId = rs.getString("AccountId");
 				job.jobName = trimAll(rs.getString("JobName"));
 				job.location = trimAll(rs.getString("Location"));
-				job.salary = trimAll(rs.getString("Salary"));
+				job.salary = trimAll(rs.getString("Salary").replace("Lương:", ""));				
 				job.description = trimAll(rs.getString("Description"));
 				job.tags = trimAll(rs.getString("Tags"));
 				job.requirement = trimAll(rs.getString("Requirement"));
@@ -79,7 +79,7 @@ public class ModelJob extends Model
 				job.accountId = rs.getString("AccountId");
 				job.jobName = trimAll(rs.getString("JobName"));
 				job.location = trimAll(rs.getString("Location"));
-				job.salary = trimAll(rs.getString("Salary"));
+				job.salary = trimAll(rs.getString("Salary").replace("Lương:", ""));
 				job.description = trimAll(rs.getString("Description"));
 				job.tags = trimAll(rs.getString("Tags"));
 				job.requirement = trimAll(rs.getString("Requirement"));
@@ -142,6 +142,8 @@ public class ModelJob extends Model
 
 			txt = txt.replaceAll("\t", " ");
 			txt = txt.replaceAll("\r\n", "\n");
+			txt = txt.replaceAll("\n-\n", "-");
+			txt = txt.replaceAll(":\n", ":");
 		}
 		return txt;
 	}
@@ -163,7 +165,7 @@ public class ModelJob extends Model
 				job.accountId = rs.getString("AccountId");
 				job.jobName = trimAll(rs.getString("JobName"));
 				job.location = trimAll(rs.getString("Location"));
-				job.salary = trimAll(rs.getString("Salary"));
+				job.salary = trimAll(rs.getString("Salary").replace("Lương:", ""));
 				job.description = trimAll(rs.getString("Description"));
 				job.tags = trimAll(rs.getString("Tags"));
 				job.requirement = trimAll(rs.getString("Requirement"));
@@ -206,7 +208,7 @@ public class ModelJob extends Model
 				job.accountId = rs.getString("AccountId");
 				job.jobName = trimAll(rs.getString("JobName"));
 				job.location = trimAll(rs.getString("Location"));
-				job.salary = trimAll(rs.getString("Salary"));
+				job.salary = trimAll(rs.getString("Salary").replace("Lương:", ""));
 				job.description = trimAll(rs.getString("Description"));
 				job.tags = trimAll(rs.getString("Tags"));
 				job.requirement = trimAll(rs.getString("Requirement"));
