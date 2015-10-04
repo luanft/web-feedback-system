@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -85,24 +84,21 @@ public class ControllerJobRecommended extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/login");
 		}
 	}
+
 	Timestamp timestamp;
 	Calendar cal;
+
 	private void setSuitableJob(HttpServletRequest request)
 			throws ServletException, IOException {
 		if (request.getParameter("status") != null) {
-			Cookie[] cookies = request.getCookies();
-			String accountId = "";
+
+			String accountId = loginUtility.getLoggedUserId();
 			ModelJobRecommended mjr = new ModelJobRecommended();
-			for (Cookie c : cookies) {
-				if (c.getName().equals("jobrec_login_cookie")) {
-					accountId = c.getValue();
-					break;
-				}
-			}
+
 			String key = request.getParameter("status");
 			String jobId = request.getParameter("index");
 			cal = Calendar.getInstance();
-			timestamp = new Timestamp(cal.getTimeInMillis());		
+			timestamp = new Timestamp(cal.getTimeInMillis());
 			dtoJobRecommended jobRec = new dtoJobRecommended();
 			jobRec.accountId = accountId;
 			jobRec.jobId = jobId;
@@ -111,20 +107,20 @@ public class ControllerJobRecommended extends HttpServlet {
 			jobRec.seen = "1";
 			jobRec.time = timestamp;
 			switch (key) {
-			case "0"://not fit
+			case "0":// not fit
 				if (mjr.checkIfExist(jobId, accountId)) {
-					mjr.updateFittable(jobRec);
-				} else {				
-					mjr.add(jobRec);
-				}
-				break;
-			case "1"://fit
-				jobRec.fit = "1";
-				if (mjr.checkIfExist(jobId, accountId)) {				
 					mjr.updateFittable(jobRec);
 				} else {
 					mjr.add(jobRec);
-				}				
+				}
+				break;
+			case "1":// fit
+				jobRec.fit = "1";
+				if (mjr.checkIfExist(jobId, accountId)) {
+					mjr.updateFittable(jobRec);
+				} else {
+					mjr.add(jobRec);
+				}
 				break;
 			default:
 				break;
