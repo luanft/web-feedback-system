@@ -13,10 +13,11 @@ public class ModelJobRecommended extends Model
 		super();
 	}
 
+	
 	public void add(dtoJobRecommended jobRec)
 	{
 		connection.connect();
-		String sql = "insert into `job_recommended` value(?,?,?,?,?)";
+		String sql = "insert into `job_recommended` value(?,?,?,?,?,?)";
 		try
 		{
 			PreparedStatement stm = connection.getConnection().prepareStatement(sql);
@@ -24,7 +25,8 @@ public class ModelJobRecommended extends Model
 			stm.setString(2, jobRec.jobId);
 			stm.setString(3, jobRec.fit);
 			stm.setString(4, jobRec.notFit);
-			stm.setString(5, jobRec.seen);
+			stm.setString(5, jobRec.seen);			 
+			stm.setTimestamp(6, jobRec.time);
 			connection.setPrepareStatement(stm);
 			connection.writeSecure();
 		} catch (SQLException e)
@@ -36,17 +38,18 @@ public class ModelJobRecommended extends Model
 		connection.close();
 	}
 
-	public void updateFittable(String fit, String notFit, String accountId, String jobId)
+	public void updateFittable(dtoJobRecommended jobRec)
 	{
 		connection.connect();
-		String sql = "update `job_recommended` set `Fit` = ?, NotFit = ?, Seen = 1 where `AccountId` = ? and `JobId` = ?";
+		String sql = "update `job_recommended` set `Fit` = ?, NotFit = ?, Seen = 1, Time = ? where `AccountId` = ? and `JobId` = ?";
 		try
 		{
 			PreparedStatement stm = connection.getConnection().prepareStatement(sql);
-			stm.setString(1, fit);
-			stm.setString(2, notFit);
-			stm.setString(3, accountId);
-			stm.setString(4, jobId);
+			stm.setString(1, jobRec.fit);
+			stm.setString(2, jobRec.notFit);
+			stm.setString(4, jobRec.accountId);
+			stm.setString(5, jobRec.jobId);
+			stm.setTimestamp(3, jobRec.time);
 			connection.setPrepareStatement(stm);
 			connection.writeSecure();
 		} catch (SQLException e)

@@ -42,18 +42,18 @@ function likeClick(obj, xxx) {
 		$(obj).attr("value", "0");
 	}
 }
-
-function dislikeClick(xxx) {
-	$("#panel" + xxx).hide();
-	$.ajax({
-		type : "POST",
-		url : "ControllerHome",
-		data : {
-			status : "0",
-			index : xxx
-		}
-	});
-}
+//
+//function dislikeClick(xxx) {
+//	$("#panel" + xxx).hide();
+//	$.ajax({
+//		type : "POST",
+//		url : "ControllerHome",
+//		data : {
+//			status : "0",
+//			index : xxx
+//		}
+//	});
+//}
 
 // load job when ready
 $(document).ready(function() {

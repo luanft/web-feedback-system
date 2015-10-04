@@ -176,44 +176,46 @@ public class ControllerLogin extends HttpServlet {
 		String password = request.getParameter("reg-password");
 		String rpassword = request.getParameter("reg-re-type-password");
 		if (email != "" && userName != "" && password != "" && rpassword != "") {
-			account.userName = userName;
-			account.email = email;
-			account.password = password;
-			String accType = request.getParameter("radio");
-			account.accountType = "employer".equals(accType) ? "employer"
-					: "job-seeker";
-			account.timeReceiveEmail = "weekly";
-			account.numberReceiveEmail = "10";
-			account.confirmCode = UUID.randomUUID().toString();
-			mdLogin.addAccount(account);
+			if (password.equals(rpassword)) {
+				account.userName = userName;
+				account.email = email;
+				account.password = password;
+				String accType = request.getParameter("radio");
+				account.accountType = "employer".equals(accType) ? "employer"
+						: "job-seeker";
+				account.timeReceiveEmail = "weekly";
+				account.numberReceiveEmail = "10";
+				account.confirmCode = UUID.randomUUID().toString();
+				mdLogin.addAccount(account);
 
-			// verify by email
-			// reads SMTP server setting from web.xml file
-			ServletContext context = getServletContext();
-			String host = context.getInitParameter("host");
-			String port = context.getInitParameter("port");
-			String user = context.getInitParameter("user");
-			String pass = context.getInitParameter("pass");
-			String recipient = request.getParameter("reg-email");
-			String subject = "Verify Account";
+				// verify by email
+				// reads SMTP server setting from web.xml file
+				ServletContext context = getServletContext();
+				String host = context.getInitParameter("host");
+				String port = context.getInitParameter("port");
+				String user = context.getInitParameter("user");
+				String pass = context.getInitParameter("pass");
+				String recipient = request.getParameter("reg-email");
+				String subject = "Verify Account";
 
-			String content = "This is email to verify your account on: http://localhost:8080/web-feedback-system/ControllerConfirmEmail?code="
-					+ account.confirmCode
-					+ "&accountId="
-					+ mdLogin.getAccountId(account.email);
+				String content = "This is email to verify your account on: http://localhost:8080/web-feedback-system/ControllerConfirmEmail?code="
+						+ account.confirmCode
+						+ "&accountId="
+						+ mdLogin.getAccountId(account.email);
 
-			String resultMessage = "";
-			try {
-				EmailUtility.sendEmail(host, port, user, pass, recipient,
-						subject, content);
-				resultMessage = "Để bắt đầu sử dụng hệ thống vui lòng xác nhận đăng ký qua email của bạn!";
-			} catch (Exception ex) {
-				ex.printStackTrace();
-				resultMessage = "Lỗi gửi mail. Sorry!!!" + ex.getMessage();
-			} finally {
-				request.setAttribute("Message", resultMessage);
-				request.getRequestDispatcher("view/notification.jsp").include(
-						request, response);
+				String resultMessage = "";
+				try {
+					EmailUtility.sendEmail(host, port, user, pass, recipient,
+							subject, content);
+					resultMessage = "Để bắt đầu sử dụng hệ thống vui lòng xác nhận đăng ký qua email của bạn!";
+				} catch (Exception ex) {
+					ex.printStackTrace();
+					resultMessage = "Lỗi gửi mail. Sorry!!!" + ex.getMessage();
+				} finally {
+					request.setAttribute("Message", resultMessage);
+					request.getRequestDispatcher("view/notification.jsp")
+							.include(request, response);
+				}
 			}
 		} else {
 			request.setAttribute("Message-Register-Error",

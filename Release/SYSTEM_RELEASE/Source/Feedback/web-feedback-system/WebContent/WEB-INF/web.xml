@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
   <display-name>web-feedback-system</display-name>
-  
-    <servlet>
+  <servlet>
     <servlet-name>help</servlet-name>
     <servlet-class>wfs.l2t.controller.ControllerHelp</servlet-class>
   </servlet>
@@ -10,7 +9,6 @@
     <servlet-name>help</servlet-name>
     <url-pattern>/help</url-pattern>
   </servlet-mapping>
-    
   <servlet>
     <servlet-name>settings</servlet-name>
     <servlet-class>wfs.l2t.controller.ControllerSetting</servlet-class>
@@ -40,12 +38,12 @@
     <servlet-class>wfs.l2t.controller.ControllerCareJob</servlet-class>
   </servlet>
   <servlet>
-      <servlet-name>listresume</servlet-name>
-      <servlet-class>wfs.l2t.controller.ControllerListResume</servlet-class>
+    <servlet-name>listresume</servlet-name>
+    <servlet-class>wfs.l2t.controller.ControllerListResume</servlet-class>
   </servlet>
   <servlet>
-      <servlet-name>resume</servlet-name>
-      <servlet-class>wfs.l2t.controller.ControllerResume</servlet-class>
+    <servlet-name>resume</servlet-name>
+    <servlet-class>wfs.l2t.controller.ControllerResume</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>care</servlet-name>
@@ -72,12 +70,12 @@
     <url-pattern>/notification</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-      <servlet-name>listresume</servlet-name>
-      <url-pattern>/listresume</url-pattern>
+    <servlet-name>listresume</servlet-name>
+    <url-pattern>/listresume</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-      <servlet-name>resume</servlet-name>
-      <url-pattern>/resume</url-pattern>
+    <servlet-name>resume</servlet-name>
+    <url-pattern>/resume</url-pattern>
   </servlet-mapping>
   <context-param>
     <param-name>host</param-name>

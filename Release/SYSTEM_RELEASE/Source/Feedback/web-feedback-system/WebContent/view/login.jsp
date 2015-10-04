@@ -13,8 +13,7 @@
 <link rel="stylesheet" href="view/resource/css/theme_customize.css">
 <script src="view/resource/lib/check-register.js" async></script>
 <style>
-body {
-	background-image: url("paper.gif");
+body {	
 	background-color: #F1F1F1;
 	margin: 0;
 	padding: 0;
@@ -57,15 +56,10 @@ body {
 						<div style="margin-top: 5px" class="form-group">
 							<lable for="pwd"> Mật khẩu</lable>
 							<input type="password" class="form-control" name="login-pass">
-							<a href="./view/forgot-password.jsp" onclick="redirect(this);">
+							<a href="./ForgotPassword">
 								Quên mật khẩu à?</a>
 						</div>
-					</div>
-					<script type="text/javascript">
-						function redirect(elem) {
-							window.location.href = "/view/forgot-password.jps";
-						}
-					</script>
+					</div>					
 					<div class="col-md-2">
 						<div style="margin-top: 25px;"></div>
 						<div>

@@ -1,6 +1,8 @@
 package wfs.l2t.controller;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -71,7 +73,8 @@ public class ControllerCareJob extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/login");
 		}
 	}
-
+	Timestamp timestamp;
+	Calendar cal;
 	private void setSuitableJob(HttpServletRequest request)
 			throws ServletException, IOException {
 		if (request.getParameter("status") != null) {
@@ -86,45 +89,30 @@ public class ControllerCareJob extends HttpServlet {
 			}
 			String key = request.getParameter("status");
 			String jobId = request.getParameter("index");
+			cal = Calendar.getInstance();
+			timestamp = new Timestamp(cal.getTimeInMillis());		
+			dtoJobRecommended jobRec = new dtoJobRecommended();
+			jobRec.accountId = accountId;
+			jobRec.jobId = jobId;
+			jobRec.fit = "0";
+			jobRec.notFit = "0";
+			jobRec.seen = "1";
+			jobRec.time = timestamp;
 			switch (key) {
-			case "0":
+			case "0"://not fit
 				if (mjr.checkIfExist(jobId, accountId)) {
-					mjr.updateFittable(key, "0", accountId, jobId);
-				} else {
-					dtoJobRecommended jobRec = new dtoJobRecommended();
-					jobRec.accountId = accountId;
-					jobRec.jobId = jobId;
-					jobRec.fit = "0";
-					jobRec.notFit = "0";
-					jobRec.seen = "1";
+					mjr.updateFittable(jobRec);
+				} else {				
 					mjr.add(jobRec);
 				}
 				break;
-			case "1":
-				if (mjr.checkIfExist(jobId, accountId)) {
-					mjr.updateFittable(key, "0", accountId, jobId);
+			case "1"://fit
+				jobRec.fit = "1";
+				if (mjr.checkIfExist(jobId, accountId)) {				
+					mjr.updateFittable(jobRec);
 				} else {
-					dtoJobRecommended jobRec = new dtoJobRecommended();
-					jobRec.accountId = accountId;
-					jobRec.jobId = jobId;
-					jobRec.fit = "1";
-					jobRec.notFit = "0";
-					jobRec.seen = "1";
 					mjr.add(jobRec);
-				}
-				break;
-			case "2":
-				if (mjr.checkIfExist(jobId, accountId)) {
-					mjr.updateFittable("0", "1", accountId, jobId);
-				} else {
-					dtoJobRecommended jobRec = new dtoJobRecommended();
-					jobRec.accountId = accountId;
-					jobRec.jobId = jobId;
-					jobRec.fit = "0";
-					jobRec.notFit = "1";
-					jobRec.seen = "1";
-					mjr.add(jobRec);
-				}
+				}				
 				break;
 			default:
 				break;
