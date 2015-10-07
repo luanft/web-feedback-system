@@ -243,12 +243,12 @@ public class ControllerHome extends HttpServlet {
 			response.getWriter()
 					.write("<a onclick = likeClick(this,"
 							+ job.jobId
-							+ ") href='#/' value = '0' style='margin-left: 15px; margin-right: 15px;color:#AFB4BD;font-size:15px;' data-toggle='tooltip'title='Việc làm phù hợp!'><span class='glyphicon glyphicon-thumbs-up'></span> Phù hợp</a>");
+							+ ") href='#/' value = '0' style='margin-left: 15px; margin-right: 15px;color:#AFB4BD;font-size:15px;' data-toggle='tooltip'title='Đánh dấu việc làm này!'><span class='glyphicon glyphicon-thumbs-up'></span> Đánh dấu</a>");
 		else
 			response.getWriter()
 					.write("<a onclick = likeClick(this,"
 							+ job.jobId
-							+ ") href='#/' value = '1' style='margin-left: 15px; margin-right: 15px;color:#5890FF;font-size:15px;' data-toggle='tooltip'	title='Việc làm phù hợp!'><span class='glyphicon glyphicon-thumbs-up'></span> Phù hợp</a>");
+							+ ") href='#/' value = '1' style='margin-left: 15px; margin-right: 15px;color:#5890FF;font-size:15px;' data-toggle='tooltip'	title='Bỏ đánh dấu việc làm này!'><span class='glyphicon glyphicon-thumbs-up'></span> Đánh dấu</a>");
 
 		response.getWriter().write("</div>");
 

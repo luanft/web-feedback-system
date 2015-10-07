@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="view/resource/css/theme_customize.css">
 <script src="view/resource/lib/check-register.js" async></script>
 <style>
-body {	
+body {
 	background-color: #F1F1F1;
 	margin: 0;
 	padding: 0;
@@ -56,10 +56,9 @@ body {
 						<div style="margin-top: 5px" class="form-group">
 							<lable for="pwd"> Mật khẩu</lable>
 							<input type="password" class="form-control" name="login-pass">
-							<a href="./ForgotPassword">
-								Quên mật khẩu à?</a>
+							<a href="./ForgotPassword"> Quên mật khẩu à?</a>
 						</div>
-					</div>					
+					</div>
 					<div class="col-md-2">
 						<div style="margin-top: 25px;"></div>
 						<div>
@@ -78,7 +77,11 @@ body {
 					width="700" height="400">
 			</div>
 			<div class="col-md-5">
-				<h2>Đăng ký ngay!</h2>
+				<h2 style="font-family: arial; color: blue;">Đăng ký nhận việc
+					làm ngay hôm nay!</h2>
+				<p>
+					<i> Tìm việc làm nhanh chóng, tiện lợi </i>
+				</p>
 				<form action="ControllerLogin" class="form" role="form"
 					method="post" id="reg-form">
 					<div class="form-group">

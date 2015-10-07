@@ -114,7 +114,7 @@
 										class="glyphicon glyphicon glyphicon-home"></span> Việc Làm Mới</a></li>
 								<li><a
 									href="<%out.print(request.getContextPath() + "/recommendation");%>"><span
-										class="glyphicon glyphicon glyphicon-pencil"></span> Có Thể Bạn Quan Tâm</a></li>
+										class="glyphicon glyphicon glyphicon-pencil"></span> Việc Làm Gợi Ý</a></li>
 								<li class><a
 									href="<%out.print(request.getContextPath() + "/listresume");%>"><span
 										class="glyphicon glyphicon-list-alt"></span> Hồ Sơ Của Bạn</a></li>								
