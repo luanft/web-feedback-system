@@ -38,6 +38,21 @@
 	src="${pageContext.request.contextPath}/view/resource/lib/form_validate.js"></script>
 <script
 	src="${pageContext.request.contextPath}/view/resource/lib/form_submit.js"></script>
+<style type="text/css">
+hr {
+	-moz-border-bottom-colors: none;
+	-moz-border-image: none;
+	-moz-border-left-colors: none;
+	-moz-border-right-colors: none;
+	-moz-border-top-colors: none;
+	border-color: #EEEEEE -moz-use-text-color #FFFFFF;
+	border-style: solid none;
+	border-width: 1px 0;
+	margin-top: 10px;
+	margin-bottom: 5px;
+}
+</style>
+
 </head>
 
 <body>
@@ -101,28 +116,31 @@
 						</div>
 						<br>
 						<div>
-							<ul class="nav nav-stacked nav-pills custom_font_bold" role="tablist">
+							<ul class="nav nav-stacked nav-pills custom_font_bold"
+								role="tablist">
 								<li><a href="<%out.print(request.getContextPath());%>"><span
-										class="glyphicon glyphicon glyphicon-home"></span> Việc Làm Mới</a></li>
+										class="glyphicon glyphicon glyphicon-home"></span> Việc Làm
+										Mới</a></li>
 								<li><a
 									href="<%out.print(request.getContextPath() + "/recommendation");%>"><span
-										class="glyphicon glyphicon glyphicon-pencil"></span> Việc Làm Gợi Ý</a></li>
+										class="glyphicon glyphicon glyphicon-pencil"></span> Việc Làm
+										Gợi Ý</a></li>
 								<li><a
 									href="<%out.print(request.getContextPath() + "/listresume");%>"><span
-										class="glyphicon glyphicon-list-alt"></span> Hồ Sơ Của Bạn</a></li>								
-								<li ><a 
+										class="glyphicon glyphicon-list-alt"></span> Hồ Sơ Của Bạn</a></li>
+								<li><a
 									href="<%out.print(request.getContextPath() + "/care");%>"><span
 										class="glyphicon glyphicon-heart"></span> Việc Đã Lưu</a></li>
-								<li ><a
+								<li><a
 									href="<%out.print(request.getContextPath() + "/settings");%>"><span
 										class="glyphicon glyphicon-cog"></span> Thiết Lập Gửi Mail</a></li>
 
-								<li ><a
+								<li><a
 									href="<%out.print(request.getContextPath() + "/help");%>"><span
 										class="glyphicon glyphicon-question-sign"></span> Trợ Giúp</a></li>
-								<li ><a
+								<li><a
 									href="<%out.print(request.getContextPath() + "/help?about");%>"><span
-										class="glyphicon glyphicon-question-sign"></span> About</a></li>										
+										class="glyphicon glyphicon-question-sign"></span> About</a></li>
 							</ul>
 						</div>
 					</div>
@@ -198,7 +216,8 @@
 
 										<div class="form-group">
 											<label for="selelect_qt">Quốc tịch:</label> <select
-												class="form-control" name="nationality_input" id="selelect_qt">
+												class="form-control" name="nationality_input"
+												id="selelect_qt">
 												<option>Vietnam</option>
 												<option>Afghanistan</option>
 												<option>Albania</option>
@@ -512,7 +531,8 @@
 							<div class="panel-body">
 
 								<div id="form_nhap_education" class="custom_hiden">
-									<form id="form_update_education" role="form" method="post" action="resume">
+									<form id="form_update_education" role="form" method="post"
+										action="resume">
 
 
 										<input name="id" type="hidden"
@@ -599,7 +619,8 @@
 							</div>
 							<div class="panel-body">
 								<div id="form_nhap_language" class="custom_hiden">
-									<form id="form_update_language" role="form" method="post" action="resume">
+									<form id="form_update_language" role="form" method="post"
+										action="resume">
 
 
 										<input name="id" type="hidden"
@@ -629,14 +650,14 @@
 										List<dtoLanguage> languages = cvModel.getAllLanguage(resumeId);
 										for (dtoLanguage i : languages) {
 											out.print("<p>");
-											out.print("<h4><b>Chứng chỉ:</b> "
+											out.print("<b>Chứng chỉ:</b> "
 													+ i.name
 													+ "   <button type=\"button\" onclick=\"location.href='"
 													+ "resume?id=" + i.resumeId + "&delete_language="
 													+ i.languageId
 													+ "'\" class=\"btn btn-danger btn-xs\">Xóa</button>"
-													+ "</h4>");
-											out.print("<b>Cấp độ/Điểm:</b> " + i.level + "<br>");
+													+ "");
+											out.print("<br><b>Cấp độ/Điểm:</b> " + i.level);
 											out.print("</p><hr>");
 										}
 									%>
@@ -657,7 +678,8 @@
 							</div>
 							<div class="panel-body">
 								<div id="form_nhap_experience" class="custom_hiden">
-									<form id="form_update_experience" role="form" method="post" action="resume">
+									<form id="form_update_experience" role="form" method="post"
+										action="resume">
 
 
 										<input name="id" type="hidden"
@@ -710,9 +732,9 @@
 
 											out.print("<h4>" + i.jobTitle + " tại " + i.companyName + " "
 													+ url + " </h4>");
-											out.print("Vị Trí: " + i.position + "<br>");
-											out.print("Mô Tả: " + i.description + "<br>");
-											out.print("Thời Gian: " + i.period + "<br>");
+											out.print("<b>Vị Trí: </b>" + i.position + "<br>");
+											out.print("<b>Mô Tả: </b>" + i.description + "<br>");
+											out.print("<b>Thời Gian: </b>" + i.period);
 											out.print("</p><hr>");
 										}
 									%>
@@ -728,11 +750,13 @@
 									<button id="btn_add_skill" type="button"
 										class="btn btn-primary navbar-right custom_margin">+
 										Thêm</button>
+
 								</h4>
 							</div>
 							<div class="panel-body">
-								<div  id="form_nhap_skill" class="custom_hiden">
-									<form id="form_update_skills" role="form" method="post" action="resume">
+								<div id="form_nhap_skill" class="custom_hiden">
+									<form id="form_update_skills" role="form" method="post"
+										action="resume">
 
 										<input name="id" type="hidden"
 											value="<%out.print(resumeId);%>">
@@ -766,11 +790,11 @@
 													+ i.skillId
 													+ "'\" class=\"btn btn-danger btn-xs\">Xóa</button>";
 											out.print("<p>");
-											out.print("<h4>");
+											out.print("<p><b>");
 											out.print(i.name + " " + url);
-											out.print("</h4>");
+											out.print("</b></p>");
 											out.print(i.level);
-											out.print("<br><hr></p>");
+											out.print("<hr></p>");
 										}
 									%>
 
@@ -799,7 +823,8 @@
 										dtoCareerObjective objective = cvModel.getObjective(resumeId);
 									%>
 
-									<form id="form_update_objective" role="form" method="post" action="resume">
+									<form id="form_update_objective" role="form" method="post"
+										action="resume">
 
 										<input name="id" type="hidden"
 											value="<%out.print(resumeId);%>">
@@ -842,13 +867,18 @@
 
 
 										<div class="form-group">
-											<label for="txt_CareerObjective">Mục tiêu nghề nghiệp:</label>
+											<label for="txt_CareerObjective">Mục tiêu nghề
+												nghiệp:</label>
 											<textarea class="form-control" rows="5"
-												id="txt_CareerObjective"" name="CareerObjective"><%out.print(objective.careerObjective);%></textarea>
+												id="txt_CareerObjective" " name="CareerObjective">
+												<%
+													out.print(objective.careerObjective);
+												%>
+											</textarea>
 										</div>
 
 										<div class="form-group">
-											<label class="checkbox-inline"> <input 
+											<label class="checkbox-inline"> <input
 												name="opt_object" type="checkbox" value="willingToRelocate"
 												<%if (objective.willingToRelocate.equals("1"))
 				out.print("checked");%>>Có
@@ -869,67 +899,70 @@
 									<br>
 								</div>
 								<div id="objective_content">
-									<h4>
-										Mức lương mong muốn(VND):
+									<p>
+										<b> Mức lương mong muốn(VND): </b>
 										<%
-										out.print(objective.desireSalary);
-									%>
-									</h4>
+											out.print(objective.desireSalary);
+										%>
+									</p>
 									<hr>
-									<h4>
-										Mức lương gần đây(VND):
+									<p>
+										<b> Mức lương gần đây(VND):</b>
 										<%
-										out.print(objective.recentSalary);
-									%>
-									</h4>
+											out.print(objective.recentSalary);
+										%>
+									</p>
 									<hr>
-									<h4>
-										Loại công việc:
+									<p>
+										<b> Loại công việc:</b>
 										<%
-										out.print(objective.positionType);
-									%>
-									</h4>
+											out.print(objective.positionType);
+										%>
+									</p>
 									<hr>
-									<h4>
-										Cấp bậc mong muốn:
+									<p>
+										<b> Cấp bậc mong muốn:</b>
 										<%
-										out.print(objective.desireCareerLevel);
-									%>
-									</h4>
+											out.print(objective.desireCareerLevel);
+										%>
+									</p>
 									<hr>
-									<h4>
-										Nơi làm việc mong muốn:
+									<p>
+										<b> Nơi làm việc mong muốn:</b>
 										<%
-										out.print(objective.desireWorkLocation);
-									%>
-									</h4>
+											out.print(objective.desireWorkLocation);
+										%>
+									</p>
 									<hr>
-									<h4>
-										Có thể đi công tác:
+									<p>
+										<b> Có thể đi công tác:</b>
 										<%
-										if (objective.willingToTravel.equals("1"))
-											out.print("Có thể");
-										else
-											out.print("Không");
-									%>
-									</h4>
+											if (objective.willingToTravel.equals("1"))
+												out.print("Có thể");
+											else
+												out.print("Không");
+										%>
+									</p>
 									<hr>
-									<h4>
-										Có thể đổi chỗ ở:
+									<p>
+										<b> Có thể đổi chỗ ở:</b>
 										<%
-										if (objective.willingToRelocate.equals("1"))
-											out.print("Có thể");
-										else
-											out.print("Không");
-									%>
-									</h4>
+											if (objective.willingToRelocate.equals("1"))
+												out.print("Có thể");
+											else
+												out.print("Không");
+										%>
+									</p>
 									<hr>
-									<h4>
-										Mục tiêu nghề nghiệp:
+									<p>
+										<b> Mục tiêu nghề nghiệp:</b>
+									</p>
+									<pre class = "pull-left">
 										<%
-										out.print(objective.careerObjective);
-									%>
-									</h4>
+										String s = objective.careerObjective;
+											out.print(s.trim());
+										%>
+										</pre>
 								</div>
 							</div>
 						</div>

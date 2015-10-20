@@ -9,10 +9,6 @@
 <%@ page import="wfs.l2t.model.ModelAccount"%>
 <%@ page import="wfs.l2t.controller.ControllerHome"%>
 <%
-	ModelJob mdj = new ModelJob();
-	List<dtoJob> jobList = mdj.getJob(0);
-%>
-<%
 	String userId = (String) request.getAttribute("user");
 	ModelAccount account = new ModelAccount();
 	dtoAccount dtoAcc = account.getAccountById(userId);

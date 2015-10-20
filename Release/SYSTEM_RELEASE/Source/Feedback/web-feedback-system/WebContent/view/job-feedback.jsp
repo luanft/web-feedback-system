@@ -6,11 +6,6 @@
 <%@ page import="java.util.List"%>
 <%@page import="java.util.*"%>
 <%@ page import="wfs.l2t.controller.ControllerHome"%>
-<%
-	ModelJob mdj = new ModelJob();
-	List<dtoJob> jobList = mdj.getJob(0);
-%>
-
 <%@page import="wfs.l2t.dto.dtoAccount"%>
 <%@ page import="wfs.l2t.model.ModelAccount"%>
 <%

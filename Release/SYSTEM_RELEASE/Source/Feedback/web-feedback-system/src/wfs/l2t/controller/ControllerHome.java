@@ -86,7 +86,7 @@ public class ControllerHome extends HttpServlet {
 		}
 		request.setAttribute("user", loginUtility.getLoggedUserId());
 
-		loadNewJob(request, response);
+		loadNewJob(request, response, loginUtility.getLoggedUserId());
 		if (request.getParameter("status") != null)
 			setSuitableJob(request);
 	}
@@ -132,7 +132,7 @@ public class ControllerHome extends HttpServlet {
 	List<dtoCategory> categoryList;
 
 	private void loadNewJob(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+			HttpServletResponse response, String userId) throws ServletException, IOException {
 		ModelJob mdj = new ModelJob();
 		HttpSession session = request.getSession();
 		int offset = Integer
@@ -142,7 +142,7 @@ public class ControllerHome extends HttpServlet {
 			jobList = mdj.getJobByCategory(offset,
 					Integer.parseInt(session.getAttribute("cate").toString()));
 		else
-			jobList = mdj.getJob(offset);
+			jobList = mdj.getJob(offset, userId);
 		// mdj.getJob();
 		dtoJob job = new dtoJob();
 		offset += 11;

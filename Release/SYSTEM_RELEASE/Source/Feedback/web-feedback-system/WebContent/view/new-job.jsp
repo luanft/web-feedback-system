@@ -1,3 +1,5 @@
+<%@page import="wfs.l2t.dto.dtoResume"%>
+<%@page import="wfs.l2t.model.ModelResume"%>
 <%@page import="wfs.l2t.dto.dtoCategory"%>
 <%@page import="wfs.l2t.model.ModelCategory"%>
 <%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
@@ -19,6 +21,9 @@
 	//get category list
 	ModelCategory mdc = new ModelCategory();
 	List<dtoCategory> categoryList = mdc.getAllCategory();
+
+	ModelResume mdr = new ModelResume();
+	List<dtoResume> listResume = mdr.getUserResumes(userId);
 %>
 <!DOCTYPE html>
 <html>
@@ -31,6 +36,10 @@
 <script src="view/resource/lib/jquery-2.1.4.min.js"></script>
 <script src="view/resource/bootstrap/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="view/resource/css/theme_customize.css">
+<script src="view/resource/notifIt-master/notifIt/js/notifIt.js"></script>
+<link rel="stylesheet"
+	href="view/resource/notifIt-master/notifIt/css/notifIt.css">
+
 <style>
 .panel-footer {
 	background-color: #F6F7F8;
@@ -109,46 +118,51 @@
 						</div>
 						<br>
 						<div>
-							<ul class="nav nav-stacked nav-pills custom_font_bold" role="tablist">
-								<li class="active"><a href="<%out.print(request.getContextPath());%>"><span
-										class="glyphicon glyphicon glyphicon-home"></span> Việc Làm Mới</a></li>
+							<ul class="nav nav-stacked nav-pills custom_font_bold"
+								role="tablist">
+								<li class="active"><a
+									href="<%out.print(request.getContextPath());%>"><span
+										class="glyphicon glyphicon glyphicon-home"></span> Việc Làm
+										Mới</a></li>
 								<li><a
 									href="<%out.print(request.getContextPath() + "/recommendation");%>"><span
-										class="glyphicon glyphicon glyphicon-pencil"></span> Việc Làm Gợi Ý</a></li>
+										class="glyphicon glyphicon glyphicon-pencil"></span> Việc Làm
+										Gợi Ý</a></li>
 								<li class><a
 									href="<%out.print(request.getContextPath() + "/listresume");%>"><span
-										class="glyphicon glyphicon-list-alt"></span> Hồ Sơ Của Bạn</a></li>								
-								<li ><a 
+										class="glyphicon glyphicon-list-alt"></span> Hồ Sơ Của Bạn</a></li>
+								<li><a
 									href="<%out.print(request.getContextPath() + "/care");%>"><span
 										class="glyphicon glyphicon-heart"></span> Việc Đã Lưu</a></li>
-								<li ><a
+								<li><a
 									href="<%out.print(request.getContextPath() + "/settings");%>"><span
 										class="glyphicon glyphicon-cog"></span> Thiết Lập Gửi Mail</a></li>
 
-								<li ><a
+								<li><a
 									href="<%out.print(request.getContextPath() + "/help");%>"><span
 										class="glyphicon glyphicon-question-sign"></span> Trợ Giúp</a></li>
-								<li ><a
+								<li><a
 									href="<%out.print(request.getContextPath() + "/help?about");%>"><span
-										class="glyphicon glyphicon-question-sign"></span> About</a></li>										
+										class="glyphicon glyphicon-question-sign"></span> About</a></li>
 							</ul>
 						</div>
 					</div>
 				</div>
 				<div class="col-md-9 custom_background_color ">
 					<div class="panel search panel-default">
-						<label style="color: white"><i> Tìm việc làm theo
-								ngành nghề...</i></label>
+						<label style="color: white"><i> Tùy chọn lĩnh vực ngành nghề của bạn!</i></label>
 
 						<div class="input-group" style="width: 60%; margin: 0 auto;">
 							<div class="dropdown center">
 								<%
 									if (request.getParameter("cate") != null)
-										out.write("<button class='btn btn-primary dropdown-toggle' type='button' data-toggle='dropdown' style='width: 100%'>"+ mdc.getCategoryName(request.getParameter("cate")) +" <span class='caret'></span></button>");
+										out.write("<button class='btn btn-primary dropdown-toggle' type='button' data-toggle='dropdown' style='width: 100%'>"
+												+ mdc.getCategoryName(request.getParameter("cate"))
+												+ " <span class='caret'></span></button>");
 									else
 										out.write("<button class='btn btn-primary dropdown-toggle' type='button' data-toggle='dropdown' style='width: 100%'>Tất cả ngành nghề <span class='caret'></span></button>");
 								%>
-								
+
 								<ul class="dropdown-menu scrollable-menu" role="menu">
 									<%
 										for (dtoCategory cate : categoryList) {
@@ -161,7 +175,6 @@
 							</div>
 						</div>
 
-						<!-- /input-group -->
 					</div>
 					<br>
 					<div id="content-wrapper" class="panel-group"></div>
@@ -175,6 +188,11 @@
 			</div>
 		</div>
 	</div>
+	<%
+		if (listResume.size() == 0) {
+			out.print("<script type = 'text/javascript'>notif({	msg: \"<b>Xin chào " + dtoAcc.userName + "! Bạn chưa có CV nào! Hãy <a style = 'color : #E62016' target = '_blank' href = 'http://localhost:8080/web-feedback-system/listresume'>tạo CV ngay </a>bây giờ để nhận nhiều cơ hội việc làm!</b>\",	type: 'warning',width :'800',bgcolor: 'rgb(0,185,242)',	autohide:false,	position: 'bottom'});</script>");
+		}
+	%>
 
 	<script type="text/javascript" src="view/resource/lib/job-utility.js"></script>
 </body>

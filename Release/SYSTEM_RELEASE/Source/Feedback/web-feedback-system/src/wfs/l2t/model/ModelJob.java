@@ -15,11 +15,11 @@ public class ModelJob extends Model
 		super();
 	}
 
-	public List<dtoJob> getJob(int offset)
+	public List<dtoJob> getJob(int offset, String userId)
 	{
 
 		List<dtoJob> jobList = new ArrayList<dtoJob>();
-		String sql = "select job.AccountId, job.JobId, JobName, category.CategoryId, category.Description as Category, Location, Salary, job.Description, Tags, Requirement, Benifit, Expired, Source, Company, Fit, NotFit, job_recommended.AccountId as UserId from category, job left join job_recommended on job_recommended.JobId = job.JobId where category.CategoryId = job.CategoryId limit "
+		String sql = "select job.AccountId, job.JobId, JobName, category.CategoryId, category.Description as Category, Location, Salary, job.Description, Tags, Requirement, Benifit, Expired, Source, Company, Fit, NotFit, job_recommended.AccountId as UserId from category, job left join job_recommended on job_recommended.JobId = job.JobId and job_recommended.AccountId = " + userId +" where category.CategoryId = job.CategoryId limit "
 				+ offset + ",10";
 		connection.connect();
 		ResultSet rs = connection.read(sql);

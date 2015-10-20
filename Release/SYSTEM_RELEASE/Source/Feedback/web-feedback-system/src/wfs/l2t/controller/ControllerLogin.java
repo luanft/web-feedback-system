@@ -186,6 +186,7 @@ public class ControllerLogin extends HttpServlet {
 				account.timeReceiveEmail = "weekly";
 				account.numberReceiveEmail = "10";
 				account.confirmCode = UUID.randomUUID().toString();
+				account.avatar = "/view/resource/image/avatar/icon-user-default.png";
 				mdLogin.addAccount(account);
 
 				// verify by email

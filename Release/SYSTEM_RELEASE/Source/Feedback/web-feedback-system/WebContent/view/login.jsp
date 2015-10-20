@@ -74,7 +74,7 @@ body {
 				<img alt=""
 					src="<%out.print(request.getContextPath()
 					+ "/view/resource/image/poster.jpg");%>"
-					width="700" height="400">
+					width="100%" height="430">
 			</div>
 			<div class="col-md-5">
 				<h2 style="font-family: arial; color: blue;">Đăng ký nhận việc
