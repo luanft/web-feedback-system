@@ -175,6 +175,9 @@ public class ControllerHome extends HttpServlet {
 						writeHtml(job, mdj.getShortDescription(job.jobId),
 								true, request, response);
 				}
+				if(request.getHeader("User-Agent").indexOf("Mobile") != -1) {
+					response.getWriter().write("<div id = 'load_more'> <button class = 'btn btn-primary' onclick = 'loadMore'>Lấy thêm việc mới</button></div>");
+				}
 			}
 	}
 
@@ -253,11 +256,7 @@ public class ControllerHome extends HttpServlet {
 		response.getWriter().write("</div>");
 
 		response.getWriter().write("</div>");
-		response.getWriter().write("<br>");
-		if(request.getHeader("User-Agent").indexOf("Mobile") != -1) {
-			response.getWriter().write("<div id = 'load_more'> <button class = 'btn btn-primary'>Lấy thêm việc mới</button></div>");
-			response.getWriter().write("");
-		}	
+		response.getWriter().write("<br>");		
 	}
 
 	private void writeHtml(String noti, HttpServletRequest request,

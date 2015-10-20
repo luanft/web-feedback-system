@@ -199,7 +199,7 @@ public class ControllerLogin extends HttpServlet {
 				String recipient = request.getParameter("reg-email");
 				String subject = "Verify Account";
 
-				String content = "This is email to verify your account on: http://localhost:8080/web-feedback-system/ControllerConfirmEmail?code="
+				String content = "Xin chào! Đây là email xác thực tài khoản bạn đã đăng ký tại: 10.80.12.122/web-feedback-system/ControllerConfirmEmail?code="
 						+ account.confirmCode
 						+ "&accountId="
 						+ mdLogin.getAccountId(account.email);
