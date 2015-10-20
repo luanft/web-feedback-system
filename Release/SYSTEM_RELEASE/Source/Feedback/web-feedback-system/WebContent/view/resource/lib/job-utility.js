@@ -43,17 +43,17 @@ function likeClick(obj, xxx) {
 	}
 }
 //
-//function dislikeClick(xxx) {
-//	$("#panel" + xxx).hide();
-//	$.ajax({
-//		type : "POST",
-//		url : "ControllerHome",
-//		data : {
-//			status : "0",
-//			index : xxx
-//		}
-//	});
-//}
+// function dislikeClick(xxx) {
+// $("#panel" + xxx).hide();
+// $.ajax({
+// type : "POST",
+// url : "ControllerHome",
+// data : {
+// status : "0",
+// index : xxx
+// }
+// });
+// }
 
 // load job when ready
 $(document).ready(function() {
@@ -142,3 +142,22 @@ $(document)
 
 									});
 				});
+
+function loadMore() {
+	if ($("#done").text().trim() !== "Hết việc mới rồi. Hehe!") {
+		$("#loading").show();
+		$.ajax({
+			type : "POST",
+			url : "ControllerHome",
+			data : {
+				xxx : "scroll"
+			},
+			success : function(data) {
+				$("#content-wrapper").append(data);
+				$contentLoadTriggered = false;
+			}
+		});
+
+	} else
+		$("#loading").hide();
+}
