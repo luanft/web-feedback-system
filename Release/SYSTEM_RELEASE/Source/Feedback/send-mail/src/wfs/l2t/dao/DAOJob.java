@@ -2,7 +2,10 @@ package wfs.l2t.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import wfs.l2t.dto.dtoAccount;
@@ -46,16 +49,44 @@ public class DAOJob extends DAO {
 
 		if (this.connection.connect()) {
 			for (dtoJob job : jobs) {
-				String sql = "INSERT INTO `job_recommended`(`AccountId`, `JobId`, `Fit`, `NotFit`,`Seen`) VALUES ("
-						+ userId + "," + job.jobId + ",0,0,0)";
-				try {
-					this.connection.write(sql);
-				} catch (Exception e) {
-					// TODO: handle exception
-				}
+				if(!isExisted(job.jobId, userId))
+				{
+					DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+					Date dateObj = new Date();
+					String sql = "INSERT INTO `job_recommended`(`AccountId`, `JobId`, `Fit`, `NotFit`,`Seen`,`Time`) VALUES ("
+							+ userId
+							+ ","
+							+ job.jobId
+							+ ",0,0,0,'"
+							+ df.format(dateObj) + "')";
+					try {
+						this.connection.write(sql);
+					} catch (Exception e) {
+						// TODO: handle exception
+					}
+				}				
 			}
 			this.connection.close();
 		}
+	}
+
+	private boolean isExisted(String jobId, String userId) {
+		String sql = "select * from `job_recommended` where `AccountId`= "
+				+ userId + " and `JobId` = " + jobId;
+		boolean exist = false;
+		if (this.connection.connect()) {
+			ResultSet rs = this.connection.read(sql);
+			try {
+				exist = rs.next();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			this.connection.close();
+			return exist;
+
+		}
+		return false;
 	}
 
 	public void addRecommendationJob(String jobId, String userId) {
