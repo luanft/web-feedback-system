@@ -73,7 +73,7 @@ $(document).ready(function() {
 });
 
 // load job when user scroll down of page
-var count = 0;
+ var count = 0;
 $contentLoadTriggered = false;
 $(document)
 		.ready(
@@ -143,9 +143,10 @@ $(document)
 									});
 				});
 
-function loadMore() {
+
+function loadMoreJob() {
+	$(".loadMore").hide();
 	if ($("#done").text().trim() !== "Hết việc mới rồi. Hehe!") {
-		$("#loading").show();
 		$.ajax({
 			type : "POST",
 			url : "ControllerHome",

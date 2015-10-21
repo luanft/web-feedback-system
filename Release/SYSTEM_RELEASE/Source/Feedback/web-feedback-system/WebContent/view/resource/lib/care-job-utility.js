@@ -134,3 +134,22 @@ $(document)
 
 									});
 				});
+
+function loadMoreJob() {
+	$(".loadMore").hide();
+	if ($("#done").text().trim() !== "Hết việc mới rồi. Hehe!") {
+		$.ajax({
+			type : "POST",
+			url : "ControllerCareJob",
+			data : {
+				xxx : "scroll"
+			},
+			success : function(data) {
+				$("#content-wrapper").append(data);
+				$contentLoadTriggered = false;
+			}
+		});
+
+	} else
+		$("#loading").hide();
+}

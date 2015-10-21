@@ -93,14 +93,15 @@ public class ControllerHome extends HttpServlet {
 
 	Timestamp timestamp;
 	Calendar cal;
+
 	private void setSuitableJob(HttpServletRequest request)
 			throws ServletException, IOException {
 		String accountId = loginUtility.getLoggedUserId();
-		ModelJobRecommended mjr = new ModelJobRecommended();		
+		ModelJobRecommended mjr = new ModelJobRecommended();
 		String key = request.getParameter("status");
 		String jobId = request.getParameter("index");
 		cal = Calendar.getInstance();
-		timestamp = new Timestamp(cal.getTimeInMillis());		
+		timestamp = new Timestamp(cal.getTimeInMillis());
 		dtoJobRecommended jobRec = new dtoJobRecommended();
 		jobRec.accountId = accountId;
 		jobRec.jobId = jobId;
@@ -109,20 +110,20 @@ public class ControllerHome extends HttpServlet {
 		jobRec.seen = "1";
 		jobRec.time = timestamp;
 		switch (key) {
-		case "0"://not fit
+		case "0":// not fit
 			if (mjr.checkIfExist(jobId, accountId)) {
-				mjr.updateFittable(jobRec);
-			} else {				
-				mjr.add(jobRec);
-			}
-			break;
-		case "1"://fit
-			jobRec.fit = "1";
-			if (mjr.checkIfExist(jobId, accountId)) {				
 				mjr.updateFittable(jobRec);
 			} else {
 				mjr.add(jobRec);
-			}				
+			}
+			break;
+		case "1":// fit
+			jobRec.fit = "1";
+			if (mjr.checkIfExist(jobId, accountId)) {
+				mjr.updateFittable(jobRec);
+			} else {
+				mjr.add(jobRec);
+			}
 			break;
 		default:
 			break;
@@ -132,7 +133,8 @@ public class ControllerHome extends HttpServlet {
 	List<dtoCategory> categoryList;
 
 	private void loadNewJob(HttpServletRequest request,
-			HttpServletResponse response, String userId) throws ServletException, IOException {
+			HttpServletResponse response, String userId)
+			throws ServletException, IOException {
 		ModelJob mdj = new ModelJob();
 		HttpSession session = request.getSession();
 		int offset = Integer
@@ -155,9 +157,7 @@ public class ControllerHome extends HttpServlet {
 			if (offset == 11)
 				writeHtml("Chưa có việc mới!", request, response);
 			else
-				writeHtml(
-						"Hết việc mới rồi!",
-						request, response);
+				writeHtml("Hết việc mới rồi!", request, response);
 		else
 			for (int i = 0; i < jobList.size(); i++) {
 				job = jobList.get(i);
@@ -175,10 +175,11 @@ public class ControllerHome extends HttpServlet {
 						writeHtml(job, mdj.getShortDescription(job.jobId),
 								true, request, response);
 				}
-				if(request.getHeader("User-Agent").indexOf("Mobile") != -1) {
-					response.getWriter().write("<div id = 'load_more'> <button class = 'btn btn-primary' onclick = 'loadMore'>Lấy thêm việc mới</button></div>");
-				}
 			}
+		if (request.getHeader("User-Agent").indexOf("Mobile") != -1) 
+			response.getWriter()
+					.write("<div style = 'text-align:center; margin:0 auto;'><button onclick = 'loadMoreJob();' class = 'btn btn-primary loadMore'  style = 'width:50%; text-align:center; margin:0 auto;'>Lấy thêm việc mới</button></div>");
+		
 	}
 
 	private void writeHtml(dtoJob job, String shortDescription, boolean css,
@@ -199,14 +200,16 @@ public class ControllerHome extends HttpServlet {
 		response.getWriter().write("<div class='panel-body'>");
 		response.getWriter().write("<div class='row'>");
 		response.getWriter().write("<div class='company'>");
-		response.getWriter().write("<pre><b>Công ty: </b>" + job.company + "</pre>");
+		response.getWriter().write(
+				"<pre><b>Công ty: </b>" + job.company + "</pre>");
 		response.getWriter().write("</div>");
 		response.getWriter().write("<div class='location'>");
 		response.getWriter().write(
 				"<pre><b>Địa chỉ: </b>" + job.location + "</pre>");
 		response.getWriter().write("</div>");
 		response.getWriter().write("<div class='salary'>");
-		response.getWriter().write("<pre><b>Lương: </b>" + job.salary + " </pre>");
+		response.getWriter().write(
+				"<pre><b>Lương: </b>" + job.salary + " </pre>");
 		response.getWriter().write("</div>");
 		response.getWriter().write(
 				"<div id='short-description" + job.jobId + "'>");
@@ -235,7 +238,9 @@ public class ControllerHome extends HttpServlet {
 				"<pre><b>Ngày hết hạn: </b>" + job.expired + " </pre>");
 		response.getWriter().write("</div>");
 		response.getWriter().write("<div class='source'>");
-		response.getWriter().write("<pre><b>Nguồn: </b><a href = '" + job.source + "'target='_blank'>" + job.source+ "</a> </pre>");
+		response.getWriter().write(
+				"<pre><b>Nguồn: </b><a href = '" + job.source
+						+ "'target='_blank'>" + job.source + "</a> </pre>");
 		response.getWriter().write("</div>");
 		response.getWriter().write("</div>");
 		response.getWriter().write("</div>");
@@ -256,7 +261,7 @@ public class ControllerHome extends HttpServlet {
 		response.getWriter().write("</div>");
 
 		response.getWriter().write("</div>");
-		response.getWriter().write("<br>");		
+		response.getWriter().write("<br>");
 	}
 
 	private void writeHtml(String noti, HttpServletRequest request,

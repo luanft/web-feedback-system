@@ -191,7 +191,7 @@
 	</div>
 	<%
 		if (listResume.size() == 0) {
-			out.print("<script type = 'text/javascript'>notif({	msg: \"<b>Xin chào " + dtoAcc.userName + "! Bạn chưa có CV nào! Hãy <a style = 'color : #E62016' target = '_blank' href = 'http://localhost:8080/web-feedback-system/listresume'>tạo CV ngay </a>bây giờ để nhận nhiều cơ hội việc làm!</b>\",	type: 'warning',width :'800',bgcolor: 'rgb(0,185,242)',	autohide:false,	position: 'bottom'});</script>");
+			out.print("<script type = 'text/javascript'>notif({	msg: \"<b>Xin chào <br>" + dtoAcc.userName + "! Bạn chưa có CV nào! <br>Hãy <br><a style = 'color : #E62016' target = '_blank' href = 'http://localhost:8080/web-feedback-system/listresume'>tạo CV</a> ngay bây giờ để nhận nhiều cơ hội việc làm!</b>\",	type: 'warning',width :'100',bgcolor: 'rgb(0,185,242)',	autohide:false,	position: 'right', multiline : true});</script>");
 		}
 	%>
 

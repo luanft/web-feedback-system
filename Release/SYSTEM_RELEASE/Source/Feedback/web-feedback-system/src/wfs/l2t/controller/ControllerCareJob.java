@@ -72,8 +72,10 @@ public class ControllerCareJob extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/login");
 		}
 	}
+
 	Timestamp timestamp;
 	Calendar cal;
+
 	private void setSuitableJob(HttpServletRequest request)
 			throws ServletException, IOException {
 		if (request.getParameter("status") != null) {
@@ -82,7 +84,7 @@ public class ControllerCareJob extends HttpServlet {
 			String key = request.getParameter("status");
 			String jobId = request.getParameter("index");
 			cal = Calendar.getInstance();
-			timestamp = new Timestamp(cal.getTimeInMillis());		
+			timestamp = new Timestamp(cal.getTimeInMillis());
 			dtoJobRecommended jobRec = new dtoJobRecommended();
 			jobRec.accountId = accountId;
 			jobRec.jobId = jobId;
@@ -91,20 +93,20 @@ public class ControllerCareJob extends HttpServlet {
 			jobRec.seen = "1";
 			jobRec.time = timestamp;
 			switch (key) {
-			case "0"://not fit
+			case "0":// not fit
 				if (mjr.checkIfExist(jobId, accountId)) {
-					mjr.updateFittable(jobRec);
-				} else {				
-					mjr.add(jobRec);
-				}
-				break;
-			case "1"://fit
-				jobRec.fit = "1";
-				if (mjr.checkIfExist(jobId, accountId)) {				
 					mjr.updateFittable(jobRec);
 				} else {
 					mjr.add(jobRec);
-				}				
+				}
+				break;
+			case "1":// fit
+				jobRec.fit = "1";
+				if (mjr.checkIfExist(jobId, accountId)) {
+					mjr.updateFittable(jobRec);
+				} else {
+					mjr.add(jobRec);
+				}
 				break;
 			default:
 				break;
@@ -138,6 +140,11 @@ public class ControllerCareJob extends HttpServlet {
 				writeHtml(job, mdj.getShortDescription(job.jobId), request,
 						response);
 			}
+			if (jobList.size() >= 10)
+				if (request.getHeader("User-Agent").indexOf("Mobile") != -1)
+					response.getWriter()
+							.write("<div style = 'text-align:center; margin:0 auto;'><button onclick = 'loadMoreJob();' class = 'btn btn-primary loadMore'  style = 'width:50%; text-align:center; margin:0 auto;'>Lấy thêm việc mới</button></div>");
+
 		}
 	}
 
