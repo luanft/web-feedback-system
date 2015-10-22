@@ -1,5 +1,7 @@
 package wfs.l2t.controller;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.UUID;
 
@@ -197,13 +199,24 @@ public class ControllerLogin extends HttpServlet {
 				String user = context.getInitParameter("user");
 				String pass = context.getInitParameter("pass");
 				String recipient = request.getParameter("reg-email");
-				String subject = "Verify Account";
+				String subject = "Xác thực tài khoản";
 
 				String content = "Xin chào! Đây là email xác thực tài khoản bạn đã đăng ký tại: 10.80.12.122/web-feedback-system/ControllerConfirmEmail?code="
 						+ account.confirmCode
 						+ "&accountId="
 						+ mdLogin.getAccountId(account.email);
 
+//				String message = "";
+//			    try {
+//			        BufferedReader in = new BufferedReader(new FileReader("mail-format.html"));
+//			        String str;
+//			        while ((str = in.readLine()) != null) {
+//			            message +=str;
+//			        }
+//			        in.close();
+//			    } catch (IOException e) {
+//			    }
+				
 				String resultMessage = "";
 				try {
 					EmailUtility.sendEmail(host, port, user, pass, recipient,
