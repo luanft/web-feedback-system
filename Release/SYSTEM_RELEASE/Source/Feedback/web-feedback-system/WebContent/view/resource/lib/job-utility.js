@@ -9,6 +9,25 @@ $(document).ready(function() {
 	});
 });
 
+/**
+ * show loading icon when loading data
+ */
+$(document).ajaxStart(function() {
+	$("#loading").show();
+});
+
+/**
+ * hide loading icon when data load completely
+ */
+$(document).ajaxStop(function() {
+	$("#loading").hide();
+});
+
+/**
+ * show or hide job detail
+ * 
+ * @param jobId
+ */
 function myCollapse(xxx) {
 	$("#full-info" + xxx).slideToggle("slow");
 	if ($("#short-description" + xxx).is(":visible"))
@@ -17,6 +36,12 @@ function myCollapse(xxx) {
 		$("#short-description" + xxx).show();
 }
 
+/**
+ * process when user click like button
+ * 
+ * @param obj
+ * @param xxx
+ */
 function likeClick(obj, xxx) {
 	if (($(obj).attr("value")) === "0") {
 		$.ajax({
@@ -55,7 +80,9 @@ function likeClick(obj, xxx) {
 // });
 // }
 
-// load job when ready
+/**
+ * load jobs when document ready
+ */
 $(document).ready(function() {
 
 	{
@@ -72,8 +99,10 @@ $(document).ready(function() {
 	}
 });
 
-// load job when user scroll down of page
- var count = 0;
+/**
+ * load jobs when scroll to bottom
+ */
+var count = 0;
 $contentLoadTriggered = false;
 $(document)
 		.ready(
@@ -90,7 +119,6 @@ $(document)
 														document).height()
 														&& $contentLoadTriggered == false) {
 													$contentLoadTriggered = true;
-													$("#loading").show();
 													$
 															.ajax({
 																type : "POST",
@@ -108,8 +136,7 @@ $(document)
 																}
 															});
 												}
-											} else
-												$("#loading").hide();
+											}
 										} else {
 											count = 0;
 											if ($("#done").text().trim() !== "Hết việc mới rồi. Hehe!") {
@@ -118,7 +145,6 @@ $(document)
 														document).height()
 														&& $contentLoadTriggered == false) {
 													$contentLoadTriggered = true;
-													$("#loading").show();
 													$
 															.ajax({
 																type : "POST",
@@ -136,13 +162,10 @@ $(document)
 																}
 															});
 												}
-											} else
-												$("#loading").hide();
+											}
 										}
-
 									});
 				});
-
 
 function loadMoreJob() {
 	$(".loadMore").hide();
@@ -162,3 +185,28 @@ function loadMoreJob() {
 	} else
 		$("#loading").hide();
 }
+
+/**
+ * function go to top
+ */
+$(document).ready(function() {
+	var offset = 250, // At what pixels show Back to Top Button
+	scrollDuration = 300; // Duration of scrolling to top
+	$(window).scroll(function() {
+		if ($(this).scrollTop() > offset) {
+			$('.top').fadeIn(500); // Time(in Milliseconds) of appearing of the
+									// Button when scrolling down.
+		} else {
+			$('.top').fadeOut(500); // Time(in Milliseconds) of disappearing of
+									// Button when scrolling up.
+		}
+	});
+
+	// Smooth animation when scrolling
+	$('.top').click(function(event) {
+		event.preventDefault();
+		$('html, body').animate({
+			scrollTop : 0
+		}, scrollDuration);
+	})
+});

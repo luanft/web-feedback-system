@@ -80,15 +80,15 @@ public class ControllerHome extends HttpServlet {
 		// TODO Auto-generated method stub
 		// neu chua Ă„â€˜Ă„Æ’ng nhĂ¡ÂºÂ­p
 		if (!loginUtility.isLogged(request, response)) {
-			loginUtility.isLogged(request, response);
-			response.sendRedirect(request.getContextPath() + "/login");
-			return;
-		}
-		request.setAttribute("user", loginUtility.getLoggedUserId());
+			request.getRequestDispatcher("view/login.jsp").forward(request, response);
 
-		loadNewJob(request, response, loginUtility.getLoggedUserId());
-		if (request.getParameter("status") != null)
-			setSuitableJob(request);
+		} else {
+			request.setAttribute("user", loginUtility.getLoggedUserId());
+
+			loadNewJob(request, response, loginUtility.getLoggedUserId());
+			if (request.getParameter("status") != null)
+				setSuitableJob(request);
+		}
 	}
 
 	Timestamp timestamp;
@@ -176,9 +176,9 @@ public class ControllerHome extends HttpServlet {
 								true, request, response);
 				}
 			}
-		if (request.getHeader("User-Agent").indexOf("Mobile") != -1) 
+		if (request.getHeader("User-Agent").indexOf("Mobile") != -1)
 			response.getWriter()
-					.write("<div style = 'text-align:center; margin:0 auto;'><button onclick = 'loadMoreJob();' class = 'btn btn-primary loadMore'  style = 'width:50%; text-align:center; margin:0 auto;'>Lấy thêm việc mới</button></div>");		
+					.write("<div style = 'text-align:center; margin:0 auto;'><button onclick = 'loadMoreJob();' class = 'btn btn-primary loadMore'  style = 'width:50%; text-align:center; margin:0 auto;'>Lấy thêm việc mới</button></div>");
 	}
 
 	private void writeHtml(dtoJob job, String shortDescription, boolean css,
@@ -193,7 +193,8 @@ public class ControllerHome extends HttpServlet {
 		response.getWriter().write(
 				"<a id=\"see-more" + job.jobId
 						+ "\" class=\"btn btn-link\"onclick=\"myCollapse('"
-						+ job.jobId + "')\"> <b>" + job.jobName + "</b></a>");
+						+ job.jobId
+						+ "')\"> <b style='font-size: 16px;white-space: pre-wrap; word-break: normal;' class = 'text-left pull-left'>" + job.jobName + "</b></a>");
 
 		response.getWriter().write("</div>");
 		response.getWriter().write("<div class='panel-body'>");

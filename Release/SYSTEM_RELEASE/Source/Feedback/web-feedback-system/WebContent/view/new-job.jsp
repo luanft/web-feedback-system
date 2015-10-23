@@ -12,9 +12,9 @@
 <%@ page import="wfs.l2t.controller.ControllerHome"%>
 <%@page import="wfs.l2t.dto.dtoAccount"%>
 <%@ page import="wfs.l2t.model.ModelAccount"%>
-<%@ page import="java.io.BufferedReader" %>
-<%@ page import="java.io.FileReader" %>
-<%@ page import="java.io.IOException" %>
+<%@ page import="java.io.BufferedReader"%>
+<%@ page import="java.io.FileReader"%>
+<%@ page import="java.io.IOException"%>
 <%
 	String userId = (String) request.getAttribute("user");
 	ModelAccount account = new ModelAccount();
@@ -27,17 +27,19 @@
 	//get resume to check condition show notification invite user input a CV
 	ModelResume mdr = new ModelResume();
 	List<dtoResume> listResume = mdr.getUserResumes(userId);
-	
-	String link = "";				
-    try {
-        BufferedReader in = new BufferedReader(new FileReader(getServletContext().getResource("/WEB-INF/url-config.txt").getPath()));
-        String str;
-        while ((str = in.readLine()) != null) {
-            link +=str;
-        }
-        in.close();
-    } catch (IOException e) {
-    }
+
+	String link = "";
+	try {
+		BufferedReader in = new BufferedReader(new FileReader(
+				getServletContext().getResource(
+						"/WEB-INF/url-config.txt").getPath()));
+		String str;
+		while ((str = in.readLine()) != null) {
+			link += str;
+		}
+		in.close();
+	} catch (IOException e) {
+	}
 %>
 <!DOCTYPE html>
 <html>
@@ -83,20 +85,21 @@
 <body>
 
 
-	<div class="container">
+	<div class="container flip-container">
 		<!-- menu top -->
-		<jsp:include page="menu/top-menu.jsp"/>
-		<jsp:include page="menu/left-menu-toggle.jsp"/>
+		<jsp:include page="menu/top-menu.jsp" />
+		<jsp:include page="menu/left-menu-toggle.jsp" />
 		<!-- chia trang thanh 2 cot -->
 		<br> <br> <br>
 		<div class="container-fluid">
-			<div class="row">
+			<div class="row flip-container">
 				<div class="col-md-3">
-					<jsp:include page="menu/left-menu.jsp"/>
+					<jsp:include page="menu/left-menu.jsp" />
 				</div>
-				<div class="col-md-9 custom_background_color ">
+				<div class="col-md-9 custom_background_color flip-container">
 					<div class="panel search panel-default">
-						<label style="color: white"><i> Tùy chọn lĩnh vực ngành nghề của bạn!</i></label>
+						<label style="color: white"><i> Tùy chọn lĩnh vực
+								ngành nghề của bạn!</i></label>
 
 						<div class="input-group" style="width: 60%; margin: 0 auto;">
 							<div class="dropdown center">
@@ -123,24 +126,25 @@
 
 					</div>
 					<br>
+					<!-- show jobs -->
 					<div id="content-wrapper" class="panel-group"></div>
-					<div style="text-align: center" id="loading" class="custom_hiden">
-						<button class="btn btn-default pull-center">
-							<i class="glyphicon glyphicon-repeat gly-spin"></i> Đang lấy dữ
-							liệu...
-						</button>
-					</div>
-					
+					<!-- loading icon -->
+					<div id="loading" style="margin: 0 auto;" class="mm custom_hiden"></div>
 				</div>
 			</div>
 		</div>
 	</div>
 	<%
 		if (listResume.size() == 0) {
-			out.print("<script type = 'text/javascript'>notif({	msg: \"<b>Xin chào <br>" + dtoAcc.userName + "! Bạn chưa có CV nào! <br>Hãy <br><a style = 'color : #E62016' target = '_blank' href = '"+ link+"listresume'>tạo CV</a> ngay bây giờ để nhận nhiều cơ hội việc làm!</b>\",	type: 'warning',width :'100',bgcolor: 'rgb(0,185,242)',	autohide:false,	position: 'right', multiline : true});</script>");
+			out.print("<script type = 'text/javascript'>notif({	msg: \"<b>Xin chào <br>"
+					+ dtoAcc.userName
+					+ "! Bạn chưa có CV nào! <br>Hãy <br><a style = 'color : #E62016' target = '_blank' href = '"
+					+ link
+					+ "listresume'>tạo CV</a> ngay bây giờ để nhận nhiều cơ hội việc làm!</b>\",	type: 'warning',width :'100',bgcolor: 'rgb(0,185,242)',	autohide:false,	position: 'right', multiline : true});</script>");
 		}
 	%>
-
+	<!-- go to top button -->
+	<a href="#" class="top"></a>
 	<script type="text/javascript" src="view/resource/lib/job-utility.js"></script>
 </body>
 </html>

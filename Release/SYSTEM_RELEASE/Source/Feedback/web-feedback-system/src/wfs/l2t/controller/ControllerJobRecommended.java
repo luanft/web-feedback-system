@@ -155,10 +155,13 @@ public class ControllerJobRecommended extends HttpServlet {
 				"<div class=\"panel panel-info\" id = 'panel" + job.jobId
 						+ "'>");
 		response.getWriter().write("<div class='panel-heading'>");
-		response.getWriter().write(
-				"<a id=\"see-more" + job.jobId
+		response.getWriter()
+				.write("<a id=\"see-more"
+						+ job.jobId
 						+ "\" class=\"btn btn-link\"onclick=\"myCollapse('"
-						+ job.jobId + "')\"> <b>" + job.jobName + "</b></a>");
+						+ job.jobId
+						+ "')\"> <b style='font-size: 16px;white-space: pre-wrap; word-break: normal;' class = 'text-left  pull-left'>"
+						+ job.jobName + "</b></a>");
 
 		response.getWriter().write("</div>");
 		response.getWriter().write("<div class='panel-body'>");
