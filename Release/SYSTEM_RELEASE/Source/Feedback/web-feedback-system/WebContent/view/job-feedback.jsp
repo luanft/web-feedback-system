@@ -25,10 +25,7 @@
 <script src="view/resource/lib/jquery-2.1.4.min.js"></script>
 <script src="view/resource/bootstrap/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="view/resource/css/theme_customize.css">
-<script type="text/javascript"
-		src="view/resource/lib/job-feedback-utility.js">
-		
-	</script>
+
 <script src="view/resource/lib/jquery.jpanelmenu.js"></script>
 <script src="view/resource/lib/menu.js"></script>
 <link rel="stylesheet" href="view/resource/css/menu.css">
@@ -64,6 +61,9 @@
 			</div>
 		</div>
 	</div>
-	
+	<script type="text/javascript"
+		src="view/resource/lib/job-feedback-utility.js">
+		
+	</script>
 </body>
 </html>

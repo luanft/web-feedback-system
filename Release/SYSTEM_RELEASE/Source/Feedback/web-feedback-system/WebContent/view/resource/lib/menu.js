@@ -8,18 +8,22 @@ $(document).ready(function() {
 		menu: "#left-menu-toggle",
 		trigger: "#toggle-link-id",
 	});
+	jPM.on();
 	var max_width= window.screen.availWidth - (window.outerWidth - window.innerWidth)
 	if($(window).width()< max_width-10){
+			alert("thu nho!!!")
 			$(".navbar-large").hide();
 			$(".navbar-small").show();
 			$(".left-menu").hide();
+			
 	}
-	jPM.on();
+
+		
+	
 	$(window).resize(function() {
 		if($(window).width()< max_width-10){
 			$(".navbar-large").hide();
 			$(".navbar-small").show();
-			
 			$(".left-menu").hide();
 			
 		}
@@ -29,8 +33,7 @@ $(document).ready(function() {
 			$(".navbar-small").hide();
 			$(".navbar-large").show();
 			$(".left-menu").show();
-			$(".left-menu-toggle").hide();
-			
+		
 		}
 			
 	});

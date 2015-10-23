@@ -19,14 +19,17 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <title>Recommendation System</title>
 <!-- Latest compiled and minified CSS -->
+
 <link rel="stylesheet"
 	href="view/resource/bootstrap/css/bootstrap.min.css">
 <script src="view/resource/lib/jquery-2.1.4.min.js"></script>
 <script src="view/resource/bootstrap/js/bootstrap.min.js"></script>
 
 <link rel="stylesheet" href="view/resource/css/theme_customize.css">
-<script src="view/resource/lib/jquery.jpanelmenu.js"></script>
-<script src="view/resource/lib/menu.js"></script>
+
+
+<script type="text/javascript" src="view/resource/lib/jquery.jpanelmenu.js"></script>
+<script type="text/javascript" src="view/resource/lib/menu.js"></script>
 <link rel="stylesheet" href="view/resource/css/menu.css">
 <style>
 
@@ -67,9 +70,6 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript"
-		src="view/resource/lib/care-job-utility.js">
-		
-	</script>
+	<script type="text/javascript" src="view/resource/lib/care-job-utility.js"></script>
 </body>
 </html>
