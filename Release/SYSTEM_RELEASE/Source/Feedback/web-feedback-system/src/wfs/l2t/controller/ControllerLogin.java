@@ -13,8 +13,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import wfs.l2t.dto.dtoAccount;
+import wfs.l2t.dto.dtoCategory;
 import wfs.l2t.model.ModelAccount;
+import wfs.l2t.model.ModelCare;
 import wfs.l2t.utility.EmailUtility;
 import wfs.l2t.utility.LoginUtility;
 import wfs.l2t.utility.Md5Utility;
@@ -27,8 +30,9 @@ import wfs.l2t.utility.loginSession;
 public class ControllerLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private dtoAccount account = new dtoAccount();
-	private ModelAccount mdLogin = new ModelAccount();
+	private dtoAccount account = new dtoAccount();	
+	private ModelCare mdCare = new ModelCare();
+	private ModelAccount mdAccount = new ModelAccount();
 	private LoginUtility loginUtility = new LoginUtility();
 
 	/**
@@ -102,8 +106,8 @@ public class ControllerLogin extends HttpServlet {
 	private void login(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// check email
-		if (mdLogin.getAccount(request.getParameter("login-email")) != null) {
-			account = mdLogin.getAccount(request.getParameter("login-email"));
+		if (mdAccount.getAccount(request.getParameter("login-email")) != null) {
+			account = mdAccount.getAccount(request.getParameter("login-email"));
 			// check password
 			String pass = request.getParameter("login-pass");
 			pass = md5.md5(pass);
@@ -122,7 +126,7 @@ public class ControllerLogin extends HttpServlet {
 						cookieUserId.setMaxAge(31104000);
 
 						String token = md5.generateToken();
-						mdLogin.setToken(account.accountId, token);
+						mdAccount.setToken(account.accountId, token);
 						Cookie cookieToken = new Cookie("jobrec_login_token",
 								token);
 						cookieToken.setMaxAge(31104000);
@@ -140,7 +144,7 @@ public class ControllerLogin extends HttpServlet {
 						obj.userId = account.accountId;
 
 						String token = md5.generateToken();
-						mdLogin.setToken(account.accountId, token);
+						mdAccount.setToken(account.accountId, token);
 						obj.token = token;
 						session.setAttribute("login_session", obj);
 						response.addCookie(cookieRemember);
@@ -187,6 +191,7 @@ public class ControllerLogin extends HttpServlet {
 		String userName = request.getParameter("reg-username");
 		String password = request.getParameter("reg-password");
 		String rpassword = request.getParameter("reg-re-type-password");
+		String category = request.getParameter("reg-category");
 		if (email != "" && userName != "" && password != "" && rpassword != "") {
 			if (password.equals(rpassword)) {
 				account.userName = userName;
@@ -199,7 +204,8 @@ public class ControllerLogin extends HttpServlet {
 				account.numberReceiveEmail = "10";
 				account.confirmCode = UUID.randomUUID().toString();
 				account.avatar = "/view/resource/image/avatar/icon-user-default.png";
-				mdLogin.addAccount(account);
+				mdAccount.addAccount(account);
+				mdCare.careCategory(mdAccount.getAccountId(email), category);
 
 				// verify by email
 				// reads SMTP server setting from web.xml file
@@ -225,7 +231,7 @@ public class ControllerLogin extends HttpServlet {
 			    String content = "Xin chào " +account.userName+"! <br>Đây là email xác thực tài khoản bạn đã đăng ký tại: <a href = " +link+ "ControllerConfirmEmail?code="
 						+ account.confirmCode
 						+ "&accountId="
-						+ mdLogin.getAccountId(account.email)
+						+ mdAccount.getAccountId(account.email)
 						+ "> " + link + " </a>";
 				
 				String resultMessage = "";

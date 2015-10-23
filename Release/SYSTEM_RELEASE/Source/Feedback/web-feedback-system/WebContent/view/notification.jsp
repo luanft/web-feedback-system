@@ -18,7 +18,7 @@
 			<panel class="panel-info">
 			<div class="panel-heading">
 				<p class="text-center">
-					<b> Cảm ơn bạn đã đăng ký thành viên tại </b><a href="#"><i><%=request.getAttribute("link")%></i></a>
+					<b> Cảm ơn bạn đã đăng ký thành viên tại </b><a href=<%=request.getAttribute("link")%>><i><%=request.getAttribute("link")%></i></a>
 				</p>
 				<p class="text-center">
 					<i><%=request.getAttribute("Message")%></i>

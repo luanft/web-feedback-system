@@ -23,28 +23,33 @@ $(document).ready(
 			$("#reg-form").on(
 					'blur keyup',
 					function(event) {
-						if ($('#reg-email').val() != ""
-								&& $('#reg-user').val() != ""
-								&& $('#reg-pwd').val() != ""
-								&& $('#reg-rpwd').val() != ""
-								&& $("#txtHintEmail").text() == ""
-								&& $("#txtHintrpwd").text() == "") {
-							$("#reg-button").prop('disabled', false);
-						} else
+						if ($('#reg-email').val() == ""
+								|| $('#reg-user').val() == ""
+								|| $('#reg-pwd').val() == ""
+								|| $('#reg-rpwd').val() == ""
+								|| $("#txtHintEmail").text() != ""
+								|| $("#txtHintrpwd").text() != "") 
+									{
 							$("#reg-button").prop('disabled', true);
+						} else
+							$("#reg-button").prop('disabled', false);
 					});
 		});
 
 // check match password
 $(document).ready(function() {
 	$('#reg-pass').on('keyup blur', function(event) {
-		// alert("pw-" + $("#reg-pwd").val() + "-rpw-" + $("#reg-rpwd").val());
 		if ($("#reg-pwd").val() != $("#reg-rpwd").val()) {
 			$("#txtHintrpwd").text("Mật khẩu không trùng khớp");
-			// alert("rhint-" + $("#txtHintrpwd").text());
 		} else {
 			$("#txtHintrpwd").text("");
-			// alert("rhint-" + $("#txtHintrpwd").text());
+		}
+	});
+	$('#reg-rpass').on('keyup blur', function(event) {
+		if ($("#reg-pwd").val() != $("#reg-rpwd").val()) {
+			$("#txtHintrpwd").text("Mật khẩu không trùng khớp");
+		} else {
+			$("#txtHintrpwd").text("");
 		}
 	});
 });

@@ -118,9 +118,12 @@ body {
 						</div>
 						<div class="form-group">
 							<lable>Lĩnh vực ngành nghề </lable>
-							<select class="form-control" id="sel1">
+							<select class="form-control" name="reg-category">
 								<%
 									for (dtoCategory cate : listCate) {
+										if (cate.categoryName.trim().equals("IT - Phần mềm"))
+											out.print("<option selected value = '" + cate.categoryId
+													+ "'>" + cate.categoryName + "</option>");
 										out.print("<option value = '" + cate.categoryId + "'>"
 												+ cate.categoryName + "</option>");
 									}
@@ -135,7 +138,7 @@ body {
 								<i id="txtHintpwd" style="color: red;"></i>
 							</div>
 						</div>
-						<div class="form-group" id="reg-pass">
+						<div class="form-group" id="reg-rpass">
 							<lable>Nhập lại mật khẩu</lable>
 							<input name="reg-re-type-password" type="password"
 								placeholder="mật khẩu" class="form-control" id="reg-rpwd">
