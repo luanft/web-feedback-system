@@ -222,10 +222,11 @@ public class ControllerLogin extends HttpServlet {
 			    } catch (IOException e) {
 			    }
 			    
-			    String content = "Xin chào " +account.userName+"! <br>Đây là email xác thực tài khoản bạn đã đăng ký tại:" +link+ "ControllerConfirmEmail?code="
+			    String content = "Xin chào " +account.userName+"! <br>Đây là email xác thực tài khoản bạn đã đăng ký tại: <a href = " +link+ "ControllerConfirmEmail?code="
 						+ account.confirmCode
 						+ "&accountId="
-						+ mdLogin.getAccountId(account.email);
+						+ mdLogin.getAccountId(account.email)
+						+ "> " + link + " </a>";
 				
 				String resultMessage = "";
 				try {
