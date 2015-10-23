@@ -13,9 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import wfs.l2t.dto.dtoAccount;
-import wfs.l2t.dto.dtoCategory;
 import wfs.l2t.model.ModelAccount;
 import wfs.l2t.model.ModelCare;
 import wfs.l2t.utility.EmailUtility;
