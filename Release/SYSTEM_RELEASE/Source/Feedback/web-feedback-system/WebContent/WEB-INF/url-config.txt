@@ -1,1 +1,1 @@
-10.80.12.122/jobrecsys/
+http://10.80.12.122/jobrecsys/

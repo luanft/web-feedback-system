@@ -12,7 +12,9 @@
 <%@ page import="wfs.l2t.controller.ControllerHome"%>
 <%@page import="wfs.l2t.dto.dtoAccount"%>
 <%@ page import="wfs.l2t.model.ModelAccount"%>
-
+<%@ page import="java.io.BufferedReader" %>
+<%@ page import="java.io.FileReader" %>
+<%@ page import="java.io.IOException" %>
 <%
 	String userId = (String) request.getAttribute("user");
 	ModelAccount account = new ModelAccount();
@@ -26,7 +28,16 @@
 	ModelResume mdr = new ModelResume();
 	List<dtoResume> listResume = mdr.getUserResumes(userId);
 	
-	
+	String link = "";				
+    try {
+        BufferedReader in = new BufferedReader(new FileReader(getServletContext().getResource("/WEB-INF/url-config.txt").getPath()));
+        String str;
+        while ((str = in.readLine()) != null) {
+            link +=str;
+        }
+        in.close();
+    } catch (IOException e) {
+    }
 %>
 <!DOCTYPE html>
 <html>
@@ -194,7 +205,7 @@
 	</div>
 	<%
 		if (listResume.size() == 0) {
-			out.print("<script type = 'text/javascript'>notif({	msg: \"<b>Xin chào <br>" + dtoAcc.userName + "! Bạn chưa có CV nào! <br>Hãy <br><a style = 'color : #E62016' target = '_blank' href = '10.80.12.122/jobrecsys/listresume'>tạo CV</a> ngay bây giờ để nhận nhiều cơ hội việc làm!</b>\",	type: 'warning',width :'100',bgcolor: 'rgb(0,185,242)',	autohide:false,	position: 'right', multiline : true});</script>");
+			out.print("<script type = 'text/javascript'>notif({	msg: \"<b>Xin chào <br>" + dtoAcc.userName + "! Bạn chưa có CV nào! <br>Hãy <br><a style = 'color : #E62016' target = '_blank' href = '"+ link+"jobrecsys/listresume'>tạo CV</a> ngay bây giờ để nhận nhiều cơ hội việc làm!</b>\",	type: 'warning',width :'100',bgcolor: 'rgb(0,185,242)',	autohide:false,	position: 'right', multiline : true});</script>");
 		}
 	%>
 
