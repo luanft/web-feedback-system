@@ -1,0 +1,48 @@
+"> đây </a> để
+																		xem những việc làm mới phù hợp với bạn ngay!
+																	</p> <br>
+																</td>
+															</tr>
+
+															<tr>
+																<td>
+																	<table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse">
+																		<tbody>
+																			<tr>
+																				<td style="font-family: Arial, sans-serif; font-size: 13px; line-height: 20px; color: #666; border-top: 1px #ddd solid">
+																					<p style="margin: 0 0 3px">&nbsp;</p>
+
+																				</td>
+																				<td style="width: 12px; height: 11px; border-top: none">
+																					&nbsp;</td>
+																			</tr>
+																		</tbody>
+																	</table>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</td>
+												<td width="5%"></td>
+											</tr>
+											<tr>
+												<td width="5%"></td>
+												<td style="font-size: 11px; font-family: Arial, sans-serif; color: #999; text-align: center; padding-bottom: 10px">
+													<p>
+														Cảm ơn bạn đã quan tâm sử dụng hệ thống của <a target="_blank" style="color: #999" href="http://jobrecsys.uit.edu.vn">chúng tôi</a>!
+													</p> Copyright &copy; Nhóm sinh viên UIT
+												</td>
+												<td width="5%"></td>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+</body></html>

@@ -1,0 +1,13 @@
+</strong>,
+													</p>
+													<p style="font-family: Arial, sans-serif; margin: 0 0 15px 0; font-size: 13px; color: #666; line-height: 18px">
+														Bạn đang cần tìm việc làm? Hệ thống của chúng tôi sẽ phục
+														vụ nhu cầu tìm việc làm của bạn một cách tốt nhất!<a href="http://jobrecsys.uit.edu.vn" style="color: #00b9f2" target="_blank"> Job
+															Recommendation System</a>.
+													</p>
+													<table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse">
+														<tbody>
+															<tr>
+																<td style="font-family: Arial, sans-serif; font-size: 14px; line-height: 24px; color: #555">
+																	<p style="margin: 10px 0 0 0; font-size: 18px; font-weight: bold">
+																		Có <strong style="color: orange">
