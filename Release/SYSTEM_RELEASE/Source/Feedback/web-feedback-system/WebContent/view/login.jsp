@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@page import="wfs.l2t.dto.dtoCategory"%>
+<%@page import="wfs.l2t.model.ModelCategory"%>
+<%@page import="java.util.*"%>
+<%
+	ModelCategory mdc = new ModelCategory();
+	List<dtoCategory> listCate = mdc.getAllCategory();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -109,6 +116,17 @@ body {
 								name="radio" value="job-seeker" checked>Người tìm việc
 							</label>
 						</div>
+						<div class="form-group">
+							<lable>Lĩnh vực ngành nghề </lable>
+							<select class="form-control" id="sel1">
+								<%
+									for (dtoCategory cate : listCate) {
+										out.print("<option value = '" + cate.categoryId + "'>"
+												+ cate.categoryName + "</option>");
+									}
+								%>
+							</select>
+						</div>
 						<div class="form-group" id="reg-pass">
 							<lable>Mật khẩu</lable>
 							<input name="reg-password" type="password" placeholder="mật khẩu"
@@ -116,7 +134,8 @@ body {
 							<div>
 								<i id="txtHintpwd" style="color: red;"></i>
 							</div>
-
+						</div>
+						<div class="form-group" id="reg-pass">
 							<lable>Nhập lại mật khẩu</lable>
 							<input name="reg-re-type-password" type="password"
 								placeholder="mật khẩu" class="form-control" id="reg-rpwd">
