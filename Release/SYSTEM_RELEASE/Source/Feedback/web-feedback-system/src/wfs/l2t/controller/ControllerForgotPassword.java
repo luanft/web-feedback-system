@@ -1,5 +1,7 @@
 package wfs.l2t.controller;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.UUID;
 
@@ -73,11 +75,23 @@ public class ControllerForgotPassword extends HttpServlet {
 				String user = context.getInitParameter("user");
 				String pass = context.getInitParameter("pass");
 				String recipient = email;
-				String subject = "Thay đổi mật khẩu tài khoản tại recsys.com";
+				
+				String link = "";				
+			    try {
+			        BufferedReader in = new BufferedReader(new FileReader(getServletContext().getResource("/WEB-INF/url-config.txt").getPath()));
+			        String str;
+			        while ((str = in.readLine()) != null) {
+			            link +=str;
+			        }
+			        in.close();
+			    } catch (IOException e) {
+			    }
+				
+				String subject = "Thay đổi mật khẩu tài khoản " + account.userName;
 
 				String content = "Tài khoản "
 						+ account.userName
-						+ " tại recsys.com đã được thay đổi mật khẩu. Mật khẩu mới của bạn là: "
+						+ " tại "+link+" đã được thay đổi mật khẩu. Mật khẩu mới của bạn là: "
 						+ newPass
 						+ "\r\n Cảm ơn bạn đã sử dụng hệ thống khuyến nghị việc làm của chúng tôi!";
 

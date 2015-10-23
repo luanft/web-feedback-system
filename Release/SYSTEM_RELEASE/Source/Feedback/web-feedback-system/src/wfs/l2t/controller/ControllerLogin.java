@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import wfs.l2t.dto.dtoAccount;
 import wfs.l2t.model.ModelAccount;
 import wfs.l2t.utility.EmailUtility;
@@ -149,6 +148,17 @@ public class ControllerLogin extends HttpServlet {
 					response.sendRedirect(request.getContextPath() + "/home");
 				} else {
 					// not activate account
+					String link = "";				
+				    try {
+				        BufferedReader in = new BufferedReader(new FileReader(getServletContext().getResource("/WEB-INF/url-config.txt").getPath()));
+				        String str;
+				        while ((str = in.readLine()) != null) {
+				            link +=str;
+				        }
+				        in.close();
+				    } catch (IOException e) {
+				    }
+					request.setAttribute("link", link);
 					request.setAttribute(
 							"Message",
 							"Bạn chưa xác thực email. Vui lòng xác thực email để kích hoạt tài khoản của bạn!");
@@ -199,23 +209,23 @@ public class ControllerLogin extends HttpServlet {
 				String user = context.getInitParameter("user");
 				String pass = context.getInitParameter("pass");
 				String recipient = request.getParameter("reg-email");
-				String subject = "Xác thực tài khoản";
+				String subject = "Xác thực tài khoản";				
 
-				String content = "Xin chào! Đây là email xác thực tài khoản bạn đã đăng ký tại: 10.80.12.122/web-feedback-system/ControllerConfirmEmail?code="
+				String link = "";				
+			    try {
+			        BufferedReader in = new BufferedReader(new FileReader(getServletContext().getResource("/WEB-INF/url-config.txt").getPath()));
+			        String str;
+			        while ((str = in.readLine()) != null) {
+			            link +=str;
+			        }
+			        in.close();
+			    } catch (IOException e) {
+			    }
+			    
+			    String content = "Xin chào " +account.userName+"! <br>Đây là email xác thực tài khoản bạn đã đăng ký tại:" +link+ "ControllerConfirmEmail?code="
 						+ account.confirmCode
 						+ "&accountId="
 						+ mdLogin.getAccountId(account.email);
-
-//				String message = "";
-//			    try {
-//			        BufferedReader in = new BufferedReader(new FileReader("mail-format.html"));
-//			        String str;
-//			        while ((str = in.readLine()) != null) {
-//			            message +=str;
-//			        }
-//			        in.close();
-//			    } catch (IOException e) {
-//			    }
 				
 				String resultMessage = "";
 				try {
@@ -227,6 +237,7 @@ public class ControllerLogin extends HttpServlet {
 					resultMessage = "Lỗi gửi mail. Sorry!!!" + ex.getMessage();
 				} finally {
 					request.setAttribute("Message", resultMessage);
+					request.setAttribute("link", link);
 					request.getRequestDispatcher("view/notification.jsp")
 							.include(request, response);
 				}
