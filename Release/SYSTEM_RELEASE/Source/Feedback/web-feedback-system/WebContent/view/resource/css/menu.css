@@ -1,0 +1,35 @@
+.navbar-small{
+	size: auto;
+	padding: 10px;
+	
+}
+.toggle-link{
+	font-size: x-large;
+
+}
+.web-brand{
+	font-size: large;
+    
+}
+.toggle-link .left-menu-toggle{
+	transition:all .5s ease-in-out;
+    -webkit-transition:all .5s ease-in-out;
+}
+.left-menu-toggle{
+	position:absolute;
+    top:0;
+    left:0;
+    width: 100px;
+   height: 700px;
+	
+}
+.left-menu-collapsed{
+	transform:translateX(-100%);   
+    -webkit-transform:translateX(-100%);
+   
+}
+.left-menu-collapsed .toggle-link{
+ 	right:-5px;
+     transform:translateX(100%);   
+    -webkit-transform:translateX(100%);
+}

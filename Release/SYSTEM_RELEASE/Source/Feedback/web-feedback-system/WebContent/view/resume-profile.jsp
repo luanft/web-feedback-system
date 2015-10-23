@@ -38,6 +38,10 @@
 	src="${pageContext.request.contextPath}/view/resource/lib/form_validate.js"></script>
 <script
 	src="${pageContext.request.contextPath}/view/resource/lib/form_submit.js"></script>
+	
+<script src="view/resource/lib/jquery.jpanelmenu.js"></script>
+<script src="view/resource/lib/menu.js"></script>
+<link rel="stylesheet" href="view/resource/css/menu.css">
 <style type="text/css">
 hr {
 	-moz-border-bottom-colors: none;
@@ -63,87 +67,15 @@ hr {
 
 	<div class="container">
 		<!-- menu top -->
-		<nav
-			class="navbar navbar-inverse navbar-fixed-top custom_navbar_color">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-4">
-					<div class="navbar-header">
-						<img
-							src="<%out.print(request.getContextPath()
-					+ "/view/resource/image/logo.jpg");%>"
-							class="img-circle navbar-brand" width="60" height="70"> <a
-							href="<%out.print(request.getContextPath());%>"
-							class="navbar-brand custom_color_white"> RECOMMENDATION
-							SYSTEM</a>
-					</div>
-				</div>
-				<div class="col-md-8">
-					<div>
-						<ul class="nav navbar-nav  navbar-right">
-							<li><a href="<%out.print(request.getContextPath());%>">Home</a></li>
-							<li class="dropdown"><a href="#" class="dropdown-toggle"
-								data-toggle="dropdown"> <span
-									class="glyphicon glyphicon-user"></span> Xin chào <%=dtoAcc.userName%><span
-									class="caret"></span>
-							</a>
-								<ul class="dropdown-menu">
-									<li><a
-										href="<%out.print(request.getContextPath() + "/account");%>">Quản
-											lý tài khoản</a></li>
-									<li><a
-										href="<%out.print(request.getContextPath() + "/home?logout=true");%>"><span
-											class="glyphicon glyphicon-log-in"></span> Đăng xuất</a></li>
-								</ul></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-		</nav>
+		<jsp:include page="menu/top-menu.jsp"/>
+		<jsp:include page="menu/left-menu-toggle.jsp"/>
 		<!-- chia trang thanh 2 cot -->
 
 		<div class="container-fluid">
 			<br> <br> <br>
 			<div class="row">
 				<div class="col-md-3">
-					<div data-spy="affix" data-offset-top="0">
-						<div class="container-fluid col-md-offset-0">
-							<h4>Xin chào!</h4>
-							<img
-								src="<%out.print(request.getContextPath() + dtoAcc.avatar);%>"
-								class="img-rounded" width="170" height="170">
-						</div>
-						<br>
-						<div>
-							<ul class="nav nav-stacked nav-pills custom_font_bold"
-								role="tablist">
-								<li><a href="<%out.print(request.getContextPath());%>"><span
-										class="glyphicon glyphicon glyphicon-home"></span> Việc Làm
-										Mới</a></li>
-								<li><a
-									href="<%out.print(request.getContextPath() + "/recommendation");%>"><span
-										class="glyphicon glyphicon glyphicon-pencil"></span> Việc Làm
-										Gợi Ý</a></li>
-								<li><a
-									href="<%out.print(request.getContextPath() + "/listresume");%>"><span
-										class="glyphicon glyphicon-list-alt"></span> Hồ Sơ Của Bạn</a></li>
-								<li><a
-									href="<%out.print(request.getContextPath() + "/care");%>"><span
-										class="glyphicon glyphicon-heart"></span> Việc Đã Lưu</a></li>
-								<li><a
-									href="<%out.print(request.getContextPath() + "/settings");%>"><span
-										class="glyphicon glyphicon-cog"></span> Thiết Lập Gửi Mail</a></li>
-
-								<li><a
-									href="<%out.print(request.getContextPath() + "/help");%>"><span
-										class="glyphicon glyphicon-question-sign"></span> Trợ Giúp</a></li>
-								<li><a
-									href="<%out.print(request.getContextPath() + "/help?about");%>"><span
-										class="glyphicon glyphicon-question-sign"></span> About</a></li>
-							</ul>
-						</div>
-					</div>
+					<jsp:include page="menu/left-menu.jsp"/>
 				</div>
 				<div class="col-md-9 ">
 

@@ -13,61 +13,23 @@
 <script src="view/resource/lib/jquery-2.1.4.min.js"></script>
 <script src="view/resource/bootstrap/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="view/resource/css/theme_customize.css">
+
+<script src="view/resource/lib/jquery.jpanelmenu.js"></script>
+<script src="view/resource/lib/menu.js"></script>
+<link rel="stylesheet" href="view/resource/css/menu.css">
 </head>
 <body>
 	<div class="container">
 		<!-- menu top -->
-		<nav
-			class="navbar navbar-inverse navbar-fixed-top custom_navbar_color">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-4">
-					<div class="navbar-header">
-						<img
-							src="<%out.print(request.getContextPath()
-					+ "/view/resource/image/logo.jpg");%>"
-							class="img-circle navbar-brand" width="60" height="70"> <a
-							href="<%out.print(request.getContextPath());%>"
-							class="navbar-brand custom_color_white"> RECOMMENDATION
-							SYSTEM</a>
-					</div>
-				</div>
-				<div class="col-md-8">
-					<div>
-						<ul class="nav navbar-nav  navbar-right">
-							<li><a href="<%out.print(request.getContextPath());%>">Home</a></li>
-							<li class="dropdown"><a href="#" class="dropdown-toggle"
-								data-toggle="dropdown"> <span
-									class="glyphicon glyphicon-user"></span> Xin chào!<span
-									class="caret"></span>
-							</a>
-								<ul class="dropdown-menu">
-									<li><a
-										href="<%out.print(request.getContextPath() + "/account");%>">Quản
-											lý tài khoản</a></li>
-									<li><a
-										href="<%out.print(request.getContextPath() + "/login");%>"><span
-											class="glyphicon glyphicon-log-in"></span> Đăng kí</a></li>
-								</ul></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-		</nav>
+		<jsp:include page="menu/top-menu.jsp"/>
+<jsp:include page="menu/left-menu-toggle.jsp"/>
 		<!-- chia trang thanh 2 cot -->
 
 		<div class="container-fluid">
 			<br> <br> <br>
 			<div class="row">
 				<div class="col-md-3">
-					<div data-spy="affix" data-offset-top="0">
-						<div class="container-fluid col-md-offset-0"></div>
-						<br>
-						<div>
-
-						</div>
-					</div>
+					<jsp:include page="menu/left-menu.jsp"></jsp:include>
 				</div>
 				<div class="col-md-9">
 					<br> <br>
