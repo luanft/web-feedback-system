@@ -1,7 +1,7 @@
 .navbar-small{
 	size: auto;
-	padding: 10px;
-	
+	padding-left: 20px;
+	padding-right: 50px
 }
 .toggle-link{
 	font-size: x-large;
@@ -9,7 +9,8 @@
 }
 .web-brand{
 	font-size: large;
-    
+    margin-left: 25%;
+    margin-right: 25%;
 }
 .toggle-link .left-menu-toggle{
 	transition:all .5s ease-in-out;
@@ -21,15 +22,15 @@
     left:0;
     width: 100px;
    height: 700px;
+   padding-left: 10px;
 	
 }
-.left-menu-collapsed{
-	transform:translateX(-100%);   
-    -webkit-transform:translateX(-100%);
-   
+.left-menu{
+	 padding-left: 10px;
 }
-.left-menu-collapsed .toggle-link{
- 	right:-5px;
-     transform:translateX(100%);   
-    -webkit-transform:translateX(100%);
+li.dropdown{
+	padding-right: 15px;
+}
+.nav-large .nav-small{
+	top:0px;
 }

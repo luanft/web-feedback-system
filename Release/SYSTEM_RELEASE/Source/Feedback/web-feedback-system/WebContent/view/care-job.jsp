@@ -49,7 +49,7 @@
 	<div class="container">
 		<!-- menu top -->
 		<jsp:include page="menu/top-menu.jsp"/>
-<jsp:include page="menu/left-menu-toggle.jsp"/>
+	<jsp:include page="menu/left-menu-toggle.jsp"/>
 		<!-- chia trang thanh 2 cot -->
 		<br> <br> <br>
 		<div class="container-fluid">
