@@ -14,7 +14,7 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title>Resume Profile</title>
+<title>Hồ sơ của bạn</title>
 <!-- Latest compiled and minified CSS -->
 
 <script
@@ -71,7 +71,7 @@
 		<jsp:include page="menu/left-menu-toggle.jsp"/>
 		<!-- chia trang thanh 2 cot -->
 
-		<div class="container-fluid">
+		<div class="container">
 			<br> <br> <br>
 			<div class="row">
 				<div class="col-md-3">

@@ -17,7 +17,7 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title>Recommendation System</title>
+<title>Việc Làm Đã Lưu</title>
 <!-- Latest compiled and minified CSS -->
 
 <link rel="stylesheet"
@@ -66,6 +66,8 @@
 			</div>
 		</div>
 	</div>
+	<!-- go to top button -->
+	<a href="#" class="top"></a>
 	<script type="text/javascript" src="view/resource/lib/care-job-utility.js"></script>
 </body>
 </html>

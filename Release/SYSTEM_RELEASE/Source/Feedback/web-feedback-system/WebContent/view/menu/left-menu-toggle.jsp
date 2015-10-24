@@ -27,7 +27,7 @@ dtoAccount dtoAcc = account.getAccountById(userId);
 				href="<%out.print(request.getContextPath() + "/listresume");%>"><span
 					class="glyphicon glyphicon-list-alt"></span> Hồ Sơ Của Bạn</a></li>
 			<li id="care"><a href="<%out.print(request.getContextPath() + "/care");%>"><span
-					class="glyphicon glyphicon-heart"></span> Việc Đã Lưu</a></li>
+					class="glyphicon glyphicon-heart"></span> Việc Làm Đã Lưu</a></li>
 			<li id="setting"><a
 				href="<%out.print(request.getContextPath() + "/settings");%>"><span
 					class="glyphicon glyphicon-cog"></span> Thiết Lập Gửi Mail</a></li>
@@ -36,7 +36,7 @@ dtoAccount dtoAcc = account.getAccountById(userId);
 					class="glyphicon glyphicon-question-sign"></span> Trợ Giúp</a></li>
 			<li id="about" ><a
 				href="<%out.print(request.getContextPath() + "/help?about");%>"><span
-					class="glyphicon glyphicon-question-sign"></span> About</a></li>
+					class=" glyphicon glyphicon-info-sign"></span> Về chúng tôi</a></li>
 		</ul>
 	</div>
 </div>

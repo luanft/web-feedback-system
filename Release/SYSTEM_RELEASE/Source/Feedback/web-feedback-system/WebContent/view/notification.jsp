@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title>Recommendation System</title>
+<title>JobRecSys - Thông báo</title>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="view/resource/bootstrap/css/bootstrap.min.css">
 <script src="view/resource/lib/jquery-2.1.4.min.js"></script>

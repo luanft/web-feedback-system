@@ -82,10 +82,7 @@ public class ControllerHome extends HttpServlet {
 		if (!loginUtility.isLogged(request, response)) {
 			if (request.getParameter("scrollEvetn") != null) {
 				response.getWriter().write("");
-			}
-			// response.sendRedirect(request.getContextPath() + "/login");
-			// request.getRequestDispatcher("view/login.jsp").forward(request,
-			// response);
+			}			
 		} else {
 			request.setAttribute("user", loginUtility.getLoggedUserId());
 
@@ -182,7 +179,7 @@ public class ControllerHome extends HttpServlet {
 			}
 		if (request.getHeader("User-Agent").indexOf("Mobile") != -1)
 			response.getWriter()
-					.write("<div style = 'text-align:center; margin:0 auto;'><button onclick = 'loadMoreJob();' class = 'btn btn-primary loadMore'  style = 'width:50%; text-align:center; margin:0 auto;'>Lấy thêm việc mới</button></div>");
+					.write("<div style = 'text-align:center; margin:0 auto;'><button onclick = 'loadMoreJob();' class = 'btn btn-primary loadMore'  style = 'width:50%; text-align:center; margin:0 auto;'>Hiển thị thêm</button></div>");
 	}
 
 	private void writeHtml(dtoJob job, String shortDescription, boolean css,

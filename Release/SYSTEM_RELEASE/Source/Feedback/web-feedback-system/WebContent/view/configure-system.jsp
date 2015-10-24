@@ -16,7 +16,7 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title>Thiết lập hệ thống</title>
+<title>Thiết lập gửi mail</title>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
 	href="view/resource/bootstrap/css/bootstrap.min.css">

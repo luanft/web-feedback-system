@@ -69,7 +69,9 @@ public class ControllerCareJob extends HttpServlet {
 			loadCaredJob(request, response);
 			setSuitableJob(request);
 		} else {
-			response.sendRedirect(request.getContextPath() + "/login");
+			if (request.getParameter("scrollEvetn") != null) {
+				response.getWriter().write("");
+			}
 		}
 	}
 
@@ -132,7 +134,7 @@ public class ControllerCareJob extends HttpServlet {
 				writeHtml("Bạn chưa chọn quan tâm công việc nào!", request,
 						response);
 			else
-				writeHtml("Hết rồi! Đừng cuộn nữa mắc công. Hehe !!!", request,
+				writeHtml("Hết việc đã lưu rồi!", request,
 						response);
 		else {
 			for (int i = 0; i < jobList.size(); i++) {
@@ -143,7 +145,7 @@ public class ControllerCareJob extends HttpServlet {
 			if (jobList.size() >= 10)
 				if (request.getHeader("User-Agent").indexOf("Mobile") != -1)
 					response.getWriter()
-							.write("<div style = 'text-align:center; margin:0 auto;'><button onclick = 'loadMoreJob();' class = 'btn btn-primary loadMore'  style = 'width:50%; text-align:center; margin:0 auto;'>Lấy thêm việc mới</button></div>");
+							.write("<div style = 'text-align:center; margin:0 auto;'><button onclick = 'loadMoreJob();' class = 'btn btn-primary loadMore'  style = 'width:50%; text-align:center; margin:0 auto;'>Hiển thị thêm</button></div>");
 
 		}
 	}

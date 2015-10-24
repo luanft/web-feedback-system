@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title>Recommendation System</title>
+<title>JobRecSys - Đăng nhập - Đăng ký</title>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
 	href="view/resource/bootstrap/css/bootstrap.min.css">

@@ -136,11 +136,11 @@ $(document)
 																								.indexOf(
 																										"/",
 																										2));
-																	}
-																	$(
-																			"#content-wrapper")
-																			.append(
-																					data);
+																	} else
+																		$(
+																				"#content-wrapper")
+																				.append(
+																						data);
 																	$contentLoadTriggered = false;
 																}
 															});
@@ -159,14 +159,23 @@ $(document)
 																type : "POST",
 																url : "ControllerHome",
 																data : {
-																	xxx : "scroll"
+																	scrollEvent : "scroll"
 																},
 																success : function(
 																		data) {
-																	$(
-																			"#content-wrapper")
-																			.html(
-																					data);
+																	if (data === "") {
+																		location.href = window.location.pathname
+																				.substring(
+																						0,
+																						window.location.pathname
+																								.indexOf(
+																										"/",
+																										2));
+																	} else
+																		$(
+																				"#content-wrapper")
+																				.html(
+																						data);
 																	$contentLoadTriggered = false;
 																}
 															});

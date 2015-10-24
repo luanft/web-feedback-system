@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title>Web theme</title>
+<title>Quản lý tài khoản</title>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
 	href="view/resource/bootstrap/css/bootstrap.min.css">
@@ -28,7 +28,7 @@
 		<jsp:include page="menu/left-menu-toggle.jsp"/>
 		<!-- chia trang thanh 2 cot -->
 
-		<div class="container-fluid">
+		<div class="container">
 			<br> <br> <br>
 			<div class="row">
 				<div class="col-md-3">
