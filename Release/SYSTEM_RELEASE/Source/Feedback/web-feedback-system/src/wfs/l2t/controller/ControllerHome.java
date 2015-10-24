@@ -78,10 +78,14 @@ public class ControllerHome extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		// neu chua Ă„â€˜Ă„Æ’ng nhĂ¡ÂºÂ­p
-		if (!loginUtility.isLogged(request, response)) {
-			request.getRequestDispatcher("view/login.jsp").forward(request, response);
 
+		if (!loginUtility.isLogged(request, response)) {
+			if (request.getParameter("scrollEvetn") != null) {
+				response.getWriter().write("");
+			}
+			// response.sendRedirect(request.getContextPath() + "/login");
+			// request.getRequestDispatcher("view/login.jsp").forward(request,
+			// response);
 		} else {
 			request.setAttribute("user", loginUtility.getLoggedUserId());
 
@@ -190,11 +194,13 @@ public class ControllerHome extends HttpServlet {
 				"<div class=\"panel panel-info\" id = 'panel" + job.jobId
 						+ "'>");
 		response.getWriter().write("<div class='panel-heading'>");
-		response.getWriter().write(
-				"<a id=\"see-more" + job.jobId
+		response.getWriter()
+				.write("<a id=\"see-more"
+						+ job.jobId
 						+ "\" class=\"btn btn-link\"onclick=\"myCollapse('"
 						+ job.jobId
-						+ "')\"> <b style='font-size: 16px;white-space: pre-wrap; word-break: normal;' class = 'text-left pull-left'>" + job.jobName + "</b></a>");
+						+ "')\"> <b style='font-size: 16px;white-space: pre-wrap; word-break: normal;' class = 'text-left pull-left'>"
+						+ job.jobName + "</b></a>");
 
 		response.getWriter().write("</div>");
 		response.getWriter().write("<div class='panel-body'>");

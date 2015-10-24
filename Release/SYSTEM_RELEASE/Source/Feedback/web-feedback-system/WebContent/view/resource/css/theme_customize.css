@@ -8,6 +8,7 @@
 	color: white;
 }
 
+/* START loading icon with css3 */
 .mm{
     border: 8px solid #FFF;
   border-top-color: red;
@@ -20,7 +21,6 @@
     -webkit-animation: mm 0.7s linear infinite; /* Chrome, Safari, Opera */
     animation: mm 0.7s linear infinite;
 }
-
 
 .flip-container{overflow:hidden}
 
@@ -38,7 +38,9 @@
     transform: rotate(360deg);
   }
 }
+/* END loading icon with css3 */
 
+/* START customize pre tag */
 pre {
 	white-space: pre-wrap; /* CSS 3 */
 	white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
@@ -54,6 +56,7 @@ pre {
 	border-radius: 0px;
 	word-break: normal;
 }
+/* END customize pre tag */
 
 .custom_background_color {
 	background-color: #f7f7f7;
@@ -95,3 +98,22 @@ pre {
 {
 	margin-left: 3px;	
 }
+
+/* START button go to top */
+a.top {
+	display: none;
+	width: 60px;
+	height: 60px;
+	position: fixed;
+	z-index: 999;
+	right: 20px;
+	bottom: 40px;
+	background: #1F85CF url("../image/up-arrow.png") no-repeat center 43%;
+	-webkit-border-radius: 30px;
+	-moz-border-radius: 30px;
+	border-radius: 30px;
+}
+a:hover.top {
+	background-color: #165D91;
+}
+/* END button go to top */

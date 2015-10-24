@@ -124,10 +124,19 @@ $(document)
 																type : "POST",
 																url : "ControllerHome",
 																data : {
-																	xxx : "scroll"
+																	scrollEvent : "scroll"
 																},
 																success : function(
 																		data) {
+																	if (data === "") {
+																		location.href = window.location.pathname
+																				.substring(
+																						0,
+																						window.location.pathname
+																								.indexOf(
+																										"/",
+																										2));
+																	}
 																	$(
 																			"#content-wrapper")
 																			.append(
@@ -182,8 +191,7 @@ function loadMoreJob() {
 			}
 		});
 
-	} else
-		$("#loading").hide();
+	}
 }
 
 /**
@@ -194,11 +202,9 @@ $(document).ready(function() {
 	scrollDuration = 300; // Duration of scrolling to top
 	$(window).scroll(function() {
 		if ($(this).scrollTop() > offset) {
-			$('.top').fadeIn(500); // Time(in Milliseconds) of appearing of the
-									// Button when scrolling down.
+			$('.top').fadeIn(500);
 		} else {
-			$('.top').fadeOut(500); // Time(in Milliseconds) of disappearing of
-									// Button when scrolling up.
+			$('.top').fadeOut(500);
 		}
 	});
 
