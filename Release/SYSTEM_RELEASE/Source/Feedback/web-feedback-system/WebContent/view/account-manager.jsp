@@ -24,11 +24,12 @@
 <link rel="stylesheet" href="view/resource/css/menu.css">
 </head>
 <body>
+	<div class="container">
 		<jsp:include page="menu/top-menu.jsp"/>
 		<jsp:include page="menu/left-menu-toggle.jsp"/>
 		<!-- chia trang thanh 2 cot -->
 
-		<div class="container">
+		<div class="container-fluid">
 			<br> <br> <br>
 			<div class="row">
 				<div class="col-md-3">
@@ -130,10 +131,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
-	</div>
-	</div>
-
 	</div>
 </body>
 </html>

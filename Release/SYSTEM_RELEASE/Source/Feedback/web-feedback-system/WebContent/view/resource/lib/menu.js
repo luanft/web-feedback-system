@@ -13,34 +13,31 @@ $(document).ready(function() {
 		case "/web-feedback-system/listresume": $('li#listresume').toggleClass('active');break;
 		case "/web-feedback-system/care": $('li#care').toggleClass('active');break;
 		case "/web-feedback-system/settings": $('li#setting').toggleClass('active');break
-		case "/web-feedback-system/help": $('li#help').toggleClass('active');break
+		case "/web-feedback-system/help": $('li#help').toggleClass('active');break;
 		case "/web-feedback-system/help?about": $('li#about').toggleClass('active');break;
-		default: $('li#listresume').toggleClass('active');
 		
 	}
 	
 	var w = window.innerWidth;
 	var h = window.innerHeight;
-	var jPM= $.jPanelMenu({
-		excludedPanelContent:'style, script body',
-		menu: "#left-menu-toggle",
-		trigger: "#toggle-link-id",
-	});
-	jPM.on();
 	
-	var max_width= window.screen.availWidth - (window.outerWidth - window.innerWidth)
-	if($(window).width()< max_width-10){
+	
+	
+	if($(window).width()< 800){
 			
 			$(".navbar-large").hide();
 			$(".navbar-small").show();
 			$(".left-menu").hide();
 			
+			
 	}
-
+	
+	
+	
 		
 	
 	$(window).resize(function() {
-		if($(window).width()< max_width-10){
+		if($(window).width()< 800){
 			$(".navbar-large").hide();
 			$(".navbar-small").show();
 			$(".left-menu").hide();
@@ -48,11 +45,11 @@ $(document).ready(function() {
 		}
 			
 		else{
-			//$(".left-menu-toggle").hide();
+			
 			$(".navbar-small").hide();
 			$(".navbar-large").show();
 			$(".left-menu").show();
-		
+			
 		}
 			
 	});
