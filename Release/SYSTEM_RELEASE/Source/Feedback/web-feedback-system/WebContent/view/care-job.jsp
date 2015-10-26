@@ -67,7 +67,7 @@
 		</div>
 	</div>
 	<!-- go to top button -->
-	<a href="#" class="top"></a>
+	<a href="#" class="go-to-top"></a>
 	<script type="text/javascript" src="view/resource/lib/care-job-utility.js"></script>
 </body>
 </html>

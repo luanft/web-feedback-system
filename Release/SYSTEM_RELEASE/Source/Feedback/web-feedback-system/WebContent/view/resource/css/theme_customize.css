@@ -9,7 +9,7 @@
 }
 
 /* START loading icon with css3 */
-.mm{
+.loading-icon{
     border: 8px solid #FFF;
   border-top-color: red;
   border-left-color: blue;
@@ -100,20 +100,20 @@ pre {
 }
 
 /* START button go to top */
-a.top {
+a.go-to-top {
 	display: none;
 	width: 60px;
 	height: 60px;
 	position: fixed;
 	z-index: 999;
 	right: 20px;
-	bottom: 40px;
+	bottom: 80px;
 	background: #1F85CF url("../image/up-arrow.png") no-repeat center 43%;
 	-webkit-border-radius: 30px;
 	-moz-border-radius: 30px;
 	border-radius: 30px;
 }
-a:hover.top {
+a:hover.go-to-top {
 	background-color: #165D91;
 }
 /* END button go to top */

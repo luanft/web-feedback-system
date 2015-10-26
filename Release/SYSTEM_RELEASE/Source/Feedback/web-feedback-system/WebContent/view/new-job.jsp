@@ -52,9 +52,6 @@
 <script src="view/resource/lib/jquery-2.1.4.min.js"></script>
 <script src="view/resource/bootstrap/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="view/resource/css/theme_customize.css">
-<script src="view/resource/notifIt-master/notifIt/js/notifIt.js"></script>
-<link rel="stylesheet"
-	href="view/resource/notifIt-master/notifIt/css/notifIt.css">
 
 <script src="view/resource/lib/jquery.jpanelmenu.js"></script>
 <script src="view/resource/lib/menu.js"></script>
@@ -125,26 +122,25 @@
 						</div>
 
 					</div>
-					<br>
+					<!-- invite user input their CV -->
+					<%
+						if (listResume.size() == 0) {
+							out.print("<div id='tt' class='panel panel-default' style = 'border-color:red;'> <p class='text-center'>Bạn chưa có CV nào trong tủ hồ sơ! Vui lòng <a href='"
+									+ request.getContextPath()
+									+ "/listresume"
+									+ "'>Tạo CV</a> ngay bây giờ để nhận được những việc làm phù hợp với bạn nhất!</p></div>");
+						}
+					%>
 					<!-- show jobs -->
 					<div id="content-wrapper" class="panel-group"></div>
 					<!-- loading icon -->
-					<div id="loading" style="margin: 0 auto;" class="mm custom_hiden"></div>
+					<div id="loading" style="margin: 0 auto;" class="loading-icon custom_hiden"></div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<%
-		if (listResume.size() == 0) {
-			out.print("<script type = 'text/javascript'>notif({	msg: \"<b>Xin chào <br>"
-					+ dtoAcc.userName
-					+ "! Bạn chưa có CV nào! <br>Hãy <br><a style = 'color : #E62016' target = '_blank' href = '"
-					+ link
-					+ "listresume'>tạo CV</a> ngay bây giờ để nhận nhiều cơ hội việc làm!</b>\",	type: 'warning',width :'100',bgcolor: 'rgb(0,185,242)',	autohide:false,	position: 'right', multiline : true});</script>");
-		}
-	%>
 	<!-- go to top button -->
-	<a href="#" class="top"></a>
+	<a href="#" class="go-to-top"></a>
 	<script type="text/javascript" src="view/resource/lib/job-utility.js"></script>
 </body>
 </html>

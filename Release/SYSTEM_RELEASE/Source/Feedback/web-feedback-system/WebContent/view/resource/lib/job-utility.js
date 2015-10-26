@@ -1,6 +1,14 @@
 /**
- * 
+ * set fixed notification bar
  */
+$(document).ready(function(){
+	$(document).scroll(function (){
+		if($(window).scrollTop() > 200)
+			$("#tt").addClass("navbar-fixed-bottom");
+		else
+			$("#tt").removeClass("navbar-fixed-bottom");
+	});		
+});
 
 $(document).ready(function() {
 	$(".dropdown-menu").on('click', 'li a', function() {
@@ -211,14 +219,14 @@ $(document).ready(function() {
 	scrollDuration = 300; // Duration of scrolling to top
 	$(window).scroll(function() {
 		if ($(this).scrollTop() > offset) {
-			$('.top').fadeIn(500);
+			$('.go-to-top').fadeIn(500);
 		} else {
-			$('.top').fadeOut(500);
+			$('.go-to-top').fadeOut(500);
 		}
 	});
 
 	// Smooth animation when scrolling
-	$('.top').click(function(event) {
+	$('.go-to-top').click(function(event) {
 		event.preventDefault();
 		$('html, body').animate({
 			scrollTop : 0
