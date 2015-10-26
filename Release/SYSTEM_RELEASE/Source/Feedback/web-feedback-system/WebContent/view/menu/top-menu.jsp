@@ -45,16 +45,17 @@ dtoAccount dtoAcc = account.getAccountById(userId);
 		</div>
 </nav>
 <nav class="navbar navbar-inverse navbar-fixed-top custom_navbar_color navbar-small ">
-
+<div class='row' id='web-brand-content'>
 		<a class=" web-brand navbar-brand custom_color_white"
 								href="<%out.print(request.getContextPath());%>">
 						RECOMMENDATION SYSTEM</a>
-
+	
+</div>
 		<ul class="nav navbar-nav ">
 		<li>
 		<a class="toggle-link navbar-brand glyphicon glyphicon-list " id="toggle-link-id" href="#"></a></li>
-
-		<li class="dropdown pull-right">
+		
+		<li class="dropdown">
 		
 		 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="<%out.print(request.getContextPath() + dtoAcc.avatar);%>"
 			class="img-rounded" width="32" height="32"> <%=dtoAcc.userName%><span
