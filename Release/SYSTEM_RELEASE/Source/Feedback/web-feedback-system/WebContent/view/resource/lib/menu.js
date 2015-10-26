@@ -1,7 +1,6 @@
 
 $(document).ready(function() {
 	$(".navbar-small").hide();
-	$(".left-menu-toggle").hide();
 	
 		
 	//var contextPath= '${pageContext.request.contextPath}';
@@ -60,4 +59,9 @@ $(document).ready(function() {
 		  
 		});
 	
+    $("#toggle-link-id").click(function(e) {
+       
+        $("#left-menu-toggle").toggleClass("left-menu-collapsed");
+    });
+    
 });
