@@ -53,7 +53,7 @@ public class ControllerForgotPassword extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		String email = request.getParameter("email-validate");
+		String email = request.getParameter("email-validate").toLowerCase();
 		dtoAccount account;
 		if (email != null) {
 			account = mda.getAccount(email);
