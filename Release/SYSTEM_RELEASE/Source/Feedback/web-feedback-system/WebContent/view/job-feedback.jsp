@@ -35,26 +35,28 @@
 	background-color: #00B9F2;
 	margin-top: 20px;
 }
-
 </style>
 </head>
 <body>
 	<div class="container">
 		<!-- menu top -->
-		<jsp:include page="menu/top-menu.jsp"/>
-		
+		<jsp:include page="menu/top-menu.jsp" />
+
 		<!-- chia trang thanh 2 cot -->
-	
+
 		<div class="container-fluid main-content">
 			<div class="row">
 				<div class="col-md-3">
-					<jsp:include page="menu/left-menu.jsp"/>
-					
+					<jsp:include page="menu/left-menu.jsp" />
+
 				</div>
 				<div class="col-md-9 custom_background_color panel-group">
 					<br>
 					<div id="content-wrapper"></div>
 				</div>
+				<!-- loading icon -->
+				<div id="loading" style="margin: 0 auto;"
+					class="loading-icon custom_hiden"></div>
 			</div>
 		</div>
 	</div>
