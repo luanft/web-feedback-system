@@ -25,10 +25,6 @@
 <script src="view/resource/lib/jquery-2.1.4.min.js"></script>
 <script src="view/resource/bootstrap/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="view/resource/css/theme_customize.css">
-
-<script src="view/resource/lib/jquery.jpanelmenu.js"></script>
-<script src="view/resource/lib/menu.js"></script>
-<link rel="stylesheet" href="view/resource/css/menu.css">
 <style>
 .panel-footer {
 	background-color: #F6F7F8;
@@ -45,9 +41,9 @@
 	<div class="container">
 		<!-- menu top -->
 		<jsp:include page="menu/top-menu.jsp"/>
-		<jsp:include page="menu/left-menu-toggle.jsp"/>
+		
 		<!-- chia trang thanh 2 cot -->
-		<div id="disablingDiv"></div>
+	
 		<div class="container-fluid main-content">
 			<div class="row">
 				<div class="col-md-3">

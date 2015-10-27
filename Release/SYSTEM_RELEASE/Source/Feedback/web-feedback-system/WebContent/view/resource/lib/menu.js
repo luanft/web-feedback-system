@@ -1,23 +1,19 @@
 
 $(document).ready(function() {
 	$(".navbar-small").hide();
-	
-		
-	//var contextPath= '${pageContext.request.contextPath}';
-	var contextPath=window.location.pathname;
-	
-	switch(contextPath){
-		case "/web-feedback-system/":$('li#new-job').toggleClass('active');break;
-		case "/web-feedback-system/recommendation": $('li#rec-job').toggleClass('active');break;
-		case "/web-feedback-system/listresume": $('li#listresume').toggleClass('active');break;
-		case "/web-feedback-system/care": $('li#care').toggleClass('active');break;
-		case "/web-feedback-system/settings": $('li#setting').toggleClass('active');break;
-		case "/web-feedback-system/help": $('li#help').toggleClass('active');break;
-		case "/web-feedback-system/help?about": $('li#about').toggleClass('active');break;
-		
+	var url      = window.location.href;
+	var sortLink=url.substring(url.lastIndexOf("/")+1,url.length);
+	switch(sortLink){
+		case "":$('li#new-job').toggleClass('active');break;
+		case "recommendation": $('li#rec-job').toggleClass('active');break;
+		case "listresume": $('li#listresume').toggleClass('active');break;
+		case "care": $('li#care').toggleClass('active');break;
+		case "settings": $('li#setting').toggleClass('active');break;
+		case "help": $('li#help').toggleClass('active');break;
+		case "help?about": $('li#about').toggleClass('active');
 	}	
-	
-	if($(window).width()< 975){
+		
+	if($(window).width()< 975 || jQuery.browser.mobile){
 			
 			$(".navbar-large").hide();
 			$(".navbar-small").show();
@@ -25,11 +21,6 @@ $(document).ready(function() {
 			
 			
 	}
-	
-	
-	
-		
-	
 	$(window).resize(function() {
 		if($(window).width()<975){
 			$(".navbar-large").hide();
@@ -55,11 +46,12 @@ $(document).ready(function() {
 		  
 		});
 	
-    $("#toggle-link-id").click(function(e) {
-       
+   $("#toggle-link-id").click(function(e) {
         $("#left-menu-toggle").toggleClass("left-menu-collapsed");
-        //$(".main-content").toggleClass("main-disable");
         $("#disablingDiv").toggleClass("overlay");
     });
-    
+    $("#disablingDiv").click(function(){
+    	$("#left-menu-toggle").toggleClass("left-menu-collapsed");
+        $("#disablingDiv").toggleClass("overlay");
+    });
 });

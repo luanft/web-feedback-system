@@ -36,9 +36,6 @@
 <script
 	src="${pageContext.request.contextPath}/view/resource/lib/check_user_input.js"></script>
 
-<script src="view/resource/lib/jquery.jpanelmenu.js"></script>
-<script src="view/resource/lib/menu.js"></script>
-<link rel="stylesheet" href="view/resource/css/menu.css">
 </head>
 
 <body>

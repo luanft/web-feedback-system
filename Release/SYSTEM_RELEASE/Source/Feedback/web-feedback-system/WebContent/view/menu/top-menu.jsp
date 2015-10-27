@@ -7,7 +7,9 @@ String userId = (String) request.getAttribute("user");
 ModelAccount account = new ModelAccount();
 dtoAccount dtoAcc = account.getAccountById(userId);
 %>
-
+<script src="view/resource/lib/detectMobileDevide.js"></script>
+<script src="view/resource/lib/menu.js"></script>
+<link rel="stylesheet" href="view/resource/css/menu.css">
 <nav
 	class="navbar-large navbar navbar-inverse navbar-fixed-top custom_navbar_color ">
 		<div class="row">
@@ -53,7 +55,7 @@ dtoAccount dtoAcc = account.getAccountById(userId);
 </div>
 		<ul class="nav navbar-nav ">
 		<li>
-		<a class="toggle-link navbar-brand glyphicon glyphicon-list " id="toggle-link-id" href="#"></a></li>
+		<button class="toggle-link navbar-brand glyphicon glyphicon-list " id="toggle-link-id"></button></li>
 		
 		<li class="dropdown">
 		
@@ -73,3 +75,5 @@ dtoAccount dtoAcc = account.getAccountById(userId);
 		</li>
 		</ul>
 </nav>
+<jsp:include page="left-menu-toggle.jsp"/>
+<div id="disablingDiv"></div>

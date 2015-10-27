@@ -5,7 +5,11 @@
 }
 .toggle-link{
 	font-size: x-large;
-
+	background:transparent;
+	border-color: transparent;
+	width: 40px;
+	height: 40px;
+	
 }
 #web-brand-content{
 	width: -moz-fit-content;
@@ -20,12 +24,12 @@
 	text-align: center;
 }
 .left-menu-toggle{
-	position: absolute;
+	position: fixed;
 	z-index: 999;
-	top: 80px;
+	top: 100px;
 	left: -240px;
 	width: 220px;
-	height: 550px;
+	height: 500px;
 	background-color: white;
 	transition:all .6s ease-in-out;
     -webkit-transition:all .6s ease-in-out;
@@ -36,6 +40,7 @@
     
 }
 .left-menu-collapsed{
+	position: fixed;
 	transform:translateX(100%);   
     -webkit-transform:translateX(100%);
 }
@@ -56,12 +61,6 @@ li.dropdown{
 .main-content{
 	margin-top: 80px;
 	z-index: 997;
-}
-.main-disable {
-	
-	opacity: 0.3;
-	color: #c0c0c0;
-	z-index: 998;
 }
 .overlay
 {
