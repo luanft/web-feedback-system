@@ -15,23 +15,22 @@ public class ModelCategory extends Model {
 
 	}
 
-	
-	public List<dtoCategory> getAllCategoryByUser(String userId)
-	{
-		String sql = "SELECT `category`.`CategoryId` , `Description` , COALESCE( `Care`.`CategoryId` , 0 ) AS `Checked` FROM `category` LEFT JOIN `care` ON `category`.`CategoryId` = `Care`.`CategoryId` AND `care`.`AccountId` = " + userId;
+	public List<dtoCategory> getAllCategoryByUser(String userId) {
+		String sql = "SELECT `category`.`CategoryId` , `Description` , COALESCE( `Care`.`CategoryId` , 0 ) AS `Checked` FROM `category` LEFT JOIN `care` ON `category`.`CategoryId` = `Care`.`CategoryId` AND `care`.`AccountId` = "
+				+ userId;
 		List<dtoCategory> data = new ArrayList<dtoCategory>();
 		if (this.connection.connect()) {
 			ResultSet rs = this.connection.read(sql);
-			if(rs != null)
-			{
+			if (rs != null) {
 				try {
 					while (rs.next()) {
 						dtoCategory item = new dtoCategory();
 						item.categoryId = rs.getString("CategoryId");
 						item.categoryName = rs.getString("Description");
-						item.checked =  rs.getInt("Checked") == 0 ? "" : "checked";
+						item.checked = rs.getInt("Checked") == 0 ? ""
+								: "checked";
 						data.add(item);
-						
+
 					}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -42,13 +41,12 @@ public class ModelCategory extends Model {
 		}
 		return data;
 	}
-	
+
 	public List<dtoCategory> getAllCategory() {
 		List<dtoCategory> data = new ArrayList<dtoCategory>();
 		if (this.connection.connect()) {
 			ResultSet rs = this.connection.read("SELECT * FROM `category`");
-			if(rs != null)
-			{
+			if (rs != null) {
 				try {
 					while (rs.next()) {
 						dtoCategory item = new dtoCategory();
@@ -65,29 +63,27 @@ public class ModelCategory extends Model {
 		}
 		return data;
 	}
-	
-	public String getCategoryName(String id) {		
+
+	public String getCategoryName(String id) {
 		String sql = "select Description from category where CategoryId = ?";
-		 String ret = "";
-		connection.connect();		
-		try
-		{
-			PreparedStatement stm = connection.getConnection().prepareStatement(sql);
-			stm.setString(1, id);
-			connection.setPrepareStatement(stm);
-			ResultSet rs = connection.readSecure();
-			if (rs.next())
-			{
-				ret = rs.getString("Description");
-			} else
-				return "";
-		} catch (SQLException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		String ret = "";
+		if (connection.connect()) {
+			try {
+				PreparedStatement stm = connection.getConnection()
+						.prepareStatement(sql);
+				stm.setString(1, id);
+				connection.setPrepareStatement(stm);
+				ResultSet rs = connection.readSecure();
+				if (rs.next()) {
+					ret = rs.getString("Description");
+				} else
+					return "";
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			connection.close();
 		}
-		connection.close();
 		return ret;
 	}
-
 }
