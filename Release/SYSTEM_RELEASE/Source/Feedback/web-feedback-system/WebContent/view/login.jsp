@@ -15,10 +15,10 @@
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
 	href="view/resource/bootstrap/css/bootstrap.min.css">
-<script src="view/resource/lib/jquery-2.1.4.min.js" async></script>
-<script src="view/resource/bootstrap/js/bootstrap.min.js" async></script>
+<script src="view/resource/lib/jquery-2.1.4.min.js"></script>
+<script src="view/resource/bootstrap/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="view/resource/css/theme_customize.css">
-<script src="view/resource/lib/check-register.js" async></script>
+<script src="view/resource/lib/check-register.js"></script>
 <style>
 body {
 	background-color: #F1F1F1;
@@ -42,6 +42,7 @@ body {
 			<div class="col-md-7">
 				<h1 class="text-center">JOB RECOMMENDATION SYSTEM</h1>
 			</div>
+			<!-- form login -->
 			<div class="col-md-5 row">
 				<form class="form" role="form" action="login" method="post">
 					<div class="col-md-5">
@@ -76,6 +77,7 @@ body {
 				</form>
 			</div>
 		</div>
+		<!-- form register -->
 		<div class="container-fluid row" style="padding: 20px;">
 			<div class="col-md-7">
 				<img alt=""

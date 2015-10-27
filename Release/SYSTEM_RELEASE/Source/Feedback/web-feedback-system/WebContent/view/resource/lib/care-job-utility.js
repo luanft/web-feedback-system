@@ -84,104 +84,98 @@ $(document).ready(function() {
  */
 var count = 0;
 $contentLoadTriggered = false;
-$(document)
-		.ready(
-				function() {
+$(document).ready(function ()
+		{
+			$(window).scroll(function ()
+			{
+				if (count < 5)
+				{
+					count += 1;
+					if ($("#done").text().trim() !== "Hết việc đã lưu rồi!")
+					{
+						if ($(window).scrollTop() + $(window).height() == $(document).height() && $contentLoadTriggered == false)
+						{
+							$contentLoadTriggered = true;
+							$.ajax(
+							{
+								type : "POST",
+								url : "ControllerCareJob",
+								data :
+								{
+									scrollEvent : "scroll"
+								},
+								success : function (data)
+								{
+									if (data === "")
+									{
+										location.href = window.location.pathname.substring(0, window.location.pathname.indexOf("/", 2));
+									}
+									else
+										$("#content-wrapper").append(data);
+									$contentLoadTriggered = false;
+								}
+							}
+							);
+						}
+					}
+				}
+				else
+				{
+					count = 0;
+					if ($("#done").text().trim() !== "Hết việc đã lưu rồi!")
+					{
+						if ($(window).scrollTop() + $(window).height() == $(document).height() && $contentLoadTriggered == false)
+						{
+							$contentLoadTriggered = true;
+							$.ajax(
+							{
+								type : "POST",
+								url : "ControllerCareJob",
+								data :
+								{
+									scrollEvent : "scroll"
+								},
+								success : function (data)
+								{
+									if (data === "")
+									{
+										location.href = window.location.pathname.substring(0, window.location.pathname.indexOf("/", 2));
+									}
+									else
+										$("#content-wrapper").html(data);
+									$contentLoadTriggered = false;
+								}
+							}
+							);
+						}
+					}
+				}
+			}
+			);
+		}
+		);
 
-					$(window)
-							.scroll(
-									function() {
-										if (count < 5) {
-											count += 1;
-											if ($("#done").text().trim() !== "Hết việc đã lưu rồi!") {
-												if ($(window).scrollTop()
-														+ $(window).height() == $(
-														document).height()
-														&& $contentLoadTriggered == false) {
-													$contentLoadTriggered = true;
-													$
-															.ajax({
-																type : "POST",
-																url : "ControllerCareJob",
-																data : {
-																	scrollEvent : "scroll"
-																},
-																success : function(
-																		data) {
-																	if (data === "") {
-																		location.href = window.location.pathname
-																				.substring(
-																						0,
-																						window.location.pathname
-																								.indexOf(
-																										"/",
-																										2));
-																	} else
-																		$(
-																				"#content-wrapper")
-																				.append(
-																						data);
-																	$contentLoadTriggered = false;
-																}
-															});
-												}
-											}
-										} else {
-											count = 0;
-											if ($("#done").text().trim() !== "Hết việc đã lưu rồi!") {
-												if ($(window).scrollTop()
-														+ $(window).height() == $(
-														document).height()
-														&& $contentLoadTriggered == false) {
-													$contentLoadTriggered = true;
-													$
-															.ajax({
-																type : "POST",
-																url : "ControllerCareJob",
-																data : {
-																	scrollEvent : "scroll"
-																},
-																success : function(
-																		data) {
-																	if (data === "") {
-																		location.href = window.location.pathname
-																				.substring(
-																						0,
-																						window.location.pathname
-																								.indexOf(
-																										"/",
-																										2));
-																	} else
-																		$(
-																				"#content-wrapper")
-																				.html(
-																						data);
-																	$contentLoadTriggered = false;
-																}
-															});
-												}
-											}
-										}
-									});
-				});
-
-function loadMoreJob() {
-	$(".loadMore").hide();
-	if ($("#done").text().trim() !== "Hết việc đã lưu rồi!") {
-		$.ajax({
-			type : "POST",
-			url : "ControllerCareJob",
-			data : {
-				xxx : "scroll"
-			},
-			success : function(data) {
-				$("#content-wrapper").append(data);
-				$contentLoadTriggered = false;
+/**
+ * get job by scroll event on mobile
+ */
+$('body').on('touchmove',function() {
+			if ($("#done").text().trim() !== "Hết việc mới rồi. Hehe!") {
+				if ($(window).scrollTop() + $(window).height() >= $(document)
+						.height() - 100) {
+					$.ajax({
+						type : "POST",
+						url : "ControllerHome",
+						data : {
+							xxx : "scroll"
+						},
+						success : function(data) {
+							$("#content-wrapper").append(data);
+							$contentLoadTriggered = false;
+						}
+					});
+				}
 			}
 		});
-
-	}
-}
 
 /**
  * function go to top

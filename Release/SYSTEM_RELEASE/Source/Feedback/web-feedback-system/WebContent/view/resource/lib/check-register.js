@@ -3,6 +3,7 @@
  */
 
 // check email
+
 $(document).ready(function() {
 	$('#reg-email').on('blur keyup', function(event) {
 		$.ajax({

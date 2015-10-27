@@ -95,7 +95,7 @@
 						<label style="color: white"><i> Tùy chọn lĩnh vực
 								ngành nghề của bạn!</i></label>
 
-						<div class="input-group" style="width: 60%; margin: 0 auto;">
+						<div class="input-group" style="width: 70%; margin: 0 auto;">
 							<div class="dropdown center">
 								<%
 									if (request.getParameter("cate") != null)

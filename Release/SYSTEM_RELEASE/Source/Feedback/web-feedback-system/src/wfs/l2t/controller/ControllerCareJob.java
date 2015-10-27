@@ -141,12 +141,7 @@ public class ControllerCareJob extends HttpServlet {
 				job = jobList.get(i);
 				writeHtml(job, mdj.getShortDescription(job.jobId), request,
 						response);
-			}
-			if (jobList.size() >= 10)
-				if (request.getHeader("User-Agent").indexOf("Mobile") != -1)
-					response.getWriter()
-							.write("<div style = 'text-align:center; margin:0 auto;'><button onclick = 'loadMoreJob();' class = 'btn btn-primary loadMore'  style = 'width:50%; text-align:center; margin:0 auto;'>Hiển thị thêm</button></div>");
-
+			}			
 		}
 	}
 
@@ -219,7 +214,7 @@ public class ControllerCareJob extends HttpServlet {
 		response.getWriter()
 				.write("<a onclick = likeClick(this,"
 						+ job.jobId
-						+ ") href='#/' value = '0' style='margin-left: 15px; margin-right: 15px;color:#5890FF;font-size:15px;' data-toggle='tooltip'title='Việc làm phù hợp!'><span class='glyphicon glyphicon-thumbs-up'></span> Phù hợp</a>");
+						+ ") href='#/' value = '1' style='margin-left: 15px; margin-right: 15px;color:#5890FF;font-size:15px;' data-toggle='tooltip'title='Việc làm phù hợp!'><span class='glyphicon glyphicon-thumbs-up'></span> Phù hợp</a>");
 		response.getWriter().write("</div>");
 		response.getWriter().write("</div>");
 		response.getWriter().write("<br>");

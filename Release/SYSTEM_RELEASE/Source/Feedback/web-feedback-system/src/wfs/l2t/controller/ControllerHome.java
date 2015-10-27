@@ -12,10 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import wfs.l2t.dto.dtoCategory;
 import wfs.l2t.dto.dtoJob;
 import wfs.l2t.dto.dtoJobRecommended;
-import wfs.l2t.model.ModelCategory;
 import wfs.l2t.model.ModelJob;
 import wfs.l2t.model.ModelJobRecommended;
 import wfs.l2t.utility.LoginUtility;
@@ -82,7 +80,7 @@ public class ControllerHome extends HttpServlet {
 		if (!loginUtility.isLogged(request, response)) {
 			if (request.getParameter("scrollEvetn") != null) {
 				response.getWriter().write("");
-			}			
+			}
 		} else {
 			request.setAttribute("user", loginUtility.getLoggedUserId());
 
@@ -131,8 +129,6 @@ public class ControllerHome extends HttpServlet {
 		}
 	}
 
-	List<dtoCategory> categoryList;
-
 	private void loadNewJob(HttpServletRequest request,
 			HttpServletResponse response, String userId)
 			throws ServletException, IOException {
@@ -149,10 +145,7 @@ public class ControllerHome extends HttpServlet {
 		// mdj.getJob();
 		dtoJob job = new dtoJob();
 		offset += 11;
-		session.setAttribute("offset", offset);
-		// get category list
-		ModelCategory mdc = new ModelCategory();
-		categoryList = mdc.getAllCategory();
+		session.setAttribute("offset", offset);		
 
 		if (jobList.size() == 0)
 			if (offset == 11)
@@ -177,9 +170,6 @@ public class ControllerHome extends HttpServlet {
 								true, request, response);
 				}
 			}
-		if (request.getHeader("User-Agent").indexOf("Mobile") != -1)
-			response.getWriter()
-					.write("<div style = 'text-align:center; margin:0 auto;'><button onclick = 'loadMoreJob();' class = 'btn btn-primary loadMore'  style = 'width:50%; text-align:center; margin:0 auto;'>Hiển thị thêm</button></div>");
 	}
 
 	private void writeHtml(dtoJob job, String shortDescription, boolean css,
