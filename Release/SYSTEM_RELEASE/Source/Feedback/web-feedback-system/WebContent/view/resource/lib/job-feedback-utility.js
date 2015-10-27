@@ -2,6 +2,24 @@
  * 
  */
 
+/**
+ * show loading icon when loading data
+ */
+$(document).ajaxStart(function ()
+{
+	$("#loading").show();
+}
+);
+
+/**
+ * hide loading icon when data load completely
+ */
+$(document).ajaxStop(function ()
+{
+	$("#loading").hide();
+}
+);
+
 function myCollapse(xxx) {
 	$("#full-info" + xxx).slideToggle("slow");
 	if ($("#short-description" + xxx).is(":visible"))
