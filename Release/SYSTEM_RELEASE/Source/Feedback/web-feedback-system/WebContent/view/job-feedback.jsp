@@ -35,7 +35,7 @@
 	background-color: #00B9F2;
 	margin-top: 20px;
 }
-body{padding-top:30px;}
+
 </style>
 </head>
 <body>
