@@ -185,7 +185,7 @@ public class ControllerLogin extends HttpServlet {
 	private void register(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// check condition register
-		String email = request.getParameter("reg-email");
+		String email = request.getParameter("reg-email").toLowerCase();
 		String userName = request.getParameter("reg-username");
 		String password = request.getParameter("reg-password");
 		String rpassword = request.getParameter("reg-re-type-password");

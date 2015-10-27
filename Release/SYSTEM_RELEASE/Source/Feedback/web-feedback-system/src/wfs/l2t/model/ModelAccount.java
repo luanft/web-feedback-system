@@ -26,7 +26,7 @@ public class ModelAccount extends Model
 		try
 		{
 			PreparedStatement stm = connection.getConnection().prepareStatement(sql);
-			stm.setString(1, email);
+			stm.setString(1, email.toLowerCase());
 			connection.setPrepareStatement(stm);
 			ResultSet rs = connection.readSecure();
 			try
@@ -35,7 +35,7 @@ public class ModelAccount extends Model
 				{
 					account.accountId = rs.getString("AccountId");
 					account.userName = rs.getString("Username");
-					account.email = rs.getString("Email");
+					account.email = rs.getString("Email").toLowerCase();
 					account.password = rs.getString("Password");
 					account.accountType = rs.getString("AccountType");
 					account.timeReceiveEmail = rs.getString("TimeReceiveEmail");
