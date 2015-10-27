@@ -8,7 +8,7 @@ ModelAccount account = new ModelAccount();
 dtoAccount dtoAcc = account.getAccountById(userId);
 %>
 <div class="left-menu" id="left-menu" data-spy="affix"
-	data-offset-top="0">
+	>
 	<div class="container-fluid col-md-offset-0">
 		<h4>Xin chào!</h4>
 		<img src="<%out.print(request.getContextPath() + dtoAcc.avatar);%>"

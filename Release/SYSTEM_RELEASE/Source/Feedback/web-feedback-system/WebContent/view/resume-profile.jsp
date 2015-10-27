@@ -38,7 +38,7 @@
 	src="${pageContext.request.contextPath}/view/resource/lib/form_validate.js"></script>
 <script
 	src="${pageContext.request.contextPath}/view/resource/lib/form_submit.js"></script>
-	
+
 <script src="view/resource/lib/jquery.jpanelmenu.js"></script>
 <script src="view/resource/lib/menu.js"></script>
 <link rel="stylesheet" href="view/resource/css/menu.css">
@@ -67,15 +67,15 @@ hr {
 
 	<div class="container">
 		<!-- menu top -->
-		<jsp:include page="menu/top-menu.jsp"/>
-		<jsp:include page="menu/left-menu-toggle.jsp"/>
+		<jsp:include page="menu/top-menu.jsp" />
+		<jsp:include page="menu/left-menu-toggle.jsp" />
 		<!-- chia trang thanh 2 cot -->
 		<div id="disablingDiv"></div>
 		<div class="container-fluid main-content">
-			
+
 			<div class="row">
 				<div class="col-md-3">
-					<jsp:include page="menu/left-menu.jsp"/>
+					<jsp:include page="menu/left-menu.jsp" />
 				</div>
 				<div class="col-md-9 ">
 
@@ -83,7 +83,7 @@ hr {
 					<br>
 					<%
 						ModelResume cvModel = new ModelResume();
-						dtoResume cv = cvModel.getResume(resumeId);
+									dtoResume cv = cvModel.getResume(resumeId);
 					%>
 					<div>
 						<div class="panel panel-default">
@@ -98,24 +98,22 @@ hr {
 							<div class="panel-body">
 
 								<div id="form_enter_resume" class="custom_hiden">
-									<form id="form_update_profile" role="form" method="post"
-										action="resume">
-
-
+									<form id="form_update_profile" name="frm_update_profile"
+										role="form" method="post" action="resume">
 										<input name="id" type="hidden"
 											value="<%out.print(resumeId);%>">
 										<div class="form-group">
 											<label for="cv_title">Tên của CV:</label> <input type="text"
-												name="title_input" value="<%out.print(cv.resumeTitle);%>"
-												class="form-control" id="email">
+												name="title_input" required maxlength="80"
+												value="<%out.print(cv.resumeTitle);%>" class="form-control"
+												id="email">
 										</div>
 
 										<div class="form-group">
 											<label for="cv_title">Họ và tên:</label> <input type="text"
 												class="form-control" value="<%out.print(cv.name);%>"
-												name="full_name_input" id="email">
+												name="full_name_input" required maxlength="50" id="email">
 										</div>
-
 										<div class="form-group">
 											<label for="birthday">Ngày Sinh:</label> <input
 												class="form-control" id="birthday" readonly
@@ -132,9 +130,6 @@ hr {
 												name="gender_input" value="Nữ">Nữ
 											</label>
 										</div>
-
-
-
 
 										<div class="form-group">
 											<label for="cv_title">Tình trạng hôn nhân:</label> <label
@@ -355,23 +350,23 @@ hr {
 										<div class="form-group">
 											<label for="cv_title">Địa chỉ:</label> <input type="text"
 												class="form-control" value="<%out.print(cv.address);%>"
-												name="address_input" id="email">
+												name="address_input" required id="email">
 										</div>
 
 
 										<div class="form-group">
 											<label for="cv_title">Email liên hệ:</label> <input
 												type="email" class="form-control"
-												value="<%out.print(cv.email);%>" name="email_input"
-												id="email">
+												value="<%out.print(cv.email);%>" required maxlength="100"
+												name="email_input" id="email">
 										</div>
 
 
 										<div class="form-group">
 											<label for="cv_title">Số điện thoại:</label> <input
 												type="text" class="form-control"
-												value="<%out.print(cv.phone);%>" name="phone_input"
-												id="email">
+												value="<%out.print(cv.phone);%>" required maxlength="15"
+												name="phone_input" id="email">
 										</div>
 
 										<div class="form-group">
@@ -410,9 +405,9 @@ hr {
 										<b>Tình trạng hôn nhân:</b>
 										<%
 											if (cv.maritalStatus)
-												out.print("Đã kết hôn");
-											else
-												out.print("Chưa kết hôn");
+																				out.print("Đã kết hôn");
+																			else
+																				out.print("Chưa kết hôn");
 										%>
 									</h5>
 									<h5>
@@ -463,8 +458,9 @@ hr {
 							<div class="panel-body">
 
 								<div id="form_nhap_education" class="custom_hiden">
-									<form id="form_update_education" role="form" method="post"
-										action="resume">
+
+									<form id="form_update_education" name="enter_edu" role="form"
+										method="post" action="resume">
 
 
 										<input name="id" type="hidden"
@@ -474,19 +470,21 @@ hr {
 										<div class="form-group">
 											<label for="cv_title">Tên trường:</label> <input type="text"
 												name="school_name" class="form-control"
-												value="Đại Học Công Nghệ Thông Tin - ĐHQG TPHCM" id="email">
+												value="Đại Học Công Nghệ Thông Tin - ĐHQG TPHCM" required
+												maxlength="100" id="email">
 										</div>
 
 										<div class="form-group">
 											<label for="cv_title">Trình độ đào tạo:</label> <input
-												type="text" class="form-control" value="Đại học"
-												name="education_level" id="email">
+												type="text" class="form-control" value="Đại học" required
+												maxlength="50" name="education_level" id="email">
 										</div>
 
 										<div class="form-group">
 											<label for="cv_title">Chuyên ngành đào tạo:</label> <input
 												type="text" class="form-control" name="education_major"
-												value="Công nghệ thông tin" id="email">
+												value="Công nghệ phần mềm" required maxlength="80"
+												id="email">
 										</div>
 
 										<div class="form-group">
@@ -498,23 +496,51 @@ hr {
 											<label for="birthday">Ngày bắt đầu:</label> <input
 												class="form-control" id="startday_input" readonly
 												data-date-format="dd-mm-yyyy" name="startday_input"
-												value="01/01/2006">
+												value="01/01/2012">
 										</div>
 
 										<div class="form-group">
 											<label for="birthday">Ngày kết thúc:</label> <input
 												class="form-control" id="endday_input" readonly
 												data-date-format="dd-mm-yyyy" name="endday_input"
-												value="01/01/2010">
+												value="01/01/2017">
 										</div>
 
-										<button type="submit" class="btn btn-primary"
-											name="btn_add_education">Thêm trường học</button>
+										<button type="submit" onclick="return check_date()"
+											class="btn btn-primary" name="btn_add_education">Thêm
+											trường học</button>
 
 										<button id="btn_cancel_education" type="button"
 											class="btn btn-primary">Hủy</button>
 									</form>
 									<br>
+									<script type="text/javascript">
+										function getDate(str1) {
+											// str1 format should be dd/mm/yyyy. Separator can be anything e.g. / or -. It wont effect
+											var dt1 = parseInt(str1.substring(
+													0, 2));
+											var mon1 = parseInt(str1.substring(
+													3, 5));
+											var yr1 = parseInt(str1.substring(
+													6, 10));
+											var date1 = new Date(yr1, mon1, dt1);
+											return date1;
+										}
+										function check_date() {
+											try {
+												var s = getDate(document.forms.enter_edu.startday_input.value);
+												var e = getDate(document.forms.enter_edu.endday_input.value);
+												if (s > e) {
+													alert("ngày kết thúc phải lớn hơn ngày bắt đầu!");
+													return false;
+												}
+											} catch (e) {
+												// TODO: handle exception
+												return false;
+											}
+											return true;
+										}
+									</script>
 								</div>
 								<div id="education_content">
 									<%
@@ -560,13 +586,14 @@ hr {
 
 										<div class="form-group">
 											<label for="cv_title">Tên chứng chỉ:</label> <input
-												type="text" name="language_name" class="form-control"
-												id="email">
+												type="text" name="language_name" placeholder="Ex: TOEIC"
+												required maxlength="80" class="form-control" id="email">
 										</div>
 
 										<div class="form-group">
 											<label for="cv_title">Cấp độ/Điểm:</label> <input type="text"
-												class="form-control" name="language_level" id="email">
+												class="form-control" placeholder="Ex: Điểm: 990"
+												name="language_level" required maxlength="80" id="email">
 										</div>
 
 										<button type="submit" class="btn btn-primary"
@@ -619,27 +646,35 @@ hr {
 
 										<div class="form-group">
 											<label for="cv_title">Tên Công Ty:</label> <input type="text"
-												name="company_name" class="form-control" id="email">
+												name="company_name" class="form-control"
+												placeholder="Ex: Google Inc" required maxlength="100"
+												id="email">
 										</div>
 
 										<div class="form-group">
 											<label for="cv_title">Tên Công Việc:</label> <input
-												type="text" class="form-control" name="job_name" id="email">
+												type="text" class="form-control"
+												placeholder="Ex: Tư vấn tài chính" required maxlength="100"
+												name="job_name" id="email">
 										</div>
 
 										<div class="form-group">
 											<label for="cv_title">Vị Trí:</label> <input type="text"
-												class="form-control" name="job_position" id="email">
+												class="form-control" placeholder="Ex: Nhân Viên" required
+												maxlength="50" name="job_position" id="email">
 										</div>
 
 										<div class="form-group">
 											<label for="cv_title">Mô Tả:</label> <input type="text"
-												class="form-control" name="job_description" id="email">
+												class="form-control"
+												placeholder="Ex: Làm thư ký văn phòng, hỗ trợ, tư vấn khách hàng"
+												required maxlength="150" name="job_description" id="email">
 										</div>
 
 										<div class="form-group">
 											<label for="cv_title">Thời Gian:</label> <input type="text"
-												class="form-control" name="job_time" id="email">
+												class="form-control" placeholder="Ex: Từ 2012 đến 2015"
+												required maxlength="60" name="job_time" id="email">
 										</div>
 										<button type="submit" class="btn btn-primary"
 											name="btn_add_experience">Thêm kinh nghiệm</button>
@@ -695,12 +730,15 @@ hr {
 
 										<div class="form-group">
 											<label for="cv_title">Tên Kỹ Năng:</label> <input type="text"
-												name="skill_name" class="form-control" id="email">
+												name="skill_name" class="form-control"
+												placeholder="Ex: Giao tiếp" required maxlength="100"
+												id="email">
 										</div>
 
 										<div class="form-group">
 											<label for="cv_title">Mô Tả/Level:</label> <input type="text"
-												class="form-control" name="skill_level" id="email">
+												class="form-control" placeholder="Ex: Rất tốt" required
+												maxlength="100" name="skill_level" id="email">
 										</div>
 										<button type="submit" class="btn btn-primary"
 											name="btn_add_skill">Thêm kỹ năng</button>
@@ -764,20 +802,21 @@ hr {
 
 										<div class="form-group">
 											<label for="cv_title">Mức lương mong muốn(VND):</label> <input
-												type="text" value="<%out.print(objective.desireSalary);%>"
-												name="desireSalary" class="form-control" id="email">
+												type="text" value="<%out.print(objective.desireSalary);%>" onkeypress='return (event.charCode == 0)||(event.charCode >= 48 && event.charCode <= 57)'
+												name="desireSalary" maxlength="10" class="form-control"
+												id="email">
 										</div>
 
 										<div class="form-group">
 											<label for="cv_title">Mức lương gần đây(VND):</label> <input
-												type="text" name="recentSalary"
+												type="text" name="recentSalary" onkeypress='return (event.charCode == 0)||(event.charCode >= 48 && event.charCode <= 57)'
 												value="<%out.print(objective.recentSalary);%>"
-												class="form-control" id="email">
+												class="form-control" maxlength="10" id="email">
 										</div>
 
 										<div class="form-group">
 											<label for="cv_title">Cấp bậc mong muốn:</label> <input
-												type="text" name="desireCareerLevel"
+												type="text" name="desireCareerLevel" maxlength="50"
 												value="<%out.print(objective.desireCareerLevel);%>"
 												class="form-control" id="email">
 										</div>
@@ -786,14 +825,14 @@ hr {
 											<label for="cv_title">Loại công việc:</label> <input
 												type="text" name="positionType"
 												value="<%out.print(objective.positionType);%>"
-												class="form-control" id="email">
+												class="form-control" id="email" maxlength="50">
 										</div>
 
 										<div class="form-group">
 											<label for="cv_title">Nơi làm việc ưa thích:</label> <input
 												type="text" name="desireWorkLocation"
 												value="<%out.print(objective.desireWorkLocation);%>"
-												class="form-control" id="email">
+												class="form-control" id="email" maxlength="30">
 										</div>
 
 
@@ -801,12 +840,11 @@ hr {
 										<div class="form-group">
 											<label for="txt_CareerObjective">Mục tiêu nghề
 												nghiệp:</label>
-											<textarea class="form-control" rows="5"
-												id="txt_CareerObjective" " name="CareerObjective">
-												<%
-													out.print(objective.careerObjective);
-												%>
-											</textarea>
+											<%
+												out.print("<textarea class=\"form-control\" rows=\"5\" id=\"txt_CareerObjective\" name=\"CareerObjective\">"
+														+ objective.careerObjective + "</textarea>");
+											%>
+
 										</div>
 
 										<div class="form-group">
@@ -889,12 +927,10 @@ hr {
 									<p>
 										<b> Mục tiêu nghề nghiệp:</b>
 									</p>
-									<pre class = "pull-left">
-										<%
+									<%
 										String s = objective.careerObjective;
-											out.print(s.trim());
-										%>
-										</pre>
+										out.print("<pre class=\"pull-left\">" + s.trim() + "</pre>");
+									%>
 								</div>
 							</div>
 						</div>

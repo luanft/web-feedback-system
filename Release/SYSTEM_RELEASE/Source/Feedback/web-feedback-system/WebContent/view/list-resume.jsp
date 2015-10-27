@@ -32,6 +32,9 @@
 
 <script
 	src="${pageContext.request.contextPath}/view/resource/datepicker/js/bootstrap-datepicker.js"></script>
+	
+<script
+	src="${pageContext.request.contextPath}/view/resource/lib/check_user_input.js"></script>
 
 <script src="view/resource/lib/jquery.jpanelmenu.js"></script>
 <script src="view/resource/lib/menu.js"></script>
@@ -79,7 +82,8 @@
 				</div>
 				<div class="col-md-9 ">
 					<br>
-					<div>
+					<div>						
+						<div id="error_message"></div>
 						<div id="form_enter_resume"
 							class="panel panel-default custom_hiden">
 							<div class="panel-heading">
@@ -87,19 +91,19 @@
 							</div>
 							<div class="panel-body">
 
-
-
-
-								<form role="form" method="post" action="listresume">
+								<form name="form_nhap_cv" onsubmit="return validate_form();"
+									role="form" method="post" action="listresume">
 									<div class="form-group">
 										<label for="cv_title">Tên của CV:</label> <input type="text"
-											name="title-input" class="form-control" id="email">
+											name="title-input" placeholder="Ví dụ: Java developer"
+											class="form-control" id="email">
 									</div>
 
 
 									<div class="form-group">
 										<label for="cv_title">Họ và tên:</label> <input type="text"
-											class="form-control" name="full-name-input" id="email">
+											class="form-control" placeholder="Ví dụ: Trần Văn A"
+											name="full-name-input" id="email">
 									</div>
 
 									<div class="form-group">
@@ -342,27 +346,32 @@
 
 									<div class="form-group">
 										<label for="cv_title">Địa chỉ:</label> <input type="text"
-											class="form-control" name="address-input" id="email">
+											class="form-control"
+											placeholder="Ví dụ: Đông Hòa, Dĩ An, Bình Dương"
+											name="address-input" id="email" maxlength="100">
 									</div>
 
 
 									<div class="form-group">
 										<label for="cv_title">Email liên hệ:</label> <input
-											type="email" class="form-control" name="email-input"
-											id="email">
+											type="email" class="form-control"
+											placeholder="Ví dụ: abc@gmail.com" name="email-input"
+											id="email" maxlength="100">
 									</div>
 
 
 									<div class="form-group">
 										<label for="cv_title">Số điện thoại:</label> <input
-											type="text" class="form-control" name="phone-input"
-											id="email">
+											type="text" class="form-control"
+											placeholder="Ví dụ: +84 1212 1212" name="phone-input"
+											id="email" maxlength="15">
 									</div>
 
 									<div class="form-group">
 										<label for="cv_title">Sở thích cá nhân:</label> <input
-											type="text" class="form-control" id="email"
-											name="hobbies-input">
+											type="text" class="form-control"
+											placeholder="Ví dụ: Thích chơi guitar, đá bóng,.." id="email"
+											name="hobbies-input" maxlength="200">
 									</div>
 
 									<button type="submit" class="btn btn-primary"
