@@ -125,10 +125,10 @@
 					<!-- invite user input their CV -->
 					<%
 						if (listResume.size() == 0) {
-							out.print("<div id='tt' class='panel panel-default' style = 'border-color:red;'> <p class='text-center'>Bạn chưa có CV nào trong tủ hồ sơ! Vui lòng <a href='"
+							out.print("<div id='tt' class='alert alert-danger' style = 'border-color:red;margin-bottom:10px;'> <p class='text-center'><b>Bạn chưa có CV nào trong tủ hồ sơ! Vui lòng <a href='"
 									+ request.getContextPath()
 									+ "/listresume"
-									+ "'>Tạo CV</a> ngay bây giờ để nhận được những việc làm phù hợp với bạn nhất!</p></div>");
+									+ "'>Tạo CV</a> ngay bây giờ để nhận được những việc làm phù hợp với bạn!</b></p></div>");
 						}
 					%>
 					<!-- show jobs -->
