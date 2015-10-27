@@ -11,18 +11,13 @@ $(document).ready(function() {
 		case "/web-feedback-system/recommendation": $('li#rec-job').toggleClass('active');break;
 		case "/web-feedback-system/listresume": $('li#listresume').toggleClass('active');break;
 		case "/web-feedback-system/care": $('li#care').toggleClass('active');break;
-		case "/web-feedback-system/settings": $('li#setting').toggleClass('active');break
+		case "/web-feedback-system/settings": $('li#setting').toggleClass('active');break;
 		case "/web-feedback-system/help": $('li#help').toggleClass('active');break;
 		case "/web-feedback-system/help?about": $('li#about').toggleClass('active');break;
 		
-	}
+	}	
 	
-	var w = window.innerWidth;
-	var h = window.innerHeight;
-	
-	
-	
-	if($(window).width()< 800){
+	if($(window).width()< 975){
 			
 			$(".navbar-large").hide();
 			$(".navbar-small").show();
@@ -36,7 +31,7 @@ $(document).ready(function() {
 		
 	
 	$(window).resize(function() {
-		if($(window).width()< 800){
+		if($(window).width()<975){
 			$(".navbar-large").hide();
 			$(".navbar-small").show();
 			$(".left-menu").hide();
@@ -48,7 +43,8 @@ $(document).ready(function() {
 			$(".navbar-small").hide();
 			$(".navbar-large").show();
 			$(".left-menu").show();
-			
+			$(".left-menu-collapsed").toggleClass("left-menu-collapsed");
+			$(".overlay").toggleClass("overlay");
 		}
 			
 	});
@@ -62,6 +58,8 @@ $(document).ready(function() {
     $("#toggle-link-id").click(function(e) {
        
         $("#left-menu-toggle").toggleClass("left-menu-collapsed");
+        //$(".main-content").toggleClass("main-disable");
+        $("#disablingDiv").toggleClass("overlay");
     });
     
 });

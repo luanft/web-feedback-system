@@ -51,8 +51,8 @@
 		<jsp:include page="menu/top-menu.jsp"/>
 	<jsp:include page="menu/left-menu-toggle.jsp"/>
 		<!-- chia trang thanh 2 cot -->
-		<br> <br> <br>
-		<div class="container-fluid">
+		<div id="disablingDiv"></div>
+		<div class="container-fluid main-content">
 			<div class="row">
 				<div class="col-md-3">
 					<jsp:include page="menu/left-menu.jsp"></jsp:include>

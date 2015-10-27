@@ -20,18 +20,19 @@
 }
 .left-menu-toggle{
 	position: absolute;
-	z-index: 200;
-	top: 50px;
+	z-index: 999;
+	top: 80px;
 	left: -240px;
 	width: 220px;
 	height: 550px;
 	background-color: white;
-	transition:all .5s ease-in-out;
-    -webkit-transition:all .5s ease-in-out;
+	transition:all .6s ease-in-out;
+    -webkit-transition:all .6s ease-in-out;
     padding-top: 10px;
     padding-left: 10px;
     padding-right: 10px;
     box-shadow: 10px 10px 5px #888888;
+    
 }
 .left-menu-collapsed{
 	transform:translateX(100%);   
@@ -50,4 +51,26 @@ li.dropdown{
 }
 .container{
 	display:block;
+}
+.main-content{
+	margin-top: 80px;
+	z-index: 997;
+}
+.main-disable {
+	
+	opacity: 0.3;
+	color: #c0c0c0;
+	z-index: 998;
+}
+.overlay
+{
+    display: block; 
+    z-index:998;
+    position: fixed; 
+    top: 0%; 
+    left: 0%; 
+    width: 100%; 
+    height: 100%; 
+    opacity:0.8; 
+    background:lightgrey;
 }

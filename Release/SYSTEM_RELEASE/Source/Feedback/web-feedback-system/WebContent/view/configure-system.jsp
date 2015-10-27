@@ -34,14 +34,13 @@
 		<jsp:include page="menu/top-menu.jsp"/>
 		<jsp:include page="menu/left-menu-toggle.jsp"/>
 		<!-- chia trang thanh 2 cot -->
-
-		<div class="container-fluid">
-			<br> <br> <br>
+		<div id="disablingDiv"></div>
+		<div class="container-fluid main-content">
 			<div class="row">
 				<div class="col-md-3">
 					<jsp:include page="menu/left-menu.jsp"/>
 				</div>
-				<div class="col-md-9">
+				<div class="col-md-9 ">
 					<br>
 					<!-- Menu chỉnh thời gian nhận mail -->
 					<div class="container-fluid">
