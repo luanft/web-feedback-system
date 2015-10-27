@@ -7,7 +7,6 @@ String userId = (String) request.getAttribute("user");
 ModelAccount account = new ModelAccount();
 dtoAccount dtoAcc = account.getAccountById(userId);
 %>
-<script src="view/resource/lib/detectMobileDevide.js"></script>
 <script src="view/resource/lib/menu.js"></script>
 <link rel="stylesheet" href="view/resource/css/menu.css">
 <nav

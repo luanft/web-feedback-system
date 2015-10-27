@@ -13,8 +13,7 @@ $(document).ready(function() {
 		case "help?about": $('li#about').toggleClass('active');
 	}	
 		
-	if($(window).width()< 975 || jQuery.browser.mobile){
-			
+	if($(window).width()< 975 ){
 			$(".navbar-large").hide();
 			$(".navbar-small").show();
 			$(".left-menu").hide();
