@@ -18,7 +18,7 @@ dtoAccount dtoAcc = account.getAccountById(userId);
 	<div>
 		<ul class="nav nav-stacked nav-pills custom_font_bold" role="tablist">
 			<li id='new-job'><a
-				href="<%out.print(request.getContextPath());%>"><span
+				href="<%out.print(request.getContextPath()+"/home");%>"><span
 					class="glyphicon glyphicon glyphicon-home"></span> Việc Làm Mới</a></li>
 			<li id='rec-job'><a
 				href="<%out.print(request.getContextPath() + "/recommendation");%>"><span

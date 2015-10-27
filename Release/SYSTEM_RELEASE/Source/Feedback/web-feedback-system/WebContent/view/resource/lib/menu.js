@@ -1,4 +1,6 @@
 
+
+
 $(document).ready(function() {
 	$(".navbar-small").hide();
 	var url      = window.location.href;
