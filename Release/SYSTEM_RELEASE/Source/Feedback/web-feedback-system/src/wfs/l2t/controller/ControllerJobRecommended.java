@@ -108,22 +108,22 @@ public class ControllerJobRecommended extends HttpServlet {
 			jobRec.time = timestamp;
 			switch (key) {
 			case "0":// not fit
-				if (mjr.checkIfExist(jobId, accountId)) {
-					mjr.updateFittable(jobRec);
-				} else {
-					mjr.add(jobRec);
-				}
+				jobRec.seen = "0";
 				break;
 			case "1":// fit
-				jobRec.fit = "1";
-				if (mjr.checkIfExist(jobId, accountId)) {
-					mjr.updateFittable(jobRec);
-				} else {
-					mjr.add(jobRec);
-				}
+				jobRec.fit = "1";				
+				break;
+			case "-1":// fit
+				jobRec.fit = "0";
+				jobRec.notFit = "1";				
 				break;
 			default:
 				break;
+			}
+			if (mjr.checkIfExist(jobId, accountId)) {
+				mjr.updateFittable(jobRec);
+			} else {
+				mjr.add(jobRec);
 			}
 		}
 	}
@@ -152,7 +152,7 @@ public class ControllerJobRecommended extends HttpServlet {
 			throws ServletException, IOException {
 		response.setContentType("text/html; charset=UTF-8");
 		response.getWriter().write(
-				"<div class=\"panel panel-info\" id = 'panel" + job.jobId
+				"<div style = 'margin-bottom:10px' class=\"panel panel-info\" id = 'panel" + job.jobId
 						+ "'>");
 		response.getWriter().write("<div class='panel-heading'>");
 		response.getWriter()
@@ -214,12 +214,15 @@ public class ControllerJobRecommended extends HttpServlet {
 		response.getWriter().write("</div>");
 		response.getWriter().write("<div class='panel-footer'>");
 		response.getWriter()
-				.write("<a onclick = likeClick(this,"
+				.write("<a class = 'bookmark' onclick = likeClick(this,"
 						+ job.jobId
-						+ ") href='#/' value = '0' style='margin-left: 15px; margin-right: 15px;color:#AFB4BD;font-size:15px;' data-toggle='tooltip'title='Việc làm phù hợp!'><span class='glyphicon glyphicon-thumbs-up'></span> Phù hợp</a>");
+						+ ") href='#/' value = '0' style='margin-left: 15px; margin-right: 15px;color:#AFB4BD;font-size:15px;' data-toggle='tooltip'title='Việc làm này phù hợp với bạn?'><span class='glyphicon glyphicon-thumbs-up'></span> Phù hợp</a>");
+		response.getWriter()
+				.write("<a class = 'bookmark' onclick = dislikeClick("
+						+ job.jobId
+						+ ") href='#/' value = '0' style='margin-left: 15px; margin-right: 15px;color:#AFB4BD;font-size:15px;' data-toggle='tooltip'title='Việc làm này không phù hợp với bạn?'><span class='glyphicon glyphicon-remove' style = 'color:red'></span> Không phù hợp</a>");
 		response.getWriter().write("</div>");
-		response.getWriter().write("</div>");
-		response.getWriter().write("<br>");
+		response.getWriter().write("</div>");		
 	}
 
 	private void writeHtml(HttpServletRequest request,

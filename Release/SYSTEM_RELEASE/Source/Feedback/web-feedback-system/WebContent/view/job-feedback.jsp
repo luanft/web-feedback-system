@@ -60,6 +60,8 @@
 			</div>
 		</div>
 	</div>
+	<!-- go to top button -->
+	<a href="#" class="go-to-top"></a>
 	<script type="text/javascript"
 		src="view/resource/lib/job-feedback-utility.js">
 		

@@ -36,15 +36,16 @@ public class ModelJobRecommended extends Model {
 
 	public void updateFittable(dtoJobRecommended jobRec) {
 		if (connection.connect()) {
-			String sql = "update `job_recommended` set `Fit` = ?, NotFit = ?, Seen = 1, Time = ? where `AccountId` = ? and `JobId` = ?";
+			String sql = "update `job_recommended` set `Fit` = ?, NotFit = ?, Seen = ?, Time = ? where `AccountId` = ? and `JobId` = ?";
 			try {
 				PreparedStatement stm = connection.getConnection()
 						.prepareStatement(sql);
 				stm.setString(1, jobRec.fit);
 				stm.setString(2, jobRec.notFit);
-				stm.setString(4, jobRec.accountId);
-				stm.setString(5, jobRec.jobId);
-				stm.setTimestamp(3, jobRec.time);
+				stm.setString(3, jobRec.seen);
+				stm.setTimestamp(4, jobRec.time);
+				stm.setString(5, jobRec.accountId);
+				stm.setString(6, jobRec.jobId);				
 				connection.setPrepareStatement(stm);
 				connection.writeSecure();
 			} catch (SQLException e) {

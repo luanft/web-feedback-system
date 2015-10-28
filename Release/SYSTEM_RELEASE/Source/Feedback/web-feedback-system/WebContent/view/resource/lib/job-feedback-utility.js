@@ -1,6 +1,3 @@
-/**
- * 
- */
 
 /**
  * show loading icon when loading data
@@ -60,7 +57,7 @@ function dislikeClick(xxx) {
 		type : "POST",
 		url : "ControllerJobRecommended",
 		data : {
-			status : "0",
+			status : "-1",
 			index : xxx
 		}
 	});
@@ -91,3 +88,36 @@ $(document).ready(function() {
 //		}
 //	});
 //});
+
+/**
+ * function go to top
+ */
+$(document).ready(function ()
+{
+	var offset = 250, // At what pixels show Back to Top Button
+	scrollDuration = 300; // Duration of scrolling to top
+	$(window).scroll(function ()
+	{
+		if ($(this).scrollTop() > offset)
+		{
+			$('.go-to-top').fadeIn(500);
+		}
+		else
+		{
+			$('.go-to-top').fadeOut(500);
+		}
+	}
+	);
+
+	// Smooth animation when scrolling
+	$('.go-to-top').click(function (event)
+	{
+		event.preventDefault();
+		$('html, body').animate(
+		{
+			scrollTop : 0
+		}, scrollDuration);
+	}
+	)
+}
+);

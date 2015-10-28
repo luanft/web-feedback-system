@@ -4,6 +4,10 @@
 	font-weight: bold;
 }
 
+body{
+	background-color:#E9EAED;
+}
+
 .custom_color_white {
 	color: white;
 }
