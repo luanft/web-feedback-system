@@ -131,7 +131,7 @@ public class ControllerCareJob extends HttpServlet {
 
 		if (jobList.size() == 0)
 			if (offset == 11)
-				writeHtml("Bạn chưa chọn quan tâm công việc nào!", request,
+				writeHtml("Bạn chưa lưu công việc nào!", request,
 						response);
 			else
 				writeHtml("Hết việc đã lưu rồi!", request,

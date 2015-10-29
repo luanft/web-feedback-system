@@ -53,7 +53,7 @@ function likeClick(obj, xxx) {
 
 function dislikeClick(xxx) {
 	
-	$("#panel" + xxx).find('.panel-footer').html("<p>Cảm ơn bạn đã có những phản hồi chính xác tới chúng tôi.</p>" +
+	$("#panel" + xxx).find('.panel-footer').html("<p>Cảm ơn bạn đã phản hồi.</p>" +
 			" <p>Những phản hồi của bạn sẽ giúp chúng tôi đưa ra những gợi ý việc làm chính xác hơn cho bạn!</p>");
 	
 	$("#panel" + xxx).delay(3000).slideUp(3000);
