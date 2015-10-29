@@ -48,15 +48,15 @@
 								<form role="form" method="post" action="account">
 									<div class="form-group">
 										<label for="pwd">Mật khẩu cũ:</label> <input type="password"
-											name="fcp-old-pass" class="form-control" id="pwd">
+											name="fcp-old-pass" required class="form-control" id="pwd">
 									</div>
 									<div class="form-group">
 										<label for="pwd">Mật khẩu mới:</label> <input type="password"
-											name="fcp-new-pass" class="form-control" id="pwd">
+											name="fcp-new-pass" required class="form-control" id="pwd">
 									</div>
 									<div class="form-group">
 										<label for="pwd">Xác nhận mật khẩu mới:</label> <input
-											type="password" name="fcp-confirm-pass" class="form-control"
+											type="password" required name="fcp-confirm-pass" class="form-control"
 											id="pwd">
 									</div>
 									<button type="submit" name="btnChangePass"
@@ -111,7 +111,7 @@
 									<div class="form-group">
 										<label for="pwd">Tên truy cập mới:</label> <input type="text"
 											name="fcn-new-user-name" class="form-control"
-											value="<%=dtoAcc.userName%>" id="pwd">
+											value="<%=dtoAcc.userName%>" required id="pwd">
 									</div>
 									<button type="submit" name="changeUserName"
 										class="btn btn-primary navbar-right custom_margin">Thay

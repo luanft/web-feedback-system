@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.coobird.thumbnailator.Thumbnails;
+
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -54,12 +56,18 @@ public class ControllerAccount extends HttpServlet {
 					String path = this.getServletContext().getRealPath("/");
 					File f = new File(path + "/view/resource/image/avatar/");
 					int list = f.listFiles().length;
-					i.write(new File(path
+					
+					String des = path
 							+ "/view/resource/image/avatar/"
 							+ list
 							+ "."
-							+ FilenameUtils.getExtension(i.getName())
-									.toUpperCase()));
+							+ FilenameUtils.getExtension(i.getName()).toUpperCase();
+					
+					i.write(new File(des));
+					
+					Thumbnails.of(des)
+					.size(510, 510)
+					.toFile(des);
 
 					ModelAccount account = new ModelAccount();
 					account.changeAvatar(this.loginUtility.getLoggedUserId(),

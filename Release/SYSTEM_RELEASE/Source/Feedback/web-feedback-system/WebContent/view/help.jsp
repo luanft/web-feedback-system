@@ -18,15 +18,15 @@
 <body>
 	<div class="container">
 		<!-- menu top -->
-		<jsp:include page="menu/top-menu.jsp"/>
-		
+		<jsp:include page="menu/top-menu.jsp" />
+
 		<!-- chia trang thanh 2 cot -->
-		
+
 		<div class="container-fluid main-content">
-			
+
 			<div class="row">
 				<div class="col-md-3">
-					<jsp:include page="menu/left-menu.jsp"/>
+					<jsp:include page="menu/left-menu.jsp" />
 				</div>
 				<div class="col-md-9">
 					<br> <br>
@@ -40,50 +40,48 @@
 							với các công việc được đề nghị để phục vụ các bạn tốt hơn! <br>
 							Các tính năng chính của hệ thống:
 						<ol>
-							<li><b>Xem công việc mới:</b> <br> Mỗi ngày, hệ thống
-								sẽ tự động thu thập các việc làm mới nhất từ mọi ngành nghề. Các
+							<li><b>Xem việc làm mới:</b> <br> Mỗi ngày, hệ thống sẽ
+								tự động thu thập các việc làm mới nhất từ mọi ngành nghề. Các
 								việc làm này được lấy từ các website tuyển dụng hàng đầu như
 								careerlink, vietnamworks,.. Các bạn có thể xem thông tin các
-								việc làm này từ menu <b>"CÔNG VIỆC MỚI"</b>.<br> <br></li>
-							<li><b>Xem công việc mà bạn quan tâm(thích): </b><br>
-								Đây là tính năng cho phép bạn có thể xem lại những công việc mà
-								bạn đã quan tâm. Bạn có thể sử dụng tính năng này bằng menu <b>"CÔNG
-									VIỆC QUAN TÂM"</b>.<br> <br></li>
-							<li><b>Khảo sát:</b> <br> Khi sử dụng menu này, hệ
-								thống sẽ đưa ra khoảng từ 5 đến 10 công việc thuộc lĩnh vực mà
-								bạn quan tâm. Hệ thống sẽ gửi mail việc làm cho bạn hàng tuần
-								cho bạn. Bạn có thể thiết lập nhận mail bằng cách truy cập menu
-								<b>"THIẾT LẬP GỬI MAIL"</b><br> <br> Để tham gia khảo
-								sát bạn có 2 lựa chọn sau:<br> <img
-								src="<%out.print(request.getContextPath()
-					+ "/view/resource/image/khao_sat.PNG");%>">
-								<br> <br> Bạn chọn dấu sao: Nghĩa là công việc này phù
-								hợp <br> Bạn chọn dấu x: Công việc này không phù hợp với
-								bạn. Bạn sẽ không thấy công việc này nữa.<br> <br></li>
-							<li><b>Thiết lập gửi mail:</b> <br> Hệ thống chúng tôi
-								sẽ gửi việc làm định kỳ cho các bạn qua email. Để thuận tiện cho
-								các bạn chúng tôi cung cấp tính năng này để các bạn có thể lựa
-								chọn các lĩnh vực việc làm mà bạn quan tâm, số việc làm mà bạn
-								muốn nhận trong một lần gửi, và thời điểm mà bạn muốn nhận mail.
-								Để sử dụng tính năng này bạn có thể truy cập menu <b>"THIẾT"LẬP
-									GỬI MAIL"</b>.<br> <br></li>
-
+								việc làm này từ menu <b>"Việc Làm Mới"</b>.<br> <br></li>
+							<li><b>Xem công việc gợi ý: </b><br> Hệ thống sẽ tổng
+								hợp và phân tích CV của bạn để cung cấp các công việc có thể bạn
+								quan tâm. Hệ thống sẽ gửi mail thông báo các công việc mà bạn có
+								thể thích. Để tăng tính chính xác bạn hãy lưu lại các công việc
+								mà bạn cảm thấy phù hợp. Chúng tôi sẽ dùng thông tin này để tìm
+								ra các công việc tương tự để phục vụ bạn tốt hơn. Để sử dụng
+								tính năng này bạn hãy chọn menu <b>"Việc Làm Gợi Ý"</b>.<br>
+								<br></li>
 							<li><b>Xem hồ sơ của bạn:</b> <br> Đây là tính năng cho
 								phép bạn xem hồ sơ(CV) của mình, thêm hoặc chỉnh sửa hồ sơ. Bạn
-								có thể sử dụng tính năng này bằng cách truy cập menu <b>"XEM
-									HỒ SƠ CỦA BẠN"</b>.<br></li>
+								có thể sử dụng tính năng này bằng cách truy cập menu <b>" HỒ
+									SƠ CỦA BẠN"</b>.<br> <br></li>
+
+							<li><b>Xem việc làm đã lưu:</b> <br> Bạn có thể xem lại
+								các thông tin về các công việc mà mình đã lưu ở đây. Đồng thời
+								hệ thống sẽ sử dụng các thông tin này để tìm kiếm các công việc
+								có thể bạn quan tâm. Để sử dụng tính năng này, hãy truy cập menu
+								<b>"Việc Làm Gợi Ý"</b>.<br> <br></li>
+							<li><b>Thiết lập gửi mail:</b> <br> Hệ thống chúng tôi
+								sẽ gửi việc làm định kỳ cho các bạn qua email. Để thuận tiện,
+								chúng tôi cung cấp tính năng này để các bạn có thể lựa chọn các
+								lĩnh vực việc làm mà bạn quan tâm, số việc làm mà bạn muốn nhận
+								trong một email, và thời điểm mà bạn muốn nhận mail. Để sử dụng
+								tính năng này bạn có thể truy cập menu <b>"Thiết Lập Gửi
+									Mail"</b>.<br> <br></li>
 						</ol>
-						</p>
+
 					</div>
 
 				</div>
 			</div>
 		</div>
 	</div>
-	</div>
-	</div>
 
-	</div>
+
+
+
 </body>
 </html>
 
