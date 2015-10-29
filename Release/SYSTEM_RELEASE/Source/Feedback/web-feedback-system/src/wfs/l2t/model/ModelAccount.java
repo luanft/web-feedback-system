@@ -239,4 +239,25 @@ public class ModelAccount extends Model {
 		}
 		return false;
 	}
+
+	public Boolean hasSavedJob(String userId)
+	{
+		Boolean ret = false;
+		if(connection.connect())
+		{
+			String sql = "SELECT count(*) as `total` FROM `job_recommended` WHERE `Fit` = 1 and `AccountId` = " + userId;
+			ResultSet rs = connection.read(sql);
+			try {
+				rs.next();
+				ret = rs.getInt("total") > 0;
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			connection.close();
+		}
+		return ret;
+	}
 }

@@ -78,4 +78,6 @@ public class ModelJobRecommended extends Model {
 		}
 		return false;
 	}
+
+
 }
