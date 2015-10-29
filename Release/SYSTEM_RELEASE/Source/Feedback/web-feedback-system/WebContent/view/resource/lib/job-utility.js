@@ -1,3 +1,9 @@
+
+
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();   
+});
+
 /**
  * set fixed notification bar
  */
@@ -177,6 +183,11 @@ $(document).ready(function ()
 		}
 		else
 		{
+			//chô nay replace roi :D nhưng khi load lần đầu ong k có javasript nào kè
+			//kèm theo cả
+			//nhétv vo trong new-job.jsp luôn
+			// k tin thử đi :D
+			//$("#content-wrapper").html("<script type=\"text/javascript\">$(document).ready(function(){$('.bookmark').tooltip({title:'Hãy đánh dấu việc làm phù hợp với bạn!', trigger:'hover'});});</script>");
 			count = 0;
 			if ($("#done").text().trim() !== "Hết việc mới rồi. Hehe!")
 			{

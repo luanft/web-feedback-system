@@ -75,9 +75,9 @@
 	overflow-x: hidden;
 }
 </style>
+
 </head>
 <body>
-
 
 	<div class="container flip-container">
 		<!-- menu top -->
@@ -128,8 +128,10 @@
 									+ "'>Tạo CV</a> ngay bây giờ để nhận được những việc làm phù hợp với bạn!</b></p></div>");
 						}
 					%>
+									
 					<!-- show jobs -->
-					<div id="content-wrapper" class="panel-group"></div>
+					<div id="content-wrapper" class="panel-group">				
+					</div>
 					<!-- loading icon -->
 					<div id="loading" style="margin: 0 auto;" class="loading-icon custom_hiden"></div>
 				</div>

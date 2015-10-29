@@ -216,11 +216,11 @@ public class ControllerJobRecommended extends HttpServlet {
 		response.getWriter()
 				.write("<a class = 'bookmark' onclick = likeClick(this,"
 						+ job.jobId
-						+ ") href='#/' value = '0' style='margin-left: 15px; margin-right: 15px;color:#AFB4BD;font-size:15px;' data-toggle='tooltip'title='Việc làm này phù hợp với bạn?'><span class='glyphicon glyphicon-thumbs-up'></span> Phù hợp</a>");
+						+ ") href='#/' value = '0' style='margin-left: 15px; margin-right: 15px;color:#AFB4BD;font-size:15px;' data-toggle='tooltip'title='Việc làm này phù hợp với bạn?'><span class='glyphicon glyphicon-floppy-saved'></span> Lưu việc làm</a>");
 		response.getWriter()
 				.write("<a class = 'bookmark' onclick = dislikeClick("
 						+ job.jobId
-						+ ") href='#/' value = '0' style='margin-left: 15px; margin-right: 15px;color:#AFB4BD;font-size:15px;' data-toggle='tooltip'title='Việc làm này không phù hợp với bạn?'><span class='glyphicon glyphicon-remove' style = 'color:red'></span> Không phù hợp</a>");
+						+ ") href='#/' value = '0' style='margin-left: 15px; margin-right: 15px;color:#AFB4BD;font-size:15px;' data-toggle='tooltip'title='Việc làm này không phù hợp với bạn?'><span class='glyphicon glyphicon-remove' ></span> Không phù hợp</a>");
 		response.getWriter().write("</div>");
 		response.getWriter().write("</div>");		
 	}

@@ -52,11 +52,17 @@
 				</div>
 				<div class="col-md-9 custom_background_color panel-group">
 					<br>
+					<!-- show jobs -->
 					<div id="content-wrapper"></div>
+					<!-- thank you panel -->
+					<div class = 'panel panel-body' style = 'display:none' id = 'tks'>
+						<p> Cảm ơn bạn đã phản hồi với chúng tôi! </p>
+					</div>
+					<!-- loading icon -->
+					<div id="loading" style="margin: 0 auto;"
+						class="loading-icon custom_hiden"></div>
 				</div>
-				<!-- loading icon -->
-				<div id="loading" style="margin: 0 auto;"
-					class="loading-icon custom_hiden"></div>
+
 			</div>
 		</div>
 	</div>
