@@ -140,7 +140,7 @@ public class ModelJob extends Model {
 
 	public List<dtoJob> getJobRecommended(String userId) {
 		List<dtoJob> jobList = new ArrayList<dtoJob>();
-		String sql = "select job.AccountId, job.JobId, JobName, category.CategoryId, category.Description as Category, Location, Salary, job.Description, Tags, Requirement, Benifit, Expired, Source, Company, Fit, NotFit, job_recommended.AccountId as UserId from category, job join job_recommended on job_recommended.JobId = job.JobId where category.CategoryId = job.CategoryId and Seen = 0 and job_recommended.AccountId = "
+		String sql = "select job.AccountId, job.JobId, JobName, category.CategoryId, category.Description as Category, Location, Salary, job.Description, Tags, Requirement, Benifit, Expired, Source, Company, Fit, NotFit, job_recommended.AccountId as UserId from category, job join job_recommended on job_recommended.JobId = job.JobId where category.CategoryId = job.CategoryId and Seen = 0 and NotFit = 0 and job_recommended.AccountId = "
 				+ userId + " order by job.JobId desc";
 		if (connection.connect()) {
 			ResultSet rs = connection.read(sql);

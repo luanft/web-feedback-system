@@ -53,10 +53,10 @@ function likeClick(obj, xxx) {
 
 function dislikeClick(xxx) {
 	
-	$("#panel" + xxx).html("Cảm ơn bạn đã có những phản hồi chính xác tới chúng tôi." +
+	$("#panel" + xxx).find('.panel-footer').html("Cảm ơn bạn đã có những phản hồi chính xác tới chúng tôi." +
 			" Những phản hồi của bạn sẽ giúp chúng tôi đưa ra những gợi ý việc làm chính xác hơn cho bạn!");
 	
-	$("#panel" + xxx).fadeOut(5000);
+	$("#panel" + xxx).delay(2000).slideUp(3000);
 	$.ajax({
 		type : "POST",
 		url : "ControllerJobRecommended",
