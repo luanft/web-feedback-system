@@ -141,5 +141,6 @@
 	<!-- go to top button -->
 	<a href="#" class="go-to-top"></a>
 	<script type="text/javascript" src="view/resource/lib/job-utility.js"></script>
+	<div ></div>
 </body>
 </html>
