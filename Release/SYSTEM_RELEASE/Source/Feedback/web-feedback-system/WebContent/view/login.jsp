@@ -126,8 +126,9 @@ body {
 										if (cate.categoryName.trim().equals("IT - Phần mềm"))
 											out.print("<option selected value = '" + cate.categoryId
 													+ "'>" + cate.categoryName + "</option>");
-										out.print("<option value = '" + cate.categoryId + "'>"
-												+ cate.categoryName + "</option>");
+										else
+											out.print("<option value = '" + cate.categoryId + "'>"
+													+ cate.categoryName + "</option>");
 									}
 								%>
 							</select>
