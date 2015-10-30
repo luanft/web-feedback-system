@@ -93,7 +93,7 @@ public class ControllerForgotPassword extends HttpServlet {
 						+ account.userName
 						+ " tại "+link+" đã được thay đổi mật khẩu. Mật khẩu mới của bạn là: "
 						+ newPass
-						+ "\r\n Cảm ơn bạn đã sử dụng hệ thống khuyến nghị việc làm của chúng tôi!";
+						+ ".<br>Cảm ơn bạn đã sử dụng hệ thống khuyến nghị việc làm của chúng tôi!";
 
 				String resultMessage = "";
 				try {
