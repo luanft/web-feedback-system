@@ -11,7 +11,7 @@
 <script src="view/resource/lib/menu.js"></script>
 <link rel="stylesheet" href="view/resource/css/menu.css">
 <nav
-	class="navbar-large navbar navbar-inverse navbar-fixed-top custom_navbar_color ">
+	class="navbar navbar-inverse navbar-fixed-top custom_navbar_color " id="navbar-large">
 	<div class="row">
 		<div class="col-md-6">
 			<div class="navbar-header" style = "margin-left:30px;">
@@ -45,11 +45,13 @@
 	</div>
 </nav>
 <nav
-	class="navbar navbar-inverse navbar-fixed-top custom_navbar_color navbar-small ">
+	class="navbar navbar-inverse navbar-fixed-top custom_navbar_color" id="navbar-small">
 	<div class='row' id='web-brand-content'>
-		<a class=" web-brand navbar-brand custom_color_white"
-			href="<%out.print(request.getContextPath());%>"> RECOMMENDATION
-			SYSTEM</a>
+		<a href="<%out.print(request.getContextPath());%>"> <img
+					src="<%out.print(request.getContextPath()
+					+ "/view/resource/image/logo.png");%>"
+					class="img-responsive">
+		</a>
 
 	</div>
 	<ul class="nav navbar-nav ">
@@ -74,6 +76,54 @@
 			</ul></li>
 	</ul>
 </nav>
+<nav class="navbar navbar-inverse navbar-fixed-top custom_navbar_color" id="navbar-mobile">
+  <div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse"
+				data-target="#myNavbar">
+				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+			<img class="pull-left" alt=""
+				src="${pageContext.request.contextPath}/view/resource/image/logoUit.png"
+				width="64" height="50" >
+			<a class="web-brand navbar-brand custom_color_white"
+				href="<%out.print(request.getContextPath());%>"> RECOMMENDATION SYSTEM</a>
+		</div>
+		<div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li id='new-job' class="col-xs-6"><a
+				href="<%out.print(request.getContextPath()+"/home");%>"><span
+					class="glyphicon glyphicon glyphicon-home"></span> Việc Làm Mới</a></li>
+			<li id='rec-job' class="col-xs-6"><a
+				href="<%out.print(request.getContextPath() + "/recommendation");%>"><span
+					class="glyphicon glyphicon glyphicon-pencil"></span> Việc Làm Gợi Ý</a></li>
+			<li id='listresume' class="col-xs-6"><a
+				href="<%out.print(request.getContextPath() + "/listresume");%>"><span
+					class="glyphicon glyphicon-list-alt"></span> Hồ Sơ Của Bạn</a></li>
+			<li id="care" class="col-xs-6"><a href="<%out.print(request.getContextPath() + "/care");%>"><span
+					class="glyphicon glyphicon-heart"></span> Việc Làm Đã Lưu</a></li>
+			<li id="setting"class="col-xs-6"><a
+				href="<%out.print(request.getContextPath() + "/settings");%>"><span
+					class="glyphicon glyphicon-cog"></span> Thiết Lập Gửi Mail</a></li>
+
+			<li id="help" class="col-xs-6"><a href="<%out.print(request.getContextPath() + "/help");%>"><span
+					class="glyphicon glyphicon-question-sign"></span> Trợ Giúp</a></li>
+			<li id="about" class="col-xs-6"><a
+				href="<%out.print(request.getContextPath() + "/help?about");%>"><span
+					class=" glyphicon glyphicon-info-sign"></span> Về Chúng tôi</a></li>
+
+
+				<li class="col-xs-6"><a
+					href="<%out.print(request.getContextPath() + "/account");%>">Quản
+						lý tài khoản</a></li>
+				<li class="col-xs-6"><a
+					href="<%out.print(request.getContextPath() + "/home?logout=true");%>"><span
+						class="glyphicon glyphicon-log-in"></span> Đăng xuất</a></li>
+			</ul>
+		</div>
+  </div>
+  </nav>
 <jsp:include page="left-menu-toggle.jsp" />
 <div id="disablingDiv"></div>
 

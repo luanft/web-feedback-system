@@ -82,7 +82,7 @@
 
 	<div class="container flip-container">
 		<!-- menu top -->
-		<jsp:include page="menu/top-menu.jsp" />
+		<jsp:include page="menu/top-menu.jsp"></jsp:include>
 		
 		<!-- chia trang thanh 2 cot -->
 	
