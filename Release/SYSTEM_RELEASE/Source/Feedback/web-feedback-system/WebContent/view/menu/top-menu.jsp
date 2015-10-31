@@ -77,9 +77,9 @@
 	</ul>
 </nav>
 <nav class="navbar navbar-inverse navbar-fixed-top custom_navbar_color" id="navbar-mobile">
-  <div class="container-fluid">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse"
+<div class="container-fluid">
+		<div class="navbar-header" id="navbar-header-mobile">
+			<button type="button" id="toggle-mobile-button" class="navbar-toggle" data-toggle="collapse"
 				data-target="#myNavbar">
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
@@ -122,7 +122,7 @@
 						class="glyphicon glyphicon-log-in"></span> Đăng xuất</a></li>
 			</ul>
 		</div>
-  </div>
+	</div>  
   </nav>
 <jsp:include page="left-menu-toggle.jsp" />
 <div id="disablingDiv"></div>
