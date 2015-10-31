@@ -9,7 +9,7 @@
 %>
 <div class="left-menu" id="left-menu" data-spy="affix">
 	<div class="container-fluid col-md-offset-0">
-		<h4>Xin chào!</h4>
+		
 		<img src="<%out.print(request.getContextPath() + dtoAcc.avatar);%>"
 			class="img-rounded" width="170" height="170">
 	</div>

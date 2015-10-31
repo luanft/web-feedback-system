@@ -198,7 +198,7 @@ public class ControllerLogin extends HttpServlet {
 				String accType = request.getParameter("radio");
 				account.accountType = "employer".equals(accType) ? "employer"
 						: "job-seeker";
-				account.timeReceiveEmail = "weekly";
+				account.timeReceiveEmail = "dayly";
 				account.numberReceiveEmail = "10";
 				account.confirmCode = UUID.randomUUID().toString();
 				account.avatar = "/view/resource/image/avatar/icon-user-default.png";
@@ -226,11 +226,11 @@ public class ControllerLogin extends HttpServlet {
 			    } catch (IOException e) {
 			    }
 			    
-			    String content = "Xin chào " +account.userName+"! <br>Đây là email xác thực tài khoản bạn đã đăng ký tại "+link+". Vui lòng <a href = " +link+ "ControllerConfirmEmail?code="
+			    String content = "Xin chào " +account.userName+"! <br>Đây là email xác thực tài khoản bạn đã đăng ký tại "+link+". <br>Vui lòng <a href = " +link+ "ControllerConfirmEmail?code="
 						+ account.confirmCode
 						+ "&accountId="
 						+ mdAccount.getAccountId(account.email)
-						+ "> " bấm vào đây " </a> để xác thực tài khoản của bạn.";
+						+ "> bấm vào đây </a> để xác thực tài khoản của bạn.";
 				
 				String resultMessage = "";
 				try {

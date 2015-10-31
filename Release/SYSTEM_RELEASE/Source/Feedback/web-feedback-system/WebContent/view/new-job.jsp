@@ -46,6 +46,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <title>JobRecSys - Việc làm mới</title>
+<link rel="shortcut icon" href="view/resource/image/logo_uit_icon.ico" />
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
 	href="view/resource/bootstrap/css/bootstrap.min.css">

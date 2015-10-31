@@ -1,11 +1,12 @@
 .custom_navbar_color {
 	color: #ffffff;
-	background-color: #3b5998;
+	background-color: #115D9D;
 	font-weight: bold;
 }
 
 body{
-	background-color:#E9EAED;
+	background-color:#F4F4F4;
+	padding-top:30px;
 }
 
 .custom_color_white {

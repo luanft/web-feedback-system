@@ -12,6 +12,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <title>JobRecSys - Đăng nhập - Đăng ký</title>
+<link rel="shortcut icon" href="view/resource/image/logo_uit_icon.ico" />
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
 	href="view/resource/bootstrap/css/bootstrap.min.css">
@@ -29,7 +30,7 @@ body {
 }
 
 #footer {
-	background-color: #00CCFF;
+	background-color: #329FEA;
 	color: white;
 	text-align: center;
 	line-height: 1.5em;
@@ -38,9 +39,12 @@ body {
 </head>
 <body>
 	<div class="container-fluid">
-		<div class="container-fluid row" style="background-color: #00CCFF;">
+		<div class="container-fluid row" style="background-color: #329FEA; color:#fff">
 			<div class="col-md-7">
-				<h1 class="text-center">JOB RECOMMENDATION SYSTEM</h1>
+				<img
+					src="<%out.print(request.getContextPath()
+					+ "/view/resource/image/logo.png");%>"
+					class="img-responsive" >				
 			</div>
 			<!-- form login -->
 			<div class="col-md-5 row">
@@ -64,7 +68,7 @@ body {
 						<div style="margin-top: 5px" class="form-group">
 							<lable for="pwd"> Mật khẩu</lable>
 							<input type="password" class="form-control" name="login-pass">
-							<a href="./ForgotPassword"> Quên mật khẩu à?</a>
+							<a  href="./ForgotPassword"> Quên mật khẩu?</a>
 						</div>
 					</div>
 					<div class="col-md-2">
@@ -86,7 +90,7 @@ body {
 					width="100%" height="430">
 			</div>
 			<div class="col-md-5">
-				<h2 style="font-family: arial; color: blue;">Đăng ký nhận việc
+				<h2 style="font-family: arial; color: #329FEA;">Đăng ký nhận việc
 					làm ngay hôm nay!</h2>
 				<p>
 					<i> Tìm việc làm nhanh chóng, tiện lợi </i>
@@ -153,7 +157,7 @@ body {
 						</div>
 						<div class="form-group">
 							<button type="submit" name="submit"
-								class="form-control btn btn-info" disabled value="register"
+								class="form-control btn btn-primary" disabled value="register"
 								id="reg-button">Đăng ký</button>
 						</div>
 					</div>

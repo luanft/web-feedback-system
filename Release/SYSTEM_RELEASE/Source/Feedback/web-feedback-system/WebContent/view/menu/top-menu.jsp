@@ -13,15 +13,13 @@
 <nav
 	class="navbar-large navbar navbar-inverse navbar-fixed-top custom_navbar_color ">
 	<div class="row">
-		<div class="col-md-5">
-			<div class="navbar-header">
-				<img
+		<div class="col-md-6">
+			<div class="navbar-header" style = "margin-left:30px;">
+				<a href="<%out.print(request.getContextPath());%>"> <img
 					src="<%out.print(request.getContextPath()
-					+ "/view/resource/image/logo.jpg");%>"
-					class="img-circle navbar-brand" width="60" height="70"> <a
-					class="navbar-brand custom_color_white"
-					href="<%out.print(request.getContextPath());%>"> RECOMMENDATION
-					SYSTEM</a>
+					+ "/view/resource/image/logo.png");%>"
+					class="img-responsive">
+				</a>
 			</div>
 		</div>
 		<div class="col-md-6">
@@ -82,22 +80,19 @@
 
 
 <%
-
-if(!hasSavedJob)
-{
-	out.print("<div id='div1' class='navbar-fixed-top' data-spy='affix' style='width: 100%; display: none; height: 120px; background-color: black; color: white; font-weight: bold;'>");	
-	out.print("<center><h1>Mẹo!</h1><p>Bấm vào nút ");
-	out.print("<a style='margin-left: 15px; margin-right: 15px; color: #AFB4BD; font-size: 15px;'href='#/; class='bookmark'><span class='glyphicon glyphicon-floppy-saved'></span> Lưu việc làm</a>");
-	out.print("để lưu lại các công việc mà bạn cảm thấy phù hợp với mình. Chúng tôi dựa vào những công việc bạn đã lưu để giới thiệu các công việc tương tự khác!");
-	out.print("</p></center></div><br>");
-	out.print("<script>");
-	out.print("function getPage(){var url = window.location.href;var sk=url.substring(url.lastIndexOf('/')+1,url.length);return sk;}");
-	out.print("function setCookie(cname, cvalue, exdays){var d = new Date();d.setTime(d.getTime() + (exdays*24*60*60*1000));var expires = 'expires='+d.toUTCString();document.cookie = cname + '=' + cvalue + '; ' + expires;}");
-	out.print("function getCookie(cname) {var name = cname + '=';var ca = document.cookie.split(';');for(var i=0; i<ca.length; i++) {var c = ca[i];while (c.charAt(0)==' ') c = c.substring(1);if (c.indexOf(name) == 0) return c.substring(name.length,c.length);}return '';}");
-	out.print("$(document).ready(function() {var page =  getPage();if(page == '' || page == 'home' || page == 'recommendation'){if(getCookie('tip')!='ok'){$('#div1').delay(10000).fadeIn();$('#div1').delay(20000).fadeOut();setCookie('tip', 'ok', 2);}}});");
-	out.print("</script>");
-}
-
+	if (!hasSavedJob) {
+		out.print("<div id='div1' class='navbar-fixed-top' data-spy='affix' style='width: 100%; display: none; height: 120px; background-color: black; color: white; font-weight: bold;'>");
+		out.print("<center><h1>Mẹo!</h1><p>Bấm vào nút ");
+		out.print("<a style='margin-left: 15px; margin-right: 15px; color: #AFB4BD; font-size: 15px;'href='#/; class='bookmark'><span class='glyphicon glyphicon-floppy-saved'></span> Lưu việc làm</a>");
+		out.print("để lưu lại các công việc mà bạn cảm thấy phù hợp với mình. Chúng tôi dựa vào những công việc bạn đã lưu để giới thiệu các công việc tương tự khác!");
+		out.print("</p></center></div><br>");
+		out.print("<script>");
+		out.print("function getPage(){var url = window.location.href;var sk=url.substring(url.lastIndexOf('/')+1,url.length);return sk;}");
+		out.print("function setCookie(cname, cvalue, exdays){var d = new Date();d.setTime(d.getTime() + (exdays*24*60*60*1000));var expires = 'expires='+d.toUTCString();document.cookie = cname + '=' + cvalue + '; ' + expires;}");
+		out.print("function getCookie(cname) {var name = cname + '=';var ca = document.cookie.split(';');for(var i=0; i<ca.length; i++) {var c = ca[i];while (c.charAt(0)==' ') c = c.substring(1);if (c.indexOf(name) == 0) return c.substring(name.length,c.length);}return '';}");
+		out.print("$(document).ready(function() {var page =  getPage();if(page == '' || page == 'home' || page == 'recommendation'){if(getCookie('tip')!='ok'){$('#div1').delay(10000).fadeIn();$('#div1').delay(20000).fadeOut();setCookie('tip', 'ok', 2);}}});");
+		out.print("</script>");
+	}
 %>
 
 
@@ -106,8 +101,8 @@ if(!hasSavedJob)
 
 
 
- 
 
- 
+
+
 
 
