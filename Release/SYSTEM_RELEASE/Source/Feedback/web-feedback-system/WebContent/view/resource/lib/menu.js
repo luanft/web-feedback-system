@@ -10,19 +10,24 @@
 $(document).ready(function() {
 	$("#navbar-small").hide();
 	$("#navbar-mobile").hide();
+	var path= window.location.pathname;
 	var url = window.location.href;
-	var sortLink=url.substring(url.lastIndexOf("/")+1,url.length);
-	switch(sortLink){
+	var shortPath=path.substring(path.lastIndexOf("/")+1, path.length);
+	var shortLink=url.substring(url.lastIndexOf("/")+1,url.length);
+	switch(shortPath){
 		case "":$('li#new-job').toggleClass('active');break;
+		case "home":$('li#new-job').toggleClass('active');break;
 		case "recommendation": $('li#rec-job').toggleClass('active');break;
 		case "listresume": $('li#listresume').toggleClass('active');break;
 		case "care": $('li#care').toggleClass('active');break;
 		case "settings": $('li#setting').toggleClass('active');break;
+	}
+	switch(shortLink){
 		case "help": $('li#help').toggleClass('active');break;
 		case "help?about": $('li#about').toggleClass('active');
-	}	
+	}
 		
-	if($(window).width()< 975 ){
+	if($(window).width()< 975 && !jQuery.browser.mobile){
 			$("#navbar-large").hide();
 			$("#navbar-small").show();
 			$(".left-menu").hide();
@@ -37,22 +42,23 @@ $(document).ready(function() {
 		$("#navbar-mobile").show();
 	}
 	$(window).resize(function() {
-		if($(window).width()<975){
-			$("#navbar-large").hide();
-			$("#navbar-small").show();
-			$(".left-menu").hide();
-			
-		}
-			
-		else{
-			
-			$("#navbar-small").hide();
-			$("#navbar-large").show();
-			$(".left-menu").show();
-			$(".left-menu-collapsed").toggleClass("left-menu-collapsed");
-			$(".overlay").toggleClass("overlay");
-		}
-			
+		if(!jQuery.browser.mobile){
+			if($(window).width()<975){
+				$("#navbar-large").hide();
+				$("#navbar-small").show();
+				$(".left-menu").hide();
+				
+			}
+				
+			else{
+				
+				$("#navbar-small").hide();
+				$("#navbar-large").show();
+				$(".left-menu").show();
+				$(".left-menu-collapsed").toggleClass("left-menu-collapsed");
+				$(".overlay").toggleClass("overlay");
+			}
+		}	
 	});
 	$('ul.nav li.dropdown').hover(function() {
 		  $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(500);
