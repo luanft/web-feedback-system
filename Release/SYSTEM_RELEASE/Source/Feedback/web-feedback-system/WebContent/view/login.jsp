@@ -29,17 +29,19 @@ body {
 	min-height: 100%;
 }
 
-#footer {
-	background-color: #329FEA;
-	color: white;
+#footer {	
 	text-align: center;
 	line-height: 1.5em;
+}
+
+a:hover{
+	color:#fff;
 }
 </style>
 </head>
 <body>
 	<div class="container-fluid">
-		<div class="container-fluid row" style="background-color: #329FEA; color:#fff">
+		<div class="container-fluid row custom_navbar_color" >
 			<div class="col-md-7">
 				<img
 					src="<%out.print(request.getContextPath()
@@ -165,7 +167,7 @@ body {
 			</div>
 		</div>
 	</div>
-	<div id="footer" class="container-fluid" style="padding-top: 20px;">
+	<div id="footer" class="container-fluid custom_navbar_color" style="padding-top: 20px;">
 		<div class="row">
 
 			<div class="col-md-5 col-md-offset-5"

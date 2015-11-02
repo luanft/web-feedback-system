@@ -13,27 +13,35 @@
 <script src="view/resource/bootstrap/js/bootstrap.min.js" async></script>
 <link rel="stylesheet" href="view/resource/css/theme_customize.css">
 <style>
+html, body{
+height: 100%;
+}
+
 body {
 	background-color: #F1F1F1;
 	margin: 0;
-	padding: 0;
-	height: auto;
+	padding: 0;		
 	min-height: 100%;
 }
 
 #footer {
-	background-color: #00CCFF;
-	color: white;
 	text-align: center;
 	line-height: 1.5em;
+}
+
+a:hover{
+	color:#fff;
 }
 </style>
 </head>
 <body>
 	<div class="container-fluid">
-		<div class="container-fluid row" style="background-color: #00CCFF;">
+		<div class="container-fluid row custom_navbar_color">
 			<div class="col-md-7">
-				<h1 class="text-center">JOB RECOMMENDATION SYSTEM</h1>
+				<img
+					src="<%out.print(request.getContextPath()
+					+ "/view/resource/image/logo.png");%>"
+					class="img-responsive" >				
 			</div>
 			<div class="col-md-5 row">
 				<form class="form" role="form" action="login" method="post">
@@ -57,7 +65,7 @@ body {
 							<lable for="pwd"> Mật khẩu</lable>
 							<input type="password" class="form-control" name="login-pass">
 							<a href="./view/forgot-password.jsp" onclick="redirect(this);">
-								Quên mật khẩu à?</a>
+								Quên mật khẩu?</a>
 						</div>
 					</div>
 					<script type="text/javascript">
@@ -114,7 +122,7 @@ body {
 								%>
 							</div>
 							<div class="form-group form-inline pull-right">
-								<button type="submit" class="form-control btn btn-info">
+								<button type="submit" class="form-control btn btn-primary">
 									Gửi</button>
 							</div>
 						</div>
@@ -123,30 +131,19 @@ body {
 			</div>
 		</div>
 	</div>
-	<div id="footer" class="container-fluid" style="padding-top: 20px;">
-		<div class="row">
-
-			<div class="col-md-5 col-md-offset-5"
-				style="float: none; margin: 0 auto;">
-				<div>
-					<strong>&copy Nhóm sinh viên UIT</strong>
-				</div>
-				<div>
-					<lable class="glyphicon glyphicon-map-marker"> <strong>Khu
-						phố 6, P.Linh Xuân, Q.Thủ Đức, TP.Hồ Chí Minh </strong> </lable>
-				</div>
-				<div>
-					<lable class="glyphicon glyphicon-envelope"> <strong>
-						<a>uit.recsys@gmail.com</a>
-					</strong> </lable>
-				</div>
-				<div>
-					<lable class="glyphicon glyphicon-earphone"> <strong>
-						084 165 799 0105 </strong></lable>
-				</div>
-			</div>
-
+	<footer class="navbar-fixed-bottom custom_navbar_color">
+		<div class="container text-center">
+			<address>
+				<strong>&copy Nhóm sinh viên UIT</strong> <br> <strong>
+					<span class="glyphicon glyphicon-map-marker"></span> Khu phố 6,
+					P.Linh Xuân, Q.Thủ Đức, TP.Hồ Chí Minh
+				</strong> <br> <strong> <span
+					class="glyphicon glyphicon-envelope"></span> <a>uit.recsys@gmail.com</a>
+				</strong> <br><strong> <span class="glyphicon glyphicon-earphone"></span>
+					084 165 799 0105
+				</strong>
+			</address>
 		</div>
-	</div>
+	</footer>
 </body>
 </html>

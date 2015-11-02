@@ -1,7 +1,10 @@
 .custom_navbar_color {
 	color: #ffffff;
-	background-color: #115D9D;
-	font-weight: bold;
+	background-color: #115D9D;	
+}
+
+.custom_menu_color{
+	background-color:#115D9D;
 }
 
 body{
