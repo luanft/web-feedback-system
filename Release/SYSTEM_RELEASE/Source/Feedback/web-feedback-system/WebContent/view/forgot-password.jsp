@@ -13,14 +13,14 @@
 <script src="view/resource/bootstrap/js/bootstrap.min.js" async></script>
 <link rel="stylesheet" href="view/resource/css/theme_customize.css">
 <style>
-html, body{
-height: 100%;
+html, body {
+	height: 100%;
 }
 
 body {
 	background-color: #F1F1F1;
 	margin: 0;
-	padding: 0;		
+	padding: 0;
 	min-height: 100%;
 }
 
@@ -29,8 +29,8 @@ body {
 	line-height: 1.5em;
 }
 
-a:hover{
-	color:#fff;
+a:hover {
+	color: #fff;
 }
 </style>
 </head>
@@ -41,8 +41,9 @@ a:hover{
 				<img
 					src="<%out.print(request.getContextPath()
 					+ "/view/resource/image/logo.png");%>"
-					class="img-responsive" >				
+					class="img-responsive">
 			</div>
+			<!-- form login -->
 			<div class="col-md-5 row">
 				<form class="form" role="form" action="login" method="post">
 					<div class="col-md-5">
@@ -64,15 +65,9 @@ a:hover{
 						<div style="margin-top: 5px" class="form-group">
 							<lable for="pwd"> Mật khẩu</lable>
 							<input type="password" class="form-control" name="login-pass">
-							<a href="./view/forgot-password.jsp" onclick="redirect(this);">
-								Quên mật khẩu?</a>
+							<a href="./ForgotPassword"> Quên mật khẩu?</a>
 						</div>
 					</div>
-					<script type="text/javascript">
-						function redirect(elem) {
-							window.location.href = "/view/forgot-password.jps";
-						}
-					</script>
 					<div class="col-md-2">
 						<div style="margin-top: 25px;"></div>
 						<div>
@@ -139,7 +134,8 @@ a:hover{
 					P.Linh Xuân, Q.Thủ Đức, TP.Hồ Chí Minh
 				</strong> <br> <strong> <span
 					class="glyphicon glyphicon-envelope"></span> <a>uit.recsys@gmail.com</a>
-				</strong> <br><strong> <span class="glyphicon glyphicon-earphone"></span>
+				</strong> <br>
+				<strong> <span class="glyphicon glyphicon-earphone"></span>
 					084 165 799 0105
 				</strong>
 			</address>
