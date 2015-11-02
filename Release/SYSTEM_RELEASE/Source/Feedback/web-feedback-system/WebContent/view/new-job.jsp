@@ -91,7 +91,7 @@
 				<div class="col-md-3">
 					<jsp:include page="menu/left-menu.jsp" />
 				</div>
-				<div class="col-md-9 custom_background_color flip-container">
+				<div class="col-md-9 custom_background_color flip-container" style="min-height: 500px">
 					<div class="panel search panel-default">
 						<label style="color: white"><i> Tùy chọn lĩnh vực
 								ngành nghề của bạn!</i></label>

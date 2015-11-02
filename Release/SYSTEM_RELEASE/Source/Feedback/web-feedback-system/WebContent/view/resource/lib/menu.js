@@ -31,8 +31,6 @@ $(document).ready(function() {
 			$("#navbar-large").hide();
 			$("#navbar-small").show();
 			$(".left-menu").hide();
-			
-			
 	}
 	if(jQuery.browser.mobile){
 		$("#navbar-large").hide();
@@ -68,8 +66,10 @@ $(document).ready(function() {
 		});
 	
    $("#toggle-link-id").click(function(e) {
+	   $(".left-menu-toggle").css("height",window.innerHeight-$("#navbar-small").height());
         $("#left-menu-toggle").toggleClass("left-menu-collapsed");
         $("#disablingDiv").toggleClass("overlay");
+        
     });
     $("#disablingDiv").click(function(){
     	$("#left-menu-toggle").toggleClass("left-menu-collapsed");
