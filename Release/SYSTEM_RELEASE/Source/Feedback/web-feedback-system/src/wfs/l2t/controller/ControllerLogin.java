@@ -198,7 +198,7 @@ public class ControllerLogin extends HttpServlet {
 				String accType = request.getParameter("radio");
 				account.accountType = "employer".equals(accType) ? "employer"
 						: "job-seeker";
-				account.timeReceiveEmail = "dayly";
+				account.timeReceiveEmail = "daily";
 				account.numberReceiveEmail = "10";
 				account.confirmCode = UUID.randomUUID().toString();
 				account.avatar = "/view/resource/image/avatar/icon-user-default.png";
