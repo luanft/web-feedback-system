@@ -43,23 +43,42 @@ public class ControllerJobRecommended extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-		if (loginUtility.isLogged(request, response)) {
+		if (loginUtility.isLoggedByToken(request, response)) {
 			request.setAttribute("user", loginUtility.getLoggedUserId());
 			// rec-job.jsp
 			request.getRequestDispatcher("view/job-feedback.jsp").include(
 					request, response);
-		} else {
-			// login sử dụng token
-			if (loginUtility.isLoggedByToken(request, response)) {
+			return;
+		}
+		else
+		{
+			if (loginUtility.isLogged(request, response)) {
 				request.setAttribute("user", loginUtility.getLoggedUserId());
 				// rec-job.jsp
 				request.getRequestDispatcher("view/job-feedback.jsp").include(
 						request, response);
 				return;
-			}
-			// request.setAttribute("fromJobRec", request.getContextPath());
+			} 		
 			response.sendRedirect(request.getContextPath() + "/login");
 		}
+		
+//		if (loginUtility.isLogged(request, response)) {
+//			request.setAttribute("user", loginUtility.getLoggedUserId());
+//			// rec-job.jsp
+//			request.getRequestDispatcher("view/job-feedback.jsp").include(
+//					request, response);
+//		} else {
+//			// login sử dụng token
+//			if (loginUtility.isLoggedByToken(request, response)) {
+//				request.setAttribute("user", loginUtility.getLoggedUserId());
+//				// rec-job.jsp
+//				request.getRequestDispatcher("view/job-feedback.jsp").include(
+//						request, response);
+//				return;
+//			}
+//			// request.setAttribute("fromJobRec", request.getContextPath());
+//			response.sendRedirect(request.getContextPath() + "/login");
+//		}
 	}
 
 	/**
