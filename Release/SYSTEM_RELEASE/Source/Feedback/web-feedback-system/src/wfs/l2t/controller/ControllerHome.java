@@ -215,12 +215,16 @@ public class ControllerHome extends HttpServlet {
 		}
 		if ("0".equals(save))
 			response.getWriter()
-					.write("<a class = 'bookmark pull-right' onclick = likeClick(this,"
+					.write("<a class = 'bookmark pull-right' id = '"
+							+ job.jobId
+							+ "' onclick = likeClick(this,"
 							+ job.jobId
 							+ ") href='#/' value = '0' style='margin-left: 15px; margin-right: 15px;color:#AFB4BD;font-size:15px;'><span class='glyphicon glyphicon-floppy-saved'></span> Lưu việc làm</a>");
 		else
 			response.getWriter()
-					.write("<a class = 'bookmark pull-right' onclick = likeClick(this,"
+					.write("<a class = 'bookmark pull-right' id = '"
+							+ job.jobId
+							+ "' onclick = likeClick(this,"
 							+ job.jobId
 							+ ") href='#/' value = '1' style='margin-left: 15px; margin-right: 15px;color:#5890FF;font-size:15px;'><span class='glyphicon glyphicon-floppy-saved'></span> Lưu việc làm</a>");
 

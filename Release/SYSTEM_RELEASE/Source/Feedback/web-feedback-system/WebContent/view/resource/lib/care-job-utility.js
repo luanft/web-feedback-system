@@ -1,13 +1,14 @@
 /**
  * rating
+ * 
  * @param obj
  * @param rating_star
  * @param jobId
  */
 function rating(obj, rating_star, jobId) {
-	for (var i = 1; i <= rating_star; i++) {		
+	for (var i = 1; i <= rating_star; i++) {
 		$("#" + jobId + "_" + i).css("color", "#F9D400");
-		$("#" + jobId + "_" + i).attr("value", "1");		
+		$("#" + jobId + "_" + i).attr("value", "1");
 	}
 	for (var i = rating_star + 1; i < 6; i++) {
 		$("#" + jobId + "_" + i).css("color", "#D9EDF7");
@@ -17,8 +18,10 @@ function rating(obj, rating_star, jobId) {
 		type : "POST",
 		url : "ControllerJobRecommended",
 		data : {
+			rateClick : "rate",
 			rating : rating_star,
-			jobId : jobId
+			jobId : jobId,
+			saved : $("#" + jobId).attr("value")
 		}
 	});
 }
@@ -45,14 +48,29 @@ function myCollapse(xxx) {
 		$("#short-description" + xxx).show();
 }
 
-function likeClick(obj, xxx) {
+/**
+ * process when user click like button
+ * 
+ * @param obj
+ * @param xxx
+ */
+function likeClick(obj, jobId) {
+	var _rating = 0;
+	for (var i = 1; i < 6; i++) {
+		if ($("#" + jobId + "_" + i).attr("value") === "1")
+			_rating = i;
+		else
+			break;
+	}
 	if (($(obj).attr("value")) === "0") {
 		$.ajax({
 			type : "POST",
 			url : "ControllerJobRecommended",
 			data : {
+				saveClick : "save",
 				saved : "1",
-				jobId : xxx
+				jobId : jobId,
+				rating : _rating
 			}
 		});
 		$(obj).css("color", "#5890ff");
@@ -62,8 +80,10 @@ function likeClick(obj, xxx) {
 			type : "POST",
 			url : "ControllerJobRecommended",
 			data : {
+				saveClick : "save",
 				saved : "0",
-				jobId : xxx
+				jobId : jobId,
+				rating : _rating
 			}
 		});
 		$(obj).css("color", "#9197a3");

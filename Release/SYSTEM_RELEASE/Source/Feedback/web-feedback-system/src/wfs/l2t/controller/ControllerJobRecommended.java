@@ -49,36 +49,34 @@ public class ControllerJobRecommended extends HttpServlet {
 			request.getRequestDispatcher("view/job-feedback.jsp").include(
 					request, response);
 			return;
-		}
-		else
-		{
+		} else {
 			if (loginUtility.isLogged(request, response)) {
 				request.setAttribute("user", loginUtility.getLoggedUserId());
 				// rec-job.jsp
 				request.getRequestDispatcher("view/job-feedback.jsp").include(
 						request, response);
 				return;
-			} 		
+			}
 			response.sendRedirect(request.getContextPath() + "/login");
 		}
-		
-//		if (loginUtility.isLogged(request, response)) {
-//			request.setAttribute("user", loginUtility.getLoggedUserId());
-//			// rec-job.jsp
-//			request.getRequestDispatcher("view/job-feedback.jsp").include(
-//					request, response);
-//		} else {
-//			// login sử dụng token
-//			if (loginUtility.isLoggedByToken(request, response)) {
-//				request.setAttribute("user", loginUtility.getLoggedUserId());
-//				// rec-job.jsp
-//				request.getRequestDispatcher("view/job-feedback.jsp").include(
-//						request, response);
-//				return;
-//			}
-//			// request.setAttribute("fromJobRec", request.getContextPath());
-//			response.sendRedirect(request.getContextPath() + "/login");
-//		}
+
+		// if (loginUtility.isLogged(request, response)) {
+		// request.setAttribute("user", loginUtility.getLoggedUserId());
+		// // rec-job.jsp
+		// request.getRequestDispatcher("view/job-feedback.jsp").include(
+		// request, response);
+		// } else {
+		// // login sử dụng token
+		// if (loginUtility.isLoggedByToken(request, response)) {
+		// request.setAttribute("user", loginUtility.getLoggedUserId());
+		// // rec-job.jsp
+		// request.getRequestDispatcher("view/job-feedback.jsp").include(
+		// request, response);
+		// return;
+		// }
+		// // request.setAttribute("fromJobRec", request.getContextPath());
+		// response.sendRedirect(request.getContextPath() + "/login");
+		// }
 	}
 
 	/**
@@ -110,23 +108,21 @@ public class ControllerJobRecommended extends HttpServlet {
 	private void setSuitableJob(HttpServletRequest request)
 			throws ServletException, IOException {
 		if (request.getParameter("saved") != null
-				|| request.getParameter("rating") != null) {
+				&& request.getParameter("rating") != null) {
 
-			String accountId = loginUtility.getLoggedUserId();										
+			String accountId = loginUtility.getLoggedUserId();
 			cal = Calendar.getInstance();
 			timestamp = new Timestamp(cal.getTimeInMillis());
 			dtoJobRecommended jobRec = new dtoJobRecommended();
 			jobRec.accountId = accountId;
 			jobRec.jobId = request.getParameter("jobId");
-			jobRec.save = "1";
 			jobRec.seen = "1";
-			jobRec.rating = "5";
-			jobRec.time = timestamp;				
-			if (request.getParameter("rating") != null)
-				jobRec.rating = request.getParameter("rating");
-			if (request.getParameter("saved") != null) {
-				jobRec.save = request.getParameter("saved");							
-			}
+			jobRec.time = timestamp;
+			jobRec.rating = request.getParameter("rating");
+			jobRec.save = request.getParameter("saved");
+			if (jobRec.save.equals("1") && request.getParameter("saveClick") != null)
+				jobRec.rating = "5";
+
 			ModelJobRecommended mjr = new ModelJobRecommended();
 			if (mjr.checkIfExist(jobRec.jobId, accountId)) {
 				mjr.update(jobRec);
@@ -220,42 +216,26 @@ public class ControllerJobRecommended extends HttpServlet {
 		response.getWriter().write("</div>");
 		response.getWriter().write("</div>");
 		response.getWriter().write("</div>");
-		response.getWriter().write("<div class='panel-footer'> Mức độ phù hợp của việc làm này với bạn? ");
 		response.getWriter()
-				.write("<a class = 'bookmark' id = '"
-						+ job.jobId
-						+ "_1'onclick = 'rating(this, 1, "
-						+ job.jobId
-						+ ")' href='#/' value = '0' style='color:#D9EDF7;font-size:15px;'><span class='glyphicon glyphicon-star'></span></a>");
+				.write("<div class='panel-footer'> Mức độ phù hợp của việc làm này với bạn? ");
+		for (int i = 1; i <= 5; i++) {
+			response.getWriter()
+					.write("<a class = 'bookmark' id = '"
+							+ job.jobId
+							+ "_"
+							+ i
+							+ "'onclick = 'rating(this, "
+							+ i
+							+ ", "
+							+ job.jobId
+							+ ")' href='#/' value = '1' style='color:#D9EDF7;font-size:15px;'><span class='glyphicon glyphicon-star'></span></a>");
+		}
 		response.getWriter()
-				.write("<a class = 'bookmark' id = '"
+				.write("<a class = 'bookmark pull-right' id = '"
 						+ job.jobId
-						+ "_2'onclick = 'rating(this, 2, "
+						+ "' onclick onclick = likeClick(this,"
 						+ job.jobId
-						+ ")' href='#/' value = '0' style='color:#D9EDF7;font-size:15px;'><span class='glyphicon glyphicon-star'></span></a>");
-		response.getWriter()
-				.write("<a class = 'bookmark' id = '"
-						+ job.jobId
-						+ "_3'onclick = 'rating(this, 3, "
-						+ job.jobId
-						+ ")' href='#/' value = '0' style='color:#D9EDF7;font-size:15px;'><span class='glyphicon glyphicon-star'></span></a>");
-		response.getWriter()
-				.write("<a class = 'bookmark' id = '"
-						+ job.jobId
-						+ "_4'onclick = 'rating(this, 4, "
-						+ job.jobId
-						+ ")' href='#/' value = '0' style='color:#D9EDF7;font-size:15px;'><span class='glyphicon glyphicon-star'></span></a>");
-		response.getWriter()
-				.write("<a class = 'bookmark' id = '"
-						+ job.jobId
-						+ "_5'onclick = 'rating(this, 5, "
-						+ job.jobId
-						+ ")' href='#/' value = '0' style='color:#D9EDF7;font-size:15px;'><span class='glyphicon glyphicon-star'></span></a>");
-		
-		response.getWriter()
-		.write("<a class = 'bookmark pull-right' onclick = likeClick(this,"
-				+ job.jobId
-				+ ") href='#/' value = '0' style='margin-left: 15px; margin-right: 15px;color:#AFB4BD;font-size:15px;'><span class='glyphicon glyphicon-floppy-saved'></span> Lưu việc làm</a>");
+						+ ") href='#/' value = '0' style='margin-left: 15px; margin-right: 15px;color:#AFB4BD;font-size:15px;'><span class='glyphicon glyphicon-floppy-saved'></span> Lưu việc làm</a>");
 		response.getWriter().write("</div>");
 		response.getWriter().write("</div>");
 	}
