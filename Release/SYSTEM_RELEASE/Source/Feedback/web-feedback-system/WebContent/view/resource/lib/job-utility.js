@@ -32,6 +32,31 @@ $(document).ready(function ()
 );
 
 /**
+ * rating
+ * @param obj
+ * @param rating_star
+ * @param jobId
+ */
+function rating(obj, rating_star, jobId) {
+	for (var i = 1; i <= rating_star; i++) {		
+		$("#" + jobId + "_" + i).css("color", "#F9D400");
+		$("#" + jobId + "_" + i).attr("value", "1");		
+	}
+	for (var i = rating_star + 1; i < 6; i++) {
+		$("#" + jobId + "_" + i).css("color", "#D9EDF7");
+		$("#" + jobId + "_" + i).attr("value", "0");
+	}
+	$.ajax({
+		type : "POST",
+		url : "ControllerJobRecommended",
+		data : {
+			rating : rating_star,
+			jobId : jobId
+		}
+	});
+}
+
+/**
  * show loading icon when loading data
  */
 $(document).ajaxStart(function ()
@@ -69,37 +94,27 @@ function myCollapse(xxx)
  * @param obj
  * @param xxx
  */
-function likeClick(obj, xxx)
-{
-	if (($(obj).attr("value")) === "0")
-	{
-		$.ajax(
-		{
+function likeClick(obj, xxx) {
+	if (($(obj).attr("value")) === "0") {
+		$.ajax({
 			type : "POST",
-			url : "ControllerHome",
-			data :
-			{
-				status : "1",
-				index : xxx
+			url : "ControllerJobRecommended",
+			data : {
+				saved : "1",
+				jobId : xxx
 			}
-		}
-		);
+		});
 		$(obj).css("color", "#5890ff");
 		$(obj).attr("value", "1");
-	}
-	else
-	{
-		$.ajax(
-		{
+	} else {
+		$.ajax({
 			type : "POST",
-			url : "ControllerHome",
-			data :
-			{
-				status : "0",
-				index : xxx
+			url : "ControllerJobRecommended",
+			data : {
+				saved : "0",
+				jobId : xxx
 			}
-		}
-		);
+		});
 		$(obj).css("color", "#9197a3");
 		$(obj).attr("value", "0");
 	}
@@ -144,72 +159,36 @@ $(document).ready(function ()
 /**
  * load jobs when scroll to bottom
  */
-var count = 0;
 $contentLoadTriggered = false;
 $(document).ready(function ()
 {
 	$(window).scroll(function ()
 	{
-		if (count < 5)
+		if ($("#done").text().trim() !== "Hết việc mới rồi. Hehe!")
 		{
-			count += 1;
-			if ($("#done").text().trim() !== "Hết việc mới rồi. Hehe!")
+			if ($(window).scrollTop() + $(window).height() == $(document).height() && $contentLoadTriggered == false)
 			{
-				if ($(window).scrollTop() + $(window).height() == $(document).height() && $contentLoadTriggered == false)
+				$contentLoadTriggered = true;
+				$.ajax(
 				{
-					$contentLoadTriggered = true;
-					$.ajax(
+					type : "POST",
+					url : "ControllerHome",
+					data :
 					{
-						type : "POST",
-						url : "ControllerHome",
-						data :
-						{
-							scrollEvent : "scroll"
-						},
-						success : function (data)
-						{
-							if (data === "")
-							{
-								location.href = window.location.pathname.substring(0, window.location.pathname.indexOf("/", 2));
-							}
-							else
-								$("#content-wrapper").append(data);
-							$contentLoadTriggered = false;
-						}
-					}
-					);
-				}
-			}
-		}
-		else
-		{			
-			count = 0;
-			if ($("#done").text().trim() !== "Hết việc mới rồi. Hehe!")
-			{
-				if ($(window).scrollTop() + $(window).height() == $(document).height() && $contentLoadTriggered == false)
-				{
-					$contentLoadTriggered = true;
-					$.ajax(
+						scrollEvent : "scroll"
+					},
+					success : function (data)
 					{
-						type : "POST",
-						url : "ControllerHome",
-						data :
+						if (data === "")
 						{
-							scrollEvent : "scroll"
-						},
-						success : function (data)
-						{
-							if (data === "")
-							{
-								location.href = window.location.pathname.substring(0, window.location.pathname.indexOf("/", 2));
-							}
-							else
-								$("#content-wrapper").html(data);
-							$contentLoadTriggered = false;
+							location.href = window.location.pathname.substring(0, window.location.pathname.indexOf("/", 2));
 						}
+						else
+							$("#content-wrapper").append(data);
+						$contentLoadTriggered = false;
 					}
-					);
 				}
+				);
 			}
 		}
 	}
@@ -236,8 +215,7 @@ $('body').on('touchmove', function ()
 				},
 				success : function (data)
 				{
-					$("#content-wrapper").append(data);
-					$contentLoadTriggered = false;
+					$("#content-wrapper").append(data);					
 				}
 			}
 			);
