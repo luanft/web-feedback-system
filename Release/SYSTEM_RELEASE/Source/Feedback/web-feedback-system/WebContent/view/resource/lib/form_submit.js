@@ -32,7 +32,8 @@ $(document).ready(function() {
         	$("#profile_content").html(data);
     	});
 		$("#btn_edit_cv").show();		
-        $('#form_enter_resume').slideUp();        
+        $('#form_enter_resume').slideUp();
+            	
         return false;	    
     });
 	
@@ -74,7 +75,8 @@ $(document).ready(function() {
     	});
         
 		$("#btn_add_education").show();	        
-        $('#form_nhap_education').slideUp();        
+        $('#form_nhap_education').slideUp();    
+                        
         return false;	    
     });
 	
@@ -92,8 +94,7 @@ $(document).ready(function() {
     	var language_name = $("#form_update_language input[name=language_name]").val();
     	var language_level = $("#form_update_language input[name=language_level]").val();
 	    	
-    
-   			    	   
+       			    	   
         $.post("resume",{
         	btn_add_language:"",
         	id:id,
@@ -105,7 +106,11 @@ $(document).ready(function() {
     	});
         
 		$("#btn_add_language").show();	        
-        $('#form_nhap_language').slideUp();        
+        $('#form_nhap_language').slideUp();       
+        
+        
+        $("#form_update_language input[name=language_name]").val("");
+    	$("#form_update_language input[name=language_level]").val("");
         return false;	    
     });
 	
@@ -140,6 +145,13 @@ $(document).ready(function() {
         
 		$("#btn_add_experience").show();	        
         $('#form_nhap_experience').slideUp();        
+        
+        
+        $("#form_update_experience input[name=company_name]").val("");
+    	$("#form_update_experience input[name=job_name]").val("");
+    	$("#form_update_experience input[name=job_position]").val("");
+    	$("#form_update_experience input[name=job_description]").val("");
+    	$("#form_update_experience input[name=job_time]").val("");
         return false;	    
     });
 	
@@ -168,7 +180,10 @@ $(document).ready(function() {
     	});
         
 		$("#btn_add_skill").show();	        
-        $('#form_nhap_skill').slideUp();        
+        $('#form_nhap_skill').slideUp();     
+        
+        $("#form_update_skills input[name=skill_name]").val("");
+    	$("#form_update_skills input[name=skill_level]").val("");
         return false;	    
     });
 	

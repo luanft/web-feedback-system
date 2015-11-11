@@ -134,9 +134,6 @@
 										</label>
 									</div>
 
-
-
-
 									<div class="form-group">
 										<label for="sel1">Quốc tịch:</label> <select
 											class="form-control" name="nationality_input" id="sel1">

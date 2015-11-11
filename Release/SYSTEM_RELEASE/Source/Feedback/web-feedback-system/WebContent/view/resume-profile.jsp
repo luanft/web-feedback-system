@@ -107,13 +107,13 @@ hr {
 											<label for="cv_title">Tên của CV:</label> <input type="text"
 												name="title_input" required maxlength="80"
 												value="<%out.print(cv.resumeTitle);%>" class="form-control"
-												id="email">
+												id="email" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Vui lòng nhập tên của CV')">
 										</div>
 
 										<div class="form-group">
 											<label for="cv_title">Họ và tên:</label> <input type="text"
 												class="form-control" value="<%out.print(cv.name);%>"
-												name="full_name_input" required maxlength="50" id="email">
+												name="full_name_input" required maxlength="50" id="email" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Vui lòng nhập tên của bạn')">
 										</div>
 										<div class="form-group">
 											<label for="birthday">Ngày Sinh:</label> <input
@@ -351,7 +351,7 @@ hr {
 										<div class="form-group">
 											<label for="cv_title">Địa chỉ:</label> <input type="text"
 												class="form-control" value="<%out.print(cv.address);%>"
-												name="address_input" required id="email">
+												name="address_input" required id="email" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Vui lòng nhập địa chỉ của bạn')">
 										</div>
 
 
@@ -359,7 +359,7 @@ hr {
 											<label for="cv_title">Email liên hệ:</label> <input
 												type="email" class="form-control"
 												value="<%out.print(cv.email);%>" required maxlength="100"
-												name="email_input" id="email">
+												name="email_input" id="email" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Vui lòng nhập email của bạn')">
 										</div>
 
 
@@ -367,7 +367,7 @@ hr {
 											<label for="cv_title">Số điện thoại:</label> <input
 												type="text" class="form-control"
 												value="<%out.print(cv.phone);%>" required maxlength="15"
-												name="phone_input" id="email">
+												name="phone_input" id="email" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Vui lòng nhập số điện thoại của bạn')">
 										</div>
 
 										<div class="form-group">
@@ -472,25 +472,25 @@ hr {
 											<label for="cv_title">Tên trường:</label> <input type="text"
 												name="school_name" class="form-control"
 												value="Đại Học Công Nghệ Thông Tin - ĐHQG TPHCM" required
-												maxlength="100" id="email">
+												maxlength="100" placeholder="Ex: Đại Học Công Nghệ Thông Tin - ĐHQG TP HCM" id="email" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Vui lòng nhập tên trường mà bạn học')">
 										</div>
 
 										<div class="form-group">
 											<label for="cv_title">Trình độ đào tạo:</label> <input
 												type="text" class="form-control" value="Đại học" required
-												maxlength="50" name="education_level" id="email">
+												maxlength="50" name="education_level" placeholder="Ex: Đại Học" id="email" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Vui lòng nhập trình độ đào tạo')">
 										</div>
 
 										<div class="form-group">
 											<label for="cv_title">Chuyên ngành đào tạo:</label> <input
 												type="text" class="form-control" name="education_major"
 												value="Công nghệ phần mềm" required maxlength="80"
-												id="email">
+												id="email" oninput="setCustomValidity('')" placeholder="Ex: Công Nghệ Phần Mềm" oninvalid="this.setCustomValidity('Vui lòng nhập chuyên ngành đào tạo')">
 										</div>
 
 										<div class="form-group">
 											<label for="cv_title">Mô tả:</label> <input type="text"
-												class="form-control" name="education_description" id="email">
+												class="form-control" placeholder="Ex: Học về quy trình phần mềm" name="education_description" id="email">
 										</div>
 
 										<div class="form-group">
@@ -588,13 +588,13 @@ hr {
 										<div class="form-group">
 											<label for="cv_title">Tên chứng chỉ:</label> <input
 												type="text" name="language_name" placeholder="Ex: TOEIC"
-												required maxlength="80" class="form-control" id="email">
+												required maxlength="80" class="form-control" id="email" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Vui lòng nhập tên của chứng chỉ')">
 										</div>
 
 										<div class="form-group">
 											<label for="cv_title">Cấp độ/Điểm:</label> <input type="text"
 												class="form-control" placeholder="Ex: Điểm: 990"
-												name="language_level" required maxlength="80" id="email">
+												name="language_level" required maxlength="80" id="email" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Vui lòng nhập cấp độ/điểm số của chứng chỉ')">
 										</div>
 
 										<button type="submit" class="btn btn-primary"
@@ -649,33 +649,33 @@ hr {
 											<label for="cv_title">Tên Công Ty:</label> <input type="text"
 												name="company_name" class="form-control"
 												placeholder="Ex: Google Inc" required maxlength="100"
-												id="email">
+												id="email" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Vui lòng nhập tên của công ty')">
 										</div>
 
 										<div class="form-group">
 											<label for="cv_title">Tên Công Việc:</label> <input
 												type="text" class="form-control"
 												placeholder="Ex: Tư vấn tài chính" required maxlength="100"
-												name="job_name" id="email">
+												name="job_name" id="email" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Vui lòng nhập tên của công việc')">
 										</div>
 
 										<div class="form-group">
 											<label for="cv_title">Vị Trí:</label> <input type="text"
 												class="form-control" placeholder="Ex: Nhân Viên" required
-												maxlength="50" name="job_position" id="email">
+												maxlength="50" name="job_position" id="email" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Vui lòng nhập chức vụ của bạn')">
 										</div>
 
 										<div class="form-group">
 											<label for="cv_title">Mô Tả:</label> <input type="text"
 												class="form-control"
 												placeholder="Ex: Làm thư ký văn phòng, hỗ trợ, tư vấn khách hàng"
-												required maxlength="150" name="job_description" id="email">
+												required maxlength="150" name="job_description" id="email" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Vui lòng nhập mô tả công việc')">
 										</div>
 
 										<div class="form-group">
 											<label for="cv_title">Thời Gian:</label> <input type="text"
 												class="form-control" placeholder="Ex: Từ 2012 đến 2015"
-												required maxlength="60" name="job_time" id="email">
+												required maxlength="60" name="job_time" id="email" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Vui lòng nhập thời gian làm việc')">
 										</div>
 										<button type="submit" class="btn btn-primary"
 											name="btn_add_experience">Thêm kinh nghiệm</button>
@@ -733,13 +733,13 @@ hr {
 											<label for="cv_title">Tên Kỹ Năng:</label> <input type="text"
 												name="skill_name" class="form-control"
 												placeholder="Ex: Giao tiếp" required maxlength="100"
-												id="email">
+												id="email" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Vui lòng nhập tên kỹ năng')">
 										</div>
 
 										<div class="form-group">
 											<label for="cv_title">Mô Tả/Level:</label> <input type="text"
 												class="form-control" placeholder="Ex: Rất tốt" required
-												maxlength="100" name="skill_level" id="email">
+												maxlength="100" name="skill_level" id="email" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Vui lòng nhập mô tả kỹ năng, cấp độ')">
 										</div>
 										<button type="submit" class="btn btn-primary"
 											name="btn_add_skill">Thêm kỹ năng</button>
@@ -804,7 +804,7 @@ hr {
 										<div class="form-group">
 											<label for="cv_title">Mức lương mong muốn(VND):</label> <input
 												type="text" value="<%out.print(objective.desireSalary);%>" onkeypress='return (event.charCode == 0)||(event.charCode >= 48 && event.charCode <= 57)'
-												name="desireSalary" maxlength="10" class="form-control"
+												name="desireSalary" placeholder="Ex. 10000000" maxlength="10" class="form-control"
 												id="email">
 										</div>
 
@@ -812,28 +812,28 @@ hr {
 											<label for="cv_title">Mức lương gần đây(VND):</label> <input
 												type="text" name="recentSalary" onkeypress='return (event.charCode == 0)||(event.charCode >= 48 && event.charCode <= 57)'
 												value="<%out.print(objective.recentSalary);%>"
-												class="form-control" maxlength="10" id="email">
+												class="form-control" placeholder="Ex. 10000000" maxlength="10" id="email">
 										</div>
 
 										<div class="form-group">
 											<label for="cv_title">Cấp bậc mong muốn:</label> <input
 												type="text" name="desireCareerLevel" maxlength="50"
 												value="<%out.print(objective.desireCareerLevel);%>"
-												class="form-control" id="email">
+												class="form-control" placeholder="Ex. Giám Đốc" id="email">
 										</div>
 
 										<div class="form-group">
 											<label for="cv_title">Loại công việc:</label> <input
 												type="text" name="positionType"
 												value="<%out.print(objective.positionType);%>"
-												class="form-control" id="email" maxlength="50">
+												class="form-control" id="email" placeholder="Ex. Toàn Thời Gian" maxlength="50">
 										</div>
 
 										<div class="form-group">
 											<label for="cv_title">Nơi làm việc ưa thích:</label> <input
 												type="text" name="desireWorkLocation"
 												value="<%out.print(objective.desireWorkLocation);%>"
-												class="form-control" id="email" maxlength="30">
+												class="form-control" id="email" placeholder="Ex. TP Hồ Chí Minh" maxlength="30">
 										</div>
 
 
