@@ -15,9 +15,9 @@ public class dtoJob
 	public String benifit = "";
 	public String expired = "";
 	public String source = "";
-	public String company = "";
-	public String fit = "";
-	public String notFit = "";
+	public String company = "";	
+	public String save = "";
+	public String rating = "";
 	public String userId = "";
 	public String category = "";
 }

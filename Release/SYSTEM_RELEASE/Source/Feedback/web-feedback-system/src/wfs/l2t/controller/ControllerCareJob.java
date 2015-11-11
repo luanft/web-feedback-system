@@ -67,51 +67,9 @@ public class ControllerCareJob extends HttpServlet {
 		if (loginUtility.isLogged(request, response)) {
 			request.setAttribute("user", this.loginUtility.getLoggedUserId());
 			loadCaredJob(request, response);
-			setSuitableJob(request);
 		} else {
 			if (request.getParameter("scrollEvetn") != null) {
 				response.getWriter().write("");
-			}
-		}
-	}
-
-	Timestamp timestamp;
-	Calendar cal;
-
-	private void setSuitableJob(HttpServletRequest request)
-			throws ServletException, IOException {
-		if (request.getParameter("status") != null) {
-			String accountId = loginUtility.getLoggedUserId();
-			ModelJobRecommended mjr = new ModelJobRecommended();
-			String key = request.getParameter("status");
-			String jobId = request.getParameter("index");
-			cal = Calendar.getInstance();
-			timestamp = new Timestamp(cal.getTimeInMillis());
-			dtoJobRecommended jobRec = new dtoJobRecommended();
-			jobRec.accountId = accountId;
-			jobRec.jobId = jobId;
-			jobRec.fit = "0";
-			jobRec.notFit = "0";
-			jobRec.seen = "1";
-			jobRec.time = timestamp;
-			switch (key) {
-			case "0":// not fit
-				if (mjr.checkIfExist(jobId, accountId)) {
-					mjr.updateFittable(jobRec);
-				} else {
-					mjr.add(jobRec);
-				}
-				break;
-			case "1":// fit
-				jobRec.fit = "1";
-				if (mjr.checkIfExist(jobId, accountId)) {
-					mjr.updateFittable(jobRec);
-				} else {
-					mjr.add(jobRec);
-				}
-				break;
-			default:
-				break;
 			}
 		}
 	}
@@ -131,17 +89,15 @@ public class ControllerCareJob extends HttpServlet {
 
 		if (jobList.size() == 0)
 			if (offset == 11)
-				writeHtml("Bạn chưa lưu công việc nào!", request,
-						response);
+				writeHtml("Bạn chưa lưu công việc nào!", request, response);
 			else
-				writeHtml("Hết việc đã lưu rồi!", request,
-						response);
+				writeHtml("Hết việc đã lưu rồi!", request, response);
 		else {
 			for (int i = 0; i < jobList.size(); i++) {
 				job = jobList.get(i);
 				writeHtml(job, mdj.getShortDescription(job.jobId), request,
 						response);
-			}			
+			}
 		}
 	}
 
@@ -210,9 +166,33 @@ public class ControllerCareJob extends HttpServlet {
 		response.getWriter().write("</div>");
 		response.getWriter().write("</div>");
 		response.getWriter().write("</div>");
-		response.getWriter().write("<div class='panel-footer'>");
+		response.getWriter().write("<div class='panel-footer'> Mức độ phù hợp của việc làm này với bạn? ");
+		for (int i = 1; i <= 5; i++) {
+			if (i <= Integer.parseInt(job.rating))
+				response.getWriter()
+						.write("<a class = 'bookmark' id = '"
+								+ job.jobId
+								+ "_"
+								+ i
+								+ "'onclick = 'rating(this, "
+								+ i
+								+ ", "
+								+ job.jobId
+								+ ")' href='#/' value = '1' style='color:#F9D400;font-size:15px;'><span class='glyphicon glyphicon-star'></span></a>");
+			else
+				response.getWriter()
+						.write("<a class = 'bookmark' id = '"
+								+ job.jobId
+								+ "_"
+								+ i
+								+ "'onclick = 'rating(this, "
+								+ i
+								+ ", "
+								+ job.jobId
+								+ ")' href='#/' value = '0' style='color:#D9EDF7;font-size:15px;'><span class='glyphicon glyphicon-star'></span></a>");
+		}
 		response.getWriter()
-				.write("<a class = 'bookmark' onclick = likeClick(this,"
+				.write("<a class = 'bookmark pull-right' onclick = likeClick(this,"
 						+ job.jobId
 						+ ") href='#/' value = '1' style='margin-left: 15px; margin-right: 15px;color:#5890FF;font-size:15px;' data-toggle='tooltip'title='Việc làm đã lưu!'><span class='glyphicon glyphicon-floppy-saved'></span> Lưu việc làm</a>");
 		response.getWriter().write("</div>");

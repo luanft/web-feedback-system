@@ -109,38 +109,27 @@ public class ControllerJobRecommended extends HttpServlet {
 
 	private void setSuitableJob(HttpServletRequest request)
 			throws ServletException, IOException {
-		if (request.getParameter("status") != null) {
+		if (request.getParameter("saved") != null
+				|| request.getParameter("rating") != null) {
 
-			String accountId = loginUtility.getLoggedUserId();
-			ModelJobRecommended mjr = new ModelJobRecommended();
-
-			String key = request.getParameter("status");
-			String jobId = request.getParameter("index");
+			String accountId = loginUtility.getLoggedUserId();										
 			cal = Calendar.getInstance();
 			timestamp = new Timestamp(cal.getTimeInMillis());
 			dtoJobRecommended jobRec = new dtoJobRecommended();
 			jobRec.accountId = accountId;
-			jobRec.jobId = jobId;
-			jobRec.fit = "0";
-			jobRec.notFit = "0";
+			jobRec.jobId = request.getParameter("jobId");
+			jobRec.save = "1";
 			jobRec.seen = "1";
-			jobRec.time = timestamp;
-			switch (key) {
-			case "0":// not fit
-				jobRec.seen = "0";
-				break;
-			case "1":// fit
-				jobRec.fit = "1";				
-				break;
-			case "-1":// fit
-				jobRec.fit = "0";
-				jobRec.notFit = "1";				
-				break;
-			default:
-				break;
+			jobRec.rating = "5";
+			jobRec.time = timestamp;				
+			if (request.getParameter("rating") != null)
+				jobRec.rating = request.getParameter("rating");
+			if (request.getParameter("saved") != null) {
+				jobRec.save = request.getParameter("saved");							
 			}
-			if (mjr.checkIfExist(jobId, accountId)) {
-				mjr.updateFittable(jobRec);
+			ModelJobRecommended mjr = new ModelJobRecommended();
+			if (mjr.checkIfExist(jobRec.jobId, accountId)) {
+				mjr.update(jobRec);
 			} else {
 				mjr.add(jobRec);
 			}
@@ -171,8 +160,8 @@ public class ControllerJobRecommended extends HttpServlet {
 			throws ServletException, IOException {
 		response.setContentType("text/html; charset=UTF-8");
 		response.getWriter().write(
-				"<div style = 'margin-bottom:10px' class=\"panel panel-info\" id = 'panel" + job.jobId
-						+ "'>");
+				"<div style = 'margin-bottom:10px' class=\"panel panel-info\" id = 'panel"
+						+ job.jobId + "'>");
 		response.getWriter().write("<div class='panel-heading'>");
 		response.getWriter()
 				.write("<a id=\"see-more"
@@ -231,17 +220,44 @@ public class ControllerJobRecommended extends HttpServlet {
 		response.getWriter().write("</div>");
 		response.getWriter().write("</div>");
 		response.getWriter().write("</div>");
-		response.getWriter().write("<div class='panel-footer'>");
+		response.getWriter().write("<div class='panel-footer'> Mức độ phù hợp của việc làm này với bạn? ");
 		response.getWriter()
-				.write("<a class = 'bookmark' onclick = likeClick(this,"
+				.write("<a class = 'bookmark' id = '"
 						+ job.jobId
-						+ ") href='#/' value = '0' style='margin-left: 15px; margin-right: 15px;color:#AFB4BD;font-size:15px;' data-toggle='tooltip'title='Việc làm này phù hợp với bạn?'><span class='glyphicon glyphicon-floppy-saved'></span> Lưu việc làm</a>");
+						+ "_1'onclick = 'rating(this, 1, "
+						+ job.jobId
+						+ ")' href='#/' value = '0' style='color:#D9EDF7;font-size:15px;'><span class='glyphicon glyphicon-star'></span></a>");
 		response.getWriter()
-				.write("<a class = 'bookmark' onclick = dislikeClick("
+				.write("<a class = 'bookmark' id = '"
 						+ job.jobId
-						+ ") href='#/' value = '0' style='margin-left: 15px; margin-right: 15px;color:#AFB4BD;font-size:15px;' data-toggle='tooltip'title='Việc làm này không phù hợp với bạn?'><span class='glyphicon glyphicon-remove' ></span> Không phù hợp</a>");
+						+ "_2'onclick = 'rating(this, 2, "
+						+ job.jobId
+						+ ")' href='#/' value = '0' style='color:#D9EDF7;font-size:15px;'><span class='glyphicon glyphicon-star'></span></a>");
+		response.getWriter()
+				.write("<a class = 'bookmark' id = '"
+						+ job.jobId
+						+ "_3'onclick = 'rating(this, 3, "
+						+ job.jobId
+						+ ")' href='#/' value = '0' style='color:#D9EDF7;font-size:15px;'><span class='glyphicon glyphicon-star'></span></a>");
+		response.getWriter()
+				.write("<a class = 'bookmark' id = '"
+						+ job.jobId
+						+ "_4'onclick = 'rating(this, 4, "
+						+ job.jobId
+						+ ")' href='#/' value = '0' style='color:#D9EDF7;font-size:15px;'><span class='glyphicon glyphicon-star'></span></a>");
+		response.getWriter()
+				.write("<a class = 'bookmark' id = '"
+						+ job.jobId
+						+ "_5'onclick = 'rating(this, 5, "
+						+ job.jobId
+						+ ")' href='#/' value = '0' style='color:#D9EDF7;font-size:15px;'><span class='glyphicon glyphicon-star'></span></a>");
+		
+		response.getWriter()
+		.write("<a class = 'bookmark pull-right' onclick = likeClick(this,"
+				+ job.jobId
+				+ ") href='#/' value = '0' style='margin-left: 15px; margin-right: 15px;color:#AFB4BD;font-size:15px;'><span class='glyphicon glyphicon-floppy-saved'></span> Lưu việc làm</a>");
 		response.getWriter().write("</div>");
-		response.getWriter().write("</div>");		
+		response.getWriter().write("</div>");
 	}
 
 	private void writeHtml(HttpServletRequest request,
