@@ -14,10 +14,11 @@ public class ModelJob extends Model {
 	}
 
 	public List<dtoJob> getJob(int offset, String userId) {
-		List<dtoJob> jobList = new ArrayList<dtoJob>();
-		String sql = "select job.AccountId, job.JobId, JobName, category.CategoryId, category.Description as Category, Location, Salary, job.Description, Tags, Requirement, Benifit, Expired, Source, Company, Fit, NotFit, job_recommended.AccountId as UserId from category, job left join job_recommended on job_recommended.JobId = job.JobId and job_recommended.AccountId = "
+		List<dtoJob> jobList = new ArrayList<dtoJob>();		 
+		 
+		String sql = "select job.AccountId, job.JobId, JobName, Location, Salary, job.Description, Tags, Requirement, Benifit, Expired, Source, Company, COALESCE(Save, 0) as Save, COALESCE(Rating, 0) as Rating, COALESCE(job_recommended.AccountId, 0) as UserId, category.CategoryId, category.Description as Category from category, job LEFT JOIN job_recommended ON job_recommended.JobId = job.JobId and job_recommended.AccountId = "
 				+ userId
-				+ " where category.CategoryId = job.CategoryId ORDER BY JobId DESC limit "
+				+ " WHERE category.CategoryId = job.CategoryId ORDER BY job.JobId DESC LIMIT "
 				+ offset + ",10";
 		if (connection.connect()) {
 			ResultSet rs = connection.read(sql);
@@ -38,8 +39,8 @@ public class ModelJob extends Model {
 					job.expired = trimAll(rs.getString("Expired"));
 					job.source = trimAll(rs.getString("Source"));
 					job.company = trimAll(rs.getString("Company"));
-					job.fit = rs.getString("Fit");
-					job.notFit = rs.getString("NotFit");
+					job.save = rs.getString("Save");
+					job.rating = rs.getString("Rating");
 					job.userId = rs.getString("UserId");
 					job.category = rs.getString("Category");
 					jobList.add(job);
@@ -53,10 +54,13 @@ public class ModelJob extends Model {
 		return jobList;
 	}
 
-	public List<dtoJob> getJobByCategory(int offset, int categoryId) {
+	public List<dtoJob> getJobByCategory(int offset, String categoryId,
+			String userId) {
 
 		List<dtoJob> jobList = new ArrayList<dtoJob>();
-		String sql = "select job.AccountId, job.JobId, JobName, category.Description as Category, Job.CategoryId, Location, Salary, job.Description, Tags, Requirement, Benifit, Expired, Source, Company, Fit, NotFit, job_recommended.AccountId as UserId FROM category, job LEFT JOIN job_recommended ON job_recommended.JobId = job.JobId WHERE job.CategoryId = "
+		String sql = "select job.AccountId, job.JobId, JobName, category.Description as Category, Job.CategoryId, Location, Salary, job.Description, Tags, Requirement, Benifit, Expired, Source, Company, COALESCE(Save, 0) as Save, COALESCE(Rating, 0) as Rating, COALESCE(job_recommended.AccountId, 0) as UserId FROM category, job LEFT JOIN job_recommended ON job_recommended.JobId = job.JobId AND job_recommended.AccountId = "
+				+ userId
+				+ " WHERE job.CategoryId = "
 				+ categoryId
 				+ " AND category.CategoryId = "
 				+ categoryId
@@ -80,8 +84,8 @@ public class ModelJob extends Model {
 					job.expired = trimAll(rs.getString("Expired"));
 					job.source = trimAll(rs.getString("Source"));
 					job.company = trimAll(rs.getString("Company"));
-					job.fit = rs.getString("Fit");
-					job.notFit = rs.getString("NotFit");
+					job.rating = rs.getString("Rating");
+					job.save = rs.getString("Save");
 					job.userId = rs.getString("UserId");
 					job.category = rs.getString("Category");
 					jobList.add(job);
@@ -140,7 +144,7 @@ public class ModelJob extends Model {
 
 	public List<dtoJob> getJobRecommended(String userId) {
 		List<dtoJob> jobList = new ArrayList<dtoJob>();
-		String sql = "select job.AccountId, job.JobId, JobName, category.CategoryId, category.Description as Category, Location, Salary, job.Description, Tags, Requirement, Benifit, Expired, Source, Company, Fit, NotFit, job_recommended.AccountId as UserId from category, job join job_recommended on job_recommended.JobId = job.JobId where category.CategoryId = job.CategoryId and Seen = 0 and NotFit = 0 and job_recommended.AccountId = "
+		String sql = "select job.AccountId, job.JobId, JobName, category.CategoryId, category.Description as Category, Location, Salary, job.Description, Tags, Requirement, Benifit, Expired, Source, Company,Save, Rating, job_recommended.AccountId as UserId from category, job join job_recommended on job_recommended.JobId = job.JobId where category.CategoryId = job.CategoryId and Seen = 0 and job_recommended.AccountId = "
 				+ userId + " order by job.JobId desc";
 		if (connection.connect()) {
 			ResultSet rs = connection.read(sql);
@@ -161,10 +165,10 @@ public class ModelJob extends Model {
 					job.expired = trimAll(rs.getString("Expired"));
 					job.source = trimAll(rs.getString("Source"));
 					job.company = trimAll(rs.getString("Company"));
-					job.fit = rs.getString("Fit");
-					job.notFit = rs.getString("NotFit");
 					job.userId = rs.getString("UserId");
 					job.category = rs.getString("Category");
+					job.rating = rs.getString("Rating");
+					job.save = rs.getString("Save");
 					jobList.add(job);
 				}
 			} catch (SQLException e) {
@@ -178,7 +182,7 @@ public class ModelJob extends Model {
 
 	public List<dtoJob> getJobCared(String userId, int offset) {
 		List<dtoJob> jobList = new ArrayList<dtoJob>();
-		String sql = "select job.AccountId, job.JobId, JobName, category.CategoryId, Location, Salary,job.Description, category.Description as Category, Tags, Requirement, Benifit, Expired, Source, Company, Fit, NotFit, job_recommended.AccountId as UserId from category, job join job_recommended on job_recommended.JobId = job.JobId and Fit = 1 and job_recommended.AccountId = "
+		String sql = "select job.AccountId, job.JobId, JobName, category.CategoryId, Location, Salary,job.Description, category.Description as Category, Tags, Requirement, Benifit, Expired, Source, Company, Save, Rating, job_recommended.AccountId as UserId from category, job join job_recommended on job_recommended.JobId = job.JobId and Save = 1 and job_recommended.AccountId = "
 				+ userId
 				+ " where category.CategoryId = job.CategoryId order by job.JobId desc limit "
 				+ offset + ", 10";
@@ -201,8 +205,8 @@ public class ModelJob extends Model {
 					job.expired = trimAll(rs.getString("Expired"));
 					job.source = trimAll(rs.getString("Source"));
 					job.company = trimAll(rs.getString("Company"));
-					job.fit = rs.getString("Fit");
-					job.notFit = rs.getString("NotFit");
+					job.save = rs.getString("Save");
+					job.rating = rs.getString("Rating");
 					job.userId = rs.getString("UserId");
 					job.category = rs.getString("Category");
 					jobList.add(job);

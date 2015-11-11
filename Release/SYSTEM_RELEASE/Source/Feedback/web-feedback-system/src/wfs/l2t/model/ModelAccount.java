@@ -229,23 +229,12 @@ public class ModelAccount extends Model {
 		return false;
 	}
 
-	public Boolean changeUserName(String id, String name) {
-		String sql = "UPDATE `account` SET `UserName`='" + name
-				+ "' WHERE `AccountId`=" + id;
-		if (this.connection.connect()) {
-			Boolean rs = this.connection.write(sql);
-			this.connection.close();
-			return rs;
-		}
-		return false;
-	}
-
 	public Boolean hasSavedJob(String userId)
 	{
 		Boolean ret = false;
 		if(connection.connect())
 		{
-			String sql = "SELECT count(*) as `total` FROM `job_recommended` WHERE `Fit` = 1 and `AccountId` = " + userId;
+			String sql = "SELECT count(*) as `total` FROM `job_recommended` WHERE `Save` = 1 and `AccountId` = " + userId;
 			ResultSet rs = connection.read(sql);
 			try {
 				rs.next();
@@ -260,4 +249,17 @@ public class ModelAccount extends Model {
 		}
 		return ret;
 	}
+	
+	public Boolean changeUserName(String id, String name) {
+		String sql = "UPDATE `account` SET `UserName`='" + name
+				+ "' WHERE `AccountId`=" + id;
+		if (this.connection.connect()) {
+			Boolean rs = this.connection.write(sql);
+			this.connection.close();
+			return rs;
+		}
+		return false;
+	}
+
+	
 }
