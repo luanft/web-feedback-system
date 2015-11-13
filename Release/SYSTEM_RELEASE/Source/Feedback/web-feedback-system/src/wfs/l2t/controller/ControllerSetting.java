@@ -19,6 +19,7 @@ public class ControllerSetting extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private LoginUtility loginUtility = new LoginUtility();
+
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -39,13 +40,14 @@ public class ControllerSetting extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 
 		if (this.loginUtility.isLogged(request, response)) {
-			
+
 			request.setAttribute("user", this.loginUtility.getLoggedUserId());
 			request.getRequestDispatcher("view/configure-system.jsp").include(
 					request, response);
 		} else {
-//			request.getRequestDispatcher("/login").forward(request, response);
-			response.sendRedirect(request.getContextPath()+"/login");
+			// request.getRequestDispatcher("/login").forward(request,
+			// response);
+			response.sendRedirect(request.getContextPath() + "/login");
 		}
 	}
 
@@ -61,8 +63,9 @@ public class ControllerSetting extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 
 		if (!this.loginUtility.isLogged(request, response)) {
-//			request.getRequestDispatcher("/login").forward(request, response);
-			response.sendRedirect(request.getContextPath()+"/login");
+			// request.getRequestDispatcher("/login").forward(request,
+			// response);
+			response.sendRedirect(request.getContextPath() + "/login");
 		}
 		request.setAttribute("user", this.loginUtility.getLoggedUserId());
 		String form_number_email = request.getParameter("fne-btn-submit");
@@ -74,7 +77,8 @@ public class ControllerSetting extends HttpServlet {
 			String number = request.getParameter("fne_rdo_number");
 			ModelAccount model = new ModelAccount();
 			if (number != null)
-				model.setReceiveEmailNumber(this.loginUtility.getLoggedUserId(), number);
+				model.setReceiveEmailNumber(
+						this.loginUtility.getLoggedUserId(), number);
 			request.getRequestDispatcher("view/configure-system.jsp").include(
 					request, response);
 			return;
@@ -85,7 +89,8 @@ public class ControllerSetting extends HttpServlet {
 			String time = request.getParameter("fte-rdo-time");
 			ModelAccount model = new ModelAccount();
 			if (time != null)
-				model.setReceiveEmailTime(this.loginUtility.getLoggedUserId(), time);
+				model.setReceiveEmailTime(this.loginUtility.getLoggedUserId(),
+						time);
 			// fte-rdo-time
 			request.getRequestDispatcher("view/configure-system.jsp").include(
 					request, response);
@@ -96,13 +101,25 @@ public class ControllerSetting extends HttpServlet {
 		if (form_care_category != null) {
 			// lay du lieu
 			String[] data = request.getParameterValues("fcc_ck_cat");
-			if (data.length > 0) {
-				// luu du liêu
-				ModelCare careModel = new ModelCare();
-				careModel.uncareAllCategory(this.loginUtility.getLoggedUserId());
-				careModel.careCategory(this.loginUtility.getLoggedUserId(), data);
+			ModelCare careModel = new ModelCare();
+			if (data != null) {
+				
+				if (data.length > 0) {
+					// luu du liêu					
+					careModel.uncareAllCategory(this.loginUtility
+							.getLoggedUserId());
+					careModel.careCategory(this.loginUtility.getLoggedUserId(),
+							data);
+					request.getRequestDispatcher("view/configure-system.jsp")
+							.include(request, response);
+				}
+			}
+			else
+			{
+				careModel.uncareAllCategory(this.loginUtility
+						.getLoggedUserId());
 				request.getRequestDispatcher("view/configure-system.jsp")
-						.include(request, response);
+				.include(request, response);
 			}
 			return;
 		}
