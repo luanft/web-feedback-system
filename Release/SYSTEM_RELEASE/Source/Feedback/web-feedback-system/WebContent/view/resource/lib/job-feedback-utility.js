@@ -21,6 +21,38 @@ function myCollapse(xxx) {
 }
 
 /**
+ * show tips when hover to any star
+ * @param id
+ * @param star
+ */
+function mouseOverRating(id, star) {
+	switch (star) {
+	case 1:
+		$("#tip_" + id).text("Không liên quan");
+		break;
+	case 2:
+		$("#tip_" + id).text("Không phù hợp");
+		break;
+	case 3:
+		$("#tip_" + id).text("Có thể chấp nhận");
+		break;
+	case 4:
+		$("#tip_" + id).text("Khá phù hợp");
+		break;
+	case 5:
+		$("#tip_" + id).text("Rất phù hợp");
+		break;
+	default:
+		$("#tip_" + id).text("");
+		break;
+	}
+}
+
+function mouseOutRating(id){
+	$("#tip_" + id).text("");
+}
+
+/**
  * process when user click like button
  * 
  * @param obj
@@ -106,6 +138,9 @@ function rating(obj, rating_star, jobId) {
 			rating : rating_star,
 			jobId : jobId,
 			saved : $("#" + jobId).attr("value")
+		},
+		success : function(data) {
+			$.notify("Bạn đã đánh giá " + data + " công việc!", "success", {position:"right middle"});
 		}
 	});
 }
@@ -117,7 +152,7 @@ $(document).ready(function() {
 			type : "POST",
 			url : "ControllerJobRecommended",
 			data : {
-				xxx : "ready"
+				ready : "ready"
 			},
 			success : function(data) {
 				$("#content-wrapper").append(data);

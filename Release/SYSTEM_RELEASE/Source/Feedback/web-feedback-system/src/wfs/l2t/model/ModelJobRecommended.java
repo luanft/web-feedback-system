@@ -12,7 +12,34 @@ public class ModelJobRecommended extends Model {
 	}
 
 	/**
+	 * count the number of job was rated
+	 * @param userId
+	 * @return
+	 */
+	public String countJobRated(String userId) {
+		String sql = "SELECT COUNT(*) as NumRate FROM `job_recommended` WHERE job_recommended.AccountId = ? AND Rating > 0";
+		if(connection.connect()){
+			try {
+				PreparedStatement stm = connection.getConnection()
+						.prepareStatement(sql);
+				stm.setString(1, userId);				
+				connection.setPrepareStatement(stm);
+				ResultSet rs = connection.readSecure();
+				if(rs.next())
+					return rs.getString("NumRate");
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+
+			}
+			connection.close();
+		}
+		return "0";
+	}
+
+	/**
 	 * insert a job into job_recommended table
+	 * 
 	 * @param jobRec
 	 */
 	public void add(dtoJobRecommended jobRec) {
@@ -23,7 +50,7 @@ public class ModelJobRecommended extends Model {
 						.prepareStatement(sql);
 				stm.setString(1, jobRec.accountId);
 				stm.setString(2, jobRec.jobId);
-				stm.setString(3, jobRec.save);				
+				stm.setString(3, jobRec.save);
 				stm.setString(4, jobRec.rating);
 				stm.setString(5, jobRec.seen);
 				stm.setTimestamp(6, jobRec.time);
@@ -40,7 +67,9 @@ public class ModelJobRecommended extends Model {
 
 	/**
 	 * update a job in job_recommended table
-	 * @param jobRec dtoJobRecommended
+	 * 
+	 * @param jobRec
+	 *            dtoJobRecommended
 	 */
 	public void update(dtoJobRecommended jobRec) {
 		if (connection.connect()) {
@@ -53,8 +82,8 @@ public class ModelJobRecommended extends Model {
 				stm.setString(3, jobRec.rating);
 				stm.setString(4, jobRec.seen);
 				stm.setString(5, jobRec.accountId);
-				stm.setString(6, jobRec.jobId);		
-						
+				stm.setString(6, jobRec.jobId);
+
 				connection.setPrepareStatement(stm);
 				connection.writeSecure();
 			} catch (SQLException e) {
@@ -68,8 +97,11 @@ public class ModelJobRecommended extends Model {
 
 	/**
 	 * check whether a user have a job recommended or not
-	 * @param jobId String
-	 * @param accountId String
+	 * 
+	 * @param jobId
+	 *            String
+	 * @param accountId
+	 *            String
 	 * @return boolean
 	 */
 	public boolean checkIfExist(String jobId, String accountId) {
@@ -93,6 +125,5 @@ public class ModelJobRecommended extends Model {
 		}
 		return false;
 	}
-
 
 }

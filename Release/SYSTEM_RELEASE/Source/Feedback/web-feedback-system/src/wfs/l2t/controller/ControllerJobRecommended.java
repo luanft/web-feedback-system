@@ -59,24 +59,6 @@ public class ControllerJobRecommended extends HttpServlet {
 			}
 			response.sendRedirect(request.getContextPath() + "/login");
 		}
-
-		// if (loginUtility.isLogged(request, response)) {
-		// request.setAttribute("user", loginUtility.getLoggedUserId());
-		// // rec-job.jsp
-		// request.getRequestDispatcher("view/job-feedback.jsp").include(
-		// request, response);
-		// } else {
-		// // login sử dụng token
-		// if (loginUtility.isLoggedByToken(request, response)) {
-		// request.setAttribute("user", loginUtility.getLoggedUserId());
-		// // rec-job.jsp
-		// request.getRequestDispatcher("view/job-feedback.jsp").include(
-		// request, response);
-		// return;
-		// }
-		// // request.setAttribute("fromJobRec", request.getContextPath());
-		// response.sendRedirect(request.getContextPath() + "/login");
-		// }
 	}
 
 	/**
@@ -85,18 +67,21 @@ public class ControllerJobRecommended extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		if (loginUtility.isLogged(request, response)) {
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		// check if user is logged in
+		if (loginUtility.isLogged(request, response)
+				|| loginUtility.isLoggedByToken(request, response)) {
 			request.setAttribute("user", loginUtility.getLoggedUserId());
-			setSuitableJob(request);
-			loadRecommendedJob(request, response);
-		} else {
-			// login sử dụng token
-			if (loginUtility.isLoggedByToken(request, response)) {
-				request.setAttribute("user", loginUtility.getLoggedUserId());
-				setSuitableJob(request);
+			// if page ready -> load job
+			if (request.getParameter("ready") != null)
 				loadRecommendedJob(request, response);
-				return;
-			}
+			// if user rate or save job
+			if (request.getParameter("saveClick") != null
+					|| request.getParameter("rateClick") != null)
+				setSuitableJob(request, response);
+		} else {// redirect to login page
 			request.setAttribute("fromJobRec", request.getContextPath());
 			response.sendRedirect(request.getContextPath() + "/login");
 		}
@@ -105,31 +90,26 @@ public class ControllerJobRecommended extends HttpServlet {
 	Timestamp timestamp;
 	Calendar cal;
 
-	private void setSuitableJob(HttpServletRequest request)
-			throws ServletException, IOException {
-		if (request.getParameter("saved") != null
-				&& request.getParameter("rating") != null) {
-
-			String accountId = loginUtility.getLoggedUserId();
-			cal = Calendar.getInstance();
-			timestamp = new Timestamp(cal.getTimeInMillis());
-			dtoJobRecommended jobRec = new dtoJobRecommended();
-			jobRec.accountId = accountId;
-			jobRec.jobId = request.getParameter("jobId");
-			jobRec.seen = "1";
-			jobRec.time = timestamp;
-			jobRec.rating = request.getParameter("rating");
-			jobRec.save = request.getParameter("saved");
-			if (jobRec.save.equals("1") && request.getParameter("saveClick") != null)
-				jobRec.rating = "5";
-
-			ModelJobRecommended mjr = new ModelJobRecommended();
-			if (mjr.checkIfExist(jobRec.jobId, accountId)) {
-				mjr.update(jobRec);
-			} else {
-				mjr.add(jobRec);
-			}
+	private void setSuitableJob(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		String accountId = loginUtility.getLoggedUserId();
+		cal = Calendar.getInstance();
+		timestamp = new Timestamp(cal.getTimeInMillis());
+		dtoJobRecommended jobRec = new dtoJobRecommended();
+		jobRec.accountId = accountId;
+		jobRec.jobId = request.getParameter("jobId");
+		jobRec.seen = "1";
+		jobRec.time = timestamp;
+		jobRec.rating = request.getParameter("rating");
+		jobRec.save = request.getParameter("saved");
+		ModelJobRecommended mjr = new ModelJobRecommended();
+		if (mjr.checkIfExist(jobRec.jobId, accountId)) {
+			mjr.update(jobRec);
+		} else {
+			mjr.add(jobRec);
 		}
+		if (request.getParameter("rateClick") != null)
+			response.getWriter().write(mjr.countJobRated(accountId));
 	}
 
 	private void loadRecommendedJob(HttpServletRequest request,
@@ -217,7 +197,7 @@ public class ControllerJobRecommended extends HttpServlet {
 		response.getWriter().write("</div>");
 		response.getWriter().write("</div>");
 		response.getWriter()
-				.write("<div class='panel-footer'> Mức độ phù hợp của việc làm này với bạn? ");
+				.write("<div class='panel-footer'> <i> Mức độ phù hợp của việc làm này với bạn? </i>");
 		for (int i = 1; i <= 5; i++) {
 			response.getWriter()
 					.write("<a class = 'bookmark' id = '"
@@ -228,12 +208,21 @@ public class ControllerJobRecommended extends HttpServlet {
 							+ i
 							+ ", "
 							+ job.jobId
-							+ ")' href='#/' value = '1' style='color:#D9EDF7;font-size:15px;'><span class='glyphicon glyphicon-star'></span></a>");
+							+ ")' onmouseover = 'mouseOverRating("
+							+ job.jobId
+							+ ", "
+							+ i
+							+ ")'onmouseout = 'mouseOutRating("
+							+ job.jobId
+							+ ")' href='#/' value = '0' style='color:#D9EDF7;font-size:25px; margin-left:10px;'><span class='glyphicon glyphicon-star'></span></a>");
 		}
+		response.getWriter().write(
+				"<i style = 'margin-left:20px;' id = 'tip_" + job.jobId
+						+ "'><span></span></i>");
 		response.getWriter()
 				.write("<a class = 'bookmark pull-right' id = '"
 						+ job.jobId
-						+ "' onclick onclick = likeClick(this,"
+						+ "' onclick = likeClick(this,"
 						+ job.jobId
 						+ ") href='#/' value = '0' style='margin-left: 15px; margin-right: 15px;color:#AFB4BD;font-size:15px;'><span class='glyphicon glyphicon-floppy-saved'></span> Lưu việc làm</a>");
 		response.getWriter().write("</div>");

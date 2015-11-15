@@ -68,9 +68,7 @@ public class ControllerCareJob extends HttpServlet {
 			request.setAttribute("user", this.loginUtility.getLoggedUserId());
 			loadCaredJob(request, response);
 		} else {
-			if (request.getParameter("scrollEvetn") != null) {
-				response.getWriter().write("");
-			}
+			response.getWriter().write("");
 		}
 	}
 
@@ -167,7 +165,7 @@ public class ControllerCareJob extends HttpServlet {
 		response.getWriter().write("</div>");
 		response.getWriter().write("</div>");
 		response.getWriter()
-				.write("<div class='panel-footer'> Mức độ phù hợp của việc làm này với bạn? ");
+				.write("<div class='panel-footer'> <i> Mức độ phù hợp của việc làm này với bạn? </i>");
 		for (int i = 1; i <= 5; i++) {
 			if (i <= Integer.parseInt(job.rating))
 				response.getWriter()
@@ -179,7 +177,13 @@ public class ControllerCareJob extends HttpServlet {
 								+ i
 								+ ", "
 								+ job.jobId
-								+ ")' href='#/' value = '1' style='color:#F9D400;font-size:15px;'><span class='glyphicon glyphicon-star'></span></a>");
+								+ ")' onmouseover = 'mouseOverRating("
+								+ job.jobId
+								+ ", "
+								+ i
+								+ ")' onmouseout = 'mouseOutRating("
+								+ job.jobId
+								+ ")' href='#/' value = '1' style='color:#F9D400;font-size:25px; margin-left:10px;'><span class='glyphicon glyphicon-star'></span></a>");
 			else
 				response.getWriter()
 						.write("<a class = 'bookmark' id = '"
@@ -190,14 +194,23 @@ public class ControllerCareJob extends HttpServlet {
 								+ i
 								+ ", "
 								+ job.jobId
-								+ ")' href='#/' value = '0' style='color:#D9EDF7;font-size:15px;'><span class='glyphicon glyphicon-star'></span></a>");
+								+ ")' onmouseover = 'mouseOverRating("
+								+ job.jobId
+								+ ", "
+								+ i
+								+ ")'onmouseout = 'mouseOutRating("
+								+ job.jobId
+								+ ")' href='#/' value = '0' style='color:#D9EDF7;font-size:25px; margin-left:10px;'><span class='glyphicon glyphicon-star'></span></a>");
 		}
+		response.getWriter().write(
+				"<i style = 'margin-left:20px;' id = 'tip_" + job.jobId
+						+ "'><span></span></i>");
 		response.getWriter()
 				.write("<a class = 'bookmark pull-right' id = '"
 						+ job.jobId
-						+ "' onclick onclick = likeClick(this,"
+						+ "' onclick = likeClick(this,"
 						+ job.jobId
-						+ ") href='#/' value = '1' style='margin-left: 15px; margin-right: 15px;color:#5890FF;font-size:15px;' data-toggle='tooltip'title='Việc làm đã lưu!'><span class='glyphicon glyphicon-floppy-saved'></span> Lưu việc làm</a>");
+						+ ") href='#/' value = '1' style='margin-left: 15px; margin-right: 15px;color:#5890FF;font-size:15px;'><span class='glyphicon glyphicon-floppy-saved'></span> Lưu việc làm</a>");
 		response.getWriter().write("</div>");
 		response.getWriter().write("</div>");
 		response.getWriter().write("<br>");

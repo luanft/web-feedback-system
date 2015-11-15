@@ -24,6 +24,7 @@
 <link rel="stylesheet"
 	href="view/resource/bootstrap/css/bootstrap.min.css">
 <script src="view/resource/lib/jquery-2.1.4.min.js"></script>
+<script src="view/resource/lib/notify.js"></script>
 <script src="view/resource/bootstrap/js/bootstrap.min.js"></script>
 
 <link rel="stylesheet" href="view/resource/css/theme_customize.css">

@@ -76,11 +76,12 @@ public class ControllerHome extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		// check if user is logged in
 		if (!loginUtility.isLogged(request, response)) {
-			if (request.getParameter("scrollEvetn") != null) {
-				response.getWriter().write("");
-			}
+			response.getWriter().write("");
 		} else {
 			request.setAttribute("user", loginUtility.getLoggedUserId());
 			loadNewJob(request, response, loginUtility.getLoggedUserId());
@@ -187,8 +188,7 @@ public class ControllerHome extends HttpServlet {
 		response.getWriter().write("</div>");
 		response.getWriter().write("</div>");
 		response.getWriter()
-				.write("<div class='panel-footer'> Mức độ phù hợp của việc làm này với bạn? ");
-
+				.write("<div class='panel-footer'> <i> Mức độ phù hợp của việc làm này với bạn? </i>");
 		for (int i = 1; i <= 5; i++) {
 			if (i <= Integer.parseInt(rating))
 				response.getWriter()
@@ -200,7 +200,13 @@ public class ControllerHome extends HttpServlet {
 								+ i
 								+ ", "
 								+ job.jobId
-								+ ")' href='#/' value = '1' style='color:#F9D400;font-size:15px;'><span class='glyphicon glyphicon-star'></span></a>");
+								+ ")' onmouseover = 'mouseOverRating("
+								+ job.jobId
+								+ ", "
+								+ i
+								+ ")' onmouseout = 'mouseOutRating("
+								+ job.jobId
+								+ ")' href='#/' value = '1' style='color:#F9D400;font-size:25px; margin-left:10px;'><span class='glyphicon glyphicon-star'></span></a>");
 			else
 				response.getWriter()
 						.write("<a class = 'bookmark' id = '"
@@ -211,8 +217,17 @@ public class ControllerHome extends HttpServlet {
 								+ i
 								+ ", "
 								+ job.jobId
-								+ ")' href='#/' value = '0' style='color:#D9EDF7;font-size:15px;'><span class='glyphicon glyphicon-star'></span></a>");
+								+ ")' onmouseover = 'mouseOverRating("
+								+ job.jobId
+								+ ", "
+								+ i
+								+ ")'onmouseout = 'mouseOutRating("
+								+ job.jobId
+								+ ")' href='#/' value = '0' style='color:#D9EDF7;font-size:25px; margin-left:10px;'><span class='glyphicon glyphicon-star'></span></a>");
 		}
+		response.getWriter().write(
+				"<i style = 'margin-left:20px;' id = 'tip_" + job.jobId
+						+ "'><span></span></i>");
 		if ("0".equals(save))
 			response.getWriter()
 					.write("<a class = 'bookmark pull-right' id = '"
