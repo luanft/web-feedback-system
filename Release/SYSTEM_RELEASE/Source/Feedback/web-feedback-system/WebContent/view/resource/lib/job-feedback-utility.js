@@ -22,10 +22,17 @@ function myCollapse(xxx) {
 
 /**
  * show tips when hover to any star
+ * 
  * @param id
  * @param star
  */
 function mouseOverRating(id, star) {
+	for (var i = 1; i <= star; i++) {
+		$("#" + id + "_" + i).css("color", "#F9D400");
+	}
+	for (var i = star + 1; i < 6; i++) {
+		$("#" + id + "_" + i).css("color", "#D9EDF7");
+	}
 	switch (star) {
 	case 1:
 		$("#tip_" + id).text("Không liên quan");
@@ -48,8 +55,13 @@ function mouseOverRating(id, star) {
 	}
 }
 
-function mouseOutRating(id){
-	$("#tip_" + id).text("");
+function mouseOutRating(id) {	
+	for (var i = 1; i <= 5; i++) {
+		if ($("#" + id + "_" + i).attr("value") === "1")
+			$("#" + id + "_" + i).css("color", "#F9D400");
+		else
+			$("#" + id + "_" + i).css("color", "#D9EDF7");
+	}
 }
 
 /**

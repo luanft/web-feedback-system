@@ -214,7 +214,7 @@ public class ControllerJobRecommended extends HttpServlet {
 							+ i
 							+ ")'onmouseout = 'mouseOutRating("
 							+ job.jobId
-							+ ")' href='#/' value = '0' style='color:#D9EDF7;font-size:25px; margin-left:10px;'><span class='glyphicon glyphicon-star'></span></a>");
+							+ ")' href='#/' value = '0' style='color:#D9EDF7;font-size:25px; margin-left:3px;'><span class='glyphicon glyphicon-star'></span></a>");
 		}
 		response.getWriter().write(
 				"<i style = 'margin-left:20px;' id = 'tip_" + job.jobId
