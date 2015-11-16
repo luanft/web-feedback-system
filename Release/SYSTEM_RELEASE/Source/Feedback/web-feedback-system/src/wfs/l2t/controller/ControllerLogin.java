@@ -111,7 +111,7 @@ public class ControllerLogin extends HttpServlet {
 			pass = md5.md5(pass);
 			if (account.password.equals(pass)) {
 				// check activate status
-				if (account.isActive) {
+				if (account.isActive == 1) {
 					// check if user want to keep login
 					if (request.getParameter("login-check") != null) {
 
@@ -190,6 +190,21 @@ public class ControllerLogin extends HttpServlet {
 		String password = request.getParameter("reg-password");
 		String rpassword = request.getParameter("reg-re-type-password");
 		String category = request.getParameter("reg-category");
+		ModelAccount mdLogin = new ModelAccount();
+		if (mdLogin.getAccount(email) != null)
+		{						
+			request.setAttribute("err_reg", "Email của bạn đã được đăng ký!");
+			request.getRequestDispatcher("view/login.jsp").include(request,
+					response);
+			return;
+		}
+		if(!password.equals(rpassword))
+		{
+			request.setAttribute("err_reg", "Mật khẩu không trùng khớp!");
+			request.getRequestDispatcher("view/login.jsp").include(request,
+					response);
+			return;
+		}
 		if (email != "" && userName != "" && password != "" && rpassword != "") {
 			if (password.equals(rpassword)) {
 				account.userName = userName;
@@ -200,6 +215,7 @@ public class ControllerLogin extends HttpServlet {
 						: "job-seeker";
 				account.timeReceiveEmail = "daily";
 				account.numberReceiveEmail = "10";
+				account.isActive = 0;
 				account.confirmCode = UUID.randomUUID().toString();
 				account.avatar = "/view/resource/image/avatar/icon-user-default.png";
 				mdAccount.addAccount(account);
@@ -236,7 +252,7 @@ public class ControllerLogin extends HttpServlet {
 				try {
 					EmailUtility.sendEmail(host, port, user, pass, recipient,
 							subject, content);
-					resultMessage = "Để bắt đầu sử dụng hệ thống vui lòng xác nhận đăng ký qua email của bạn!";
+					resultMessage = "Để bắt đầu sử dụng hệ thống vui lòng xác nhận đăng ký qua email của bạn!";					
 				} catch (Exception ex) {
 					ex.printStackTrace();
 					resultMessage = "Lỗi gửi mail. Sorry!!!" + ex.getMessage();
@@ -248,7 +264,7 @@ public class ControllerLogin extends HttpServlet {
 				}
 			}
 		} else {
-			request.setAttribute("Message-Register-Error",
+			request.setAttribute("err_reg",
 					"Vui lòng điền đầy đủ thông tin!");
 			request.getRequestDispatcher("view/login.jsp").include(request,
 					response);

@@ -9,7 +9,7 @@ public class dtoAccount
 	public String accountType = "";
 	public String timeReceiveEmail = "";
 	public String numberReceiveEmail = "";
-	public Boolean isActive = false;
+	public int isActive = 0;
 	public String confirmCode = "";
 	public String avatar = "";
 	public String token = "";

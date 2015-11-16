@@ -18,25 +18,6 @@ $(document).ready(function() {
 	});
 });
 
-// check null field
-$(document).ready(
-		function() {
-			$("#reg-form").on(
-					'blur keyup',
-					function(event) {
-						if ($('#reg-email').val() == ""
-								|| $('#reg-user').val() == ""
-								|| $('#reg-pwd').val() == ""
-								|| $('#reg-rpwd').val() == ""
-								|| $("#txtHintEmail").text() != ""
-								|| $("#txtHintrpwd").text() != "") 
-									{
-							$("#reg-button").prop('disabled', true);
-						} else
-							$("#reg-button").prop('disabled', false);
-					});
-		});
-
 // check match password
 $(document).ready(function() {
 	$('#reg-pass').on('keyup blur', function(event) {

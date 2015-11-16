@@ -45,7 +45,8 @@ public class ModelCategory extends Model {
 	public List<dtoCategory> getAllCategory() {
 		List<dtoCategory> data = new ArrayList<dtoCategory>();
 		if (this.connection.connect()) {
-			ResultSet rs = this.connection.read("SELECT * FROM `category` ORDER BY `category`.`Description` ASC");
+			ResultSet rs = this.connection
+					.read("SELECT DISTINCT category.Description, category.CategoryId FROM job, category WHERE job.CategoryId = category.CategoryId ORDER BY category.Description ASC");
 			if (rs != null) {
 				try {
 					while (rs.next()) {

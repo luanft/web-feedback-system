@@ -37,7 +37,7 @@ public class ModelAccount extends Model {
 								.getString("TimeReceiveEmail");
 						account.numberReceiveEmail = rs
 								.getString("NumberReceiveEmail");
-						account.isActive = rs.getBoolean("IsActive");
+						account.isActive = rs.getInt("IsActive");
 						account.confirmCode = rs.getString("ConfirmCode");
 						account.avatar = rs.getString("Avatar");
 					} else
@@ -106,7 +106,7 @@ public class ModelAccount extends Model {
 				stm.setString(4, account.accountType);
 				stm.setString(5, account.timeReceiveEmail);
 				stm.setString(6, account.numberReceiveEmail);
-				stm.setInt(7, 0);
+				stm.setInt(7, account.isActive);
 				stm.setString(8, account.confirmCode);
 				stm.setString(9, account.avatar);
 				stm.setString(10, account.token);
