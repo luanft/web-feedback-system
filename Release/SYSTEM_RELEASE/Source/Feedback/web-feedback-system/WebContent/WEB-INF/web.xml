@@ -26,6 +26,14 @@
     <url-pattern>/account</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>statistic</servlet-name>
+    <servlet-class>wfs.l2t.controller.ControllerStatistic</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>statistic</servlet-name>
+    <url-pattern>/statistic</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>recommendation</servlet-name>
     <servlet-class>wfs.l2t.controller.ControllerJobRecommended</servlet-class>
   </servlet>

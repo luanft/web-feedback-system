@@ -1,6 +1,7 @@
 eclipse.preferences.version=1
 encoding//WebContent/view/configure-system.jsp=UTF-8
 encoding//WebContent/view/resume-profile.jsp=UTF-8
+encoding//WebContent/view/statistic.jsp=UTF-8
 encoding//WebContent/view/theme.html=UTF-8
 encoding//src/wfs/l2t/controller/ControllerAccount.java=UTF-8
 encoding//src/wfs/l2t/controller/ControllerCareJob.java=UTF-8
@@ -11,3 +12,5 @@ encoding//src/wfs/l2t/controller/ControllerJobRecommended.java=UTF-8
 encoding//src/wfs/l2t/controller/ControllerListResume.java=UTF-8
 encoding//src/wfs/l2t/controller/ControllerLogin.java=UTF-8
 encoding//src/wfs/l2t/controller/ControllerResume.java=UTF-8
+encoding//src/wfs/l2t/controller/ControllerStatistic.java=UTF-8
+encoding//src/wfs/l2t/dto/dtoRecJobStatistic.java=UTF-8
