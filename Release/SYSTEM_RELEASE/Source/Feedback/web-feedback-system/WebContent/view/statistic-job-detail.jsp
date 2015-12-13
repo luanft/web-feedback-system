@@ -31,10 +31,10 @@
                         <a href="${pageContext.request.contextPath}">Trang chủ</a>
                     </li>
                     <li>
-                        <a id="user_list_menu"href="#">Danh sách người dùng</a>
+                        <a id="user_list_menu"href="${pageContext.request.contextPath}/statistic">Danh sách người dùng</a>
                     </li>
                     <li>
-                        <a id="job_list_menu" href="#">Danh sách công việc </a>
+                        <a id="job_list_menu" href="${pageContext.request.contextPath}/jobList">Danh sách công việc </a>
                     </li>
                 </ul>
             </div>
@@ -51,12 +51,12 @@
     <section>
 		<div class="container">
 		<h2>Chi tiết việc làm ${job.jobName}</h2>
-		<p>Công việc này có số lược đánh giá:</p>
-		1 sao: <span style="color: red">${job.oneStarRating}</span> lược</p>
-		<p>2 sao: <span style="color: red">${job.twoStarRating}</span> lược</p>
-		<p>3 sao: <span style="color: red">${job.threeStarRating}</span> lược</p>
-		<p>4 sao: <span style="color: red">${job.fourStarRating}</span> lược</p>
-		<p>5 sao: <span style="color: red">${job.fiveStarRating}</span> lược</p>
+		<p>Công việc này có số lược đánh giá:
+		1 sao: <span style="color: red">${job.oneStarRating}</span>
+		|2 sao: <span style="color: red">${job.twoStarRating}</span>
+		|3 sao: <span style="color: red">${job.threeStarRating}</span>
+		|4 sao: <span style="color: red">${job.fourStarRating}</span>
+		|5 sao: <span style="color: red">${job.fiveStarRating}</span></p>
 			<table id="job-table"class="table .table-striped">
 					<thead>
 						<tr>

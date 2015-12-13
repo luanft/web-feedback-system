@@ -31,10 +31,10 @@
                         <a href="#">Trang cá nhân</a>
                     </li>
                     <li>
-                        <a id="user_list_menu" href="#">Danh sách người dùng</a>
+                        <a id="user_list_menu" href="${pageContext.request.contextPath}/statistic">Danh sách người dùng</a>
                     </li>
                     <li>
-                        <a id="job_list_menu" href="#">Danh sách công việc</a>
+                        <a id="job_list_menu" href="${pageContext.request.contextPath}/jobList">Danh sách công việc</a>
                     </li>
                 </ul>
             </div>

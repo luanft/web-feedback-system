@@ -9,6 +9,12 @@ $(document).ready(
 				$("#user_list").show();
 				$("#job_list").hide();
 			});
+			var path= window.location.pathname;
+			var shortPath=path.substring(path.lastIndexOf("/")+1, path.length);
+			if(shortPath=="jobList"){
+				$("#user_list").hide();
+				$("#job_list").show();
+			}
 		}
 		);
 function loadJob(categoryId){
@@ -32,7 +38,7 @@ function loadJob(categoryId){
 		    			   "<td>"+element.category+"</td>"+
 		    			   "<td>"+element.numberRating+"</td>"+
 		    			   "<td>"+element.fiveStarRating+"</td>"+
-		    			   "<td><a href='${pageContext.request.contextPath}/statistic?jobId='"+element.jobId+"'> Xem chi tiết</a></td>"+
+		    			   "<td><a href='"+window.location.pathname+"?jobId="+element.jobId+"'> Xem chi tiết</a></td>"+
 		    			   "</tr>"
 		    	   );
 		       });

@@ -95,7 +95,7 @@
 				<table id="job-table"class="table .table-striped">
 					<thead>
 						<tr>
-							<th>Tên công việc</th>
+							<th>Tên việc làm</th>
 							<th>Lĩnh vực</th>
 							<th>Số lược đánh giá</th>
 							<th>Lược đánh giá 5 sao</th>
@@ -105,7 +105,7 @@
 					<tbody>
 						<c:forEach var="job" items="${jobList}">
 						<tr>
-							<td><c:out value="${job.jobId}"/></td>
+							<td><c:out value="${job.jobName}"/></td>
 							<td><c:out value="${job.category}"/></td>
 							<td><c:out value="${job.numberRating}"/></td>
 							<td><c:out value="${job.fiveStarRating}"/></td>
