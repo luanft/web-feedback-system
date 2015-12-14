@@ -156,7 +156,7 @@ public class ControllerHome extends HttpServlet {
 		response.getWriter().write(
 				"<div id='short-description" + job.jobId + "'>");
 		response.getWriter().write(
-				"<pre><b>Mô tả: </b>" + shortDescription + " ...</pre>");
+				"<pre><b>Mô tả: </b>" + shortDescription + " ...<a id=\"see-more"+job.jobId+"\" class=\"btn btn-link\"onclick=\"myCollapse('"+job.jobId+"')\" style=\"padding: 0px 0px\">Xem thêm</a></pre>");
 		response.getWriter().write("</div>");
 		response.getWriter().write(
 				"<div id='full-info" + job.jobId + "' class='custom_hiden'>");
