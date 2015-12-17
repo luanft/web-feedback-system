@@ -22,7 +22,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">JOB RECOMMENDATION SYSTEM</a>
+                <a class="navbar-brand" href="${pageContext.request.contextPath}">JOB RECOMMENDATION SYSTEM</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -96,6 +96,6 @@
     </footer>
     <script src="view/resource/lib/jquery-2.1.4.min.js"></script>
 <script src="view/resource/bootstrap/js/bootstrap.min.js"></script>
-<script src="view/resource/lib/statistic.js"></script>hnb
+<script src="view/resource/lib/statistic.js"></script>
 </body>
 </html>

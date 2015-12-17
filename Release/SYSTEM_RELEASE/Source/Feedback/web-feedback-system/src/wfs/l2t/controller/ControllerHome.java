@@ -52,8 +52,7 @@ public class ControllerHome extends HttpServlet {
 				response.sendRedirect(request.getContextPath() + "/login");
 			}
 			//
-			request.setAttribute("user", loginUtility.getLoggedUserId());
-
+			request.setAttribute("user", loginUtility.getLoggedUserId());		
 			// new-job.jsp
 
 			HttpSession session = request.getSession();
