@@ -42,29 +42,37 @@ public class ControllerStatistic extends HttpServlet {
 		//out.print("<h1>Go to Statistic</h1>");
 		String userId= request.getParameter("userId");
 		String jobId=request.getParameter("jobId");
-		if(userId!=null)
-		{
-			int accId= Integer.parseInt(userId);
-			request.setAttribute("user",ms.getUser(accId) );
-			request.setAttribute("listJob",ms.getRecJob(accId) );
-			request.getRequestDispatcher("view/statistic-job-list.jsp").include(request, response);
-		}
-		else if(jobId!=null){
-			request.setAttribute("job", ms.getJobDetail(Integer.parseInt(jobId)));
-			request.getRequestDispatcher("view/statistic-job-detail.jsp").include(request, response);
-		}
-		else{
-			// dữ liệu cho danh sách người dùng
-			request.setAttribute("accountList", ms.getAllAccount());
-			request.setAttribute("numberUser", ms.getNumberUser());
-			request.setAttribute("numberJobRated", ms.getJobhasRated());
-			request.setAttribute("numberJobSent", ms.getJobhasSent());
-			// Dữ liệu cho danh sách công việc
-			request.setAttribute("categoryList",mc.getAllCategory());
-			request.setAttribute("jobList", ms.getAllRecJob());
+		//int  userIdAccess=Integer.parseInt(request.getParameter("userIdAccess"));
+			//if(userIdAccess==1 || userIdAccess == 23 || userIdAccess == 24 || userIdAccess==26 || userIdAccess==27){
+			if(userId!=null)
+			{
+				int accId= Integer.parseInt(userId);
+				String userName= request.getParameter("userName");
+				request.setAttribute("userDetail",ms.getUser(accId, userName) );
+				request.getRequestDispatcher("view/statistic-job-list.jsp").include(request, response);
+			}
+			else if(jobId!=null){
+				String jobName= request.getParameter("jobName");
+				request.setAttribute("job", ms.getJobDetail(jobId,jobName));
+				request.getRequestDispatcher("view/statistic-job-detail.jsp").include(request, response);
+			}
+			else{
+				
+					// dữ liệu cho danh sách người dùng
+					request.setAttribute("accountList", ms.getAllAccount());
+					request.setAttribute("numberUser", ms.getNumberUser());
+					request.setAttribute("numberJobRated", ms.getJobhasRated());
+					request.setAttribute("numberJobSent", ms.getJobhasSent());
+					// Dữ liệu cho danh sách công việc
+					request.setAttribute("categoryList",mc.getAllCategory());
+					request.setAttribute("jobList", ms.getAllRecJob());
+					
+					request.getRequestDispatcher("view/statistic.jsp").include(request, response);
+				
 			
-			request.getRequestDispatcher("view/statistic.jsp").include(request, response);
-		}
+			}
+		//}
+		
 	}
 
 	/**
@@ -73,10 +81,18 @@ public class ControllerStatistic extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String categoryId= request.getParameter("categoryId");
+		
 		response.setCharacterEncoding("UTF-8");	
 		response.setContentType("application/json");
 		String json = null ;
-		json= new Gson().toJson(ms.getRecJobCategory(Integer.parseInt(categoryId)));
+		Gson gson= new Gson();
+		if(Integer.parseInt(categoryId)!=0){
+		json= gson.toJson(ms.getRecJobCategory(Integer.parseInt(categoryId)));
+		//json= gson.toJson(ms.getAllRecJob());
+		}
+		else {
+			json= gson.toJson(ms.getAllRecJob());
+		}
 		//System.out.println(ms.getRecJobCategory(Integer.parseInt(categoryId)).size());
 		response.getWriter().write(json);
 	}

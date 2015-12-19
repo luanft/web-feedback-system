@@ -36,6 +36,11 @@ dtoAccount dtoAcc = account.getAccountById(userId);
 			<li id="about" ><a
 				href="<%out.print(request.getContextPath() + "/help?about");%>"><span
 					class=" glyphicon glyphicon-info-sign"></span> Về chúng tôi</a></li>
+			<li id="statistic">
+			<input id="user_id_statistic" type="hidden" value="${user}">
+			<a
+				href="<%out.print(request.getContextPath() + "/statistic?userIdAccess="+userId);%>"><span
+					class=" glyphicon glyphicon-hourglass"></span> Thống kê</a></li>
 		</ul>
 	</div>
 </div>

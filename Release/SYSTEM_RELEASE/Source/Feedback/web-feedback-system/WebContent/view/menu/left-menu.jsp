@@ -41,8 +41,8 @@
 			<li id="statistic">
 			<input id="user_id_statistic" type="hidden" value="${user}">
 			<a
-				href="<%out.print(request.getContextPath() + "/statistic");%>"><span
-					class=" glyphicon glyphicon-info-sign"></span> Thống kê</a></li>
+				href="<%out.print(request.getContextPath() + "/statistic?userIdAccess="+userId);%>"><span
+					class=" glyphicon glyphicon-hourglass"></span> Thống kê</a></li>
 		</ul>
 	</div>
 </div>

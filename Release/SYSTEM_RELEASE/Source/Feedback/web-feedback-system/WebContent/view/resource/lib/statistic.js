@@ -34,6 +34,7 @@ function loadJob(categoryId){
 		       $.each(result, function(index, element) {
 		    	   $("#job-table>tbody").append(
 		    			   "<tr>"+
+		    			   "<td>"+index+"</td>"+
 		    			   "<td>"+element.jobName+"</td>"+
 		    			   "<td>"+element.category+"</td>"+
 		    			   "<td>"+element.numberRating+"</td>"+

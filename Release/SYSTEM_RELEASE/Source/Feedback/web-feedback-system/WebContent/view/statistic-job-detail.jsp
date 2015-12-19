@@ -28,7 +28,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="${pageContext.request.contextPath}">Trang chủ</a>
+                        <a href="${pageContext.request.contextPath}/statistic">Trang chủ</a>
                     </li>
                     <li>
                         <a id="user_list_menu"href="${pageContext.request.contextPath}/statistic">Danh sách người dùng</a>
@@ -51,13 +51,7 @@
     <section>
 		<div class="container">
 		<h2>Chi tiết việc làm ${job.jobName}</h2>
-		<p>Công việc này có số lược đánh giá:
-		1 sao: <span style="color: red">${job.oneStarRating}</span>
-		|2 sao: <span style="color: red">${job.twoStarRating}</span>
-		|3 sao: <span style="color: red">${job.threeStarRating}</span>
-		|4 sao: <span style="color: red">${job.fourStarRating}</span>
-		|5 sao: <span style="color: red">${job.fiveStarRating}</span></p>
-			<table id="job-table"class="table .table-striped">
+			<table id="job-table"class="table table-striped">
 					<thead>
 						<tr>
 							<th>Tên công việc</th>
@@ -71,21 +65,21 @@
 					<tbody>
 						<tr>
 							<td><c:out value="${job.jobName}"/></td>
-							<td><c:forEach var="user" items="${job.userRateFiveStar}">
-									<a href="${pageContext.request.contextPath}/statistic?userId=${user.accountId}"><c:out value="${user.userName}"/></a>
+							<td><c:forEach var="user" items="${job.userRateOneStar}">
+									<a href="${pageContext.request.contextPath}/statistic?userId=${user.accountId}"><c:out value="${user.userName}"/></a><span>, </span>
 								</c:forEach>
 							</td>
-							<td><c:forEach var="user" items="${job.userRateFourStar}">
-									<a href="${pageContext.request.contextPath}/statistic?userId=${user.accountId}"><c:out value="${user.userName}"/></a>
+							<td><c:forEach var="user" items="${job.userRateTwoStar}">
+									<a href="${pageContext.request.contextPath}/statistic?userId=${user.accountId}"><c:out value="${user.userName}"/></a><span>, </span>
 								</c:forEach></td>
 							<td><c:forEach var="user" items="${job.userRateThreeStar}">
-									<a href="${pageContext.request.contextPath}/statistic?userId=${user.accountId}"><c:out value="${user.userName}"/></a>
+									<a href="${pageContext.request.contextPath}/statistic?userId=${user.accountId}"><c:out value="${user.userName}"/></a><span>, </span>
 								</c:forEach></td>
-							<td><c:forEach var="user" items="${job.userRateTwoStar}">
-									<a href="${pageContext.request.contextPath}/statistic?userId=${user.accountId}"><c:out value="${user.userName}"/></a>
+							<td><c:forEach var="user" items="${job.userRateFourStar}">
+									<a href="${pageContext.request.contextPath}/statistic?userId=${user.accountId}"><c:out value="${user.userName}"/></a><span>, </span>
 								</c:forEach></td>
-							<td><c:forEach var="user" items="${job.userRateOneStar}">
-									<a href="${pageContext.request.contextPath}/statistic?userId=${user.accountId}"><c:out value="${user.userName}"/></a>
+							<td><c:forEach var="user" items="${job.userRateFiveStar}">
+									<a href="${pageContext.request.contextPath}/statistic?userId=${user.accountId}"><c:out value="${user.userName}"/></a><span>, </span>
 								</c:forEach></td>
 						</tr>
 					</tbody>

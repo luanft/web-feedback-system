@@ -28,7 +28,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="${pageContext.request.contextPath}">Trang chủ</a>
+                        <a href="${pageContext.request.contextPath}/statistic">Trang chủ</a>
                     </li>
                     <li>
                         <a id="user_list_menu"href="#">Danh sách người dùng</a>
@@ -52,11 +52,13 @@
 		<div class="container">
 			<div id="user_list">
 				<h2>Danh sách người dùng</h2>
-				<p>Hiện tại có <span style="color: red">${numberUser}</span> người dùng, có <span style="color: red">${numberJobRated}</span> việc làm đã đánh giá và <span style="color: red">${numberJobSent}</span> công việc đã gửi.
+				<p>Hiện tại có <span style="color: red">${numberUser}</span> người dùng, có <span style="color: red">${numberJobRated}</span> việc làm đã được đánh giá trên <span style="color: red">${numberJobSent}</span> công việc đã gửi.
 				</p>
-				<table class="table .table-striped">
+				
+				<table class="table table-striped">
 					<thead>
 						<tr>
+							<th>STT</th>
 							<th>Tên người dùng</th>
 							<th>Email</th>
 							<th>Số việc làm đã gửi</th>
@@ -65,14 +67,15 @@
 						</tr>
 					</thead>
 					<tbody>
-					<c:forEach var="acc" items="${accountList}">
+					<c:forEach var="acc" items="${accountList}" varStatus="loop">
 						<tr>
+							<td><c:out value="${loop.index}"/></td>
 							<td><c:out value="${acc.userName}"/></td>
 							<td><c:out value="${acc.email}"/></td>
 							<td><c:out value="${acc.numberJobSent}"/></td>
 							<td><c:out value="${acc.numberJobRated}"/></td>
 							<td>
-								<a href="${pageContext.request.contextPath}/statistic?userId=${acc.accountId}">Xem chi tiết...</a>
+								<a href="${pageContext.request.contextPath}/statistic?userId=${acc.accountId}&userName=${acc.userName}">Xem chi tiết...</a>
 							</td>
 						</tr>
 					</c:forEach>
@@ -83,18 +86,21 @@
 			<label for="area-select"></label>
 			<!-- Hiện danh sách lĩnh vực -->
 			<h2>Danh sách công việc được đánh giá</h2>
+			<p><i>Lưu ý: vì số lượng việc quá nhiều trang này chỉ hiện 200 công việc được đánh giá gần đây</i></p>
 				<label for="area-select">Chọn lĩnh vực: </label>
 				<select name="area-select" class="form-control" style="width: 20%">
-						<option>Tất cả lĩnh vực</option>
+						<option onclick="loadJob(0)">Tất cả lĩnh vực</option>
 						<c:forEach var="cate" items="${categoryList}">
 							<option onclick="loadJob(${cate.categoryId})"><c:out value="${cate.categoryName}"/></option>
 						</c:forEach>
 				</select>
 				<br>
 				<div id="no-result" class="bg-danger"></div>
-				<table id="job-table"class="table .table-striped">
+				
+				<table id="job-table"class="table table-striped">
 					<thead>
 						<tr>
+							<th>STT</th>
 							<th>Tên việc làm</th>
 							<th>Lĩnh vực</th>
 							<th>Số lược đánh giá</th>
@@ -103,13 +109,15 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="job" items="${jobList}">
+					
+						<c:forEach var="job" items="${jobList}" varStatus="loop">
 						<tr>
+							<td><c:out value="${loop.index}"/></td>
 							<td><c:out value="${job.jobName}"/></td>
 							<td><c:out value="${job.category}"/></td>
 							<td><c:out value="${job.numberRating}"/></td>
 							<td><c:out value="${job.fiveStarRating}"/></td>
-							<td><a href="${pageContext.request.contextPath}/statistic?jobId=${job.jobId}">Xem chi tiết</a></td>
+							<td><a href="${pageContext.request.contextPath}/statistic?jobId=${job.jobId}&jobName=${job.jobName}">Xem chi tiết</a></td>
 						</tr>
 						</c:forEach>
 					</tbody>

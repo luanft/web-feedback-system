@@ -87,13 +87,13 @@ public class ControllerForgotPassword extends HttpServlet {
 			    } catch (IOException e) {
 			    }
 				
-				String subject = "Thay đổi mật khẩu tài khoản " + account.userName;
+			    String subject = "Thay đổi mật khẩu tài khoản " + account.userName;
 
-				String content = "Tài khoản "
-						+ account.userName
-						+ " tại "+link+" đã được thay đổi mật khẩu. Mật khẩu mới của bạn là: "
-						+ newPass
-						+ ".<br>Cảm ơn bạn đã sử dụng hệ thống khuyến nghị việc làm của chúng tôi!";
+			    String content = "Tài khoản "
+			      + account.userName
+			      + " tại "+link+" đã được thay đổi mật khẩu. Mật khẩu mới của bạn là: "
+			      + newPass
+			      + ".<br>Cảm ơn bạn đã sử dụng hệ thống khuyến nghị việc làm của chúng tôi!";
 
 				String resultMessage = "";
 				try {

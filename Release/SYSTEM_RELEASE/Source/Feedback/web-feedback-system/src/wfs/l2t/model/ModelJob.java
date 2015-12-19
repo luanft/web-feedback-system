@@ -157,7 +157,7 @@ public class ModelJob extends Model {
 					job.jobName = trimAll(rs.getString("JobName"));
 					job.location = trimAll(rs.getString("Location"));
 					job.salary = trimAll(rs.getString("Salary").replace(
-							"LÆ°Æ¡ng:", ""));
+							"Lýõng:", ""));
 					job.description = trimAll(rs.getString("Description"));
 					job.tags = trimAll(rs.getString("Tags"));
 					job.requirement = trimAll(rs.getString("Requirement"));
@@ -197,7 +197,7 @@ public class ModelJob extends Model {
 					job.jobName = trimAll(rs.getString("JobName"));
 					job.location = trimAll(rs.getString("Location"));
 					job.salary = trimAll(rs.getString("Salary").replace(
-							"LÆ°Æ¡ng:", ""));
+							"Lýõng:", ""));
 					job.description = trimAll(rs.getString("Description"));
 					job.tags = trimAll(rs.getString("Tags"));
 					job.requirement = trimAll(rs.getString("Requirement"));

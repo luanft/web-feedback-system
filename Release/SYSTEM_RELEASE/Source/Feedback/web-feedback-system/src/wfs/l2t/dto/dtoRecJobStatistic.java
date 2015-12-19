@@ -1,17 +1,14 @@
 package wfs.l2t.dto;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 public class dtoRecJobStatistic extends dtoJob {
-	Timestamp time= null;
+	String time= null;
 	int numberRating=0;
 	int fiveStarRating=0;
-	int fourStarRating=0;
-	int threeStarRating=0;
-	int twoStarRating=0;
-	int oneStarRating=0;
 	List<dtoAccount> userRateOneStar;
 	List<dtoAccount> userRateTwoStar;
 	List<dtoAccount> userRateThreeStar;
@@ -77,38 +74,7 @@ public class dtoRecJobStatistic extends dtoJob {
 		}
 	}
 
-	//làm tiếp danh sách người dùng đánh giá công việc này
-	public int getFourStarRating() {
-		return fourStarRating;
-	}
-
-	public void setFourStarRating(int fourStarRating) {
-		this.fourStarRating = fourStarRating;
-	}
-
-	public int getThreeStarRating() {
-		return threeStarRating;
-	}
-
-	public void setThreeStarRating(int threeStarRating) {
-		this.threeStarRating = threeStarRating;
-	}
-
-	public int getTwoStarRating() {
-		return twoStarRating;
-	}
-
-	public void setTwoStarRating(int twoStarRating) {
-		this.twoStarRating = twoStarRating;
-	}
-
-	public int getOneStarRating() {
-		return oneStarRating;
-	}
-
-	public void setOneStarRating(int oneStarRating) {
-		this.oneStarRating = oneStarRating;
-	}
+	
 
 	public int getNumberRating() {
 		return numberRating;
@@ -126,12 +92,12 @@ public class dtoRecJobStatistic extends dtoJob {
 		this.fiveStarRating = fiveStarRating;
 	}
 
-	public Timestamp getTime() {
+	public String getTime() {
 		return time;
 	}
 
 	public void setTime(Timestamp time) {
-		this.time = time;
+		this.time = new SimpleDateFormat("dd/MM/yyyy").format(time);
 	}
 
 

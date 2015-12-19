@@ -1,5 +1,8 @@
 package wfs.l2t.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class dtoAccountStatistic extends dtoAccount {
 	private int numberJobSent=0;
 	private int numberJobRated=0;
@@ -8,6 +11,15 @@ public class dtoAccountStatistic extends dtoAccount {
 	int rateThreeStar=0;
 	int rateTwoStar=0;
 	int rateOneStar=0;
+	List<dtoRecJobStatistic> listRecJob;
+	public List<dtoRecJobStatistic> getListRecJob() {
+		
+		return listRecJob;
+	}
+	public void setListRecJob(List<dtoRecJobStatistic> listRecJob) {
+		this.listRecJob= new ArrayList<dtoRecJobStatistic>();
+		this.listRecJob.addAll(listRecJob);
+	}
 	public int getRateFiveStar() {
 		return rateFiveStar;
 	}

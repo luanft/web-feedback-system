@@ -8,7 +8,9 @@
 <link rel="stylesheet"
 	href="view/resource/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="view/resource/css/statistic.css">
-<title>Chi tiết ${user.userName}</title>
+<style type="text/css">
+</style>
+<title>Chi tiết ${userDetail.userName}</title>
 </head>
 <body>
     <!-- Navigation -->
@@ -28,7 +30,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#">Trang cá nhân</a>
+                        <a href="${pageContext.request.contextPath}/statistic">Trang chủ</a>
                     </li>
                     <li>
                         <a id="user_list_menu" href="${pageContext.request.contextPath}/statistic">Danh sách người dùng</a>
@@ -50,14 +52,15 @@
     <!-- Content Section -->
     <section>
 		<div class="container">
-			<h2>Kết quả đánh giá của ${user.userName}</h2>
+			<h2>Kết quả đánh giá của ${userDetail.userName}</h2>
 			<p>Số việc làm được đánh giá:
-			 5 sao: <span style="color: red">${user.rateFiveStar}</span>
-			|4 sao: <span style="color: red">${user.rateFourStar}</span>
-			|3 sao: <span style="color: red">${user.rateThreeStar}</span>
-			|2 sao: <span style="color: red">${user.rateTwoStar}</span>
-			|1 sao: <span style="color: red">${user.rateOneStar}</span></p>
-			<table class="table .table-striped">
+			 5 sao: <span style="color: red">${userDetail.rateFiveStar}</span>
+			|4 sao: <span style="color: red">${userDetail.rateFourStar}</span>
+			|3 sao: <span style="color: red">${userDetail.rateThreeStar}</span>
+			|2 sao: <span style="color: red">${userDetail.rateTwoStar}</span>
+			|1 sao: <span style="color: red">${userDetail.rateOneStar}</span></p>
+			
+			<table class="table table-striped">
 				<thead>
 					<tr>
 						<th>Tên việc làm</th>
@@ -67,7 +70,7 @@
 					</tr>
 				</thead>
 				<tbody>
-				<c:forEach var="job" items="${listJob}">
+				<c:forEach var="job" items="${userDetail.listRecJob}">
 					<tr>
 						<td><c:out value="${job.jobName}"/></td>
 						<td><c:out value="${job.category}"/></td>
@@ -77,8 +80,8 @@
 				</c:forEach>
 				</tbody>
 			</table>
-
-
+			
+<!-- 			
 		</div>
 		<!-- /.container -->
     </section>
