@@ -12,7 +12,6 @@
 	String userId = (String) request.getAttribute("user");
 	ModelAccount account = new ModelAccount();
 	dtoAccount dtoAcc = account.getAccountById(userId);
-	int count=(int)request.getAttribute("listRecCount");
 %>
 
 <!DOCTYPE html>
@@ -54,7 +53,6 @@
 
 				</div>
 				<div class="col-md-9 custom_background_color panel-group">
-				<p>Số lượng công việc: <%=count %></p>
 					<br>
 					<!-- show jobs -->
 					<div id="content-wrapper"></div>

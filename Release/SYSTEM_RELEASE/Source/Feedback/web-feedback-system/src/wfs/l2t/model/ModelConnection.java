@@ -11,8 +11,8 @@ public class ModelConnection
 
 	public final String mysqlHost = "jdbc:mysql://localhost:3306/recsys?useUnicode=true&characterEncoding=UTF-8";
 	public final String userName = "root";	
-	public final String password = "kh0ngbietnua";
-	//public final String password = "";
+//	public final String password = "kh0ngbietnua";
+	public final String password = "";
 	private Connection connection = null;
 	private PreparedStatement preStatement = null;
 

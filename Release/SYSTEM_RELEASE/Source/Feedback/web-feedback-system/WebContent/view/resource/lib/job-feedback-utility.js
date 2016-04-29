@@ -157,21 +157,96 @@ function rating(obj, rating_star, jobId) {
 	});
 }
 
-// load job when ready
-$(document).ready(function() {
-	{
-		$.ajax({
-			type : "POST",
-			url : "ControllerJobRecommended",
-			data : {
-				ready : "ready"
-			},
-			success : function(data) {
-				$("#content-wrapper").append(data);
+//load job when ready
+$(document).ready(
+		function() {
+			{
+				$.ajax({
+					type : "POST",
+					url : "ControllerJobRecommended",
+					data : {
+						ready : "ready"
+					},
+					success : function(data) {
+						if (data === "") {
+							location.href = window.location.pathname
+									.substring(0, window.location.pathname
+											.indexOf("/", 2));
+						} else
+							$("#content-wrapper").append(data);
+					}
+				});
 			}
 		});
+
+/**
+ * load jobs when scroll to bottom
+ */
+$contentLoadTriggered = false;
+$(document).ready(function ()
+{
+	$(window).scroll(function ()
+	{
+		if ($("#done").text().trim() !== "Hết việc đã lưu rồi!")
+		{
+			if ($(window).scrollTop() + $(window).height() == $(document).height() && $contentLoadTriggered == false)
+			{
+				$contentLoadTriggered = true;
+				$.ajax(
+				{
+					type : "POST",
+					url : "ControllerJobRecommended",
+					data :
+					{
+						ready : "ready"
+					},
+					success : function (data)
+					{
+						if (data === "")
+						{
+							location.href = window.location.pathname.substring(0, window.location.pathname.indexOf("/", 2));
+						}
+						else
+							$("#content-wrapper").append(data);
+						$contentLoadTriggered = false;
+					}
+				}
+				);
+			}
+		}
 	}
-});
+	);
+}
+);
+
+/**
+ * get job by scroll event on mobile
+ */
+$('body').on('touchmove', function ()
+		{
+			if ($("#done").text().trim() !== "Hết việc mới rồi. Hehe!")
+			{
+				if ($(window).scrollTop() + $(window).height() >= $(document)
+					.height() - 100)
+				{
+					$.ajax(
+					{
+						type : "POST",
+						url : "ControllerJobRecommended",
+						data :
+						{
+							ready : "ready"
+						},
+						success : function (data)
+						{
+							$("#content-wrapper").append(data);
+						}
+					}
+					);
+				}
+			}
+		}
+		);
 
 
 /**

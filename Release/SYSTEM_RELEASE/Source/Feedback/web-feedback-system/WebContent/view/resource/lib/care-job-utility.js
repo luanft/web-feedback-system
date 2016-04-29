@@ -213,7 +213,7 @@ $('body').on('touchmove', function ()
 					$.ajax(
 					{
 						type : "POST",
-						url : "ControllerHome",
+						url : "ControllerCareJob",
 						data :
 						{
 							xxx : "scroll"

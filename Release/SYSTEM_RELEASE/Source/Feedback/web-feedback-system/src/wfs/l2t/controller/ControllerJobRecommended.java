@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import wfs.l2t.dto.dtoJob;
 import wfs.l2t.dto.dtoJobRecommended;
@@ -24,6 +25,7 @@ import wfs.l2t.utility.LoginUtility;
 public class ControllerJobRecommended extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private LoginUtility loginUtility;
+
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -42,22 +44,21 @@ public class ControllerJobRecommended extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-		
+
 		if (loginUtility.isLoggedByToken(request, response)) {
 			request.setAttribute("user", loginUtility.getLoggedUserId());
 			// rec-job.jsp
-			
+			HttpSession session = request.getSession();
+			session.setAttribute("offset", "0");
 			request.getRequestDispatcher("view/job-feedback.jsp").include(
 					request, response);
 			return;
 		} else {
 			if (loginUtility.isLogged(request, response)) {
+				HttpSession session = request.getSession();
+				session.setAttribute("offset", "0");
 				request.setAttribute("user", loginUtility.getLoggedUserId());
-				// rec-job.jsp
-				ModelJob mdj = new ModelJob();
-				List<dtoJob> jobList = mdj.getJobRecommended(loginUtility
-						.getLoggedUserId());
-				request.setAttribute("listRecCount",jobList.size());
+
 				request.getRequestDispatcher("view/job-feedback.jsp").include(
 						request, response);
 				return;
@@ -119,22 +120,25 @@ public class ControllerJobRecommended extends HttpServlet {
 
 	private void loadRecommendedJob(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		
-			ModelJob mdj = new ModelJob();
-			List<dtoJob> jobList = mdj.getJobRecommended(loginUtility
-					.getLoggedUserId());
-			
-			
-			dtoJob job = new dtoJob();
-			if (jobList.size() == 0)
-				writeHtml(request, response);
-			else {
-				for (int i = 0; i < jobList.size(); i++) {
-					job = jobList.get(i);
-					writeHtml(job, mdj.getShortDescription(job.jobId), request,
-							response);
-				}
+		HttpSession session = request.getSession();
+		int offset = Integer
+				.parseInt(session.getAttribute("offset").toString());
+		ModelJob mdj = new ModelJob();
+		List<dtoJob> jobList = mdj.getJobRecommended(
+				loginUtility.getLoggedUserId(), offset);
+
+		offset += 11;
+		session.setAttribute("offset", offset);
+		dtoJob job = new dtoJob();
+		if (jobList.size() == 0)
+			writeHtml(request, response);
+		else {
+			for (int i = 0; i < jobList.size(); i++) {
+				job = jobList.get(i);
+				writeHtml(job, mdj.getShortDescription(job.jobId), request,
+						response);
 			}
+		}
 	}
 
 	private void writeHtml(dtoJob job, String shortDescription,
@@ -171,7 +175,11 @@ public class ControllerJobRecommended extends HttpServlet {
 		response.getWriter().write(
 				"<div id='short-description" + job.jobId + "'>");
 		response.getWriter().write(
-				"<pre><b>Mô tả: </b>" + shortDescription +" ...<a id=\"see-more"+job.jobId+"\" class=\"btn btn-link\"onclick=\"myCollapse('"+job.jobId+"')\" style=\"padding: 0px 0px\">Xem thêm</a></pre>");
+				"<pre><b>Mô tả: </b>" + shortDescription
+						+ " ...<a id=\"see-more" + job.jobId
+						+ "\" class=\"btn btn-link\"onclick=\"myCollapse('"
+						+ job.jobId
+						+ "')\" style=\"padding: 0px 0px\">Xem thêm</a></pre>");
 		response.getWriter().write("</div>");
 		response.getWriter().write(
 				"<div id='full-info" + job.jobId + "' class='custom_hiden'>");

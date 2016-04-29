@@ -214,7 +214,7 @@ public class ControllerLogin extends HttpServlet {
 				account.accountType = "employer".equals(accType) ? "employer"
 						: "job-seeker";
 				account.timeReceiveEmail = "daily";
-				account.numberReceiveEmail = "10";
+				account.numberReceiveEmail = "20";
 				account.isActive = 0;
 				account.confirmCode = UUID.randomUUID().toString();
 				account.avatar = "/view/resource/image/avatar/icon-user-default.png";

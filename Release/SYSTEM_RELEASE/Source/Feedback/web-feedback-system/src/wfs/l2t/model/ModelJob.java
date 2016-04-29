@@ -14,8 +14,8 @@ public class ModelJob extends Model {
 	}
 
 	public List<dtoJob> getJob(int offset, String userId) {
-		List<dtoJob> jobList = new ArrayList<dtoJob>();		 
-		 
+		List<dtoJob> jobList = new ArrayList<dtoJob>();
+
 		String sql = "select job.AccountId, job.JobId, JobName, Location, Salary, job.Description, Tags, Requirement, Benifit, Expired, Source, Company, COALESCE(Save, 0) as Save, COALESCE(Rating, 0) as Rating, COALESCE(job_recommended.AccountId, 0) as UserId, category.CategoryId, category.Description as Category from category, job LEFT JOIN job_recommended ON job_recommended.JobId = job.JobId and job_recommended.AccountId = "
 				+ userId
 				+ " WHERE category.CategoryId = job.CategoryId ORDER BY job.JobId DESC LIMIT "
@@ -142,10 +142,10 @@ public class ModelJob extends Model {
 		return txt;
 	}
 
-	public List<dtoJob> getJobRecommended(String userId) {
+	public List<dtoJob> getJobRecommended(String userId, int offset) {
 		List<dtoJob> jobList = new ArrayList<dtoJob>();
 		String sql = "select job.AccountId, job.JobId, JobName, category.CategoryId, category.Description as Category, Location, Salary, job.Description, Tags, Requirement, Benifit, Expired, Source, Company,Save, Rating, job_recommended.AccountId as UserId from category, job join job_recommended on job_recommended.JobId = job.JobId where category.CategoryId = job.CategoryId and Seen = 0 and job_recommended.AccountId = "
-				+ userId + " order by job.JobId desc";
+				+ userId + " order by job.JobId desc limit " + offset + ", 10";
 		if (connection.connect()) {
 			ResultSet rs = connection.read(sql);
 			try {

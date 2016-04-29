@@ -1,8 +1,6 @@
 package wfs.l2t.controller;
 
 import java.io.IOException;
-import java.sql.Timestamp;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -13,9 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import wfs.l2t.dto.dtoJob;
-import wfs.l2t.dto.dtoJobRecommended;
 import wfs.l2t.model.ModelJob;
-import wfs.l2t.model.ModelJobRecommended;
 import wfs.l2t.utility.LoginUtility;
 
 /**
