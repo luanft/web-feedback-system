@@ -8,7 +8,7 @@ import java.util.List;
 
 import wfs.l2t.dto.dtoJob;
 
-public class ModelJob extends Model {
+public class ModelJob extends Model implements IModelJob{
 	public ModelJob() {
 		super();
 	}

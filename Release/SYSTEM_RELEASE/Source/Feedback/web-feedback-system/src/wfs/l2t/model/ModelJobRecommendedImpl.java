@@ -6,8 +6,8 @@ import java.sql.SQLException;
 
 import wfs.l2t.dto.dtoJobRecommended;
 
-public class ModelJobRecommended extends Model {
-	public ModelJobRecommended() {
+public class ModelJobRecommendedImpl extends Model implements IModelJobRecommended {
+	public ModelJobRecommendedImpl() {
 		super();
 	}
 

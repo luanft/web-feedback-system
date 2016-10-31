@@ -231,12 +231,12 @@ public class ControllerLogin extends HttpServlet {
 				String recipient = request.getParameter("reg-email");
 				String subject = "Xác thực tài khoản";				
 
-				String link = "";				
+				String link = "http://sdlab.uit.edu.vn/jrs/";				
 			    try {
 			        BufferedReader in = new BufferedReader(new FileReader(getServletContext().getResource("/WEB-INF/url-config.txt").getPath()));
 			        String str;
 			        while ((str = in.readLine()) != null) {
-			            link +=str;
+			            link =str;
 			        }
 			        in.close();
 			    } catch (IOException e) {
