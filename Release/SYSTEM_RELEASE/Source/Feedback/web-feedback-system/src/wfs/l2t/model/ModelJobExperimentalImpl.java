@@ -75,4 +75,24 @@ public class ModelJobExperimentalImpl extends Model implements IModelJobRecommen
 		return "0";
 	}
 
+	public String countJobs(String userId) {
+		String sql = "SELECT COUNT(*) as NumRate FROM `rankedlist` WHERE rankedlist.AccountId = ?";
+		if(connection.connect()){
+			try {
+				PreparedStatement stm = connection.getConnection()
+						.prepareStatement(sql);
+				stm.setString(1, userId);				
+				connection.setPrepareStatement(stm);
+				ResultSet rs = connection.readSecure();
+				if(rs.next())
+					return rs.getString("NumRate");
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+
+			}
+			connection.close();
+		}
+		return "0";
+	}
 }

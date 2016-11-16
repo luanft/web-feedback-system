@@ -8,25 +8,31 @@ import java.util.List;
 
 import wfs.l2t.dto.dtoJob;
 
-public class ModelJobImpl extends Model implements IModelJob{
+public class ModelJobImpl extends Model implements IModelJob {
 
 	@Override
 	public List<dtoJob> getJobRecommended(String userId, int offset) {
 		List<dtoJob> jobList = new ArrayList<dtoJob>();
 		String sql = "select job.AccountId, job.JobId, JobName, rankedlist.AccountId as UserId, category.CategoryId, category.Description as Category, Location, Salary, job.Description, Tags, Requirement, Benifit, Expired, Source, Company, Rating from category, job join rankedlist on rankedlist.JobId = job.JobId where rankedlist.Rating is null and category.CategoryId = job.CategoryId and rankedlist.AccountId = "
-				+ userId + " order by job.JobId desc limit " + offset + ", 5";
+				+ userId + " order by job.JobId desc";
 		if (connection.connect()) {
 			ResultSet rs = connection.read(sql);
 			try {
+				List<String> previousJobId = new ArrayList<>();
 				while (rs.next()) {
-					dtoJob job = new dtoJob();
+					
+					dtoJob job = new dtoJob();					
 					job.jobId = rs.getString("JobId");
+					if(previousJobId.contains(job.jobId)){
+						continue;
+					}										
+					previousJobId.add(job.jobId);
+					
 					job.categoryId = rs.getString("CategoryId");
 					job.accountId = rs.getString("AccountId");
 					job.jobName = trimAll(rs.getString("JobName"));
 					job.location = trimAll(rs.getString("Location"));
-					job.salary = trimAll(rs.getString("Salary").replace(
-							"Lýõng:", ""));
+					job.salary = trimAll(rs.getString("Salary").replace("Lï¿½ï¿½ng:", ""));
 					job.description = trimAll(rs.getString("Description"));
 					job.tags = trimAll(rs.getString("Tags"));
 					job.requirement = trimAll(rs.getString("Requirement"));
@@ -50,8 +56,7 @@ public class ModelJobImpl extends Model implements IModelJob{
 
 	@Override
 	public String trimAll(String txt) {
-		while (txt.contains("  ") || txt.contains("\r\n")
-				|| txt.contains("\n\n") || txt.contains("\t")) {
+		while (txt.contains("  ") || txt.contains("\r\n") || txt.contains("\n\n") || txt.contains("\t")) {
 			txt = txt.trim();
 			txt = txt.replaceAll("(?m)^[ |\t]*\r?\n", "");
 			txt = txt.replaceAll("(\\s){2,}", "\n");
@@ -71,8 +76,7 @@ public class ModelJobImpl extends Model implements IModelJob{
 		String shortDes = "";
 		if (connection.connect()) {
 			try {
-				PreparedStatement stm = connection.getConnection()
-						.prepareStatement(sql);
+				PreparedStatement stm = connection.getConnection().prepareStatement(sql);
 				stm.setString(1, jobId);
 				// stm.setString(1, "2769");
 				connection.setPrepareStatement(stm);

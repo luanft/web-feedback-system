@@ -51,8 +51,10 @@ public class ControllerLogin extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
+		
 		if (loginUtility.isLogged(request, response)) {
 			request.setAttribute("user", loginUtility.getLoggedUserId());
+			
 			response.sendRedirect(request.getContextPath() + "/home");
 			return;
 		}
@@ -146,6 +148,13 @@ public class ControllerLogin extends HttpServlet {
 						obj.token = token;
 						session.setAttribute("login_session", obj);
 						response.addCookie(cookieRemember);
+					}
+					if(request.getCookies() != null)
+					for(Cookie cc : request.getCookies()){
+						if(cc.getName().equalsIgnoreCase("redirecttoview")){
+							response.sendRedirect(request.getContextPath() + cc.getValue());		
+							return;
+						}
 					}
 					response.sendRedirect(request.getContextPath() + "/home");
 				} else {

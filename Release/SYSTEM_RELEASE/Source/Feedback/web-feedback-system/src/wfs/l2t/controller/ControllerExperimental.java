@@ -5,14 +5,12 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import wfs.l2t.dto.dtoJob;
 import wfs.l2t.dto.dtoJobRecommended;
-import wfs.l2t.model.ModelJob;
 import wfs.l2t.model.ModelJobExperimentalImpl;
 import wfs.l2t.model.ModelJobImpl;
 import wfs.l2t.utility.LoginUtility;
@@ -46,20 +44,19 @@ public class ControllerExperimental extends HttpServlet {
 
 		if (loginUtility.isLoggedByToken(request, response)) {
 			request.setAttribute("user", loginUtility.getLoggedUserId());
-			// rec-job.jsp
-			HttpSession session = request.getSession();
-			session.setAttribute("offset", "0");
 			request.getRequestDispatcher("view/experimental.jsp").include(request, response);
 			return;
 		} else {
 			if (loginUtility.isLogged(request, response)) {
-				HttpSession session = request.getSession();
-				session.setAttribute("offset", "0");
 				request.setAttribute("user", loginUtility.getLoggedUserId());
 
 				request.getRequestDispatcher("view/experimental.jsp").include(request, response);
 				return;
 			}
+			
+			
+			Cookie c = new Cookie("redirecttoview", "/ControllerExperimental");
+			response.addCookie(c);
 			response.sendRedirect(request.getContextPath() + "/login");
 		}
 	}
@@ -98,27 +95,28 @@ public class ControllerExperimental extends HttpServlet {
 		ModelJobExperimentalImpl mjr = new ModelJobExperimentalImpl();
 		mjr.update(jobRec);
 		if (request.getParameter("rateClick") != null)
-			response.getWriter().write(mjr.countJobRated(accountId));
+			if (mjr.countJobRated(accountId).equals(mjr.countJobs(accountId))) {
+				response.getWriter().write("tất cả");
+			} else {
+				response.getWriter().write(mjr.countJobRated(accountId));
+			}
 	}
 
 	private void loadRecommendedJob(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		int offset = Integer.parseInt(session.getAttribute("offset").toString());
-		ModelJobImpl mdj = new ModelJobImpl();
-		List<dtoJob> jobList = mdj.getJobRecommended(loginUtility.getLoggedUserId(), offset);
 
-		offset += 5;
-		session.setAttribute("offset", offset);
+		ModelJobImpl mdj = new ModelJobImpl();
+		List<dtoJob> jobList = mdj.getJobRecommended(loginUtility.getLoggedUserId(), 0);
+
 		dtoJob job = new dtoJob();
+
 		if (jobList.size() == 0)
 			writeHtml(request, response);
-		else {
+		else
 			for (int i = 0; i < jobList.size(); i++) {
 				job = jobList.get(i);
 				writeHtml(job, mdj.getShortDescription(job.jobId), request, response);
 			}
-		}
 	}
 
 	private void writeHtml(dtoJob job, String shortDescription, HttpServletRequest request,
@@ -195,6 +193,6 @@ public class ControllerExperimental extends HttpServlet {
 			throws ServletException, IOException {
 		response.setContentType("text/html; charset=UTF-8");
 		response.getWriter()
-				.write("<p class = 'text-center' <b> <i> Bạn chưa có công việc nào được khuyến nghị! </i>  </b></p>");
+				.write("<p class = 'text-center' <b> <i> Bạn đã hoàn thành khảo sát, chân thành cảm ơn sự giúp đỡ của bạn! </i>  </b></p>");
 	}
 }
