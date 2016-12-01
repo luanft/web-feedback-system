@@ -1,0 +1,24 @@
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+<body style="font-size: 20px;">
+	<p>
+		<b>
+			Chào bạn, {name}
+		</b>
+		<br>
+		<p>
+			Chỉ còn một vài việc làm nữa là hoàn thành việc gán nhãn dữ liệu.<br>
+			Chúng tôi xin cảm ơn bạn. <br>
+			Gửi bạn một số việc làm mà bạn chưa đánh giá: <br> 
+			<a style="color: blue;" href="{link}">Bấm vào đây để gán nhãn dữ liệu</a><br>
+			Chúng tôi mong nhận được những phản hồi quý giá từ bạn. <br>
+			Mong bạn thứ lỗi nếu email này làm phiền bạn. Chúc bạn thật nhiều <br> sức khỏe và may mắn trong công việc.					
+			<br>
+			<br>
+			Thay mặt nhóm nghiên cứu! 
+		</p>
+	</p>
+</body>
+</html>
