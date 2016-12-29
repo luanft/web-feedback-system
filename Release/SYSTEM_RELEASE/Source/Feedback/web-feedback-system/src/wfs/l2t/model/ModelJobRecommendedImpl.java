@@ -17,7 +17,7 @@ public class ModelJobRecommendedImpl extends Model implements IModelJobRecommend
 	 * @return
 	 */
 	public String countJobRated(String userId) {
-		String sql = "SELECT COUNT(*) as NumRate FROM `job_recommended` WHERE job_recommended.AccountId = ? AND Rating > 0";
+		String sql = "SELECT COUNT(*) as NumRate FROM jobs_to_send, job_recommended WHERE job_recommended.AccountId = ? AND Rating > 0 and job_recommended.JobId in (jobs_to_send.jobId)";
 		if(connection.connect()){
 			try {
 				PreparedStatement stm = connection.getConnection()

@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import wfs.l2t.dto.dtoJob;
 import wfs.l2t.dto.dtoJobRecommended;
 import wfs.l2t.model.ModelJob;
+import wfs.l2t.model.ModelJobRec;
 import wfs.l2t.model.ModelJobRecommendedImpl;
 import wfs.l2t.utility.LoginUtility;
 
@@ -123,7 +124,7 @@ public class ControllerJobRecommended extends HttpServlet {
 		HttpSession session = request.getSession();
 		int offset = Integer
 				.parseInt(session.getAttribute("offset").toString());
-		ModelJob mdj = new ModelJob();
+		ModelJobRec mdj = new ModelJobRec();
 		List<dtoJob> jobList = mdj.getJobRecommended(
 				loginUtility.getLoggedUserId(), offset);
 

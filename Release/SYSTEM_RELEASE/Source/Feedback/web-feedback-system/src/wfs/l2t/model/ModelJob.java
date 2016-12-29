@@ -8,6 +8,11 @@ import java.util.List;
 
 import wfs.l2t.dto.dtoJob;
 
+/**
+ * class to process recommended job in old way
+ * @author anhtu
+ *
+ */
 public class ModelJob extends Model implements IModelJob{
 	public ModelJob() {
 		super();
@@ -157,7 +162,7 @@ public class ModelJob extends Model implements IModelJob{
 					job.jobName = trimAll(rs.getString("JobName"));
 					job.location = trimAll(rs.getString("Location"));
 					job.salary = trimAll(rs.getString("Salary").replace(
-							"Lýõng:", ""));
+							"Lï¿½ï¿½ng:", ""));
 					job.description = trimAll(rs.getString("Description"));
 					job.tags = trimAll(rs.getString("Tags"));
 					job.requirement = trimAll(rs.getString("Requirement"));
@@ -197,7 +202,7 @@ public class ModelJob extends Model implements IModelJob{
 					job.jobName = trimAll(rs.getString("JobName"));
 					job.location = trimAll(rs.getString("Location"));
 					job.salary = trimAll(rs.getString("Salary").replace(
-							"Lýõng:", ""));
+							"Lï¿½ï¿½ng:", ""));
 					job.description = trimAll(rs.getString("Description"));
 					job.tags = trimAll(rs.getString("Tags"));
 					job.requirement = trimAll(rs.getString("Requirement"));

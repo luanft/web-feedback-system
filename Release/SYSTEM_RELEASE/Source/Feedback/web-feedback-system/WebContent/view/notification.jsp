@@ -17,13 +17,15 @@
 		<div class="col-md-6">
 		<br>
 			<panel class="panel-info">
-			<div class="panel-heading">
+			<div class="panel-heading">				
 				<p class="text-center">
-					<b> Cảm ơn bạn đã đăng ký thành viên tại </b><a href=<%=request.getAttribute("link")%>><i><%=request.getAttribute("link")%></i></a>
+					<i><% String mess = (String)request.getAttribute("Message");
+						if(mess != null){
+							out.write(mess);						
+						}
+					%></i>
 				</p>
-				<p class="text-center">
-					<i><%=request.getAttribute("Message")%></i>
-				</p>
+				<p style = "display:none;"> <%=request.getAttribute("Error") %></p>
 			</div>			
 			</panel>
 		</div>
